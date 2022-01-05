@@ -10,11 +10,15 @@ import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.Gram00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author oulis
  */
+@Service
+@Component
 public class Gram00ServiceImpl implements Gram00Service
 {
 

@@ -9,11 +9,15 @@ import java.util.List;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.repositories.Assets00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author oulis
  */
+@Service
+@Component
 public class Assets00ServiceImpl implements Assets00Service
 {
 

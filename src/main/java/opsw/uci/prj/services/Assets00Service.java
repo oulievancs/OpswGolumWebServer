@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  *
  * @author oulis
  */
-@Component
 public interface Assets00Service
 {
   public List<Assets00> Assets00List01(Byte status);

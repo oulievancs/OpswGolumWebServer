@@ -8,11 +8,15 @@ package opsw.uci.prj.services;
 import java.util.List;
 import opsw.uci.prj.entity.Gram01;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author oulis
  */
+@Service
+@Component
 public class Gram01ServiceImpl implements Gram01Service
 {
 

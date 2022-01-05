@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  *
  * @author oulis
  */
-@Component
 public interface Gram01Service
 {
 
