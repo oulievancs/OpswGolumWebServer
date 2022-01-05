@@ -11,15 +11,17 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.data.annotation.Transient;
+import javax.persistence.Transient;
 
 /**
  *
  * @author n.oulis
  */
 @Entity
+@Table(name = "GRAM00")
 public class Gram00 implements Serializable
 {
 

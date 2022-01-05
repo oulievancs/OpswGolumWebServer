@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 /**
  *
  * @author n.oulis
  */
 @Entity
+@Table(name = "GRAM01")
+@IdClass(Gram01Key.class)
 public class Gram01 implements Serializable
 {
 

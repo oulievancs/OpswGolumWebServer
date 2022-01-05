@@ -5,13 +5,14 @@
  */
 package opsw.uci.prj.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author n.oulis
  */
-public class Gram01Key
+public class Gram01Key implements Serializable
 {
 
   private Long gram;
@@ -19,6 +20,7 @@ public class Gram01Key
 
   public Gram01Key()
   {
+    super();
     this.gram = null;
     this.senu = null;
   }
