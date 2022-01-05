@@ -8,11 +8,15 @@ package opsw.uci.prj.services;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.SequencesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author oulis
  */
+@Service
+@Component
 public class SequencesServiceImpl implements SequencesService
 {
 
