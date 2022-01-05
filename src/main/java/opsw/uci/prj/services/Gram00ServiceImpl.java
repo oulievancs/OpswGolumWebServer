@@ -7,6 +7,7 @@ package opsw.uci.prj.services;
 
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
+import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.Gram00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,9 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Autowired
   private Gram00Repository Gram00Repository;
+
+  @Autowired
+  private SequencesService SequencesService;
 
   @Autowired
   private Gram01Service Gram01Service;
@@ -52,6 +56,10 @@ public class Gram00ServiceImpl implements Gram00Service
   @Override
   public Gram00 Gram00Post01(Gram00 gram00)
   {
+    if (gram00.getGram() == null || gram00.getGram() <= 0)
+    {
+      gram00.setGram(this.SequencesService.SequencesGetNextVal(Sequences.SEQ_GRAM00));
+    }
     return (Gram00) this.Gram00Repository.save(gram00);
   }
 

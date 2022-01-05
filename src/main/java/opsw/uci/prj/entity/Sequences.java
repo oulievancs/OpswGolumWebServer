@@ -17,6 +17,8 @@ import javax.persistence.Id;
 public class Sequences implements Serializable
 {
 
+  public static final String SEQ_GRAM00 = "SEQ_GRAM00";
+
   @Id
   private String seq_gen;
   private Long seq_count;
