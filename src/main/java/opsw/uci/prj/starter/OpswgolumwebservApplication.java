@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OpswgolumwebservApplication
 {
 
-    public static void main(String[] args)
-    {
-        SpringApplication.run(OpswgolumwebservApplication.class, args);
-    }
+  public static void main(String[] args)
+  {
+    SpringApplication.run(OpswgolumwebservApplication.class, args);
+  }
 
 }

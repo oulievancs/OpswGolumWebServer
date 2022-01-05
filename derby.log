@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Wed Jan 05 09:11:34 EET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-017e-2914-28a2-0000049e6c50 
+on database directory memory:C:\Users\g.kabardis\Documents\OpswGolumWebServer\b6400e6f-8f80-4695-9643-87d289e4014f  with class loader sun.misc.Launcher$ExtClassLoader@4f023edb 
+Loaded from file:/C:/GANDALF/JAVA/JDK/jre/lib/ext/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_191-b12
+user.dir=C:\Users\g.kabardis\Documents\OpswGolumWebServer
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
