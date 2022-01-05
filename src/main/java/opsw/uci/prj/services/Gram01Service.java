@@ -6,18 +6,14 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
-import opsw.uci.prj.entity.Gram00;
+import opsw.uci.prj.entity.Gram01;
 
 /**
  *
  * @author oulis
  */
-public interface Gram00Service
+public interface Gram01Service
 {
 
-  public Gram00 Gram00Select01(Long gram);
-
-  public List<Gram00> Gram00List01();
-  
-  public Gram00 Gram00Select02(Long gram);
+  public List<Gram01> Gram01List01(Long gram);
 }

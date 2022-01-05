@@ -7,11 +7,13 @@ package opsw.uci.prj.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.data.annotation.Transient;
 
 /**
  *
@@ -31,6 +33,9 @@ public class Gram00 implements Serializable
   @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_modify;
   private String user_modify;
+
+  @Transient
+  private List<Gram01> gram01List;
 
   public Gram00()
   {
@@ -112,6 +117,16 @@ public class Gram00 implements Serializable
   public void setUser_modify(String user_modify)
   {
     this.user_modify = user_modify;
+  }
+
+  public List<Gram01> getGram01List()
+  {
+    return gram01List;
+  }
+
+  public void setGram01List(List<Gram01> gram01List)
+  {
+    this.gram01List = gram01List;
   }
 
   @Override
