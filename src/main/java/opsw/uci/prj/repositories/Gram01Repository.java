@@ -10,11 +10,13 @@ import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
+@Component
 public interface Gram01Repository extends JpaRepository<Gram01, Gram01Key>
 {
   @Query("SELECT a FROM Gram01 a WHERE a.gram = ?1")

@@ -7,11 +7,13 @@ package opsw.uci.prj.services;
 
 import java.util.List;
 import opsw.uci.prj.entity.Gram01;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
+@Component
 public interface Gram01Service
 {
 

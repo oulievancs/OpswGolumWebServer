@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Managment System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+          <h1 class=""text-center>Update Customer</h1>
+          <div class="card-body">
+            <form th:action="@{/ed01/post/{gram} (gram=${CLM0.gram})}" th:object="${CLM0}" method="POST">
+              <div class="form-group">
+                <label>Gram</label>
+                <input
+                        type="text"
+                        name="gram"
+                        th:field="*{gram}"
+                        class="form-control"
+                        placeholder="Enter gram"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <input
+                        type="text"
+                        name="descr"
+                        th:field="*{descr}"
+                        class="form-control"
+                        placeholder="Enter Gram Descr"
+                />
+              </div>
+                
+              <div class="container">
+            <div class="row">
+                <h1>List of Gram01</h1>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Field Type</th>
+                <th>Fielad Name</th>
+                <th>Value Str</th>
+                <th>Value Num</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "gram01: ${CLM0.getGram01List()}">
+                <td th:text = "${gram01.getField_type()}"></td>
+                <td th:text = "${gram01.getField_name()}"></td>
+                <td th:text = "${gram01.getValue_str()}"></td>
+                <td th:text = "${gram01.getValue_num()}"></td>
+            </tr>
+            </tbody>
+        </table>  
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{/gram00/list01}" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="overlay"></div>
+
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+</body>
+</html>

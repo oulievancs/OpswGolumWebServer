@@ -6,11 +6,13 @@
 package opsw.uci.prj.services;
 
 import opsw.uci.prj.entity.Sequences;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
+@Component
 public interface SequencesService
 {
   public Sequences SequencesSelect01(String seq_gen);

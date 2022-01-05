@@ -9,11 +9,13 @@ import java.util.List;
 import opsw.uci.prj.entity.Assets00;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
+@Component
 public interface Assets00Repository extends JpaRepository<Assets00, Long>
 {
   @Query("SELECT a FROM Assets00 a WHERE a.status = ?1")

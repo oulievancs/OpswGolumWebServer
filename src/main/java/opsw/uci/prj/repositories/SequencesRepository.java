@@ -7,11 +7,13 @@ package opsw.uci.prj.repositories;
 
 import opsw.uci.prj.entity.Sequences;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
+@Component
 public interface SequencesRepository extends JpaRepository<Sequences, String>
 {
 
