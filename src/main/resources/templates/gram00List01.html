@@ -31,9 +31,9 @@
             <tr th:each = "gram00: ${CLM0}">
                 <td th:text = "${gram00.getGram()}"></td>
                 <td th:text = "${gram00.getDescr()}"></td>
-                <td th:text = "${gram00.getDate_create()}"></td>
+                <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(gram00.getDate_create())}"></td>
                 <td th:text = "${gram00.getUser_create()}"></td>
-                <td th:text = "${gram00.getDate_modify()}"></td>
+                <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(gram00.getDate_modify())}"></td>
                 <td th:text = "${gram00.getUser_modify()}"></td>
                 <td>
                     <a th:href="@{/gram00/ed01/{gram}(gram=${gram00.gram})}">
