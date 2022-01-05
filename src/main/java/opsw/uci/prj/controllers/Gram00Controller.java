@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -46,6 +48,20 @@ public class Gram00Controller
     if (gram00 != null)
     {
       model.addAttribute("CLM1", gram00.getGram01List());
+    }
+
+    return "gram00Ed01";
+  }
+
+  @PostMapping("/ed01/post01/{gram}")
+  public String Gram00Ed01Post01(@PathVariable("gram") long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
+  {
+    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00);
+
+    model.addAttribute("CLM0", aft_gram00);
+    if (aft_gram00 != null)
+    {
+      model.addAttribute("CLM1", aft_gram00.getGram01List());
     }
 
     return "gram00Ed01";

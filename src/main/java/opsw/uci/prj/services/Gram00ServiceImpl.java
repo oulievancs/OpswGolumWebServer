@@ -49,4 +49,16 @@ public class Gram00ServiceImpl implements Gram00Service
     return gram00;
   }
 
+  @Override
+  public Gram00 Gram00Post01(Gram00 gram00)
+  {
+    return (Gram00) this.Gram00Repository.save(gram00);
+  }
+
+  @Override
+  public Gram00 Gram00Post02(Long gram, Gram00 gram00)
+  {
+    return (Gram00) this.Gram00Post01(gram00);
+  }
+
 }
