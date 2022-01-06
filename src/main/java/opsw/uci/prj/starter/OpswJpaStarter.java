@@ -5,11 +5,12 @@
  */
 package opsw.uci.prj.starter;
 
-import javax.activation.DataSource;
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.jndi.JndiTemplate;
 
@@ -24,7 +25,8 @@ public class OpswJpaStarter
   @Autowired
   private Environment env;
 
-  @Bean
+  @Bean("datasource")
+  @Primary
   public DataSource dataSource() throws NamingException
   {
     System.out.println("ENV Resource: " + env.getProperty("jdbc.url"));

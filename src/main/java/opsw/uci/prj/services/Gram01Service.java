@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +18,8 @@ public interface Gram01Service
 {
 
   public List<Gram01> Gram01List01(Long gram);
+  
+  public Long Gram01MaxSenu(Long gram);
+  public Gram01 Gram01Post01(Gram01 gram01);
+  public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01);
 }

@@ -21,4 +21,7 @@ public interface Gram01Repository extends JpaRepository<Gram01, Gram01Key>
 {
   @Query("SELECT a FROM Gram01 a WHERE a.gram = ?1")
   public List<Gram01> gram01List01(Long gram);
+  
+  @Query("SELECT MAX(a.senu) FROM Gram01 a WHERE a.gram = ?1")
+  public Long gram01MaxSenu(Long gram);
 }
