@@ -18,6 +18,7 @@ public class CatException extends Exception
   public static final byte CODE_CHECK_ERROR = 1;
   public static final byte CODE_NULL_PRM = 2;
   public static final byte CODE_USER_EXCEPTION = 3;
+  public static final byte CODE_DBREC_NOT_FOUND = 4;
 
   /**
    * List of throwables.
