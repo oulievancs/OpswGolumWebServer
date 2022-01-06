@@ -22,14 +22,14 @@ import javax.persistence.Table;
 public class Gram01 implements Serializable
 {
 
-  private static final Integer FIELD_TYPE_NUMBER = 0;
-  private static final Integer FIELD_TYPE_STRING = 1;
+  private static final Short FIELD_TYPE_NUMBER = 0;
+  private static final Short FIELD_TYPE_STRING = 1;
   
   @Id
   private Long gram;
   @Id
   private Long senu;
-  private Integer field_type;
+  private Short field_type;
   private String field_name;
   private String value_str;
   private Double value_num;
@@ -65,12 +65,12 @@ public class Gram01 implements Serializable
     this.senu = senu;
   }
 
-  public Integer getField_type()
+  public Short getField_type()
   {
     return field_type;
   }
 
-  public void setField_type(Integer field_type)
+  public void setField_type(Short field_type)
   {
     this.field_type = field_type;
   }
