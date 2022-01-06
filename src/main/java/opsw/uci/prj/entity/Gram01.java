@@ -22,8 +22,8 @@ import javax.persistence.Table;
 public class Gram01 implements Serializable
 {
 
-  private static final Short FIELD_TYPE_NUMBER = 0;
-  private static final Short FIELD_TYPE_STRING = 1;
+  public static final Short FIELD_TYPE_NUMBER = 0;
+  public static final Short FIELD_TYPE_STRING = 1;
   
   @Id
   private Long gram;
