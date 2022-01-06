@@ -5,7 +5,6 @@
  */
 package opsw.uci.prj.exception.controllers;
 
-import com.sun.org.apache.xml.internal.resolver.CatalogException;
 import opsw.uci.prj.logic.OpswExceptionHandler;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
