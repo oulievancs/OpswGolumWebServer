@@ -51,7 +51,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         basePackages =
         {
           "opsw.uci.prj.services",
-          "opsw.uci.prj.controllers"
+          "opsw.uci.prj.controllers",
+          "opsw.uci.prj.exception.controllers"
         }
 )
 @EnableJpaRepositories(

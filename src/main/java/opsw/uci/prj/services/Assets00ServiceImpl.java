@@ -30,4 +30,10 @@ public class Assets00ServiceImpl implements Assets00Service
     return (List<Assets00>) this.Assets00Repository.Assets00FindByStatus(status);
   }
 
+  @Override
+  public List<Assets00> Assets00List02()
+  {
+    return (List<Assets00>) this.Assets00Repository.findAll();
+  }
+
 }
