@@ -45,11 +45,18 @@ public class Gram00Controller
     return "gram00List01";
   }
 
-  @GetMapping("/gram00/ed01/{gram}")
-  public String Gram00Ed01(@PathVariable("gram") long gram, Model model)
+  @GetMapping("/gram00/ed01")
+  public String Gram00Ed01(@RequestParam(name="gram", required=false) Long gram, Model model)
   {
-    Gram00 gram00 = this.Gram00Service.Gram00Select02(gram);
-
+    Gram00 gram00 = null;
+    if(gram != null)
+    {
+      gram00 = this.Gram00Service.Gram00Select02(gram);
+    }
+    if(gram00 == null)
+    {
+      gram00 = new Gram00();
+    }
     model.addAttribute("CLM0", gram00);
     if (gram00 != null)
     {
@@ -59,7 +66,7 @@ public class Gram00Controller
     return "gram00Ed01";
   }
 
-  @PostMapping("/gram00/ed01/post01/{gram}")
+  /*@PostMapping("/gram00/ed01/post01/{gram}")
   public String Gram00Ed01Post01(@PathVariable("gram") long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
   {
     Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00);
@@ -71,16 +78,31 @@ public class Gram00Controller
     }
 
     return "gram00Ed01";
+  }*/
+  
+  @PostMapping("/gram00/ed01/post01")
+  public String Gram00Ed01Post01(@ModelAttribute("CLM0") Gram00 gram00, Model model)
+  {
+    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram00);
+
+    model.addAttribute("CLM0", aft_gram00);
+    if (aft_gram00 != null)
+    {
+      model.addAttribute("CLM1", aft_gram00.getGram01List());
+    }
+
+    return "gram00Ed01";
   }
 
   @GetMapping("/gram01/ed01/{gram}")
-  public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam("senu") Long senu, Model model)
+  public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam(name="senu", required=false) Long senu, Model model)
   {
     Gram01 gram01 = null;
     if(senu == null)
     {
       //new gram01
       gram01 = new Gram01();
+      gram01.setGram(gram);
     }
     else
     {
@@ -91,13 +113,13 @@ public class Gram00Controller
     return "gram01Ed01";
   }
 
-  @PostMapping("/gram01/ed01/post01/{gram}/{senu}")
-  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @PathVariable("senu") long senu, @ModelAttribute("CLM0") Gram01 gram01)
+  @PostMapping("/gram01/ed01/post01/{gram}")
+  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @ModelAttribute("CLM0") Gram01 gram01)
   {
-    Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
+    Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, gram01.getSenu(), gram01);
 
     //model.addAttribute("CLM0", new_gram01);
-    return "redirect:/gram00/ed01/" + gram;
+    return "redirect:/gram/gram00/ed01/" + gram;
   }
 
 }

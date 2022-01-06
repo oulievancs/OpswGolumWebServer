@@ -8,6 +8,8 @@ package opsw.uci.prj.services;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.SequencesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class SequencesServiceImpl implements SequencesService
 
     Sequences sequences = this.SequencesSelect01(seq_gen);
 
-    if (sequences == null)
+    if (sequences.getSeq_gen() == null)
     {
       sequences = new Sequences();
       sequences.setSeq_gen(seq_gen);
