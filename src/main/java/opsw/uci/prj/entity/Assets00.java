@@ -87,7 +87,7 @@ public class Assets00 implements Serializable
   private String comments2;
   private Integer marketability_name;
   private String landea_leads;
-  private String lendea_commnets;
+  private String landea_comments;
   private String update_auction;
   private String high_interest;
 
@@ -155,7 +155,7 @@ public class Assets00 implements Serializable
     this.comments2 = null;
     this.marketability_name = null;
     this.landea_leads = null;
-    this.lendea_commnets = null;
+    this.landea_comments = null;
     this.update_auction = null;
     this.high_interest = null;
   }
@@ -770,14 +770,14 @@ public class Assets00 implements Serializable
     this.landea_leads = landea_leads;
   }
 
-  public String getLendea_commnets()
+  public String getLandea_comments()
   {
-    return lendea_commnets;
+    return landea_comments;
   }
 
-  public void setLendea_commnets(String lendea_commnets)
+  public void setLandea_comments(String landea_comments)
   {
-    this.lendea_commnets = lendea_commnets;
+    this.landea_comments = landea_comments;
   }
 
   public String getUpdate_auction()
