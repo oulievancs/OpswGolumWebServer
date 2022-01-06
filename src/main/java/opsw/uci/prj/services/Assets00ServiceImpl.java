@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.repositories.Assets00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Override
   public List<Assets00> Assets00List02()
+          throws CatException
   {
     return (List<Assets00>) this.Assets00Repository.findAll();
   }

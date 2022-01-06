@@ -34,14 +34,17 @@ public class Assets00Controller
   public String Assets00List01(Model model)
           throws Exception
   {
-    List<Assets00> assets00List = this.Assets00Service.Assets00List02();
+    List<Assets00> assets00List = null;
+    try
+    {
+      assets00List = this.Assets00Service.Assets00List02();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
 
     model.addAttribute("CLM0", assets00List);
-    
-    if (assets00List == null || assets00List.isEmpty())
-    {
-      throw new CatException("List is empty");
-    }
 
     return "assets00List01";
   }

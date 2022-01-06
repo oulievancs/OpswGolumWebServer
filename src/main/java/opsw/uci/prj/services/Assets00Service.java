@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,5 @@ public interface Assets00Service
 {
   public List<Assets00> Assets00List01(Byte status);
   
-  public List<Assets00> Assets00List02();
+  public List<Assets00> Assets00List02() throws CatException;
 }
