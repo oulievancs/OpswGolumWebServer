@@ -9,9 +9,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Iterator;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -26,14 +30,16 @@ public abstract class LcGramAssetsExcelBase
 {
 
   @Autowired
-  protected Assets00Service AssetetsService;
-  
+  protected Assets00Service Assetets00Service;
+
   @Autowired
   protected Gram00Service Gram00Service;
-  
+
   @Autowired
   protected Gram01Service Gram01Service;
-  
+
+  private Assets00 assets00;
+
   protected long gram;
 
   private byte[] file;
@@ -54,6 +60,7 @@ public abstract class LcGramAssetsExcelBase
     this.FXssfworkbook = null;
     this.FXssfsheet = null;
     this.gram = 0;
+    this.assets00 = null;
   }
 
   public byte[] getFile()
@@ -100,6 +107,8 @@ public abstract class LcGramAssetsExcelBase
       }
 
       this.FXssfworkbook = new XSSFWorkbook(new ByteArrayInputStream(this.file));
+
+      this.SelectSheetAndRead(this.FXssfworkbook);
     } catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
@@ -125,7 +134,9 @@ public abstract class LcGramAssetsExcelBase
 
       while (rowIterator.hasNext())
       {
+        this.assets00 = new Assets00();
         this.NextRow(rowIterator.next());
+        this.Assetets00Service.Assets00Post01(assets00);
       }
     } catch (Exception ex)
     {
@@ -144,6 +155,29 @@ public abstract class LcGramAssetsExcelBase
     }
   }
 
+  protected void Assets00InvokeByField(Gram01 gram01, Cell cell)
+          throws CatException
+  {
+    try
+    {
+      String vfieldName = gram01.getField_name();
+      if (gram01.getField_type() == Gram01.FIELD_TYPE_NUMBER)
+      {
+        double vnumFiled = cell.getNumericCellValue();
+
+        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
+      } else if (gram01.getField_type() == Gram01.FIELD_TYPE_STRING)
+      {
+        String vstrField = cell.getStringCellValue();
+
+        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vstrField);
+      }
+    } catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
   /**
    * Καλείται στην κάθε γραμμή του Excel δίντας ένα αντικείμενο ROW.
    *
@@ -151,4 +185,13 @@ public abstract class LcGramAssetsExcelBase
    * @throws CatException
    */
   protected abstract void NextRow(Row row) throws CatException;
+
+  /**
+   * καλείται αφού διαβαστεί το αρχείο και επιλέγει το/τα sheets που θα
+   * διαβάσει.
+   *
+   * @param workbook
+   * @throws CatException
+   */
+  protected abstract void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException;
 }

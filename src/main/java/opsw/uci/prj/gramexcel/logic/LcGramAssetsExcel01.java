@@ -8,10 +8,12 @@ package opsw.uci.prj.gramexcel.logic;
 import java.util.Iterator;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -59,6 +61,12 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
     {
       KoinaGram00(this.gram);
 
+      Gram01 vgram01 = Gram01FindWithSenu(column);
+
+      if (vgram01 != null)
+      {
+        Assets00InvokeByField(vgram01, cell);
+      }
     } catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
@@ -79,6 +87,47 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
                   "Δεν βρέθηκε η γραμμογράφηση [Gram = " + this.gram + "]!");
         }
         this.gram01List = this.Gram01Service.Gram01List01(this.gram);
+      }
+    } catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  private Gram01 Gram01FindWithSenu(long senu) throws CatException
+  {
+    Gram01 gram01 = null;
+    try
+    {
+      for (long i = 0; i < this.gram01List.size(); i++)
+      {
+        if (senu == this.gram01List.get((int) i).getSenu())
+        {
+          gram01 = this.gram01List.get((int) i);
+        }
+      }
+    } catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return gram01;
+  }
+
+  @Override
+  protected void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException
+  {
+    try
+    {
+      if (workbook.getNumberOfSheets() < 1)
+      {
+        throw new CatExceptionUser("Στο αρχείο δεν βρέθηκαν καρτέλες!");
+      }
+
+      for (int i = 0; i < workbook.getNumberOfSheets(); i++)
+      {
+        this.GetSheetAt(i);
+
+        this.ReadSheet();
       }
     } catch (Exception ex)
     {
