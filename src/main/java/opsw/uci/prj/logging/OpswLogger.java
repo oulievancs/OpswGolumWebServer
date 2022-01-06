@@ -7,6 +7,7 @@ package opsw.uci.prj.logging;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import opsw.uci.prj.cat.CatException;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,14 +26,21 @@ public class OpswLogger
     return logger;
   }
 
-  public static void LoggerLogException(Throwable ex)
+  public static void LoggerLogException(Throwable th)
   {
-    getLogger().error(ex.getClass().getName() + ": " + ex.getMessage(), ex);
+    String vmessage = th.getMessage() != null ? th.getMessage() : "";
+    getLogger().error(th.getClass().getName() + ": " + th.getClass().getName() + ", " + vmessage, th);
   }
 
   public static void LoggerLogException(String message, Throwable th)
   {
-    getLogger().error(getStringTimeNow() + ": " + th.getClass().getName(), th);
+    String vmessage = th.getMessage() != null ? th.getMessage() : "";
+    if (th instanceof CatException)
+    {
+      CatException catException = (CatException) th;
+      vmessage += catException.getTechMessage() != null ? catException.getTechMessage() : "";
+    }
+    getLogger().error(getStringTimeNow() + ": " + th.getClass().getName() + ", " + vmessage, th);
   }
 
   private static String getStringTimeNow()
