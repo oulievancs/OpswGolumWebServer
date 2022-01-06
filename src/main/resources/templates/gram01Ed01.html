@@ -25,7 +25,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
           <h1 class=""text-center>Update Customer</h1>
           <div class="card-body">
-            <form th:action="@{/gram01/ed01/post01/{gram} (gram=${CLM0.gram})}" th:object="${CLM0}" method="POST">
+            <form th:action="@{/gram/gram01/ed01/post01/{gram}/{senu} (gram=${CLM0.gram} senu=${CLM0.senu})}" th:object="${CLM0}" method="POST">
               <div class="form-group">
                 <label>Field Name</label>
                 <input

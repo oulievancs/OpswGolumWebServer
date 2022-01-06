@@ -8,6 +8,7 @@ package opsw.uci.prj.services;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.entity.Gram01Key;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.Gram01Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,21 @@ public class Gram01ServiceImpl implements Gram01Service {
 
     @Override
     public Long Gram01MaxSenu(Long gram) {
-        return this.Gram01Repository.gram01MaxSenu(gram);
+      Long maxSenu = this.Gram01Repository.gram01MaxSenu(gram);
+      if(maxSenu == null )
+      {
+        maxSenu = Long.valueOf(1);
+      }
+        return maxSenu;
+    }
+    
+    @Override
+    public Gram01 Gram01Select01(Long gram, Long senu)
+    {
+      Gram01 gram01 = null;
+      Gram01Key key = new Gram01Key(gram, senu);
+      this.Gram01Repository.findById(key);
+      return gram01;
     }
 
     @Override
@@ -44,6 +59,20 @@ public class Gram01ServiceImpl implements Gram01Service {
     @Override
     public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01) 
     {
+        if(senu != null)
+        {
+          Gram01 gram01db = this.Gram01Select01(gram, senu);
+          //
+          if(gram01db != null)
+          {
+            //CopyGram01(gram01db, gram01);
+          }
+          this.Gram01Repository.save(gram01db);
+        }
+        else
+        {
+          
+        }
         gram01.setGram(gram);
         gram01.setSenu(senu);
         return (Gram01) Gram01Post01(gram01);

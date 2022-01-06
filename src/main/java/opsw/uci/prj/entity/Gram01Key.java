@@ -31,6 +31,27 @@ public class Gram01Key implements Serializable
     this.senu = senu;
   }
 
+  public Long getGram()
+  {
+    return gram;
+  }
+
+  public void setGram(Long gram)
+  {
+    this.gram = gram;
+  }
+
+  public Long getSenu()
+  {
+    return senu;
+  }
+
+  public void setSenu(Long senu)
+  {
+    this.senu = senu;
+  }
+  
+
   @Override
   public int hashCode()
   {

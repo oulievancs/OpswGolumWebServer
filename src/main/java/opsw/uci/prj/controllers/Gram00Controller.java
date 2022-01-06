@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -30,7 +31,7 @@ public class Gram00Controller
 
   @Autowired
   private Gram00Service Gram00Service;
-  
+
   @Autowired
   private Gram01Service Gram01Service;
 
@@ -71,26 +72,32 @@ public class Gram00Controller
 
     return "gram00Ed01";
   }
-  
+
   @GetMapping("/gram01/ed01/{gram}")
-  public String Gram01Ed01New(@PathVariable("gram") long gram, Model model)
+  public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam("senu") Long senu, Model model)
   {
-      Gram01 new_gram01 = new Gram01();
-      //new_gram01.setGram(gram);
-      //new_gram01.setSenu(this.Gram01Service.Gram01MaxSenu(gram) + 1);
-      
-      model.addAttribute("CLM0", new_gram01);
-      return "gram01Ed01";
+    Gram01 gram01 = null;
+    if(senu == null)
+    {
+      //new gram01
+      gram01 = new Gram01();
+    }
+    else
+    {
+      //fere to gram01
+    }
+
+    model.addAttribute("CLM0", gram01);
+    return "gram01Ed01";
   }
-  
-  
+
   @PostMapping("/gram01/ed01/post01/{gram}/{senu}")
   public String Gram01Ed01Post01(@PathVariable("gram") long gram, @PathVariable("senu") long senu, @ModelAttribute("CLM0") Gram01 gram01)
   {
-      Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
-      
-      //model.addAttribute("CLM0", new_gram01);
-      return "redirect:/gram00/ed01/" + gram;
+    Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
+
+    //model.addAttribute("CLM0", new_gram01);
+    return "redirect:/gram00/ed01/" + gram;
   }
 
 }
