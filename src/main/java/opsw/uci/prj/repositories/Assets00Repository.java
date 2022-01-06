@@ -6,8 +6,8 @@
 package opsw.uci.prj.repositories;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Assets00;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author oulis
  */
 @Component
-public interface Assets00Repository extends JpaRepository<Assets00, Long>
+public interface Assets00Repository extends CatEjbJpaBase<Assets00, Long>
 {
   @Query("SELECT a FROM Assets00 a WHERE a.status = ?1")
   List<Assets00> Assets00FindByStatus(Byte status);

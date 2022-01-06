@@ -22,6 +22,8 @@ public class Sequences implements Serializable
 
   public static final String SEQ_GRAM00 = "SEQ_GRAM00";
 
+  public static final String SEQ_ASSETS00 = "SEQ_ASSETS00";
+
   @Id
   private String seq_gen;
   private Long seq_count;

@@ -5,8 +5,8 @@
  */
 package opsw.uci.prj.repositories;
 
+import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Gram00;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author oulis
  */
 @Component
-public interface Gram00Repository extends JpaRepository<Gram00, Long>
+public interface Gram00Repository extends CatEjbJpaBase<Gram00, Long>
 {
   
 }
