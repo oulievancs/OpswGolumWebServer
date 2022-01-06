@@ -18,6 +18,4 @@ import org.springframework.stereotype.Component;
 public interface SequencesRepository extends JpaRepository<Sequences, String>
 {
 
-  @Query("SELECT a FROM Sequences a WHERE a.seq_gen = ?1")
-  public Sequences getSequenceById(String seq_gen);
 }

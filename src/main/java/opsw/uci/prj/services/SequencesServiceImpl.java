@@ -28,7 +28,7 @@ public class SequencesServiceImpl implements SequencesService
   @Override
   public Sequences SequencesSelect01(String seq_gen)
   {
-    return (Sequences) this.SequencesRepository.getSequenceById(seq_gen);
+    return (Sequences) this.SequencesRepository.findById(seq_gen).orElse(null);
   }
 
   @Override

@@ -36,7 +36,7 @@ public class Gram00ServiceImpl implements Gram00Service
   @Override
   public Gram00 Gram00Select01(Long gram)
   {
-    return (Gram00) this.Gram00Repository.getById(gram);
+    return (Gram00) this.Gram00Repository.findById(gram).orElse(null);
   }
 
   @Override

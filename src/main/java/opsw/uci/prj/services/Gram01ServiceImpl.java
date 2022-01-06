@@ -49,7 +49,7 @@ public class Gram01ServiceImpl implements Gram01Service
   {
     Gram01 gram01 = null;
     Gram01Key key = new Gram01Key(gram, senu);
-    this.Gram01Repository.findById(key);
+    gram01 = (Gram01) this.Gram01Repository.findById(key).orElse(null);
     return gram01;
   }
 
