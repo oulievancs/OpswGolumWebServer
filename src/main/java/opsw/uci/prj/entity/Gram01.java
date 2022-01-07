@@ -33,6 +33,7 @@ public class Gram01 implements Serializable
   private String field_name;
   private String value_str;
   private Double value_num;
+  private Integer excel_index;
 
   public Gram01()
   {
@@ -43,6 +44,7 @@ public class Gram01 implements Serializable
     this.field_name = null;
     this.value_str = null;
     this.value_num = null;
+    this.excel_index = null;
   }
 
   public Long getGram()
@@ -103,6 +105,52 @@ public class Gram01 implements Serializable
   public void setValue_num(Double value_num)
   {
     this.value_num = value_num;
+  }
+
+  public Integer getExcel_index()
+  {
+    return excel_index;
+  }
+
+  public void setExcel_index(Integer excel_index)
+  {
+    this.excel_index = excel_index;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int hash = 7;
+    hash = 59 * hash + Objects.hashCode(this.gram);
+    hash = 59 * hash + Objects.hashCode(this.senu);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+    {
+      return true;
+    }
+    if (obj == null)
+    {
+      return false;
+    }
+    if (getClass() != obj.getClass())
+    {
+      return false;
+    }
+    final Gram01 other = (Gram01) obj;
+    if (!Objects.equals(this.gram, other.gram))
+    {
+      return false;
+    }
+    if (!Objects.equals(this.senu, other.senu))
+    {
+      return false;
+    }
+    return true;
   }
 
 }
