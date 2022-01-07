@@ -8,6 +8,7 @@ package opsw.uci.prj.services;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.entity.Gram01Key;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,4 +27,6 @@ public interface Gram01Service
   public Gram01 Gram01Post01(Gram01 gram01);
 
   public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01);
+  
+  public void Gram01Delete01(Gram01Key key);
 }

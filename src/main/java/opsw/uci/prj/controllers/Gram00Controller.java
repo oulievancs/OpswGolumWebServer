@@ -81,9 +81,9 @@ public class Gram00Controller
   }*/
   
   @PostMapping("/gram00/ed01/post01")
-  public String Gram00Ed01Post01(@ModelAttribute("CLM0") Gram00 gram00, Model model)
+  public String Gram00Ed01Post01(@RequestParam(name="gram", required=false)Long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
   {
-    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram00);
+    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00);
 
     model.addAttribute("CLM0", aft_gram00);
     if (aft_gram00 != null)
@@ -119,7 +119,17 @@ public class Gram00Controller
     Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, gram01.getSenu(), gram01);
 
     //model.addAttribute("CLM0", new_gram01);
-    return "redirect:/gram/gram00/ed01/" + gram;
+    return "redirect:/gram/gram00/ed01?gram=" + gram;
   }
-
+  
+  @GetMapping("/gram00/delete01/{gram}")
+  public String Gram00Delete01(@PathVariable("gram") Long gram)
+  {
+    if(gram != null)
+    {
+      this.Gram00Service.Gram00Delete01(gram);
+    }
+    
+    return "redirect:/gram/gram00/list01";
+  }
 }

@@ -23,9 +23,9 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-          <h1 class=""text-center>Update Customer</h1>
+          <h1 class=""text-center>Edit Gram00</h1>
           <div class="card-body">
-            <form th:action="@{/gram/gram00/ed01/post01/{gram} (gram=${CLM0.gram})}" th:object="${CLM0}" method="POST">
+            <form th:action="@{/gram/gram00/ed01/post01?gram={gram} (gram = ${CLM0.gram})}" th:object="${CLM0}" method="POST">
               <div class="form-group">
                 <label>Description</label>
                 <input
@@ -75,7 +75,7 @@
               </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a th:href="@{/gram/gram00/list01}" class="btn btn-secondary">Cancel</a>
+                <a th:href="@{/gram/gram00/list01}" class="btn btn-danger">Cancel</a>
               </div>
             </form>
           </div>
