@@ -16,11 +16,12 @@ import org.springframework.stereotype.Component;
  */
 public interface Assets00Service
 {
+
   public List<Assets00> Assets00List01(Byte status);
-  
+
   public List<Assets00> Assets00List02() throws CatException;
-  
+
   public Assets00 Assets00Insert(Assets00 assets00) throws CatException;
-  
+
   public Assets00 Assets00Post01(Assets00 assets00) throws CatException;
 }
