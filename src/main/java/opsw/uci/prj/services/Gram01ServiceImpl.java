@@ -91,5 +91,10 @@ public class Gram01ServiceImpl implements Gram01Service
     gram01db.setValue_num(gram01.getValue_num());
     gram01db.setValue_str(gram01.getValue_str());
   }
+  
+  public void Gram01Delete01(Gram01Key key)
+  {
+    this.Gram01Repository.deleteById(key);    
+  }
 
 }

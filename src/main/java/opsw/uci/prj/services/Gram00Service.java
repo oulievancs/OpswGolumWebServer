@@ -24,5 +24,7 @@ public interface Gram00Service
 
   public Gram00 Gram00Post01(Gram00 gram00);
 
-  public Gram00 Gram00Post02(Gram00 gram00);
+  public Gram00 Gram00Post02(Long gram, Gram00 gram00);
+  
+  public void Gram00Delete01(Long gram);
 }
