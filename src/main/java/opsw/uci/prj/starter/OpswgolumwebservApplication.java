@@ -1,5 +1,6 @@
 package opsw.uci.prj.starter;
 
+import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -46,7 +47,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         basePackageClasses =
         {
           //Gram00Controller.class,
-          OpswJpaStarter.class
+          OpswJpaStarter.class,
+          OpswEntityManagerJpa.class
         },
         basePackages =
         {

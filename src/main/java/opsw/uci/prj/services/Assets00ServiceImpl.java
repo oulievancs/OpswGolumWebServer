@@ -6,7 +6,10 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.Assets00Repository;
@@ -24,8 +27,11 @@ public class Assets00ServiceImpl implements Assets00Service
 {
 
   @Autowired
+  private OpswEntityManagerBase connection;
+
+  @Autowired
   private Assets00Repository Assets00Repository;
-  
+
   @Autowired
   private SequencesService SequencesService;
 
@@ -39,7 +45,11 @@ public class Assets00ServiceImpl implements Assets00Service
   public List<Assets00> Assets00List02()
           throws CatException
   {
-    return (List<Assets00>) this.Assets00Repository.findAll();
+    List<Assets00> assets00List = null;
+    EntityManager em = (EntityManager) this.connection.getConnection();
+    Query qre = em.createQuery("SELECT a FROM Assets00 a WHERE 1 = 1");
+    assets00List = (List<Assets00>) qre.getResultList();
+    return (List<Assets00>) assets00List;//this.Assets00Repository.findAll();
   }
 
   @Override
@@ -58,13 +68,14 @@ public class Assets00ServiceImpl implements Assets00Service
       {
         assets00.setAsset(this.SequencesService.SequencesGetNextVal(Sequences.SEQ_ASSETS00));
       }
-      
+
       vassets00 = this.Assets00Insert(assets00);
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
-    
+
     return vassets00;
   }
 
