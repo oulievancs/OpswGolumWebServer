@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
-import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.repositories.Assets00Repository;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Service;
 public class Assets00ServiceImpl implements Assets00Service
 {
 
+  @Autowired
   private OpswEntityManagerBase connection;
 
   @Autowired
@@ -34,12 +34,6 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Autowired
   private SequencesService SequencesService;
-
-  @Autowired
-  public Assets00ServiceImpl(OpswEntityManagerJpa connection)
-  {
-    this.connection = connection;
-  }
 
   @Override
   public List<Assets00> Assets00List01(Byte status)
