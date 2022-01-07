@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
@@ -72,22 +73,21 @@ public class Gram00ServiceImpl implements Gram00Service
   }
 
   @Override
-  public Gram00 Gram00Post02(Long gram, Gram00 gram00)
+  public Gram00 Gram00Post02(Long gram, Gram00 gram00, String userCreate)
   {
     Gram00 gram00db = null;
     if (gram != null)
     {
       gram00db = this.Gram00Select02(gram);
-      if (gram00db != null)
-      {
-        gram00db.setGram01List(this.Gram01Service.Gram01List01(gram));
-      }
-    } else if (gram == null)
+    }
+    else if (gram00db == null)
     {
       gram00db = new Gram00();
+      gram00db.setDate_create(Calendar.getInstance());
+      gram00db.setUser_create(userCreate);
     }
     this.CopyGram00(gram00db, gram00);
-    return (Gram00) this.Gram00Post01(gram00);
+    return (Gram00) this.Gram00Post01(gram00db);
   }
 
   private void CopyGram00(Gram00 gram00db, Gram00 gram00)
@@ -110,16 +110,16 @@ public class Gram00ServiceImpl implements Gram00Service
     }*/
 
   }
-  
+
   @Override
   public void Gram00Delete01(Long gram)
   {
     Gram00 gram00 = this.Gram00Select02(gram);
-    if(gram00 != null)
+    if (gram00 != null)
     {
-      if(gram00.getGram01List() != null && !gram00.getGram01List().isEmpty())
+      if (gram00.getGram01List() != null && !gram00.getGram01List().isEmpty())
       {
-        for(Gram01 gram01 : gram00.getGram01List())
+        for (Gram01 gram01 : gram00.getGram01List())
         {
           Gram01Key key = new Gram01Key(gram01.getGram(), gram01.getSenu());
           this.Gram01Service.Gram01Delete01(key);

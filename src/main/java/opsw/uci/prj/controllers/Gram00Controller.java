@@ -83,7 +83,7 @@ public class Gram00Controller
   @PostMapping("/gram00/ed01/post01")
   public String Gram00Ed01Post01(@RequestParam(name="gram", required=false)Long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
   {
-    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00);
+    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00, "n.oulis");
 
     model.addAttribute("CLM0", aft_gram00);
     if (aft_gram00 != null)
@@ -132,4 +132,5 @@ public class Gram00Controller
     
     return "redirect:/gram/gram00/list01";
   }
+  
 }

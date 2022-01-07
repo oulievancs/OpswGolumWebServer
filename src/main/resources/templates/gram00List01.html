@@ -29,7 +29,10 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <a th:href="@{/gram/gram00/ed01}" class="btn btn-primary btn-sm mb-3">Add Gram00</a>
+                <a th:href="@{/gram/gram00/ed01}" class="btn btn-primary btn-sm mb-3">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  Add Gram00
+                </a>
             </div>
         </div>
         <table class="table table-striped table-bordered">
@@ -54,10 +57,12 @@
                 <td th:text = "${gram00.getUser_modify()}"></td>
                 <td>
                     <a th:href="@{/gram/gram00/ed01?gram={gram}(gram=${gram00.gram})}" class="btn btn-primary btn-sm mb-3">
-                        <i>Edit</i>
+                        <i class="fa fa-edit"></i>
+                        Edit
                     </a>
                     <a th:href ="@{/gram/gram00/delete01/{gram} (gram=${gram00.gram}) }" class="btn btn-danger btn-sm mb-3">
-                        <i>Delete</i>
+                      <i class="fa fa-trash-alt"></i>  
+                      Delete
                     </a>
                 </td>
             </tr>
