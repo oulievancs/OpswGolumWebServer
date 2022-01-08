@@ -48,7 +48,7 @@ public class SequencesServiceImpl implements SequencesService
       nextVal = sequences.getSeq_count() + 1;
     }
 
-    sequences.setSeq_count(++nextVal);
+    sequences.setSeq_count(nextVal++);
 
     this.SequencesRepository.saveAndFlush(sequences);
 

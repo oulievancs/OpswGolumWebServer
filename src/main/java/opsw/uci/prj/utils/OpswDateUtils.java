@@ -14,11 +14,25 @@ import java.util.Calendar;
  */
 public class OpswDateUtils
 {
+
+  public static String DateTimeToStr01(Calendar calendar)
+  {
+    SimpleDateFormat df = null;
+    String result = "";
+
+    if (calendar != null)
+    {
+      df = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+      result = df.format(calendar.getTime());
+    }
+    return result;
+  }
+
   public static String DateToStr01(Calendar calendar)
   {
     SimpleDateFormat df = null;
     String result = "";
-    
+
     if (calendar != null)
     {
       df = new SimpleDateFormat("dd-mm-yyyy");

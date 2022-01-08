@@ -65,6 +65,7 @@
                 <th>Fielad Name</th>
                 <th>Value Str</th>
                 <th>Value Num</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -73,6 +74,14 @@
                 <td th:text = "${gram01.getField_name()}"></td>
                 <td th:text = "${gram01.getValue_str()}"></td>
                 <td th:text = "${gram01.getValue_num()}"></td>
+                <td>
+                    <a th:href="@{/gram/gram01/ed01/{gram}?senu={senu}(gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-primary btn-sm mb-3">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a th:href ="@{/gram/gram01/delete01/{gram}/{senu} (gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-danger btn-sm mb-3">
+                      <i class="fa fa-trash-alt"></i>  
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>  

@@ -23,7 +23,7 @@
           <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <h1 class=""text-center>Edit Gram01</h1>
             <div class="card-body">
-              <form th:action="@{/gram/gram01/ed01/post01/{gram} (gram=${CLM0.gram})}" th:object="${CLM0}" method="POST">
+              <form th:action="@{/gram/gram01/ed01/post01/{gram}?senu={senu} (gram=${CLM0.gram}, senu=${CLM0.senu})}" th:object="${CLM0}" method="POST">
                 <div class="form-group">
                   <label>Field Type</label>
                   <!--<input
@@ -44,6 +44,14 @@
                     th:field="*{field_name}"
                     class="form-control"
                     placeholder="Enter field name"
+                    />
+                  <label>Excel Column</label>
+                  <input
+                    type="number"
+                    name="excel_index"
+                    th:field="*{excel_index}"
+                    class="form-control"
+                    placeholder="Enter Excel index"
                     />
                   <label>Alpharithmetic Value</label>
                   <input

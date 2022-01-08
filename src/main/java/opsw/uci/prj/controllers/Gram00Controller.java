@@ -8,6 +8,7 @@ package opsw.uci.prj.controllers;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,9 @@ public class Gram00Controller
   @PostMapping("/gram00/ed01/post01")
   public String Gram00Ed01Post01(@RequestParam(name="gram", required=false)Long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
   {
-    Gram00 aft_gram00 = this.Gram00Service.Gram00Post02(gram, gram00, "n.oulis");
+    OpswLoginVars vlogvar = new OpswLoginVars();
+    vlogvar.setLoginUser("n.oulis");
+    Gram00 aft_gram00 = this.Gram00Service.Gram00PostED01(gram, gram00, vlogvar);
 
     model.addAttribute("CLM0", aft_gram00);
     if (aft_gram00 != null)
@@ -98,15 +101,16 @@ public class Gram00Controller
   public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam(name="senu", required=false) Long senu, Model model)
   {
     Gram01 gram01 = null;
-    if(senu == null)
+    if(senu != null)
+    {
+      //fere to gram01
+      gram01 = this.Gram01Service.Gram01Select01(gram, senu);
+    }
+    if(gram01 == null)
     {
       //new gram01
       gram01 = new Gram01();
       gram01.setGram(gram);
-    }
-    else
-    {
-      //fere to gram01
     }
 
     model.addAttribute("CLM0", gram01);
@@ -114,9 +118,9 @@ public class Gram00Controller
   }
 
   @PostMapping("/gram01/ed01/post01/{gram}")
-  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @ModelAttribute("CLM0") Gram01 gram01)
+  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @RequestParam(name="senu", required=false) Long senu, @ModelAttribute("CLM0") Gram01 gram01)
   {
-    Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, gram01.getSenu(), gram01);
+    Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
 
     //model.addAttribute("CLM0", new_gram01);
     return "redirect:/gram/gram00/ed01?gram=" + gram;
@@ -131,6 +135,16 @@ public class Gram00Controller
     }
     
     return "redirect:/gram/gram00/list01";
+  }
+  
+  @GetMapping("/gram01/delete01/{gram}/{senu}")
+  public String Gram01Delete01(@PathVariable("gram") Long gram, @PathVariable("senu") Long senu)
+  {
+    if(gram != null && senu != null)
+    {
+      this.Gram01Service.Gram01Delete01(gram, senu);
+    }
+    return "redirect:/gram/gram00/ed01?gram=" + gram;
   }
   
 }

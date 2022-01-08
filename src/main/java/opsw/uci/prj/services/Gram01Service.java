@@ -28,5 +28,7 @@ public interface Gram01Service
 
   public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01);
   
-  public void Gram01Delete01(Gram01Key key);
+  public void Gram01Delete01(Long gram, Long senu);
+  
+  public void Gram01Delete02(Gram01Key key);
 }
