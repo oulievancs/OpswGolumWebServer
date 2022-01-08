@@ -201,3 +201,11 @@ a.article:hover {
 .edit-Btn{
     content: "\f4ff";
 }
+
+.box-footer{
+  padding-bottom: 20px !important;
+}
+
+.card{
+  margin-top:30px !important;
+}

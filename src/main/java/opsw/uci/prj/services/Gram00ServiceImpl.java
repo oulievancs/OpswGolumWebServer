@@ -6,11 +6,13 @@
 package opsw.uci.prj.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
 import opsw.uci.prj.entity.Sequences;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.repositories.Gram00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -72,22 +74,24 @@ public class Gram00ServiceImpl implements Gram00Service
   }
 
   @Override
-  public Gram00 Gram00Post02(Long gram, Gram00 gram00)
+  public Gram00 Gram00Post02(Long gram, Gram00 gram00, OpswLoginVars loginVars)
   {
     Gram00 gram00db = null;
+    Calendar cal2 = Calendar.getInstance();
     if (gram != null)
     {
       gram00db = this.Gram00Select02(gram);
-      if (gram00db != null)
-      {
-        gram00db.setGram01List(this.Gram01Service.Gram01List01(gram));
-      }
-    } else if (gram == null)
+    }
+    else if (gram00db == null)
     {
       gram00db = new Gram00();
+      gram00db.setDate_create(cal2);
+      gram00db.setUser_create(loginVars.getLoginUser());
     }
+    gram00db.setDate_modify(cal2);
+    gram00db.setUser_modify(loginVars.getLoginUser());
     this.CopyGram00(gram00db, gram00);
-    return (Gram00) this.Gram00Post01(gram00);
+    return (Gram00) this.Gram00Post01(gram00db);
   }
 
   private void CopyGram00(Gram00 gram00db, Gram00 gram00)
@@ -97,7 +101,11 @@ public class Gram00ServiceImpl implements Gram00Service
     //gram00db.setDate_create(gram00.getDate_create());
     //gram00db.setUser_create(gram00.getUser_create());
     //gram00db.setDate_modify(gram00.getDate_modify());
-    //gram00db.setUser_modify(gram00.getUser_modify());
+    /*gram00db.setUser_modify(gram00.getUser_modify());
+    if (!recDbFound)
+    {
+      gram00db.setUser_create(gram00.getUser_modify());
+    }*/
     /*if (gram00db.getGram01List() == null)
     {
       gram00db.setGram01List(new ArrayList<Gram01>());
@@ -110,23 +118,30 @@ public class Gram00ServiceImpl implements Gram00Service
     }*/
 
   }
-  
+
   @Override
   public void Gram00Delete01(Long gram)
   {
     Gram00 gram00 = this.Gram00Select02(gram);
-    if(gram00 != null)
+    if (gram00 != null)
     {
-      if(gram00.getGram01List() != null && !gram00.getGram01List().isEmpty())
+      if (gram00.getGram01List() != null && !gram00.getGram01List().isEmpty())
       {
-        for(Gram01 gram01 : gram00.getGram01List())
+        for (Gram01 gram01 : gram00.getGram01List())
         {
           Gram01Key key = new Gram01Key(gram01.getGram(), gram01.getSenu());
-          this.Gram01Service.Gram01Delete01(key);
+          this.Gram01Service.Gram01Delete02(key);
         }
       }
       this.Gram00Repository.deleteById(gram00.getGram());
     }
+  }
+
+  @Override
+  public Gram00 Gram00PostED01(Long gram, Gram00 gram00, OpswLoginVars loginVars)
+  {
+    gram00.setUser_modify(loginVars.getLoginUser());
+    return this.Gram00Post02(gram, gram00, loginVars);
   }
 
 }

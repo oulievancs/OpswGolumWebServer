@@ -10,6 +10,7 @@ import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
 import opsw.uci.prj.entity.Sequences;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.repositories.Gram01Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -70,12 +71,8 @@ public class Gram01ServiceImpl implements Gram01Service
     if (senu != null)
     {
       gram01db = this.Gram01Select01(gram, senu);
-      //
-      if (gram01db != null)
-      {
-
-      }
-    } else
+    }
+    if(gram01db == null)
     {
       gram01db = new Gram01();
       gram01db.setGram(gram);
@@ -88,11 +85,18 @@ public class Gram01ServiceImpl implements Gram01Service
   {
     gram01db.setField_name(gram01.getField_name());
     gram01db.setField_type(gram01.getField_type());
+    gram01db.setExcel_index(gram01.getExcel_index());
     gram01db.setValue_num(gram01.getValue_num());
     gram01db.setValue_str(gram01.getValue_str());
   }
   
-  public void Gram01Delete01(Gram01Key key)
+  public void Gram01Delete01(Long gram, Long senu)
+  {
+    Gram01Key key = new Gram01Key(gram, senu);
+    this.Gram01Delete02(key);
+  }
+  
+  public void Gram01Delete02(Gram01Key key)
   {
     this.Gram01Repository.deleteById(key);    
   }

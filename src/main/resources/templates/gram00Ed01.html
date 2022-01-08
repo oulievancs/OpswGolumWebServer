@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}">
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome JS -->
+    <link rel=“stylesheet” href=“https://use.fontawesome.com/releases/v5.5.0/css/all.css” integrity=“sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU” crossorigin=“anonymous”>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
@@ -50,7 +51,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
-                    <a th:href="@{/gram/gram01/ed01/{gram} (gram=${CLM0.gram})}" class="btn btn-primary btn-sm mb-3" th:if="${CLM0.getGram()!=null}">Add Field</a>
+                    <a th:href="@{/gram/gram01/ed01/{gram} (gram=${CLM0.gram})}" class="btn btn-primary btn-sm mb-3" th:if="${CLM0.getGram()!=null}">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      Add Field
+                    </a>
                 </div>
             </div>
         </div>
@@ -61,6 +65,7 @@
                 <th>Fielad Name</th>
                 <th>Value Str</th>
                 <th>Value Num</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -69,13 +74,21 @@
                 <td th:text = "${gram01.getField_name()}"></td>
                 <td th:text = "${gram01.getValue_str()}"></td>
                 <td th:text = "${gram01.getValue_num()}"></td>
+                <td>
+                    <a th:href="@{/gram/gram01/ed01/{gram}?senu={senu}(gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-primary btn-sm mb-3">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a th:href ="@{/gram/gram01/delete01/{gram}/{senu} (gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-danger btn-sm mb-3">
+                      <i class="fa fa-trash-alt"></i>  
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>  
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a th:href="@{/gram/gram00/list01}" class="btn btn-danger">Cancel</a>
+                <a th:href="@{/gram/gram00/list01}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>Πίσω</a>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
               </div>
             </form>
           </div>
