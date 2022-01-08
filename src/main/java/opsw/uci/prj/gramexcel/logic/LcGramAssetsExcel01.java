@@ -45,7 +45,8 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
         Cell vcell = cellIterator.next();
         OnEachCell(j++, vcell.getColumnIndex(), vcell);
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -67,7 +68,8 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
       {
         Assets00InvokeByField(vgram01, cell);
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -88,7 +90,8 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
         }
         this.gram01List = this.Gram01Service.Gram01List01(this.gram);
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -101,12 +104,13 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
     {
       for (long i = 0; i < this.gram01List.size(); i++)
       {
-        if (senu == this.gram01List.get((int) i).getSenu())
+        if (senu == this.gram01List.get((int) i).getExcel_index())
         {
           gram01 = this.gram01List.get((int) i);
         }
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -129,7 +133,8 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
 
         this.ReadSheet();
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }

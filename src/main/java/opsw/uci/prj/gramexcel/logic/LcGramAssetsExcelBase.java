@@ -91,7 +91,8 @@ public abstract class LcGramAssetsExcelBase
       this.file = (byte[]) ifile.getBytes();
 
       this.ReadArxeio();
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -109,7 +110,8 @@ public abstract class LcGramAssetsExcelBase
       this.FXssfworkbook = new XSSFWorkbook(new ByteArrayInputStream(this.file));
 
       this.SelectSheetAndRead(this.FXssfworkbook);
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -120,7 +122,8 @@ public abstract class LcGramAssetsExcelBase
     try
     {
       this.FXssfsheet = this.FXssfworkbook.getSheetAt(sheetIndex);
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -138,7 +141,8 @@ public abstract class LcGramAssetsExcelBase
         this.NextRow(rowIterator.next());
         this.Assetets00Service.Assets00Post01(assets00);
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -149,7 +153,8 @@ public abstract class LcGramAssetsExcelBase
     try
     {
       this.FXssfworkbook.close();
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -166,13 +171,15 @@ public abstract class LcGramAssetsExcelBase
         double vnumFiled = cell.getNumericCellValue();
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
-      } else if (gram01.getField_type() == Gram01.FIELD_TYPE_STRING)
+      }
+      else if (gram01.getField_type() == Gram01.FIELD_TYPE_STRING)
       {
         String vstrField = cell.getStringCellValue();
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vstrField);
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
