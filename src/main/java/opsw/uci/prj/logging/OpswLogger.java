@@ -43,6 +43,11 @@ public class OpswLogger
     getLogger().error(getStringTimeNow() + ": " + th.getClass().getName() + ", " + vmessage, th);
   }
 
+  public static void LoggerLogDebug(String message)
+  {
+    getLogger().debug(getStringTimeNow() + ": " + message);
+  }
+
   private static String getStringTimeNow()
   {
     return (String) getStringTime(Calendar.getInstance());
@@ -54,7 +59,8 @@ public class OpswLogger
     try
     {
       result = df.format(calendar.getTime());
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       getLogger().error(ex.getMessage(), ex);
     }
