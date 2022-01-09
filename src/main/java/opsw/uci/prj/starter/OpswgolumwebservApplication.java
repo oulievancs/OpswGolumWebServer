@@ -1,11 +1,10 @@
 package opsw.uci.prj.starter;
 
 import opsw.uci.prj.cat.OpswEntityManagerJpa;
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -45,13 +44,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  * @author oulis
  */
-@SpringBootApplication
+@SpringBootApplication()
 @ComponentScan(
         basePackageClasses =
         {
           //Gram00Controller.class,
           OpswJpaStarter.class,
-          OpswEntityManagerJpa.class
+          OpswEntityManagerJpa.class,
+          ServletInitializer.class,
+          OpswKeycloakSecurityConfig.class
         },
         basePackages =
         {
@@ -78,12 +79,6 @@ public class OpswgolumwebservApplication
   public static void main(String[] args)
   {
     SpringApplication.run(OpswgolumwebservApplication.class, args);
-  }
-
-  @Bean
-  public KeycloakSpringBootConfigResolver keycloakConfigResolver()
-  {
-    return new KeycloakSpringBootConfigResolver();
   }
 
 }

@@ -32,7 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author n.oulis
  */
 @Controller
-@RolesAllowed("uci-user")
+//@RolesAllowed("uci-user")
 @RequestMapping("/actions")
 public class ActionsController
 {

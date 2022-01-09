@@ -42,13 +42,14 @@ public class OpswKeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAda
   {
     super.configure(http);
     http
+            .httpBasic().disable()
+            .csrf().disable()
             .authorizeRequests()
             .antMatchers("/home", "/resources/**", "/static/**")
             .permitAll()
             .anyRequest()
             .authenticated()
             ;
-    http.csrf().disable();
   }
 
   @Override
