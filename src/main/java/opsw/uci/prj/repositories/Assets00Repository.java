@@ -8,6 +8,7 @@ package opsw.uci.prj.repositories;
 import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.records.Gram00Rec01;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 

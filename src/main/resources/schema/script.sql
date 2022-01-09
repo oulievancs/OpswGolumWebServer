@@ -169,3 +169,78 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- View `OPSWDB`.`OPSWCONSTSV`
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW OPSWCONSTSV AS
+SELECT
+CODE, VALUE, DESCR 
+FROM
+(
+SELECT 'FIELD_TYPE_NUMBER' CODE, 0 VALUE, 'NUMBER' DESCR FROM DUAL
+UNION ALL
+SELECT 'FIELD_TYPE_STRING' CODE, 1 VALUE, 'String' DESCR FROM DUAL
+UNION ALL
+SELECT  'assets_value' CODE, 'AAUCI'                    VALUE,  'A/A UCI' DESCR FROM DUAL UNION ALL     
+SELECT  'assets_value' CODE, 'ADDRESS'                 VALUE,  'Assignment File' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'ARBITARYSUREFACEAREA'     VALUE,  'Internal Key' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'ASSET'                 VALUE,  'Auction Status / Κατάσταση' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'ASSFILE'                 VALUE,  'Mοναδικός Kωδικός' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'AUCTION_DATE'             VALUE,  'Auction URL' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'AUCTION_ID'               VALUE,  'Συμβολαιογράφος' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'AUCTIONDATE'              VALUE,  'Συμβολαιογράφος Τηλέφωνο' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'AUCTIONURL'               VALUE,  'Buyer' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'AUXILLIARYSUREFACEAREA'   VALUE,  'Producer' DESCR FROM DUAL UNION ALL     
+SELECT  'assets_value' CODE, 'BEGIN_ENDIAFERON'         VALUE,  'Count Assets' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'BORRNAME'                 VALUE,  'Borrower Name' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'BROKER_SITE'              VALUE,  'Property ID' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'BUILDAREA'                VALUE,  'Collateral Use 1' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'BUYER'                 VALUE,  'Collateral Sub type' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'CALLATERAL1'              VALUE,  'Municipality' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'CALLATERAL_SUB_TYPE'      VALUE,  'City' DESCR FROM DUAL UNION ALL  
+SELECT  'assets_value' CODE, 'CITY'                 VALUE,  'Address' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'COMMENTS1'                VALUE,  'Zipcode' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'COMMENTS2'                VALUE,  'GPSCoordinates' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'COMMENTS_SEA'             VALUE,  'Description' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'CONSTRUCTIONYEAR'         VALUE,  'Land Area' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'COUNTASS'                 VALUE,  'Built Area' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'DESCRIPTION'              VALUE,  'Main Surface Area (sqm)' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'EKTH_EKTIM'               VALUE,  'Auxiliary Surface Area (sqm)' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO'      VALUE,  'Arbitrary Surface Area (sqm)' DESCR FROM DUAL UNION ALL  
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO1'     VALUE,  'Full Ownership Flag' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO2'     VALUE,  'Construction Year' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO3'     VALUE,  'Floor' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO4'     VALUE,  'Auction_ID' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'ENDIAFEROMENOS_INFO5'     VALUE,  'Unique Auction Code' DESCR FROM DUAL UNION ALL   
+SELECT  'assets_value' CODE, 'FLOOR'                 VALUE,  'Auction date' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'FULLOWNERSHIP'            VALUE,  'Starting Price' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'GPSCORDS'                 VALUE,  'Landea link' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'HIGH_INTEREST'            VALUE,  'Region' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'IMAGE1'                 VALUE,  'Prefecture' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'IMAGE2'                 VALUE,  'Ownership Type' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'IMAGE3'                 VALUE,  'Auction Date (Month & YEAR)' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'INTRNLKEY'                VALUE,  'Image01' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'LANDAREA'                 VALUE,  'Image02' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'LANDEA_COMMENTS'          VALUE,  'Image03' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'LANDEA_LEADS'             VALUE,  'Άλλα σχόλια επί του ακινήτου ή της προώθησης' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'LANDEALINK'               VALUE,  'ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'LEADS'                 VALUE,  'ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'MAINSUREFACEAREA'         VALUE,  'TEASER' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'MARKETABILITY_NAME'       VALUE,  'SPITOGATOS ή XE LINK' DESCR FROM DUAL UNION ALL 
+SELECT  'assets_value' CODE, 'MUNICIPALITY'             VALUE,  'BROKER WEBSITE LINK(UCI)' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'OWNERSHIP_TYPE'           VALUE,  'SUB BROKERS (Name)' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'PREFECTURE'               VALUE,  'ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'PRODUCER'                 VALUE,  'ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'PROPERTY_ID'              VALUE,  'ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'REGION'                 VALUE,  'ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'SITE'                 VALUE,  'ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'STARTINGPRICE'            VALUE,  'ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'STATUS'                 VALUE,  'ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'SUBBROKER_NAME'           VALUE,  'ΣΧΟΛΙΑ Ι' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'SYMB_ID'                 VALUE,  'ΣΧΟΛΙΑ ΙΙ' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'TEASER'                 VALUE,  'Marketability rate' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'TECHN_FAKEL'              VALUE,  'Landea Leads' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'UNIQAUCTION_CODE'         VALUE,  'Landea Comments' DESCR FROM DUAL UNION ALL
+SELECT  'assets_value' CODE, 'UNIQCODE'                 VALUE,  'Update Auction' DESCR FROM DUAL
+) consts
