@@ -9,6 +9,8 @@ import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
+import opsw.uci.prj.records.Gram01Rec01;
+import opsw.uci.prj.records.cat.CatThmlfObject01;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
@@ -24,4 +26,17 @@ public interface Gram01Repository extends CatEjbJpaBase<Gram01, Gram01Key>
   
   @Query("SELECT MAX(a.senu) FROM Gram01 a WHERE a.gram = ?1")
   public Long gram01MaxSenu(Long gram);
+  
+  @Query("SELECT new "
+          + " opsw.uci.prj.records.Gram01Rec01(a.gram, a.senu, b.descr, a.field_name, a.value_str, a.value_num, a.excel_index)  "
+          + " FROM Gram01 a, Opswconstsv b "
+          + " WHERE a.gram = ?1 AND b.value = a.field_type AND b.code = ?2"
+          + " ORDER BY a.excel_index")
+  public List<Gram01Rec01> gram01Rec01List01(Long gram, String const_Code);
+  
+  @Query("SELECT new"
+        + " opsw.uci.prj.records.cat.CatThmlfObject01(a.value, a.descr) "
+        + " FROM Opswconstsv a "
+        + " WHERE a.code=?1")
+  public List<CatThmlfObject01> FieldsList01(String constCode);
 }

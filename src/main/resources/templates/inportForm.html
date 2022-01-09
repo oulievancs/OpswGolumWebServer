@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>Gram00 Manage</title>
+    <title>Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -39,81 +39,81 @@
   </head>
   <body>
     <div class="wrapper">
+      <nav id="sidebar">
+        <div id="dismiss">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sidebar-header">
+            <h3>Main Menu</h3>
+        </div>
+
+        <ul  class="list-unstyled components">
+            <li>
+                <a th:href="@{/home}">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/gram/gram00/list01}">Gram00</a>
+            </li>
+            <li>
+                <a th:href="@{/assets/assets00/list01}">Master File</a>
+            </li>
+            <li>
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Actions</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                  <a th:href="@{/actions/inportfile}" data-toggle="collapse" aria-expanded="false">Inport File</a>
+                </li>
+                <li>
+                  <a href="#">Export File</a>
+                </li>
+              </ul>
+          </li>
+        </ul>
+    </nav>
+    <!--Content-->
+    <div id="content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+              <i class="fas fa-align-left"></i>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+            </button>
+          </div>
+        </nav>
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class=""text-center>Edit Gram00</h1>
+          <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
+            <h1 class=""text-center>File Inport</h1>
             <div class="card-body">
-              <form th:action="@{/gram/gram00/ed01/post01?gram={gram} (gram = ${CLM0.gram})}" th:object="${CLM0}" method="POST">
-                <div class="form-group">
-                  <label>Description</label>
-                  <input
-                    type="text"
-                    name="descr"
-                    th:field="*{descr}"
-                    class="form-control"
-                    placeholder="Enter Gram Descr"
-                    />
-                  <label>Description Sea</label>
-                  <input
-                    type="text"
-                    name="descr_sea"
-                    th:field="*{descr_sea}"
-                    class="form-control"
-                    placeholder="Enter Description Sea"
-                    />
-                </div>  
-                <div class="container">
-                  <div class="row">
-                    <h1>List of Gram01</h1>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <a th:href="@{/gram/gram01/ed01/{gram} (gram=${CLM0.gram})}" class="btn btn-primary btn-sm mb-3" th:if="${CLM0.getGram()!=null}">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        Add Field
-                      </a>
-                    </div>
+              <form method="post" th:action="@{/actions/inportfile/post}" th:object="${gramRec}" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="col-md-8 mx-auto">
+                      <p th:text="${message}" th:if="${message ne null and !error}" class="alert alert-primary"></p>
+                      <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
+                        <div class="form-group">
+                            <input type="file" name="file" class="form-control-file">
+                            <label>Field Type</label>
+                            <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
+                              <option value="">Select Gram...</option>
+                              <option th:each="gr : ${gramList}"
+                                      th:value="${gr.getGram()}"
+                                      th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
+                              </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload File</button>
                   </div>
                 </div>
-                <table id="table1" class="hover" style="width:100%;" th:if="${CLM0.getGram()!=null}">
-                  <thead>
-                    <tr>
-                      <th>Excel Column</th>
-                      <th>Field Type</th>
-                      <th>Fielad Name</th>
-                      <th>Value Str</th>
-                      <th>Value Num</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr th:each = "gram01: ${CLM1}">
-                      <td th:text = "${gram01.getExcel_index()}"></td>
-                      <td th:text = "${gram01.getField_type()}"></td>
-                      <td th:text = "${gram01.getField_name()}"></td>
-                      <td th:text = "${gram01.getValue_str()}"></td>
-                      <td th:text = "${gram01.getValue_num()}"></td>
-                      <td>
-                        <a th:href="@{/gram/gram01/ed01/{gram}?senu={senu}(gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-primary btn-sm mb-3">
-                          <i class="fa fa-edit"></i>
-                        </a>
-                        <a th:href ="@{/gram/gram01/delete01/{gram}/{senu} (gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-danger btn-sm mb-3">
-                          <i class="fa fa-trash-alt"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>  
+              </form>
             </div>
-            <div class="box-footer">
-              <a th:href="@{/gram/gram00/list01}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>Back</a>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-            </div>
-            </form>
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -128,5 +128,24 @@
   <!-- jQuery Custom Scroller CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+  <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 </html>

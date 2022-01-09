@@ -5,8 +5,11 @@
  */
 package opsw.uci.prj.repositories;
 
+import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Gram00;
+import opsw.uci.prj.records.Gram00Rec01;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,5 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface Gram00Repository extends CatEjbJpaBase<Gram00, Long>
 {
-  
+  @Query("SELECT new"
+          + " opsw.uci.prj.records.Gram00Rec01(a.gram, a.descr) "
+          + " FROM Gram00 a ")
+  public List<Gram00Rec01> gram00Rec01List01();
 }

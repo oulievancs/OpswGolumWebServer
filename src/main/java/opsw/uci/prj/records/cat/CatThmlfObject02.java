@@ -12,19 +12,19 @@ package opsw.uci.prj.records.cat;
 public class CatThmlfObject02
 {
 
-  private double code;
+  private Long code;
 
   public CatThmlfObject02()
   {
-    this.code = 0;
+    this.code = null;
   }
 
-  public double getCode()
+  public Long getCode()
   {
     return code;
   }
 
-  public void setCode(double code)
+  public void setCode(Long code)
   {
     this.code = code;
   }

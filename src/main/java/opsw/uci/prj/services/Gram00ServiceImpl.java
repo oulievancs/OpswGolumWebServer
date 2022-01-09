@@ -5,7 +5,7 @@
  */
 package opsw.uci.prj.services;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
@@ -13,6 +13,8 @@ import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.records.Gram00Rec01;
+import opsw.uci.prj.records.Gram01Rec01;
 import opsw.uci.prj.repositories.Gram00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -142,6 +144,12 @@ public class Gram00ServiceImpl implements Gram00Service
   {
     gram00.setUser_modify(loginVars.getLoginUser());
     return this.Gram00Post02(gram, gram00, loginVars);
+  }
+
+  @Override
+  public List<Gram00Rec01> Gram00Rec01List01()
+  {
+    return this.Gram00Repository.gram00Rec01List01();
   }
 
 }

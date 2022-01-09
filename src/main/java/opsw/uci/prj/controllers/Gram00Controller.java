@@ -9,6 +9,8 @@ import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.records.Gram00Rec01;
+import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +63,7 @@ public class Gram00Controller
     model.addAttribute("CLM0", gram00);
     if (gram00 != null)
     {
-      model.addAttribute("CLM1", gram00.getGram01List());
+      model.addAttribute("CLM1", this.Gram01Service.Gram01Rec01List01(gram));
     }
 
     return "gram00Ed01";
@@ -112,8 +114,9 @@ public class Gram00Controller
       gram01 = new Gram01();
       gram01.setGram(gram);
     }
-
+    List<CatThmlfObject01> fieldsList = this.Gram01Service.FieldsList01("assets_value");
     model.addAttribute("CLM0", gram01);
+    model.addAttribute("fieldsList", fieldsList);
     return "gram01Ed01";
   }
 

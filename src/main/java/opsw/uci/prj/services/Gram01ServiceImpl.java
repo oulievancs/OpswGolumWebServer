@@ -9,8 +9,12 @@ import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
+import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.records.Gram00Rec01;
+import opsw.uci.prj.records.Gram01Rec01;
+import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.repositories.Gram01Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -90,15 +94,30 @@ public class Gram01ServiceImpl implements Gram01Service
     gram01db.setValue_str(gram01.getValue_str());
   }
   
+  @Override
   public void Gram01Delete01(Long gram, Long senu)
   {
     Gram01Key key = new Gram01Key(gram, senu);
     this.Gram01Delete02(key);
   }
   
+  @Override
   public void Gram01Delete02(Gram01Key key)
   {
     this.Gram01Repository.deleteById(key);    
   }
+  
+  @Override
+  public List<Gram01Rec01> Gram01Rec01List01(Long gram)
+  {    
+    return (List<Gram01Rec01>) this.Gram01Repository.gram01Rec01List01(gram, Opswconstsv.FIELD_TYPE);
+  }
+
+  @Override
+  public List<CatThmlfObject01> FieldsList01(String constCode)
+  {
+    return (List<CatThmlfObject01>) this.Gram01Repository.FieldsList01(constCode);
+  }
+
 
 }

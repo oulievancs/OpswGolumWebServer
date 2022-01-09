@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link type="text/css" th:href="@{/static/style3.css}" rel="stylesheet">
+    <link rel="icon" th:href="@{static/assets/favicon.ico}" type = "image/x-icon">
+    <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}">
@@ -26,25 +27,25 @@
               <form th:action="@{/gram/gram01/ed01/post01/{gram}?senu={senu} (gram=${CLM0.gram}, senu=${CLM0.senu})}" th:object="${CLM0}" method="POST">
                 <div class="form-group">
                   <label>Field Type</label>
-                  <!--<input
-                          type="number"
-                          name="field_type"
-                          th:field="*{field_type}"
-                          class="form-control"
-                          placeholder="Enter field type"
-                  />-->
                   <select class="form-control" th:field="*{field_type}" name="field_type" placeholder="Enter field type">
                     <option value="0">Number</option>
                     <option value="1">String</option>
                   </select>
                   <label>Field Name</label>
-                  <input
+                  <!--<input
                     type="text"
                     name="field_name"
                     th:field="*{field_name}"
                     class="form-control"
                     placeholder="Enter field name"
-                    />
+                    />-->
+                  <select  class="form-control" th:field="*{field_name}" name="field_name"  type="value">
+                    <option value="">Select Field...</option>
+                    <option th:each="field : ${fieldsList}"
+                            th:value="${field.getCode()}"
+                            th:text="${field.getCode()} +' - '+${field.getDescr()}">
+                    </option>
+                  </select>
                   <label>Excel Column</label>
                   <input
                     type="number"

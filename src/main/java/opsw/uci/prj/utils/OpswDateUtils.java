@@ -22,7 +22,7 @@ public class OpswDateUtils
 
     if (calendar != null)
     {
-      df = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+      df = new SimpleDateFormat("DD-MM-YYYY HH:mm:ss");
       result = df.format(calendar.getTime());
     }
     return result;
@@ -35,7 +35,7 @@ public class OpswDateUtils
 
     if (calendar != null)
     {
-      df = new SimpleDateFormat("dd-mm-yyyy");
+      df = new SimpleDateFormat("DD-MM-YYYY");
       result = df.format(calendar.getTime());
     }
     return result;

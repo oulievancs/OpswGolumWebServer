@@ -8,6 +8,7 @@ package opsw.uci.prj.services;
 import java.util.List;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.records.Gram00Rec01;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,4 +31,6 @@ public interface Gram00Service
   public Gram00 Gram00PostED01(Long gram, Gram00 gram00, OpswLoginVars loginVars);
   
   public void Gram00Delete01(Long gram);
+  
+  public List<Gram00Rec01> Gram00Rec01List01();
 }

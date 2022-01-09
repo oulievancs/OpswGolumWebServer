@@ -16,13 +16,11 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
     <!-- AWESOME DATA TABLE -------->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
-    <!--<script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
-    <script defer src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <!--<link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>-->
-    <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css}"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script defer src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>
     <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
     <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
     <script>
@@ -31,8 +29,6 @@
       });
     </script>
     <!------------------------------>
-
-
   </head>
   <body>
 
@@ -46,12 +42,12 @@
           <h3>Main Menu</h3>
         </div>
 
-        <ul  class="list-unstyled components">
-          <li>
-            <a th:href="@{/home}">Home</a>
-          </li>
+        <ul class="list-unstyled components">
           <li class="active">
-            <a th:href="@{/gram/gram00/list01}"  data-toggle="collapse" aria-expanded="false">Gram00</a>
+            <a th:href="@{/home}" data-toggle="collapse" aria-expanded="false">Home</a>
+          </li>
+          <li>
+            <a th:href="@{/gram/gram00/list01}">Gram00</a>
           </li>
           <li>
             <a th:href="@{/assets/assets00/list01}">Master File</a>
@@ -82,52 +78,6 @@
             </button>
           </div>
         </nav>
-        <div class="container">
-          <div class="row">
-            <h1>List of Gram00</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-            <a th:href="@{/gram/gram00/ed01}" class="btn btn-primary btn-sm mb-3">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              Add Gram00
-            </a>
-          </div>
-        </div>
-        <table id="table1" class="hover" style="width:100%">
-          <thead>
-            <tr>
-              <th>Gram</th>
-              <th>Descr</th>
-              <th>DateCreate</th>
-              <th>User Create</th>
-              <th>Date Modify</th>
-              <th>User Modify</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each = "gram00: ${CLM0}">
-              <td th:text = "${gram00.getGram()}"></td>
-              <td th:text = "${gram00.getDescr()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(gram00.getDate_create())}"></td>
-              <td th:text = "${gram00.getUser_create()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(gram00.getDate_modify())}"></td>
-              <td th:text = "${gram00.getUser_modify()}"></td>
-              <td>
-                <a th:href="@{/gram/gram00/ed01?gram={gram}(gram=${gram00.gram})}" class="btn btn-primary btn-sm mb-3">
-                  <i class="fa fa-edit"></i>
-                  Edit
-                </a>
-                <a th:href ="@{/gram/gram00/delete01/{gram} (gram=${gram00.gram}) }" class="btn btn-danger btn-sm mb-3">
-                  <i class="fa fa-trash-alt"></i>  
-                  Delete
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
 

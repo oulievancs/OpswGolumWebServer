@@ -6,196 +6,269 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
-    <!-- Our Custom CSS -->
-    <link type="text/css" th:href="@{/static/style3.css}" rel="stylesheet"></link>
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}"></link>
-    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css"></link>
+    <link rel="icon" th:href="@{static/assets/favicon.ico}" type = "image/x-icon">
+      <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
+      <!-- Our Custom CSS -->
+      <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet"></link>
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}"></link>
+      <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css"></link>
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+      <!-- Font Awesome JS -->
+      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-    <!-- AWESOME DATA TABLE -------->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
-    <script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script defer src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>
-    <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
-    <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
-    <script>
-      $(document).ready(function () {
-        $('#table1').DataTable({});
-      });
-    </script>
-    <!------------------------------>
+      <!-- AWESOME DATA TABLE -------->
+      <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+      <!--<script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
+      <script defer src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
+      <!--<link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>-->
+      <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css}"></link>
+      <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
+      <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
+      <script>
+        $(document).ready(function () {
+          $('#table1').DataTable({});
+        });
+      </script>
+      <!------------------------------>
   </head>
   <body>
 
     <div class="wrapper">
+      <nav id="sidebar">
+        <div id="dismiss">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sidebar-header">
+          <h3>Main Menu</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li>
+            <a th:href="@{/home}" >Home</a>
+          </li>
+          <li>
+            <a th:href="@{/gram/gram00/list01}">Gram00</a>
+          </li>
+          <li class="active">
+            <a th:href="@{/assets/assets00/list01}" data-toggle="collapse" aria-expanded="false">Master File</a>
+          </li>
+          <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Actions</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a th:href="@{/actions/inportfile}">Inport File</a>
+              </li>
+              <li>
+                <a href="#">Export File</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
       <!--Content-->
       <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+              <i class="fas fa-align-left"></i>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+            </button>
+          </div>
+        </nav>
         <div class="container">
           <div class="row">
             <h1>List of Assets00</h1>
           </div>
         </div>
         <!--<div class="table-responsive">-->
-          <table id="table1" style="width:100%" class="table table-striped table-bordered table-responsive">
-            <thead>
-              <tr>
-                <!--A/A UCI	Assignment File	Internal Key	Auction Status / Κατάσταση	Mοναδικός Kωδικός	Auction URL	
-                Συμβολαιογράφος	Συμβολαιογράφος Τηλέφωνο	Buyer	Producer	Count Assets	Borrower Name	Property ID	
-                Collateral Use 1	Collateral Sub type	Municipality	City	Address	Zipcode	GPSCoordinates	Description	
-                Land Area	Built Area	Main Surface Area (sqm)	Auxiliary Surface Area (sqm)	Arbitrary Surface Area (sqm)	
-                Full Ownership Flag	Construction Year	Floor	Auction_ID	Unique Auction Code	Auction date	
-                StartingPrice	Landea link	Region	Prefecture	Ownership Type	 Auction Date Month_YEAR 	
-                Image01	Image02	Image03	Άλλα σχόλια επί του ακινήτου ή της προώθησης	ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ (ΝΑΙ / ΌΧΙ)	
-                ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ (NAI/OXI) 	TEASER  (NAI/OXI)	SPITOGATOS ή XE LINK 	BROKER WEBSITE LINK(UCI)	
-                SUB BROKERS (Name)	 ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ	ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ (NAI/OXI)	LEADS	 
-                ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4	 
-                ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5	ΣΧΟΛΙΑ Ι	ΣΧΟΛΙΑ ΙΙ	Marketability rate	Landea Leads	
-                Landea Comments	Update Auction	HIGH INTEREST
+        <table id="table1" style="width:100%" class="hover table-responsive">
+          <thead>
+            <tr>
+              <!--A/A UCI	Assignment File	Internal Key	Auction Status / Κατάσταση	Mοναδικός Kωδικός	Auction URL	
+              Συμβολαιογράφος	Συμβολαιογράφος Τηλέφωνο	Buyer	Producer	Count Assets	Borrower Name	Property ID	
+              Collateral Use 1	Collateral Sub type	Municipality	City	Address	Zipcode	GPSCoordinates	Description	
+              Land Area	Built Area	Main Surface Area (sqm)	Auxiliary Surface Area (sqm)	Arbitrary Surface Area (sqm)	
+              Full Ownership Flag	Construction Year	Floor	Auction_ID	Unique Auction Code	Auction date	
+              StartingPrice	Landea link	Region	Prefecture	Ownership Type	 Auction Date Month_YEAR 	
+              Image01	Image02	Image03	Άλλα σχόλια επί του ακινήτου ή της προώθησης	ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ (ΝΑΙ / ΌΧΙ)	
+              ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ (NAI/OXI) 	TEASER  (NAI/OXI)	SPITOGATOS ή XE LINK 	BROKER WEBSITE LINK(UCI)	
+              SUB BROKERS (Name)	 ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ	ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ (NAI/OXI)	LEADS	 
+              ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3	 ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4	 
+              ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5	ΣΧΟΛΙΑ Ι	ΣΧΟΛΙΑ ΙΙ	Marketability rate	Landea Leads	
+              Landea Comments	Update Auction	HIGH INTEREST
 
-                -->
-                <th>A/A UCI</th>
-                <th>Assignment File</th>
-                <th>Internal Key</th>
-                <th>Auction Status / Κατάσταση</th>
-                <th>Mοναδικός Kωδικός</th>
-                <th>Auction URL</th>
-                <th>Συμβολαιογράφος</th>
-                <th>Συμβολαιογράφος Τηλέφωνο</th>
-                <th>Buyer</th>
-                <th>Producer</th>
-                <th>Count Assets</th>
-                <th>Borrower Name</th>
-                <th>Property ID</th>
-                <th>Collateral Use 1</th>
-                <th>Collateral Sub type</th>
-                <th>Municipality</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>GPSCoordinates</th>
-                <th>Description</th>
-                <th>Land Area</th>
-                <th>Built Area</th>
-                <th>Main Surface Area (sqm)</th>
-                <th>Auxiliary Surface Area (sqm)</th>
-                <th>Arbitrary Surface Area (sqm)</th>
-                <th>Full Ownership Flag</th>
-                <th>Construction Year</th>
-                <th>Floor</th>
-                <th>Auction_ID</th>
-                <th>Unique Auction Code</th>
-                <th>Auction date</th>
-                <th>Starting Price</th>
-                <th>Landea link</th>
-                <th>Region</th>
-                <th>Prefecture</th>
-                <th>Ownership Type</th>
-                <th>Auction Date (Month & YEAR)</th>
-                <th>Image01</th>
-                <th>Image02</th>
-                <th>Image03</th>
-                <th>Άλλα σχόλια επί του ακινήτου ή της προώθησης</th>
-                <th>ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ</th>
-                <th>ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ</th>
-                <th>TEASER</th>
-                <th>SPITOGATOS ή XE LINK</th>
-                <th>BROKER WEBSITE LINK(UCI)</th>
-                <th>SUB BROKERS (Name)</th>
-                <th>ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ</th>
-                <th>ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ</th>
-                <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1</th>
-                <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2</th>
-                <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3</th>
-                <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4</th>
-                <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5</th>
-                <th>ΣΧΟΛΙΑ Ι</th>
-                <th>ΣΧΟΛΙΑ ΙΙ</th>
-                <th>Marketability rate</th>
-                <th>Landea Leads</th>
-                <th>Landea Comments</th>
-                <th>Update Auction</th>
-                <th>HIGH INTEREST</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each = "ass00: ${CLM0}">
-                <td th:text = "${ass00.getAsset()}"></td>
-                <td th:text = "${ass00.getAauci()}"></td>
-                <td th:text = "${ass00.getAssfile()}"></td>
-                <td th:text = "${ass00.getIntrnlkey()}"></td>
-                <td th:text = "${ass00.getStatus()}"></td>
-                <td th:text = "${ass00.getUniqcode()}"></td>
-                <td th:text = "${ass00.getAuctionurl()}"></td>
-                <td th:text = "${ass00.getSymb_id()}"></td>
-                <td th:text = "${ass00.getBuyer()}"></td>
-                <td th:text = "${ass00.getProducer()}"></td>
-                <td th:text = "${ass00.getCountass()}"></td>
-                <td th:text = "${ass00.getBorrname()}"></td>
-                <td th:text = "${ass00.getProperty_id()}"></td>
-                <td th:text = "${ass00.getCallateral1()}"></td>
-                <td th:text = "${ass00.getCallateral_sub_type()}"></td>
-                <td th:text = "${ass00.getMunicipality()}"></td>
-                <td th:text = "${ass00.getCity()}"></td>
-                <td th:text = "${ass00.getAddress()}"></td>
-                <td th:text = "${ass00.getZipcode()}"></td>
-                <td th:text = "${ass00.getGpscords()}"></td>
-                <td th:text = "${ass00.getDescription()}"></td>
-                <td th:text = "${ass00.getLandarea()}"></td>
-                <td th:text = "${ass00.getBuildarea()}"></td>
-                <td th:text = "${ass00.getMainsurefacearea()}"></td>
-                <td th:text = "${ass00.getAuxilliarysurefacearea()}"></td>
-                <td th:text = "${ass00.getArbitarysurefacearea()}"></td>
-                <td th:text = "${ass00.getFullownership()}"></td>
-                <td th:text = "${ass00.getConstructionyear()}"></td>
-                <td th:text = "${ass00.getFloor()}"></td>
-                <td th:text = "${ass00.getAuction_id()}"></td>
-                <td th:text = "${ass00.getUniqauction_code()}"></td>
-                <td th:text = "${ass00.getAuction_date()}"></td>
-                <td th:text = "${ass00.getStartingprice()}"></td>
-                <td th:text = "${ass00.getLandealink()}"></td>
-                <td th:text = "${ass00.getRegion()}"></td>
-                <td th:text = "${ass00.getPrefecture()}"></td>
-                <td th:text = "${ass00.getOwnership_type()}"></td>
-                <td th:text = "${ass00.getAuctiondate()}"></td>
-                <td th:text = "${ass00.getImage1()}"></td>
-                <td th:text = "${ass00.getImage2()}"></td>
-                <td th:text = "${ass00.getImage3()}"></td>
-                <td th:text = "${ass00.getComments_sea()}"></td>
-                <td th:text = "${ass00.getEkth_ektim()}"></td>
-                <td th:text = "${ass00.getTechn_fakel()}"></td>
-                <td th:text = "${ass00.getTeaser()}"></td>
-                <td th:text = "${ass00.getSite()}"></td>
-                <td th:text = "${ass00.getBroker_site()}"></td>
-                <td th:text = "${ass00.getSubbroker_name()}"></td>
-                <td th:text = "${ass00.getVisitors_count()}"></td>
-                <td th:text = "${ass00.getBegin_endiaferon()}"></td>
-                <td th:text = "${ass00.getLeads()}"></td>
-                <td th:text = "${ass00.getEndiaferomenos_info1()}"></td>
-                <td th:text = "${ass00.getEndiaferomenos_info2()}"></td>
-                <td th:text = "${ass00.getEndiaferomenos_info3()}"></td>
-                <td th:text = "${ass00.getEndiaferomenos_info4()}"></td>
-                <td th:text = "${ass00.getEndiaferomenos_info5()}"></td>
-                <td th:text = "${ass00.getComments1()}"></td>
-                <td th:text = "${ass00.getComments2()}"></td>
-                <td th:text = "${ass00.getMarketability_name()}"></td>
-                <td th:text = "${ass00.getLandea_leads()}"></td>
-                <td th:text = "${ass00.getLandea_commnets()}"></td>
-                <td th:text = "${ass00.getUpdate_auction()}"></td>
-                <td th:text = "${ass00.getHigh_interest()}"></td>
-              </tr>
-            </tbody>
-          </table>
+              -->
+              <th>A/A UCI</th>
+              <th>Assignment File</th>
+              <th>Internal Key</th>
+              <th>Auction Status / Κατάσταση</th>
+              <th>Mοναδικός Kωδικός</th>
+              <th>Auction URL</th>
+              <th>Συμβολαιογράφος</th>
+              <th>Συμβολαιογράφος Τηλέφωνο</th>
+              <th>Buyer</th>
+              <th>Producer</th>
+              <th>Count Assets</th>
+              <th>Borrower Name</th>
+              <th>Property ID</th>
+              <th>Collateral Use 1</th>
+              <th>Collateral Sub type</th>
+              <th>Municipality</th>
+              <th>City</th>
+              <th>Address</th>
+              <th>Zipcode</th>
+              <th>GPSCoordinates</th>
+              <th>Description</th>
+              <th>Land Area</th>
+              <th>Built Area</th>
+              <th>Main Surface Area (sqm)</th>
+              <th>Auxiliary Surface Area (sqm)</th>
+              <th>Arbitrary Surface Area (sqm)</th>
+              <th>Full Ownership Flag</th>
+              <th>Construction Year</th>
+              <th>Floor</th>
+              <th>Auction_ID</th>
+              <th>Unique Auction Code</th>
+              <th>Auction date</th>
+              <th>Starting Price</th>
+              <th>Landea link</th>
+              <th>Region</th>
+              <th>Prefecture</th>
+              <th>Ownership Type</th>
+              <th>Auction Date (Month & YEAR)</th>
+              <th>Image01</th>
+              <th>Image02</th>
+              <th>Image03</th>
+              <th>Άλλα σχόλια επί του ακινήτου ή της προώθησης</th>
+              <th>ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ</th>
+              <th>ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ</th>
+              <th>TEASER</th>
+              <th>SPITOGATOS ή XE LINK</th>
+              <th>BROKER WEBSITE LINK(UCI)</th>
+              <th>SUB BROKERS (Name)</th>
+              <th>ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ</th>
+              <th>ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ</th>
+              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1</th>
+              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2</th>
+              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3</th>
+              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4</th>
+              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5</th>
+              <th>ΣΧΟΛΙΑ Ι</th>
+              <th>ΣΧΟΛΙΑ ΙΙ</th>
+              <th>Marketability rate</th>
+              <th>Landea Leads</th>
+              <th>Landea Comments</th>
+              <th>Update Auction</th>
+              <th>HIGH INTEREST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each = "ass00: ${CLM0}">
+              <td th:text = "${ass00.getAsset()}"></td>
+              <td th:text = "${ass00.getAauci()}"></td>
+              <td th:text = "${ass00.getAssfile()}"></td>
+              <td th:text = "${ass00.getIntrnlkey()}"></td>
+              <td th:text = "${ass00.getStatus()}"></td>
+              <td th:text = "${ass00.getUniqcode()}"></td>
+              <td th:text = "${ass00.getAuctionurl()}"></td>
+              <td th:text = "${ass00.getSymb_id()}"></td>
+              <td th:text = "${ass00.getBuyer()}"></td>
+              <td th:text = "${ass00.getProducer()}"></td>
+              <td th:text = "${ass00.getCountass()}"></td>
+              <td th:text = "${ass00.getBorrname()}"></td>
+              <td th:text = "${ass00.getProperty_id()}"></td>
+              <td th:text = "${ass00.getCallateral1()}"></td>
+              <td th:text = "${ass00.getCallateral_sub_type()}"></td>
+              <td th:text = "${ass00.getMunicipality()}"></td>
+              <td th:text = "${ass00.getCity()}"></td>
+              <td th:text = "${ass00.getAddress()}"></td>
+              <td th:text = "${ass00.getZipcode()}"></td>
+              <td th:text = "${ass00.getGpscords()}"></td>
+              <td th:text = "${ass00.getDescription()}"></td>
+              <td th:text = "${ass00.getLandarea()}"></td>
+              <td th:text = "${ass00.getBuildarea()}"></td>
+              <td th:text = "${ass00.getMainsurefacearea()}"></td>
+              <td th:text = "${ass00.getAuxilliarysurefacearea()}"></td>
+              <td th:text = "${ass00.getArbitarysurefacearea()}"></td>
+              <td th:text = "${ass00.getFullownership()}"></td>
+              <td th:text = "${ass00.getConstructionyear()}"></td>
+              <td th:text = "${ass00.getFloor()}"></td>
+              <td th:text = "${ass00.getAuction_id()}"></td>
+              <td th:text = "${ass00.getUniqauction_code()}"></td>
+              <td th:text = "${ass00.getAuction_date()}"></td>
+              <td th:text = "${ass00.getStartingprice()}"></td>
+              <td th:text = "${ass00.getLandealink()}"></td>
+              <td th:text = "${ass00.getRegion()}"></td>
+              <td th:text = "${ass00.getPrefecture()}"></td>
+              <td th:text = "${ass00.getOwnership_type()}"></td>
+              <td th:text = "${ass00.getAuctiondate()}"></td>
+              <td th:text = "${ass00.getImage1()}"></td>
+              <td th:text = "${ass00.getImage2()}"></td>
+              <td th:text = "${ass00.getImage3()}"></td>
+              <td th:text = "${ass00.getComments_sea()}"></td>
+              <td th:text = "${ass00.getEkth_ektim()}"></td>
+              <td th:text = "${ass00.getTechn_fakel()}"></td>
+              <td th:text = "${ass00.getTeaser()}"></td>
+              <td th:text = "${ass00.getSite()}"></td>
+              <td th:text = "${ass00.getBroker_site()}"></td>
+              <td th:text = "${ass00.getSubbroker_name()}"></td>
+              <td th:text = "${ass00.getVisitors_count()}"></td>
+              <td th:text = "${ass00.getBegin_endiaferon()}"></td>
+              <td th:text = "${ass00.getLeads()}"></td>
+              <td th:text = "${ass00.getEndiaferomenos_info1()}"></td>
+              <td th:text = "${ass00.getEndiaferomenos_info2()}"></td>
+              <td th:text = "${ass00.getEndiaferomenos_info3()}"></td>
+              <td th:text = "${ass00.getEndiaferomenos_info4()}"></td>
+              <td th:text = "${ass00.getEndiaferomenos_info5()}"></td>
+              <td th:text = "${ass00.getComments1()}"></td>
+              <td th:text = "${ass00.getComments2()}"></td>
+              <td th:text = "${ass00.getMarketability_name()}"></td>
+              <td th:text = "${ass00.getLandea_leads()}"></td>
+              <td th:text = "${ass00.getLandea_commnets()}"></td>
+              <td th:text = "${ass00.getUpdate_auction()}"></td>
+              <td th:text = "${ass00.getHigh_interest()}"></td>
+            </tr>
+          </tbody>
+        </table>
         <!--</div>-->
       </div>
     </div>
 
     <div class="overlay"></div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
 
   </body>
 </html>

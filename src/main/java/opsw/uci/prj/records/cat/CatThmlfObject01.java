@@ -19,6 +19,12 @@ public class CatThmlfObject01 extends CatThmlfObjectBase
     super();
     this.code = null;
   }
+  
+  public CatThmlfObject01(String code, String descr)
+  {
+    this.code = code;
+    this.setDescr(descr);
+  }
 
   public String getCode()
   {
