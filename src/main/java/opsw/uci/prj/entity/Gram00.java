@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import opsw.uci.prj.records.Gram01Rec01;
 
 /**
  *
@@ -30,6 +29,7 @@ public class Gram00 implements Serializable
   private Long gram;
   private String descr;
   private String descr_sea;
+  private Short start_line;
   @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_create;
   private String user_create;
@@ -80,6 +80,16 @@ public class Gram00 implements Serializable
   public void setDescr_sea(String descr_sea)
   {
     this.descr_sea = descr_sea;
+  }
+
+  public Short getStart_line()
+  {
+    return start_line;
+  }
+
+  public void setStart_line(Short start_line)
+  {
+    this.start_line = start_line;
   }
 
   public Calendar getDate_create()

@@ -100,25 +100,7 @@ public class Gram00ServiceImpl implements Gram00Service
   {
     gram00db.setDescr(gram00.getDescr());
     gram00db.setDescr_sea(gram00.getDescr_sea());
-    //gram00db.setDate_create(gram00.getDate_create());
-    //gram00db.setUser_create(gram00.getUser_create());
-    //gram00db.setDate_modify(gram00.getDate_modify());
-    /*gram00db.setUser_modify(gram00.getUser_modify());
-    if (!recDbFound)
-    {
-      gram00db.setUser_create(gram00.getUser_modify());
-    }*/
-    /*if (gram00db.getGram01List() == null)
-    {
-      gram00db.setGram01List(new ArrayList<Gram01>());
-    }
-    
-    gram00db.getGram01List().clear();
-    if (gram00.getGram01List() != null)
-    {
-      gram00db.getGram01List().addAll(gram00.getGram01List());
-    }*/
-
+    gram00db.setStart_line(gram00.getStart_line());
   }
 
   @Override
