@@ -1,0 +1,12 @@
+{
+  "realm": "SpringBootUCIKeycloak",
+  "auth-server-url": "http://localhost:8180/auth/",
+  "ssl-required": "none",
+  "resource": "uci-login-app",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "d4O65h5fXWNE6lfzVaSPFCzmmRLdIdzZ"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

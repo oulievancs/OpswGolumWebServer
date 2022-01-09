@@ -12,8 +12,11 @@ import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.services.Assets00Service;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,12 +34,16 @@ public class Assets00Controller
   private Assets00Service Assets00Service;
 
   @GetMapping("/assets00/list01")
-  public String Assets00List01(Model model)
+  public String Assets00List01(
+          Model model)
           throws Exception
   {
     List<Assets00> assets00List = null;
     try
     {
+//      KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
+//              .getAuthentication();
+//      OpswLogger.LoggerLogDebug("Token " + authentication.getAccount().getKeycloakSecurityContext().getToken().getAccessTokenHash());
       assets00List = this.Assets00Service.Assets00List02();
     }
     catch (Exception ex)

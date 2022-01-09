@@ -1,0 +1,18 @@
+## YAML Template.
+---
+#security:
+#  oauth2:
+#    client:
+#      messaging-client-auth-code:
+#        client-id: uci-login-app
+#        client-secret: d4O65h5fXWNE6lfzVaSPFCzmmRLdIdzZ
+#        grant-type: authorization_code
+#        user-authorization-uri: http://localhost:8180/auth/realms/SpringBootUCIKeycloak/protocol/openid-connect/auth
+#        access-token-uri: http://localhost:8180/auth/realms/SpringBootUCIKeycloak/protocol/openid-connect/token
+#        scope: uci-scope
+#        pre-established-redirect-uri: http://localhost:8080/authorized
+#        use-current-uri: false
+#  resource:
+#      filter-order: 3
+#      jwk:
+#        key-set-uri: http://localhost:8180/auth/realms/SpringBootUCIKeycloak/.well-known/openid-configuration

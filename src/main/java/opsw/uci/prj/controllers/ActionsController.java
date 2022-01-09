@@ -6,6 +6,7 @@
 package opsw.uci.prj.controllers;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author n.oulis
  */
 @Controller
+@RolesAllowed("uci-user")
 @RequestMapping("/actions")
 public class ActionsController
 {
