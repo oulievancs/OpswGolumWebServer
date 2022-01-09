@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -30,12 +31,14 @@ public class OpswExceptionHandlerController
   //...
   // Exception handling methods
   // Convert a predefined exception to an HTTP Status code
-  @ResponseStatus(value = HttpStatus.CONFLICT,
-          reason = "Data integrity violation")  // 409
+  //@ResponseStatus(value = HttpStatus.CONFLICT,
+  //        reason = "Data integrity violation")  // 409
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public void conflict()
+  public ModelAndView conflict(RedirectAttributes ra, HttpServletRequest req, Exception ex)
   {
-    // Nothing to do
+    ModelAndView mav = new ModelAndView();
+    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    return mav;
   }
 
   // Specify name of a specific view that will be used to display the error:
@@ -43,7 +46,7 @@ public class OpswExceptionHandlerController
           {
             SQLException.class, DataAccessException.class
           })
-  public ModelAndView databaseError(HttpServletRequest req, Exception ex)
+  public ModelAndView databaseError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
   {
     // Nothing to do.  Returns the logical view name of an error page, passed
     // to the view-resolver(s) in usual way.
@@ -51,7 +54,7 @@ public class OpswExceptionHandlerController
     // to the model) but see "Extending ExceptionHandlerExceptionResolver"
     // below.
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ex, mav);
+    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
     return mav;
   }
 
@@ -63,10 +66,10 @@ public class OpswExceptionHandlerController
     CatException.class,
     CatExceptionUser.class
   })
-  public ModelAndView handleError(HttpServletRequest req, Exception ex)
+  public ModelAndView handleError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
   {
     ModelAndView mav = new ModelAndView();
-    mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ex, mav);
+    mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
     return mav;
   }
 }

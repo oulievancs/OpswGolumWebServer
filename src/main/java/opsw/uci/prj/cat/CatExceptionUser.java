@@ -5,6 +5,8 @@
  */
 package opsw.uci.prj.cat;
 
+import java.util.Map;
+
 /**
  *
  * @author oulis
@@ -20,9 +22,11 @@ public class CatExceptionUser extends CatException
     this.userMessage = null;
   }
 
-  public CatExceptionUser(byte code, String userMessage, String techMessage, String message, Throwable th)
+  public CatExceptionUser(byte code, String userMessage, String techMessage, String message,
+          boolean redirectToError, Map<String, Object> errorParameters, String redirectPath,
+          Throwable th)
   {
-    super(code, techMessage, message, th);
+    super(code, techMessage, message, redirectToError, errorParameters, redirectPath, th);
     this.userMessage = userMessage;
   }
 

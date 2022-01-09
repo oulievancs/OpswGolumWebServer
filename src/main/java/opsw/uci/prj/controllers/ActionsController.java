@@ -65,13 +65,13 @@ public class ActionsController
       //check for file
       if (file.isEmpty())
       {
-        //throw new Exception("Please select a file to upload.");
-        attributes.addFlashAttribute("message", "Please select a file to upload.");
+        throw new CatExceptionUser("Please select a file to upload.");
+        //attributes.addFlashAttribute("message", "Please select a file to upload.");
       }
       else if (gramrec.getGram() == null || gramrec.getGram().equals(""))
       {
-        //throw new Exception("Please select a gram.");
-        attributes.addFlashAttribute("message", "Please select a gram.");
+        throw new CatExceptionUser("Please select a gram.");
+        //attributes.addFlashAttribute("message", "Please select a gram.");
       }
       else
       {
@@ -88,7 +88,8 @@ public class ActionsController
     }
     catch (CatException ex)
     {
-      ex.setRedirectPath("redirect:/actions/inportfile");
+      ex.setRedirectToError(false);
+      ex.setRedirectPath("actions/inportfile");
       CatException.ErrorAddParameter(ex, "error", new Boolean(true));
       CatException.ErrorAddParameter(ex, "message", ex.getTechMessage());
       CatException.RethrowCatException(ex);

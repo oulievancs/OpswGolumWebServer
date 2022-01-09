@@ -5,11 +5,13 @@
  */
 package opsw.uci.prj.logic;
 
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.logging.OpswLogger;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -18,13 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class OpswExceptionHandler
 {
 
-  public static ModelAndView HandleControllerExceptionAndModelView(HttpServletRequest req, Exception ex, ModelAndView mav)
+  public static ModelAndView HandleControllerExceptionAndModelView(HttpServletRequest req,
+          RedirectAttributes ra, Exception ex, ModelAndView mav)
   {
     HandleControllerException(req, ex);
 
     if (mav != null)
     {
-      mav = HandleModelAndView(req, ex, mav);
+      mav = HandleModelAndView(req, ra, ex, mav);
     }
     return mav;
   }
@@ -55,7 +58,8 @@ public class OpswExceptionHandler
     OpswLogger.LoggerLogException("Exception / Access: " + req.getRequestURI() + ", " + ex.getMessage(), ex);
   }
 
-  private static ModelAndView HandleModelAndView(HttpServletRequest req, Exception ex, ModelAndView mav)
+  private static ModelAndView HandleModelAndView(HttpServletRequest req, RedirectAttributes ra,
+          Exception ex, ModelAndView mav)
   {
     CatException ex1 = null;
 
@@ -85,13 +89,18 @@ public class OpswExceptionHandler
       {
         if (ex1.getErrorParameters() != null)
         {
-          mav = new ModelAndView(ex1.getRedirectPath());
-          mav.addAllObjects(ex1.getErrorParameters());
-          mav.setViewName(ex1.getRedirectPath());
+          mav = new ModelAndView("redirect:/" + ex1.getRedirectPath());
+
+          Set<String> keySet = ex1.getErrorParameters().keySet();
+
+          for (String key : keySet)
+          {
+            ra.addFlashAttribute(key, ex1.getErrorParameters().get(key));
+          }
         }
       }
     }
-    
+
     return mav;
   }
 

@@ -49,6 +49,9 @@ public class CatException extends Exception
     super(th);
     this.code = CODE_CHECK_ERROR;
     this.techMessage = null;
+    this.redirectToError = true;
+    this.errorParameters = null;
+    this.redirectPath = null;
     Koina01(th);
   }
 
@@ -57,6 +60,9 @@ public class CatException extends Exception
     super();
     this.code = CODE_CHECK_ERROR;
     this.techMessage = techMessage;
+    this.redirectToError = true;
+    this.errorParameters = null;
+    this.redirectPath = null;
   }
 
   public CatException(byte code, String techMessage, String message, Throwable th)
@@ -64,6 +70,21 @@ public class CatException extends Exception
     super(message, th);
     this.code = code;
     this.techMessage = techMessage;
+    this.redirectToError = true;
+    this.errorParameters = null;
+    this.redirectPath = null;
+    Koina01(th);
+  }
+
+  public CatException(byte code, String techMessage, String message, boolean redirectToError,
+          Map<String, Object> errorParameters, String redirectPath, Throwable th)
+  {
+    super(message, th);
+    this.code = code;
+    this.techMessage = techMessage;
+    this.redirectToError = redirectToError;
+    this.errorParameters = errorParameters;
+    this.redirectPath = redirectPath;
     Koina01(th);
   }
 
@@ -72,6 +93,9 @@ public class CatException extends Exception
     super(message);
     this.code = code;
     this.techMessage = techMessage;
+    this.redirectToError = true;
+    this.errorParameters = null;
+    this.redirectPath = null;
   }
 
   public CatException(byte code, String techMessage)
@@ -79,6 +103,9 @@ public class CatException extends Exception
     super();
     this.code = code;
     this.techMessage = techMessage;
+    this.redirectToError = true;
+    this.errorParameters = null;
+    this.redirectPath = null;
   }
 
   public static void RethrowCatException(Throwable th)
@@ -90,12 +117,14 @@ public class CatException extends Exception
     {
       ex1 = (CatExceptionUser) th;
       throw new CatExceptionUser(ex1.getCode(), ex1.getUserMessage(),
-              ex1.getTechMessage(), ex1.getMessage(), th);
+              ex1.getTechMessage(), ex1.getMessage(), ex1.isRedirectToError(),
+              ex1.getErrorParameters(), ex1.getRedirectPath(), th);
     }
     else if (th instanceof CatException)
     {
       ex2 = (CatException) th;
-      throw new CatException(ex2.getCode(), ex2.getTechMessage(), ex2.getMessage(), th);
+      throw new CatException(ex2.getCode(), ex2.getTechMessage(), ex2.getMessage(), ex1.isRedirectToError(),
+              ex1.getErrorParameters(), ex1.getRedirectPath(), th);
     }
     else
     {
