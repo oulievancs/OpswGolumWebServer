@@ -24,9 +24,7 @@ public class OpswExceptionHandler
 
     if (mav != null)
     {
-      HandleModelAndView(ex, mav);
-      mav.addObject("url", req.getRequestURL());
-      mav.setViewName("errors/error01");
+      HandleModelAndView(req, ex, mav);
     }
   }
 
@@ -35,10 +33,12 @@ public class OpswExceptionHandler
     if (ex instanceof CatExceptionUser)
     {
       //
-    } else if (ex instanceof CatException)
+    }
+    else if (ex instanceof CatException)
     {
       HandleCatException(req, (CatException) ex);
-    } else
+    }
+    else
     {
       HandleException(req, ex);
     }
@@ -54,17 +54,40 @@ public class OpswExceptionHandler
     OpswLogger.LoggerLogException("Exception / Access: " + req.getRequestURI() + ", " + ex.getMessage(), ex);
   }
 
-  private static void HandleModelAndView(Exception ex, ModelAndView mav)
+  private static void HandleModelAndView(HttpServletRequest req, Exception ex, ModelAndView mav)
   {
+    CatException ex1 = null;
+
     if (ex instanceof CatExceptionUser)
     {
+      ex1 = (CatExceptionUser) ex;
       HandleModelAndViewCatExceptionUser((CatExceptionUser) ex, mav);
-    } else if (ex instanceof CatException)
+    }
+    else if (ex instanceof CatException)
     {
+      ex1 = (CatException) ex;
       HandleModelAndViewCatException((CatException) ex, mav);
-    } else
+    }
+    else
     {
       HandleModelAndViewException((Exception) ex, mav);
+    }
+
+    if (ex1 != null)
+    {
+      if (ex1.isRedirectToError())
+      {
+        mav.addObject("url", req.getRequestURL());
+        mav.setViewName("errors/error01");
+      }
+      else
+      {
+        if (ex1.getErrorParameters() != null)
+        {
+          mav.addAllObjects(ex1.getErrorParameters());
+          mav.setViewName("redirect:/" + req.getServletPath());
+        }
+      }
     }
   }
 

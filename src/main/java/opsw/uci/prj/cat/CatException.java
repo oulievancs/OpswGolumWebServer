@@ -6,7 +6,9 @@
 package opsw.uci.prj.cat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -27,12 +29,17 @@ public class CatException extends Exception
 
   private byte code;
   private String techMessage;
+  private boolean redirectToError;
+
+  private Map<String, Object> errorParameters;
 
   public CatException()
   {
     super();
     this.code = CODE_CHECK_ERROR;
     this.techMessage = null;
+    this.redirectToError = true;
+    this.errorParameters = null;
   }
 
   public CatException(Throwable th)
@@ -82,11 +89,13 @@ public class CatException extends Exception
       ex1 = (CatExceptionUser) th;
       throw new CatExceptionUser(ex1.getCode(), ex1.getUserMessage(),
               ex1.getTechMessage(), ex1.getMessage(), th);
-    } else if (th instanceof CatException)
+    }
+    else if (th instanceof CatException)
     {
       ex2 = (CatException) th;
       throw new CatException(ex2.getCode(), ex2.getTechMessage(), ex2.getMessage(), th);
-    } else
+    }
+    else
     {
       throw new CatException(th);
     }
@@ -122,5 +131,45 @@ public class CatException extends Exception
   public void setTechMessage(String techMessage)
   {
     this.techMessage = techMessage;
+  }
+
+  public boolean isRedirectToError()
+  {
+    return redirectToError;
+  }
+
+  public void setRedirectToError(boolean redirectToError)
+  {
+    this.redirectToError = redirectToError;
+  }
+
+  public Map<String, Object> getErrorParameters()
+  {
+    return errorParameters;
+  }
+
+  public void setErrorParameters(Map<String, Object> errorParameters)
+  {
+    this.errorParameters = errorParameters;
+  }
+
+  public static void ErrorAddParameter(CatException ex, String name, Object value)
+  {
+    ErrorAddParameterKoina01(ex);
+    ex.getErrorParameters().put(name, value);
+  }
+
+  public static void ErrorAddParameterInt(CatException ex, String name, int value)
+  {
+    ErrorAddParameterKoina01(ex);
+    ex.getErrorParameters().put(name, new Integer(value));
+  }
+
+  private static void ErrorAddParameterKoina01(CatException ex)
+  {
+    if (ex.getErrorParameters() == null)
+    {
+      ex.setErrorParameters(new HashMap<>());
+    }
   }
 }

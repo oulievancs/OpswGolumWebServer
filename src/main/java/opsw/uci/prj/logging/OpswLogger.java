@@ -29,6 +29,11 @@ public class OpswLogger
   public static void LoggerLogException(Throwable th)
   {
     String vmessage = th.getMessage() != null ? th.getMessage() : "";
+    if (th instanceof CatException)
+    {
+      CatException catException = (CatException) th;
+      vmessage += catException.getTechMessage() != null ? catException.getTechMessage() : "";
+    }
     getLogger().error(th.getClass().getName() + ": " + th.getClass().getName() + ", " + vmessage, th);
   }
 

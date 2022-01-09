@@ -19,7 +19,7 @@ public class CatExceptionUser extends CatException
     super();
     this.userMessage = null;
   }
-  
+
   public CatExceptionUser(byte code, String userMessage, String techMessage, String message, Throwable th)
   {
     super(code, techMessage, message, th);
