@@ -64,7 +64,7 @@ public class Assets00ServiceImpl implements Assets00Service
     Assets00 vassets00 = assets00;
     try
     {
-      if (assets00.getAsset() < 1)
+      if (assets00.getAsset() == null || assets00.getAsset() < 1)
       {
         assets00.setAsset(this.SequencesService.SequencesGetNextVal(Sequences.SEQ_ASSETS00));
       }

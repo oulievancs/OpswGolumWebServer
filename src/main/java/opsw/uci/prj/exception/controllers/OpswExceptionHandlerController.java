@@ -66,7 +66,7 @@ public class OpswExceptionHandlerController
   public ModelAndView handleError(HttpServletRequest req, Exception ex)
   {
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ex, mav);
+    mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ex, mav);
     return mav;
   }
 }

@@ -29,7 +29,8 @@ public class OpswReflection
       {
         throw new CatException("Δεν βρέθηκε το πεδίο [Field = " + fieldName + "]!");
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -56,7 +57,8 @@ public class OpswReflection
       {
         throw new CatException("Το πεδίο [Field = " + fieldName + "] δεν έχει public setter method!");
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
@@ -79,9 +81,10 @@ public class OpswReflection
       if (vmethod != null)
       {
         //Invoke με type cast.
-        vmethod.invoke(obj, value.getClass().cast(vfield.getClass()));
+        vmethod.invoke(obj, vfield.getType().cast(value));
       }
-    } catch (Exception ex)
+    }
+    catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }

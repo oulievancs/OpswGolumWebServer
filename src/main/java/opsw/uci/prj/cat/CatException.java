@@ -30,6 +30,7 @@ public class CatException extends Exception
   private byte code;
   private String techMessage;
   private boolean redirectToError;
+  private String redirectPath;
 
   private Map<String, Object> errorParameters;
 
@@ -40,6 +41,7 @@ public class CatException extends Exception
     this.techMessage = null;
     this.redirectToError = true;
     this.errorParameters = null;
+    this.redirectPath = null;
   }
 
   public CatException(Throwable th)
@@ -141,6 +143,16 @@ public class CatException extends Exception
   public void setRedirectToError(boolean redirectToError)
   {
     this.redirectToError = redirectToError;
+  }
+
+  public String getRedirectPath()
+  {
+    return redirectPath;
+  }
+
+  public void setRedirectPath(String redirectPath)
+  {
+    this.redirectPath = redirectPath;
   }
 
   public Map<String, Object> getErrorParameters()

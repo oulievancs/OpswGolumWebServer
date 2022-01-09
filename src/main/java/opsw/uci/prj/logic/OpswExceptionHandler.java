@@ -18,14 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class OpswExceptionHandler
 {
 
-  public static void HandleControllerExceptionAndModelView(HttpServletRequest req, Exception ex, ModelAndView mav)
+  public static ModelAndView HandleControllerExceptionAndModelView(HttpServletRequest req, Exception ex, ModelAndView mav)
   {
     HandleControllerException(req, ex);
 
     if (mav != null)
     {
-      HandleModelAndView(req, ex, mav);
+      mav = HandleModelAndView(req, ex, mav);
     }
+    return mav;
   }
 
   public static void HandleControllerException(HttpServletRequest req, Exception ex)
@@ -54,7 +55,7 @@ public class OpswExceptionHandler
     OpswLogger.LoggerLogException("Exception / Access: " + req.getRequestURI() + ", " + ex.getMessage(), ex);
   }
 
-  private static void HandleModelAndView(HttpServletRequest req, Exception ex, ModelAndView mav)
+  private static ModelAndView HandleModelAndView(HttpServletRequest req, Exception ex, ModelAndView mav)
   {
     CatException ex1 = null;
 
@@ -84,11 +85,14 @@ public class OpswExceptionHandler
       {
         if (ex1.getErrorParameters() != null)
         {
+          mav = new ModelAndView(ex1.getRedirectPath());
           mav.addAllObjects(ex1.getErrorParameters());
-          mav.setViewName("redirect:/" + req.getServletPath());
+          mav.setViewName(ex1.getRedirectPath());
         }
       }
     }
+    
+    return mav;
   }
 
   private static void HandleModelAndViewCatExceptionUser(CatExceptionUser ex, ModelAndView mav)

@@ -29,13 +29,10 @@ import org.springframework.web.multipart.MultipartFile;
 public abstract class LcGramAssetsExcelBase
 {
 
-  @Autowired
   protected Assets00Service Assetets00Service;
 
-  @Autowired
   protected Gram00Service Gram00Service;
 
-  @Autowired
   protected Gram01Service Gram01Service;
 
   private Assets00 assets00;
@@ -201,4 +198,34 @@ public abstract class LcGramAssetsExcelBase
    * @throws CatException
    */
   protected abstract void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException;
+
+  public Assets00Service getAssetets00Service()
+  {
+    return Assetets00Service;
+  }
+
+  public void setAssetets00Service(Assets00Service Assetets00Service)
+  {
+    this.Assetets00Service = Assetets00Service;
+  }
+
+  public Gram00Service getGram00Service()
+  {
+    return Gram00Service;
+  }
+
+  public void setGram00Service(Gram00Service Gram00Service)
+  {
+    this.Gram00Service = Gram00Service;
+  }
+
+  public Gram01Service getGram01Service()
+  {
+    return Gram01Service;
+  }
+
+  public void setGram01Service(Gram01Service Gram01Service)
+  {
+    this.Gram01Service = Gram01Service;
+  }
 }
