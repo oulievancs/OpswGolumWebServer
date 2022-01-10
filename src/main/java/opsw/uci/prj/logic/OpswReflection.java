@@ -8,7 +8,10 @@ package opsw.uci.prj.logic;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.records.cat.CatReflectObject01;
 
 /**
  *
@@ -65,6 +68,49 @@ public class OpswReflection
     return method;
   }
 
+  private static Method GetGetterFieldByName(Object obj, String fieldName, Class fieldType)
+          throws CatException
+  {
+    Method method = null;
+    try
+    {
+      String vgetterMethodName = "get" + fieldName.substring(0, 1).toUpperCase()
+              + fieldName.substring(1);
+
+      method = obj.getClass().getDeclaredMethod(vgetterMethodName, fieldType);
+
+      if (method == null)
+      {
+        throw new CatException("Δεν βρέθηκε getter διαδικασία για το πεδίο [Field = " + fieldName + "]!");
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return method;
+  }
+
+  public static Object GetFieldValue(Object obj, String fieldName, Class fieldType)
+          throws CatException
+  {
+    Object vvalue = null;
+    try
+    {
+      Method vmethod = GetGetterFieldByName(obj, fieldName, fieldType);
+
+      if (vmethod != null)
+      {
+        vvalue = (Object) (vmethod.invoke(obj, null));
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vvalue;
+  }
+
   public static void SetFieldValue(Object obj, String fieldName, Object value)
           throws CatException
   {
@@ -88,5 +134,46 @@ public class OpswReflection
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  private static Field[] GetObjectDeclaredFields(Class iclass)
+          throws CatException
+  {
+    return (Field[]) iclass.getDeclaredFields();
+  }
+
+  public static List<CatReflectObject01> ReflectObjectToObject01List(Object obj)
+          throws CatException
+  {
+    List<CatReflectObject01> resList = null;
+    try
+    {
+      if (obj == null)
+      {
+        throw new CatException("Δώθηκε null Object!");
+      }
+
+      Field[] vfields = GetObjectDeclaredFields(obj.getClass());
+
+      resList = new ArrayList<>();
+      if (vfields != null)
+      {
+        CatReflectObject01 vcatObj01 = null;
+        for (Field fld : vfields)
+        {
+          vcatObj01 = new CatReflectObject01();
+          resList.add(vcatObj01);
+
+          vcatObj01.setFieldName(fld.getName());
+          vcatObj01.setFieldType(fld.getType());
+          vcatObj01.setFieldValue(GetFieldValue(obj, fld.getName(), fld.getType()));
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return resList;
   }
 }
