@@ -132,11 +132,17 @@ public abstract class LcGramAssetsExcelBase
     {
       Iterator<Row> rowIterator = this.FXssfsheet.iterator();
 
+      int idx = 1;
       while (rowIterator.hasNext())
       {
-        this.assets00 = new Assets00();
-        this.NextRow(rowIterator.next());
-        this.Assetets00Service.Assets00Post01(assets00);
+        if (idx >= this.GetIndexOfFirstLine())
+        {
+          this.assets00 = new Assets00();
+          this.NextRow(rowIterator.next());
+          this.Assetets00Service.Assets00Post01(assets00);
+        }
+
+        idx++;
       }
     }
     catch (Exception ex)
@@ -198,6 +204,14 @@ public abstract class LcGramAssetsExcelBase
    * @throws CatException
    */
   protected abstract void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException;
+
+  /**
+   * Επιστρέφει τον αριθμό της πρώτης γραμμής που πρέπει να διαβάσει.
+   *
+   * @return
+   * @throws CatException
+   */
+  protected abstract short GetIndexOfFirstLine() throws CatException;
 
   public Assets00Service getAssetets00Service()
   {

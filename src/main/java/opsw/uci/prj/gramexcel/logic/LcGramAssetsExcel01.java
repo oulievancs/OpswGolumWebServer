@@ -140,4 +140,25 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
     }
   }
 
+  @Override
+  protected short GetIndexOfFirstLine() throws CatException
+  {
+    short result = 0;
+    try
+    {
+      KoinaGram00(this.gram);
+
+      if (this.gram00 != null && this.gram00.getStart_line() != null)
+      {
+        result = this.gram00.getStart_line();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return result;
+  }
+
 }
