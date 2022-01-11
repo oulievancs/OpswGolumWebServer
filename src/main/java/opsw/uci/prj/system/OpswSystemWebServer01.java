@@ -6,6 +6,7 @@
 package opsw.uci.prj.system;
 
 import java.lang.management.ManagementFactory;
+import java.util.Map;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.sql.DataSource;
@@ -25,8 +26,9 @@ public class OpswSystemWebServer01
   public static final byte TOMCAT_WEB_SERVER = 2;
   public static final byte VOID_WEB_SERVER = 0;
 
-  public static String JBOSS_DS_URL = "jdbc.url02";
-  public static String TOMCAT_DS_URL = "jdbc.url";
+  public static String JBOSS_DS_PREFIX = "java:jboss/comp/env/";
+  public static String TOMCAT_DS_PREFIX = "java:/comp/env/";
+  public static String DEFAULT_ORCLH_MINLO = "opsw.datasource.minlo";
 
   public static byte DetermineWebServer()
           throws CatException
@@ -71,7 +73,7 @@ public class OpswSystemWebServer01
     return vresult;
   }
 
-  public static DataSource OpswDataSourceServer(byte iwebServer, Environment env)
+  public static DataSource OpswDataSourceServer(String orclh_minlo, byte iwebServer, Environment env)
           throws CatException
   {
     DataSource ds = null;
@@ -81,18 +83,55 @@ public class OpswSystemWebServer01
       {
         throw new CatException("Unknown web server!");
       }
-      String dsUrl = TOMCAT_DS_URL;
+
+      String dsUrl = env.getProperty(orclh_minlo);
+      dsUrl = TOMCAT_DS_PREFIX + dsUrl;
 
       if (iwebServer == JBOSS_WEB_SERVER)
       {
-        dsUrl = JBOSS_DS_URL;
+        dsUrl = JBOSS_DS_PREFIX + dsUrl;
       }
-      ds = (DataSource) new JndiTemplate().lookup(env.getProperty(dsUrl));
+
+      ds = (DataSource) new JndiTemplate().lookup(dsUrl);
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
     return ds;
+  }
+
+  public static void OpswDataSourcesFill01(Map<String, DataSource> wDs, byte iwebServer, Environment env)
+          throws CatException
+  {
+    try
+    {
+      String dsName = DEFAULT_ORCLH_MINLO;
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+      dsName = "ORCLH_MINLO1";
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+      dsName = "ORCLH_MINLO2";
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  private static void OpswDataSourceFill01_Internal(Map<String, DataSource> wDs, String iDsName, DataSource iDs)
+          throws CatException
+  {
+    try
+    {
+      if (iDs != null)
+      {
+        wDs.put(iDsName, iDs);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 }
