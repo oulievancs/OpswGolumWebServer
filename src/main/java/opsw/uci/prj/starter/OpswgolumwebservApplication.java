@@ -3,6 +3,7 @@ package opsw.uci.prj.starter;
 import opsw.uci.prj.arifacts.OpswDatasourceConnectionProvider;
 import opsw.uci.prj.arifacts.OpswEjbConnectionConfig;
 import opsw.uci.prj.cat.OpswEntityManagerJpa;
+import opsw.uci.prj.interceptors.OpswWebMvcConfig;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -63,7 +64,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
           ServletInitializer.class,
           OpswKeycloakSecurityConfig.class,
           OpswEjbConnectionConfig.class,
-          OpswDatasourceConnectionProvider.class
+          OpswDatasourceConnectionProvider.class,
+          OpswWebMvcConfig.class
         },
         basePackages =
         {
