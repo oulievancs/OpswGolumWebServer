@@ -8,7 +8,8 @@ package opsw.uci.prj.system;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import opsw.uci.prj.logging.OpswLogger;
+import opsw.uci.prj.utils.OpswSecurityUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -23,8 +24,10 @@ public class OpswMenuDo01
     List<OpswMenu01> menu = new ArrayList<>();
     OpswMenu01 choice = null;
     String requstedUrl = request.getRequestURI();
-    
-    if (request.isUserInRole("uci-user"))
+
+    Authentication vauth = OpswSecurityUtils.OpswSecurityGetAuthentication();
+
+    if (vauth == null || !vauth.isAuthenticated()/**request.isUserInRole("uci-user")*/)
     {
       choice = new OpswMenu01();
       choice.setCaption("Log in");
@@ -80,7 +83,7 @@ public class OpswMenuDo01
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
-      
+
       menu.add(choice);
     }
 
