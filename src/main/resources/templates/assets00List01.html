@@ -46,29 +46,22 @@
         </div>
 
         <ul class="list-unstyled components">
-          <li>
-            <a th:href="@{/home}" >Home</a>
-          </li>
-          <li>
-            <a th:href="@{/gram/gram00/list01}">Gram00</a>
-          </li>
-          <li class="active">
-            <a th:href="@{/assets/assets00/list01}" data-toggle="collapse" aria-expanded="false">Master File</a>
-          </li>
-          <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Actions</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li>
-                <a th:href="@{/actions/inportfile}">Inport File</a>
-              </li>
-              <li>
-                <a href="#">Export File</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a th:href="@{/logout}" >Logout</a>
-          </li>
+          <div th:each="choice : ${menu}">
+            <li th:if="${choice.isIsActive() and !choice.isHaveSub()}" class="active">
+              <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"></a>
+            </li>
+            <li th:if="${!choice.isIsActive() and !choice.isHaveSub()}">
+              <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
+            </li>
+            <li th:if="${choice.isHaveSub()}">
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li th:each="subchoice : ${choice.getSubs()}">
+                  <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
+                </li>
+              </ul>
+            </li>
+          </div>
         </ul>
       </nav>
       <!--Content-->
@@ -244,7 +237,7 @@
     </div>
 
     <div class="overlay"></div>
-    
+
     <div class="overlay"></div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

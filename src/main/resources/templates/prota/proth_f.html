@@ -48,32 +48,34 @@
           <h3>Main Menu</h3>
         </div>
 
-        <ul  class="list-unstyled components">
-          <li>
-            <a th:href="@{/home}">Home</a>
-          </li>
-          <li class="active">
-            <a th:href="@{/gram/gram00/list01}"  data-toggle="collapse" aria-expanded="false">Gram00</a>
-          </li>
-          <li>
-            <a th:href="@{/assets/assets00/list01}">Master File</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li>
-                <a href="#">Page 1</a>
-              </li>
-              <li>
-                <a href="#">Page 2</a>
-              </li>
-              <li>
-                <a href="#">Page 3</a>
-              </li>
-            </ul>
-          </li>
+              <nav id="sidebar">
+        <div id="dismiss">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+
+        <div class="sidebar-header">
+          <h3>Main Menu</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <div th:each="choice : ${menu}">
+            <li th:if="${choice.isIsActive() and !choice.isHaveSub()}" class="active">
+              <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"></a>
+            </li>
+            <li th:if="${!choice.isIsActive() and !choice.isHaveSub()}">
+              <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
+            </li>
+            <li th:if="${choice.isHaveSub()}">
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li th:each="subchoice : ${choice.getSubs()}">
+                  <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
+                </li>
+              </ul>
+            </li>
+          </div>
         </ul>
+      </nav>
       </nav>
       <!--Content-->
       <div id=""content">

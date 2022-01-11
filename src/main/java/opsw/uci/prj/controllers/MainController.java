@@ -6,7 +6,10 @@
 package opsw.uci.prj.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.system.OpswMenuDo01;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,8 +23,16 @@ public class MainController
 {
 
   @GetMapping("home")
-  public String home()
+  public String home(HttpServletRequest request, Model model) throws CatException
   {
+    try
+    {
+      
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
     return "home";
   }
 

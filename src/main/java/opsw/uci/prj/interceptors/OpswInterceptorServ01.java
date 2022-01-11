@@ -8,6 +8,7 @@ package opsw.uci.prj.interceptors;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import opsw.uci.prj.system.OpswMenuDo01;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,5 +39,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
   {
     OpswCookies01 vopswCookies01 = new OpswCookies01();
     vopswCookies01.OpswClearConnectionByCookie();
+    //
+   OpswMenuDo01.MakeMenu01(request, model);
   }
 }

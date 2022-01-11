@@ -39,7 +39,7 @@ public class Gram00Controller
   private Gram01Service Gram01Service;
 
   @GetMapping("/gram00/list01")
-  public String Gram00List01(Model model)
+  public String Gram00List01(Model model) throws Exception
   {
     List<Gram00> gramList01 = this.Gram00Service.Gram00List01();
 
@@ -50,6 +50,7 @@ public class Gram00Controller
 
   @GetMapping("/gram00/ed01")
   public String Gram00Ed01(@RequestParam(name="gram", required=false) Long gram, Model model)
+           throws Exception
   {
     Gram00 gram00 = null;
     if(gram != null)
@@ -85,6 +86,7 @@ public class Gram00Controller
   
   @PostMapping("/gram00/ed01/post01")
   public String Gram00Ed01Post01(@RequestParam(name="gram", required=false)Long gram, @ModelAttribute("CLM0") Gram00 gram00, Model model)
+           throws Exception
   {
     OpswLoginVars vlogvar = new OpswLoginVars();
     vlogvar.setLoginUser("n.oulis");
@@ -101,6 +103,7 @@ public class Gram00Controller
 
   @GetMapping("/gram01/ed01/{gram}")
   public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam(name="senu", required=false) Long senu, Model model)
+           throws Exception
   {
     Gram01 gram01 = null;
     if(senu != null)
@@ -122,6 +125,7 @@ public class Gram00Controller
 
   @PostMapping("/gram01/ed01/post01/{gram}")
   public String Gram01Ed01Post01(@PathVariable("gram") long gram, @RequestParam(name="senu", required=false) Long senu, @ModelAttribute("CLM0") Gram01 gram01)
+           throws Exception
   {
     Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
 
@@ -131,6 +135,7 @@ public class Gram00Controller
   
   @GetMapping("/gram00/delete01/{gram}")
   public String Gram00Delete01(@PathVariable("gram") Long gram)
+           throws Exception
   {
     if(gram != null)
     {
@@ -142,6 +147,7 @@ public class Gram00Controller
   
   @GetMapping("/gram01/delete01/{gram}/{senu}")
   public String Gram01Delete01(@PathVariable("gram") Long gram, @PathVariable("senu") Long senu)
+           throws Exception
   {
     if(gram != null && senu != null)
     {

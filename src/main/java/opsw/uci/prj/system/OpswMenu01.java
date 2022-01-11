@@ -5,6 +5,8 @@
  */
 package opsw.uci.prj.system;
 
+import java.util.List;
+
 /**
  *
  * @author oulis
@@ -12,15 +14,20 @@ package opsw.uci.prj.system;
 public class OpswMenu01
 {
 
+  
   private String path;
   private boolean isActive;
   private String caption;
+  private boolean haveSub;
+  private List<OpswMenu01> subs;
 
   public OpswMenu01()
   {
     this.path = null;
     this.isActive = false;
     this.caption = null;
+    this.haveSub = false;
+    this.subs = null;
   }
 
   public String getPath()
@@ -52,4 +59,25 @@ public class OpswMenu01
   {
     this.caption = caption;
   }
+
+  public boolean isHaveSub()
+  {
+    return haveSub;
+  }
+
+  public void setHaveSub(boolean haveSub)
+  {
+    this.haveSub = haveSub;
+  }
+
+  public List<OpswMenu01> getSubs()
+  {
+    return subs;
+  }
+
+  public void setSubs(List<OpswMenu01> subs)
+  {
+    this.subs = subs;
+  }
+  
 }
