@@ -31,4 +31,10 @@ public class MainController
     request.logout();
     return "home";
   }
+
+  @GetMapping("login")
+  public String login(HttpServletRequest request) throws Exception
+  {
+    return "redirec:/home";
+  }
 }
