@@ -1,7 +1,7 @@
 package opsw.uci.prj.starter;
 
-import opsw.uci.orj.arifacts.OpswDatasourceConnectionProvider;
-import opsw.uci.orj.arifacts.OpswEjbConnectionConfig;
+import opsw.uci.prj.arifacts.OpswDatasourceConnectionProvider;
+import opsw.uci.prj.arifacts.OpswEjbConnectionConfig;
 import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
 import org.springframework.boot.SpringApplication;

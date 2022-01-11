@@ -6,7 +6,7 @@
 package opsw.uci.prj.controllers;
 
 import java.util.List;
-import opsw.uci.orj.arifacts.OpswEjbContext;
+import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
