@@ -7,6 +7,7 @@ package opsw.uci.prj.interceptors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -19,14 +20,14 @@ import opsw.uci.prj.utils.OpswStringUtils;
 public class OpswCookies01
 {
 
-  public static final String OPSW_COOKIE_CONNECTION_DS = "opsw_cookie_connection_ds";
-
   private Cookie[] cookies;
+  private HttpSession session;
 
   public OpswCookies01()
   {
     super();
     this.cookies = null;
+    this.session = null;
   }
 
   public Cookie[] getCookies()
@@ -39,35 +40,74 @@ public class OpswCookies01
     this.cookies = cookies;
   }
 
+  public HttpSession getSession()
+  {
+    return session;
+  }
+
+  public void setSession(HttpSession session)
+  {
+    this.session = session;
+  }
+
   public void OpswSetConnectionByCookie()
           throws CatException
   {
-    Cookie vConneCoo = null;
-
-    if (this.cookies != null && this.cookies.length > 0)
+    try
     {
-      for (Cookie c : this.cookies)
+      if (this.session != null)
       {
-        if (c.getName() != null && c.getName().equals(OPSW_COOKIE_CONNECTION_DS))
+        String vConnection = (String) this.session.getAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS);
+
+        if (vConnection != null)
         {
-          vConneCoo = c;
+          OpswEjbContext.setCurrentTenant(vConnection);
+        }
+        else
+        {
+          OpswEjbContext.setCurrentTenant(null);
         }
       }
     }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+//    Cookie vConneCoo = null;
+//
+//    if (this.cookies != null && this.cookies.length > 0)
+//    {
+//      for (Cookie c : this.cookies)
+//      {
+//        if (c.getName() != null && c.getName().equals(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS))
+//        {
+//          vConneCoo = c;
+//        }
+//      }
+//    }
+//
+//    if (vConneCoo != null)
+//    {
+//      OpswEjbContext.setCurrentTenant(vConneCoo.getValue());
+//    }
+//    else
+//    {
+//      OpswEjbContext.setCurrentTenant(null);
+//    }
 
-    if (vConneCoo != null)
-    {
-      OpswEjbContext.setCurrentTenant(vConneCoo.getValue());
-    }
-    else
-    {
-      OpswEjbContext.setCurrentTenant(null);
-    }
   }
 
   public void OpswClearConnectionByCookie()
+          throws CatException
   {
-    OpswEjbContext.clear();
+    try
+    {
+      OpswEjbContext.clear();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 
   public static void OpswFillLoginVarsFromCookies01(HttpServletRequest request, OpswLoginVars wLoginVars)
@@ -75,26 +115,78 @@ public class OpswCookies01
   {
     try
     {
-      Cookie[] vcookies = request.getCookies();
 
-      if (vcookies != null && vcookies.length > 0)
+      HttpSession vsess = request.getSession(false);
+
+      if (vsess != null)
       {
-        for (Cookie c : vcookies)
-        {
-          if (c.getName() != null)
-          {
-            if (c.getName().equals(OpswLoginVars.LOGIN_USER_CONST))
-            {
-              wLoginVars.setLoginUser(c.getValue());
-            }
+        String vlogUser = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST);
+        wLoginVars.setLoginUser(vlogUser);
 
-            if (c.getName().equals(OpswLoginVars.LOGIN_ETAI_CONST))
-            {
-              wLoginVars.setEtai(OpswStringUtils.OpswStringToShort(c.getValue()));
-            }
-          }
-        }
+        String vlogEtai = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_ETAI_CONST);
+        wLoginVars.setEtai(OpswStringUtils.OpswStringToShort(vlogEtai));
+
+        String vConnectionDs = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS);
+        wLoginVars.setConnectionDs(vConnectionDs);
       }
+
+//      Cookie[] vcookies = request.getCookies();
+//      if (vcookies != null && vcookies.length > 0)
+//      {
+//        for (Cookie c : vcookies)
+//        {
+//          if (c.getName() != null)
+//          {
+//            if (c.getName().equals(OpswLoginVars.OPSW_LOGIN_USER_CONST))
+//            {
+//              wLoginVars.setLoginUser(c.getValue());
+//            }
+//
+//            if (c.getName().equals(OpswLoginVars.OPSW_LOGIN_ETAI_CONST))
+//            {
+//              wLoginVars.setEtai(OpswStringUtils.OpswStringToShort(c.getValue()));
+//            }
+//
+//            if (c.getName().equals(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS))
+//            {
+//              wLoginVars.setConnectionDs(c.getValue());
+//            }
+//          }
+//        }
+//      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  public static void OpswFillCookiesFromLoginVars01(HttpServletRequest request, OpswLoginVars wLoginVars)
+          throws CatException
+  {
+    try
+    {
+//      Cookie cookie = new Cookie(OpswLoginVars.OPSW_LOGIN_USER_CONST, wLoginVars.getLoginUser());
+//      // expires in 7 days
+//      cookie.setMaxAge(7 * 24 * 60 * 60);
+//      response.addCookie(cookie);
+//
+//      cookie = new Cookie(OpswLoginVars.OPSW_LOGIN_ETAI_CONST, OpswStringUtils.OpswShortToString(wLoginVars.getEtai()));
+//      // expires in 7 days
+//      cookie.setMaxAge(7 * 24 * 60 * 60);
+//      response.addCookie(cookie);
+//
+//      cookie = new Cookie(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS, wLoginVars.getConnectionDs());
+//      // expires in 7 days
+//      cookie.setMaxAge(7 * 24 * 60 * 60);
+//      response.addCookie(cookie);
+
+      HttpSession vsess = request.getSession(true);
+
+      vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST, wLoginVars.getLoginUser());
+      vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_ETAI_CONST, OpswStringUtils.OpswShortToString(wLoginVars.getEtai()));
+      vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS, wLoginVars.getConnectionDs());
+
     }
     catch (Exception ex)
     {

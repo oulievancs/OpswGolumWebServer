@@ -30,7 +30,7 @@ public class OpswStringUtils
       if (wString != null && wString.trim().length() > 0)
       {
         DecimalFormat df = new DecimalFormat("0");
-        df.parse(wString);
+        vNumber = df.parse(wString);
       }
     }
     catch (Exception ex)
@@ -39,5 +39,11 @@ public class OpswStringUtils
     }
 
     return vNumber;
+  }
+
+  public static String OpswShortToString(short wShort)
+          throws CatException
+  {
+    return String.valueOf(wShort);
   }
 }

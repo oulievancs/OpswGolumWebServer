@@ -9,7 +9,7 @@ package opsw.uci.prj.records.cat;
  *
  * @author oulis
  */
-public class CatThmlfObject02
+public class CatThmlfObject02 extends CatThmlfObjectBase
 {
 
   private Long code;
