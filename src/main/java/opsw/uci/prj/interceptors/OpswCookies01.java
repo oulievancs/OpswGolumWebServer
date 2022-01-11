@@ -59,6 +59,10 @@ public class OpswCookies01
     {
       OpswEjbContext.setCurrentTenant(vConneCoo.getValue());
     }
+    else
+    {
+      OpswEjbContext.setCurrentTenant(null);
+    }
   }
 
   public void OpswClearConnectionByCookie()
