@@ -34,7 +34,7 @@ public class OpswLogger
       CatException catException = (CatException) th;
       vmessage += catException.getTechMessage() != null ? catException.getTechMessage() : "";
     }
-    getLogger().error(th.getClass().getName() + ": " + th.getClass().getName() + ", " + vmessage, th);
+    getLogger().error(getStringTimeNow() + ": " + th.getClass().getName() + ": " + th.getClass().getName() + ", " + vmessage, th);
   }
 
   public static void LoggerLogException(String message, Throwable th)
