@@ -7,6 +7,7 @@ package opsw.uci.prj.controllers;
 
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import opsw.uci.orj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
@@ -47,12 +48,20 @@ public class ActionsController
   private Gram00Service Gram00Service;
 
   @GetMapping("/inportfile")
-  public String importFileFomr(Model model)
+  public String importFileFomr(Model model) throws Exception
   {
-    List<Gram00Rec01> gramList = this.Gram00Service.Gram00Rec01List01();
-    Gram00Rec01 gramrec = new Gram00Rec01();
-    model.addAttribute("gramList", gramList);
-    model.addAttribute("gramRec", gramrec);
+    try
+    {
+      OpswEjbContext.setCurrentTenant(null);
+      List<Gram00Rec01> gramList = this.Gram00Service.Gram00Rec01List01();
+      Gram00Rec01 gramrec = new Gram00Rec01();
+      model.addAttribute("gramList", gramList);
+      model.addAttribute("gramRec", gramrec);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
     return "inportForm";
   }
 

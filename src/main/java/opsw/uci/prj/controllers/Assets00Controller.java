@@ -6,6 +6,7 @@
 package opsw.uci.prj.controllers;
 
 import java.util.List;
+import opsw.uci.orj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
@@ -41,6 +42,7 @@ public class Assets00Controller
     List<Assets00> assets00List = null;
     try
     {
+      OpswEjbContext.setCurrentTenant(null);
 //      KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
 //              .getAuthentication();
 //      OpswLogger.LoggerLogDebug("Token " + authentication.getAccount().getKeycloakSecurityContext().getToken().getAccessTokenHash());

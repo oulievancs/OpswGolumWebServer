@@ -12,15 +12,20 @@ package opsw.uci.orj.arifacts;
 public class OpswEjbContext
 {
 
-  private static final ThreadLocal<String> currentTenant = new ThreadLocal<>();
+  private static final ThreadLocal<String> opswCurrentTenant = new ThreadLocal<>();
+
+  public static void setCurrentTenant(String tenantId)
+  {
+    opswCurrentTenant.set(tenantId);
+  }
 
   public static String getCurrentTenant()
   {
-    return currentTenant.get();
+    return opswCurrentTenant.get();
   }
 
   public static void clear()
   {
-    currentTenant.remove();
+    opswCurrentTenant.remove();
   }
 }
