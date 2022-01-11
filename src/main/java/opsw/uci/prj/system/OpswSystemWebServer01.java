@@ -135,11 +135,12 @@ public class OpswSystemWebServer01
       /**
        * **************************************************************************************************
        *////
-      dsNamePath = "propery.path";
+      dsNamePath = "opsw.datasource.01";
       dsName = "ORCLH_MINLO1";
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsName, iwebServer, env, false));
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+      dsNamePath = "opsw.datasource.02";
       dsName = "ORCLH_MINLO2";
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsName, iwebServer, env, false));
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
       /**
        * **************************************************************************************************
        *////

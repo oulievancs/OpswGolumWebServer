@@ -41,6 +41,28 @@ public class OpswExceptionHandlerController
     return mav;
   }
 
+  @ResponseStatus(
+          value = HttpStatus.INTERNAL_SERVER_ERROR,
+          reason = "Internal Error!"
+  )
+  public ModelAndView internalError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+  {
+    ModelAndView mav = new ModelAndView();
+    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    return mav;
+  }
+
+  @ResponseStatus(
+          value = HttpStatus.NOT_FOUND,
+          reason = "Resource not found!"
+  )
+  public ModelAndView notFound(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+  {
+    ModelAndView mav = new ModelAndView();
+    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    return mav;
+  }
+
   // Specify name of a specific view that will be used to display the error:
   @ExceptionHandler(
           {
@@ -61,11 +83,11 @@ public class OpswExceptionHandlerController
   // Total control - setup a model and return the view name yourself. Or
   // consider subclassing ExceptionHandlerExceptionResolver (see below).
   @ExceptionHandler(
-  {
-    Exception.class,
-    CatException.class,
-    CatExceptionUser.class
-  })
+          {
+            Exception.class,
+            CatException.class,
+            CatExceptionUser.class
+          })
   public ModelAndView handleError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
   {
     ModelAndView mav = new ModelAndView();
