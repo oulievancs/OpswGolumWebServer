@@ -6,8 +6,11 @@
 package opsw.uci.prj.interceptors;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.utils.OpswStringUtils;
 
 /**
  *
@@ -36,7 +39,7 @@ public class OpswCookies01
     this.cookies = cookies;
   }
 
-  public synchronized void OpswSetConnectionByCookie()
+  public void OpswSetConnectionByCookie()
           throws CatException
   {
     Cookie vConneCoo = null;
@@ -61,5 +64,37 @@ public class OpswCookies01
   public void OpswClearConnectionByCookie()
   {
     OpswEjbContext.clear();
+  }
+
+  public static void OpswFillLoginVarsFromCookies01(HttpServletRequest request, OpswLoginVars wLoginVars)
+          throws CatException
+  {
+    try
+    {
+      Cookie[] vcookies = request.getCookies();
+
+      if (vcookies != null && vcookies.length > 0)
+      {
+        for (Cookie c : vcookies)
+        {
+          if (c.getName() != null)
+          {
+            if (c.getName().equals(OpswLoginVars.LOGIN_USER_CONST))
+            {
+              wLoginVars.setLoginUser(c.getValue());
+            }
+
+            if (c.getName().equals(OpswLoginVars.LOGIN_ETAI_CONST))
+            {
+              wLoginVars.setEtai(OpswStringUtils.OpswStringToShort(c.getValue()));
+            }
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 }

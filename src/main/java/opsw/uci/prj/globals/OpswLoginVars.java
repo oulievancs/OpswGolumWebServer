@@ -11,11 +11,18 @@ package opsw.uci.prj.globals;
  */
 public class OpswLoginVars
 {
+
+  public static final String LOGIN_USER_CONST = "opsw.loginvars.loginUser";
+  public static final String LOGIN_ETAI_CONST = "opsw.loginvars.loginEtai";
+
   private String loginUser;
+  private short etai;
 
   public OpswLoginVars()
   {
+    super();
     this.loginUser = null;
+    this.etai = 0;
   }
 
   public String getLoginUser()
@@ -26,5 +33,15 @@ public class OpswLoginVars
   public void setLoginUser(String loginUser)
   {
     this.loginUser = loginUser;
+  }
+
+  public short getEtai()
+  {
+    return etai;
+  }
+
+  public void setEtai(short etai)
+  {
+    this.etai = etai;
   }
 }
