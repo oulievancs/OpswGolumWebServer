@@ -28,7 +28,9 @@ public class OpswSystemWebServer01
 
   public static String JBOSS_DS_PREFIX = "java:jboss/comp/env/";
   public static String TOMCAT_DS_PREFIX = "java:/comp/env/";
-  public static String DEFAULT_ORCLH_MINLO = "opsw.datasource.minlo";
+  public static String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
+
+  public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
 
   public static byte DetermineWebServer()
           throws CatException
@@ -76,6 +78,13 @@ public class OpswSystemWebServer01
   public static DataSource OpswDataSourceServer(String orclh_minlo, byte iwebServer, Environment env)
           throws CatException
   {
+    return OpswDataSourceServer_Internal(orclh_minlo, iwebServer, env, true);
+  }
+
+  private static DataSource OpswDataSourceServer_Internal(String orclh_minlo, byte iwebServer, Environment env,
+          boolean ithrowExceptionNotFound)
+          throws CatException
+  {
     DataSource ds = null;
     try
     {
@@ -85,14 +94,23 @@ public class OpswSystemWebServer01
       }
 
       String dsUrl = env.getProperty(orclh_minlo);
-      dsUrl = TOMCAT_DS_PREFIX + dsUrl;
 
-      if (iwebServer == JBOSS_WEB_SERVER)
+      if (dsUrl != null)
       {
-        dsUrl = JBOSS_DS_PREFIX + dsUrl;
+        dsUrl = TOMCAT_DS_PREFIX + dsUrl;
+
+        if (iwebServer == JBOSS_WEB_SERVER)
+        {
+          dsUrl = JBOSS_DS_PREFIX + dsUrl;
+        }
+
+        ds = (DataSource) new JndiTemplate().lookup(dsUrl);
       }
 
-      ds = (DataSource) new JndiTemplate().lookup(dsUrl);
+      if (dsUrl == null && ithrowExceptionNotFound)
+      {
+        throw new CatException("Property not found [Name = " + orclh_minlo + "]!");
+      }
     }
     catch (Exception ex)
     {
@@ -106,12 +124,20 @@ public class OpswSystemWebServer01
   {
     try
     {
+      String dsNamePath = DEFAULT_ORCLH_MINLO_PROPERTY;
       String dsName = DEFAULT_ORCLH_MINLO;
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+      /**
+       * **************************************************************************************************
+       *////
+      dsNamePath = "propery.path";
       dsName = "ORCLH_MINLO1";
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsName, iwebServer, env, false));
       dsName = "ORCLH_MINLO2";
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer(dsName, iwebServer, env));
+      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsName, iwebServer, env, false));
+      /**
+       * **************************************************************************************************
+       *////
     }
     catch (Exception ex)
     {

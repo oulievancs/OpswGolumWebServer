@@ -18,18 +18,18 @@ public class OpswDatasourceConnectionProvider extends AbstractDataSourceBasedMul
 {
 
   @Autowired
-  private Map<String, DataSource> dataSources;
+  private Map<String, DataSource> opswDataSources;
 
   @Override
   protected DataSource selectAnyDataSource()
   {
-    return (DataSource) this.dataSources.values().iterator().next();
+    return (DataSource) this.opswDataSources.values().iterator().next();
   }
 
   @Override
   protected DataSource selectDataSource(String string)
   {
-    return (DataSource) this.dataSources.get(string);
+    return (DataSource) this.opswDataSources.get(string);
   }
 
 }
