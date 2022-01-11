@@ -26,8 +26,13 @@ public class OpswSystemWebServer01
   public static final byte TOMCAT_WEB_SERVER = 2;
   public static final byte VOID_WEB_SERVER = 0;
 
+  /**
+   * Web Server configuration.
+   */
   public static String JBOSS_DS_PREFIX = "java:jboss/comp/env/";
   public static String TOMCAT_DS_PREFIX = "java:/comp/env/";
+  /***********************************************************/
+
   public static String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
 
   public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
