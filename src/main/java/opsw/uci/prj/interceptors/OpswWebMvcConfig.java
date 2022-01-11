@@ -20,6 +20,9 @@ public class OpswWebMvcConfig implements WebMvcConfigurer
   @Override
   public void addInterceptors(InterceptorRegistry registry)
   {
-    registry.addInterceptor(new OpswInterceptorServ01());
+    registry.addInterceptor(new OpswInterceptorServ01())
+            .addPathPatterns("/**")
+            .excludePathPatterns("/resources/**", "/static/**")
+            ;
   }
 }
