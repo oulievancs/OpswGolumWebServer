@@ -12,6 +12,7 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
+import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.repositories.Assets00Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,9 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Autowired
   private SequencesService SequencesService;
+
+  @Autowired
+  private SymbService SymbService;
 
   @Override
   public List<Assets00> Assets00List01(Byte status)
@@ -70,6 +74,28 @@ public class Assets00ServiceImpl implements Assets00Service
       }
 
       vassets00 = this.Assets00Insert(assets00);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vassets00;
+  }
+
+  @Override
+  public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb) throws CatException
+  {
+    Assets00 vassets00 = assets00;
+    try
+    {
+      if (postSymb && vassets00.getSymb() != null)
+      {
+        Symb vsymb = this.SymbService.SymbPost01(vassets00.getSymb());
+
+        vassets00.setSymb(vsymb);
+      }
+      vassets00 = this.Assets00Post01(assets00);
     }
     catch (Exception ex)
     {

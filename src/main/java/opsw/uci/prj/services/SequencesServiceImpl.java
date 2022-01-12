@@ -43,7 +43,8 @@ public class SequencesServiceImpl implements SequencesService
       sequences = new Sequences();
       sequences.setSeq_gen(seq_gen);
       nextVal = 1;
-    } else
+    }
+    else
     {
       nextVal = sequences.getSeq_count() + 1;
     }

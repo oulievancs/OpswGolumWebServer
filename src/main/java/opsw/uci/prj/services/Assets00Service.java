@@ -24,4 +24,7 @@ public interface Assets00Service
   public Assets00 Assets00Insert(Assets00 assets00) throws CatException;
 
   public Assets00 Assets00Post01(Assets00 assets00) throws CatException;
+
+  public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb)
+          throws CatException;
 }

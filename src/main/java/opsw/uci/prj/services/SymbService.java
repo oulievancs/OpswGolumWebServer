@@ -19,4 +19,6 @@ public interface SymbService
   public Symb SymbSelect01(Long id) throws CatException;
 
   public List<Symb> SymbList01(String param) throws CatException;
+
+  public Symb SymbPost01(Symb symb) throws CatException;
 }

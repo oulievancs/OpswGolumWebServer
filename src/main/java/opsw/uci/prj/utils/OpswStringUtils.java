@@ -83,4 +83,24 @@ public class OpswStringUtils
 
     return res;
   }
+
+  public static boolean OpswStringIsEmpty(String istring)
+          throws CatException
+  {
+    boolean res = true;
+    try
+    {
+      String vstr1 = OpswStringTrim(istring);
+
+      if (vstr1 != null && !vstr1.isEmpty())
+      {
+        res = false;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
 }
