@@ -114,6 +114,7 @@ public class MainController
 
       OpswCookies01.OpswFillCookiesFromLoginVars01(request, wLoginVars);
       redirectAttrs.addFlashAttribute("message", "Η αλλαγή πραγματοποιήθηκε με επιτυχία");
+      redirectAttrs.addFlashAttribute("error", false);
     }
     catch (CatException ex)
     {
