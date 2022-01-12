@@ -8,7 +8,6 @@ package opsw.uci.prj.controllers;
 import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.globals.OpswErpRecords01;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -61,13 +61,20 @@ public class MainController
   }
 
   @GetMapping("init1")
-  public String init1(Model model) throws Exception
+  public String init1(Model model, HttpServletRequest request) throws Exception
   {
     try
     {
-      model.addAttribute("CLM0", new CatThmlfObject02());
+      CatThmlfObject02 obj1 = new CatThmlfObject02();
+
+      OpswLoginVars vLoginVars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
+      obj1.setCode(new Long(vLoginVars.getEtai()));
+
       List<CatThmlfObject02> vlist = OpswErpRecords01.OpswListXrhshListObj();
+
       model.addAttribute("fieldsList", vlist);
+      model.addAttribute("CLM0", obj1);
     }
     catch (Exception ex)
     {
@@ -79,7 +86,8 @@ public class MainController
   @PostMapping("init1/post")
   public String init1Post(@ModelAttribute("CLM0") CatThmlfObject02 clm0,
           HttpServletRequest request,
-          Principal principal)
+          Principal principal,
+          RedirectAttributes redirectAttrs)
           throws Exception
   {
     try
@@ -105,6 +113,7 @@ public class MainController
       }
 
       OpswCookies01.OpswFillCookiesFromLoginVars01(request, wLoginVars);
+      redirectAttrs.addAttribute("message", "Η αλλαγή πραγματοποιήθηκε με επιτυχία");
     }
     catch (CatException ex)
     {

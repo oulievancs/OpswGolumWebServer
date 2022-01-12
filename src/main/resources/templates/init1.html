@@ -75,6 +75,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <form th:action="@{/init1/post}" th:object="${CLM0}" method="POST">
                 <center>
+                  <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-primary"></p>
                   <p th:text="${errorMessage}" th:if="${message ne null and error}" class="alert alert-danger"></p>
                   <div class="form-group">
                     <label>Usage (Company):</label>
