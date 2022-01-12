@@ -123,8 +123,8 @@ public class CatException extends Exception
     else if (th instanceof CatException)
     {
       ex2 = (CatException) th;
-      throw new CatException(ex2.getCode(), ex2.getTechMessage(), ex2.getMessage(), ex1.isRedirectToError(),
-              ex1.getErrorParameters(), ex1.getRedirectPath(), th);
+      throw new CatException(ex2.getCode(), ex2.getTechMessage(), ex2.getMessage(), ex2.isRedirectToError(),
+              ex2.getErrorParameters(), ex2.getRedirectPath(), th);
     }
     else
     {
