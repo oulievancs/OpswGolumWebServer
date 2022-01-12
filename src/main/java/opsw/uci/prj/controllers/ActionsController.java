@@ -16,6 +16,7 @@ import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.SymbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +47,9 @@ public class ActionsController
 
   @Autowired
   private Gram00Service Gram00Service;
+
+  @Autowired
+  private SymbService SymbService;
 
   @GetMapping("/inportfile")
   public String importFileFomr(Model model) throws Exception
@@ -89,6 +93,7 @@ public class ActionsController
         excelUnit.setAssetets00Service(this.Assetets00Service);
         excelUnit.setGram00Service(this.Gram00Service);
         excelUnit.setGram01Service(this.Gram01Service);
+        excelUnit.setSymbService(this.SymbService);
 
         excelUnit.ReadFileFromMultipart(file);
         attributes.addFlashAttribute("message", "The file uploaded.");

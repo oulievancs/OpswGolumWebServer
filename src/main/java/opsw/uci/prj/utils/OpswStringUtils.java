@@ -46,4 +46,41 @@ public class OpswStringUtils
   {
     return String.valueOf(wShort);
   }
+
+  public static String[] OpswStringSePedia(String istring)
+          throws CatException
+  {
+    String[] res = null;
+    try
+    {
+      if (istring != null)
+      {
+        res = istring.split(String.valueOf((char) 9));
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  public static String OpswStringTrim(String istring)
+          throws CatException
+  {
+    String res = null;
+    try
+    {
+      if (istring != null)
+      {
+        res = istring.trim();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return res;
+  }
 }

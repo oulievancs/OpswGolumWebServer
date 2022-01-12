@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -91,6 +92,9 @@ public class Assets00 implements Serializable
   private String update_auction;
   private String high_interest;
 
+  @Transient
+  private Symb symb;
+
   public Assets00()
   {
     super();
@@ -158,6 +162,8 @@ public class Assets00 implements Serializable
     this.landea_comments = null;
     this.update_auction = null;
     this.high_interest = null;
+    //
+    this.symb = null;
   }
 
   public Long getAsset()
@@ -798,6 +804,16 @@ public class Assets00 implements Serializable
   public void setHigh_interest(String high_interest)
   {
     this.high_interest = high_interest;
+  }
+
+  public Symb getSymb()
+  {
+    return symb;
+  }
+
+  public void setSymb(Symb symb)
+  {
+    this.symb = symb;
   }
 
   @Override

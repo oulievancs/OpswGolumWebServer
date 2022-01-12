@@ -32,8 +32,8 @@ public class SymbServiceImpl implements SymbService
   }
 
   @Override
-  public List<Symb> SymbList01(String name, String surename) throws CatException
+  public List<Symb> SymbList01(String param) throws CatException
   {
-    return (List<Symb>) this.SymbRepository.SymbList01(name, surename);
+    return (List<Symb>) this.SymbRepository.SymbList01(param);
   }
 }
