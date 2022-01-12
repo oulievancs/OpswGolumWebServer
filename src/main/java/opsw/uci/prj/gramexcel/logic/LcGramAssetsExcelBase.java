@@ -8,18 +8,23 @@ package opsw.uci.prj.gramexcel.logic;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Iterator;
+import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.entity.Opswconstsv;
+import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.logic.OpswReflection;
+import opsw.uci.prj.repositories.SymbRepository;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.SymbService;
+import opsw.uci.prj.utils.OpswStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -36,6 +41,8 @@ public abstract class LcGramAssetsExcelBase
   protected Gram01Service Gram01Service;
 
   private Assets00 assets00;
+
+  private SymbService SymbService;
 
   protected long gram;
 
@@ -58,6 +65,7 @@ public abstract class LcGramAssetsExcelBase
     this.FXssfsheet = null;
     this.gram = 0;
     this.assets00 = null;
+    this.SymbService = null;
   }
 
   public byte[] getFile()
@@ -169,7 +177,30 @@ public abstract class LcGramAssetsExcelBase
     try
     {
       String vfieldName = gram01.getField_name();
-      if (gram01.getField_type() == Gram01.FIELD_TYPE_NUMBER)
+
+      //Logic Pedia
+      if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
+              && this.assets00.getSymb_id() < 1)
+      {
+        Symb vsymb = Assets00InvokeSymbByNameOrTel(cell.getStringCellValue(), null);
+
+        if (vsymb != null)
+        {
+          this.assets00.setSymb_id(vsymb.getId());
+        }
+      }
+      else if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
+              && this.assets00.getSymb_id() < 1)
+      {
+        Symb vsymb = Assets00InvokeSymbByNameOrTel(null, cell.getStringCellValue());
+
+        if (vsymb != null)
+        {
+          this.assets00.setSymb_id(vsymb.getId());
+        }
+      }
+      //****** OLA TA ALLA ********
+      else if (gram01.getField_type() == Gram01.FIELD_TYPE_NUMBER)
       {
         double vnumFiled = cell.getNumericCellValue();
 
@@ -186,6 +217,87 @@ public abstract class LcGramAssetsExcelBase
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  private Symb Assets00InvokeSymbByNameOrTel(String nameOrSurename, String tel)
+          throws CatException
+  {
+    Symb vsymaa = null;
+
+    try
+    {
+      List<Symb> vsymbL = null;
+
+      if (nameOrSurename != null)
+      {
+        String[] vnames = OpswStringUtils.OpswStringSePedia(nameOrSurename);
+
+        if (vnames != null && vnames.length > 0)
+        {
+          vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[0]));
+
+          if (vsymaa == null && vsymbL != null)
+          {
+            vsymaa = vsymbL.get(0);
+          }
+
+          if (vsymaa == null && vnames.length > 1)
+          {
+            vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[1]));
+          }
+
+          if (vsymaa == null && vsymbL != null)
+          {
+            vsymaa = vsymbL.get(0);
+          }
+
+          if (vsymaa == null && vnames.length > 2)
+          {
+            vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[2]));
+          }
+
+          if (vsymaa == null && vsymbL != null)
+          {
+            vsymaa = vsymbL.get(0);
+          }
+        }
+      }
+
+      List<Symb> vsymbL01 = null;
+      if (tel != null)
+      {
+        Symb vsymbb = null;
+
+        vsymbL01 = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(tel));
+
+        if (vsymbL01 != null)
+        {
+          vsymbb = vsymbL01.get(0);
+        }
+
+        if (vsymbb != null)
+        {
+          if (!vsymbb.equals(vsymaa) && vsymbL != null && vsymbL.size() > 1)
+          {
+            for (Symb ss : vsymbL)
+            {
+              if (ss.equals(vsymbb))
+              {
+                vsymaa = ss;
+
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vsymaa;
   }
 
   /**
@@ -241,5 +353,15 @@ public abstract class LcGramAssetsExcelBase
   public void setGram01Service(Gram01Service Gram01Service)
   {
     this.Gram01Service = Gram01Service;
+  }
+
+  public SymbService getSymbService()
+  {
+    return SymbService;
+  }
+
+  public void setSymbService(SymbService SymbService)
+  {
+    this.SymbService = SymbService;
   }
 }
