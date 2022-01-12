@@ -57,4 +57,6 @@ public abstract class OpswEntityManagerBase
     this.transactionRollback();
     throw new CatException(ex);
   }
+
+  public abstract void DetachObject(Object obj) throws CatException;
 }

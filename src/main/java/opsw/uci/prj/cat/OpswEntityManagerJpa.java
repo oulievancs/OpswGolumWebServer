@@ -129,4 +129,16 @@ public class OpswEntityManagerJpa extends OpswEntityManagerBase
   {
     this.closeEM();
   }
+
+  @Override
+  public void DetachObject(Object obj) throws CatException
+  {
+    if (obj != null)
+    {
+      if (this.em.contains(obj))
+      {
+        this.em.detach(obj);
+      }
+    }
+  }
 }
