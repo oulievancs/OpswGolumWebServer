@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Symb;
@@ -28,5 +29,11 @@ public class SymbServiceImpl implements SymbService
   public Symb SymbSelect01(Long id) throws CatException
   {
     return (Symb) this.SymbRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public List<Symb> SymbList01(String name, String surename) throws CatException
+  {
+    return (List<Symb>) this.SymbRepository.SymbList01(name, surename);
   }
 }

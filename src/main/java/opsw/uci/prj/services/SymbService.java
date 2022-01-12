@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Symb;
 
@@ -16,4 +17,6 @@ public interface SymbService
 {
 
   public Symb SymbSelect01(Long id) throws CatException;
+
+  public List<Symb> SymbList01(String name, String surename) throws CatException;
 }

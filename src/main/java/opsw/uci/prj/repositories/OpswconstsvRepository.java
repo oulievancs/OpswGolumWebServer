@@ -5,10 +5,9 @@
  */
 package opsw.uci.prj.repositories;
 
-import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
-import opsw.uci.prj.entity.Symb;
-import org.springframework.data.jpa.repository.Query;
+import opsw.uci.prj.entity.Opswconstsv;
+import opsw.uci.prj.entity.OpswconstsvKey;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,11 +15,7 @@ import org.springframework.stereotype.Component;
  * @author oulis
  */
 @Component
-public interface SymbRepository extends CatEjbJpaBase<Symb, Long>
+public interface OpswconstsvRepository extends CatEjbJpaBase<Opswconstsv, OpswconstsvKey>
 {
-
-  @Query("SELECT a FROM Symb a "
-          + " WHERE "
-          + " a.name LIKE %?1% OR a.surename LIKE %?2% ")
-  public List<Symb> SymbList01(String name, String surename);
+  
 }
