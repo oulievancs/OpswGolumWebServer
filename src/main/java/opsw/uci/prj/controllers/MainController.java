@@ -113,7 +113,7 @@ public class MainController
       }
 
       OpswCookies01.OpswFillCookiesFromLoginVars01(request, wLoginVars);
-      redirectAttrs.addAttribute("message", "Η αλλαγή πραγματοποιήθηκε με επιτυχία");
+      redirectAttrs.addFlashAttribute("message", "Η αλλαγή πραγματοποιήθηκε με επιτυχία");
     }
     catch (CatException ex)
     {
@@ -126,6 +126,6 @@ public class MainController
     {
       CatException.RethrowCatException(ex);
     }
-    return "redirect:/home";
+    return "redirect:/init1";
   }
 }

@@ -34,7 +34,7 @@ public class OpswValidations01
         String vuri = request.getRequestURI();
         if (!vgoon
                 && !(vuri.substring(vuri.length() - 6, vuri.length()).equals("/init1"))
-                && !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/post/init1")))
+                && !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/init1/post")))
         {
           response.sendRedirect(OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/init1");
         }
