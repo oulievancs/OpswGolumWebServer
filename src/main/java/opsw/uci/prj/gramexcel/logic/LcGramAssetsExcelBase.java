@@ -239,12 +239,12 @@ public abstract class LcGramAssetsExcelBase
       }
       else if (gram01.getField_type() == Gram01.FIELD_TYPE_CALENDAR)
       {
-        if (OpswStringUtils.OpswStringIsEmpty(gram01.getDateFormat()))
+        if (OpswStringUtils.OpswStringIsEmpty(gram01.getDate_format()))
         {
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
         String vstrField = cell.getStringCellValue();
-        Calendar vcal = OpswDateUtils.StrToDate(vstrField, gram01.getDateFormat());
+        Calendar vcal = OpswDateUtils.StrToDate(vstrField, gram01.getDate_format());
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vcal);
       }
