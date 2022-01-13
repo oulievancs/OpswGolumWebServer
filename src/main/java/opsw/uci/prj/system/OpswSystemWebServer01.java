@@ -13,6 +13,8 @@ import javax.sql.DataSource;
 import opsw.uci.prj.cat.CatException;
 import org.apache.catalina.core.StandardServer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jndi.JndiTemplate;
 
 /**
@@ -36,6 +38,8 @@ public class OpswSystemWebServer01
   /**
    * ********************************************************
    */
+
+  private static boolean OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS = true;
 
   public static String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
 
@@ -162,12 +166,28 @@ public class OpswSystemWebServer01
     {
       if (iDs != null)
       {
-        wDs.put(iDsName, iDs);
+        DataSource vDs = iDs;
+        if (OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS)
+        {
+          vDs = OpswInitializeDatasource(vDs);
+        }
+        wDs.put(iDsName, vDs);
       }
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  private static DataSource OpswInitializeDatasource(DataSource dataSource)
+  {
+    //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
+    //ClassPathResource dataResource = new ClassPathResource("data.sql");
+    ClassPathResource altersSource = new ClassPathResource("schema/alters.sql");
+    ClassPathResource viewsSource = new ClassPathResource("schema/views.sql");
+    ResourceDatabasePopulator populator = new ResourceDatabasePopulator(altersSource, viewsSource);
+    populator.execute(dataSource);
+    return dataSource;
   }
 }

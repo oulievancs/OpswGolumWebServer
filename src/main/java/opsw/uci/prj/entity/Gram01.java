@@ -35,7 +35,7 @@ public class Gram01 implements Serializable
   private String value_str;
   private Double value_num;
   private Integer excel_index;
-  private String dateFormat;
+  private String date_format;
 
   public Gram01()
   {
@@ -47,7 +47,7 @@ public class Gram01 implements Serializable
     this.value_str = null;
     this.value_num = null;
     this.excel_index = null;
-    this.dateFormat = null;
+    this.date_format = null;
   }
 
   public Long getGram()
@@ -120,14 +120,14 @@ public class Gram01 implements Serializable
     this.excel_index = excel_index;
   }
 
-  public String getDateFormat()
+  public String getDate_format()
   {
-    return dateFormat;
+    return date_format;
   }
 
-  public void setDateFormat(String dateFormat)
+  public void setDate_format(String date_format)
   {
-    this.dateFormat = dateFormat;
+    this.date_format = date_format;
   }
 
   @Override

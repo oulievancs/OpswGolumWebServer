@@ -132,13 +132,4 @@ public class OpswEjbConnectionConfig
     jpa.setEntityManagerFactory(entityManagerFactory);
     return jpa;
   }
-
-//  private DataSource initialize(DataSource dataSource)
-//  {
-//    ClassPathResource schemaResource = new ClassPathResource("schema.sql");
-//    ClassPathResource dataResource = new ClassPathResource("data.sql");
-//    ResourceDatabasePopulator populator = new ResourceDatabasePopulator(schemaResource, dataResource);
-//    populator.execute(dataSource);
-//    return dataSource;
-//  }
 }
