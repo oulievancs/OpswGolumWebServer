@@ -27,7 +27,10 @@ public class OpswMenuDo01
 
     Authentication vauth = OpswSecurityUtils.OpswSecurityGetAuthentication();
 
-    if (vauth == null || !vauth.isAuthenticated()/**request.isUserInRole("uci-user")*/)
+    if (vauth == null || !vauth.isAuthenticated() /**
+             * request.isUserInRole("uci-user")
+             */
+            )
     {
       choice = new OpswMenu01();
       choice.setCaption("Log in");
@@ -83,6 +86,22 @@ public class OpswMenuDo01
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
+
+      menu.add(choice);
+
+      choice = new OpswMenu01();
+      choice.setCaption("Usage (Database)");
+      choice.setPath("/init1");
+      choice.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice.setHaveSub(false);
+
+      menu.add(choice);
+
+      choice = new OpswMenu01();
+      choice.setCaption("Logout");
+      choice.setPath("/logout");
+      choice.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice.setHaveSub(false);
 
       menu.add(choice);
     }
