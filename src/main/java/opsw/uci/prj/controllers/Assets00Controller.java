@@ -11,6 +11,7 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.logging.OpswLogger;
+import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.services.Assets00Service;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,14 +40,14 @@ public class Assets00Controller
           Model model)
           throws Exception
   {
-    List<Assets00> assets00List = null;
+    List<Assets00Rec01> assets00List = null;
     try
     {
       OpswEjbContext.setCurrentTenant(null);
 //      KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
 //              .getAuthentication();
 //      OpswLogger.LoggerLogDebug("Token " + authentication.getAccount().getKeycloakSecurityContext().getToken().getAccessTokenHash());
-      assets00List = this.Assets00Service.Assets00List02();
+      assets00List = this.Assets00Service.Assets00Rec01List01();
     }
     catch (Exception ex)
     {

@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -13,7 +14,9 @@ import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.repositories.Assets00Repository;
+import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -103,6 +106,52 @@ public class Assets00ServiceImpl implements Assets00Service
     }
 
     return vassets00;
+  }
+
+  @Override
+  public List<Assets00Rec01> Assets00Rec01List01() throws CatException
+  {
+    List<Assets00Rec01> vlist = null;
+
+    try
+    {
+      List<Assets00> vlist1 = this.Assets00List02();
+
+      Assets00Rec01 vrec1 = null;
+      if (vlist1 != null)
+      {
+        vlist = new ArrayList<>();
+
+        if (!vlist1.isEmpty())
+        {
+          for (Assets00 aa : vlist1)
+          {
+            vrec1 = new Assets00Rec01();
+            vlist.add(vrec1);
+
+            Assets00Rec01.CopyAssets00Rec01FromAssents00(aa, (Assets00) vrec1);
+
+            if (OpswNumberUtils.OpswGetLong(aa.getSymb_id()) > 0)
+            {
+              Symb vsymb = this.SymbService.SymbSelect01(aa.getSymb_id());
+
+              if (vsymb != null)
+              {
+                vrec1.setSymb_name(vsymb.getName());
+                vrec1.setSymb_surename(vsymb.getSurename());
+                vrec1.setSymb_tele(vsymb.getTele());
+              }
+            }
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vlist;
   }
 
 }

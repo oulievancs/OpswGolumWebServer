@@ -56,7 +56,7 @@ public class ActionsController
   {
     try
     {
-      OpswEjbContext.setCurrentTenant(null);
+      //OpswE*jbContext.se*tCur*rentTena*nt(null);
       List<Gram00Rec01> gramList = this.Gram00Service.Gram00Rec01List01();
       Gram00Rec01 gramrec = new Gram00Rec01();
       model.addAttribute("gramList", gramList);

@@ -20,6 +20,8 @@ import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.SymbService;
+import opsw.uci.prj.utils.OpswArrayUtils;
+import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -180,7 +182,7 @@ public abstract class LcGramAssetsExcelBase
 
       //Logic Pedia
       if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
-              && this.assets00.getSymb_id() < 1)
+              && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
       {
         String vnamee = cell.getStringCellValue();
         Symb vsymb = Assets00InvokeSymbByNameOrTel(vnamee, null);
@@ -200,7 +202,7 @@ public abstract class LcGramAssetsExcelBase
         }
       }
       else if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
-              && this.assets00.getSymb_id() < 1)
+              && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
       {
         String vtelaa = cell.getStringCellValue();
         Symb vsymb = Assets00InvokeSymbByNameOrTel(null, vtelaa);
@@ -256,7 +258,7 @@ public abstract class LcGramAssetsExcelBase
         {
           vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[0]));
 
-          if (vsymaa == null && vsymbL != null)
+          if (vsymaa == null && OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL))
           {
             vsymaa = vsymbL.get(0);
           }
@@ -266,7 +268,7 @@ public abstract class LcGramAssetsExcelBase
             vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[1]));
           }
 
-          if (vsymaa == null && vsymbL != null)
+          if (vsymaa == null && OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL))
           {
             vsymaa = vsymbL.get(0);
           }
@@ -276,7 +278,7 @@ public abstract class LcGramAssetsExcelBase
             vsymbL = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(vnames[2]));
           }
 
-          if (vsymaa == null && vsymbL != null)
+          if (vsymaa == null && OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL))
           {
             vsymaa = vsymbL.get(0);
           }

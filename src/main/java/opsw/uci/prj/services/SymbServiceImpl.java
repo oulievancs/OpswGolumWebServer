@@ -11,12 +11,17 @@ import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.repositories.SymbRepository;
+import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author oulis
  */
+@Service
+@Component
 public class SymbServiceImpl implements SymbService
 {
 
@@ -47,7 +52,7 @@ public class SymbServiceImpl implements SymbService
     Symb vsymb = symb;
     try
     {
-      if (symb.getId() == 0)
+      if (OpswNumberUtils.OpswGetLong(symb.getId()) == 0)
       {
         symb.setId(this.SequenceService.SequencesGetNextVal(Sequences.SEQ_SYMB));
       }
