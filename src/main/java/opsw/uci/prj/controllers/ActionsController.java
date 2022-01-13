@@ -12,11 +12,13 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
+import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.SymbService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,5 +111,19 @@ public class ActionsController
       CatException.RethrowCatException(ex);
     }
     return "redirect:/actions/inportfile";
+  }
+  
+  @GetMapping("/exportfile")
+  public String exportFile(Model model) throws Exception
+  {
+    return "exportform";
+  }
+  
+  @PostMapping("/exportfile/post")
+  public String exportFilePost(@ModelAttribute("dateFrom") String dateFrom, @ModelAttribute("dateTo") String dateTo) throws Exception
+  {
+    Logger logger = OpswLogger.getLogger();
+    logger.debug(dateFrom);
+    return "redirect:/actions/exportfile";
   }
 }

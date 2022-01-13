@@ -75,7 +75,7 @@ public class OpswMenuDo01
       subMenu.add(choice1);
       choice1 = new OpswMenu01();
       choice1.setCaption("Export File");
-      choice1.setPath("#");
+      choice1.setPath("/actions/exportfile");
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
       subMenu.add(choice1);
