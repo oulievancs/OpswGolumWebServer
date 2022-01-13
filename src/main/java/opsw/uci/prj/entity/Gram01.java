@@ -24,6 +24,7 @@ public class Gram01 implements Serializable
 
   public static final Short FIELD_TYPE_NUMBER = 0;
   public static final Short FIELD_TYPE_STRING = 1;
+  public static final Short FIELD_TYPE_CALENDAR = 2;
   
   @Id
   private Long gram;
@@ -34,6 +35,7 @@ public class Gram01 implements Serializable
   private String value_str;
   private Double value_num;
   private Integer excel_index;
+  private String dateFormat;
 
   public Gram01()
   {
@@ -45,6 +47,7 @@ public class Gram01 implements Serializable
     this.value_str = null;
     this.value_num = null;
     this.excel_index = null;
+    this.dateFormat = null;
   }
 
   public Long getGram()
@@ -115,6 +118,16 @@ public class Gram01 implements Serializable
   public void setExcel_index(Integer excel_index)
   {
     this.excel_index = excel_index;
+  }
+
+  public String getDateFormat()
+  {
+    return dateFormat;
+  }
+
+  public void setDateFormat(String dateFormat)
+  {
+    this.dateFormat = dateFormat;
   }
 
   @Override

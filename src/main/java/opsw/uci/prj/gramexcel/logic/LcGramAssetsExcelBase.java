@@ -7,9 +7,11 @@ package opsw.uci.prj.gramexcel.logic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
@@ -21,6 +23,7 @@ import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswArrayUtils;
+import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -116,7 +119,7 @@ public abstract class LcGramAssetsExcelBase
 
       this.FXssfworkbook = new XSSFWorkbook(new ByteArrayInputStream(this.file));
 
-      this.SelectSheetAndRead(this.FXssfworkbook);
+      this.SelectSheetAndDo(this.FXssfworkbook);
     }
     catch (Exception ex)
     {
@@ -234,6 +237,17 @@ public abstract class LcGramAssetsExcelBase
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vstrField);
       }
+      else if (gram01.getField_type() == Gram01.FIELD_TYPE_CALENDAR)
+      {
+        if (OpswStringUtils.OpswStringIsEmpty(gram01.getDateFormat()))
+        {
+          throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
+        }
+        String vstrField = cell.getStringCellValue();
+        Calendar vcal = OpswDateUtils.StrToDate(vstrField, gram01.getDateFormat());
+
+        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vcal);
+      }
     }
     catch (Exception ex)
     {
@@ -337,7 +351,7 @@ public abstract class LcGramAssetsExcelBase
    * @param workbook
    * @throws CatException
    */
-  protected abstract void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException;
+  protected abstract void SelectSheetAndDo(XSSFWorkbook workbook) throws CatException;
 
   /**
    * Επιστρέφει τον αριθμό της πρώτης γραμμής που πρέπει να διαβάσει.

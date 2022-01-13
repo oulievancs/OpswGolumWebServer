@@ -12,7 +12,7 @@ package opsw.uci.prj.records.cat;
 public class CatReflectObject01
 {
   private String fieldName;
-  private Class fieldType;
+  private Class<?> fieldType;
   private Object fieldValue;
 
   public CatReflectObject01()
@@ -32,12 +32,12 @@ public class CatReflectObject01
     this.fieldName = fieldName;
   }
 
-  public Class getFieldType()
+  public Class<?> getFieldType()
   {
     return fieldType;
   }
 
-  public void setFieldType(Class fieldType)
+  public void setFieldType(Class<?> fieldType)
   {
     this.fieldType = fieldType;
   }

@@ -118,7 +118,7 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
   }
 
   @Override
-  protected void SelectSheetAndRead(XSSFWorkbook workbook) throws CatException
+  protected void SelectSheetAndDo(XSSFWorkbook workbook) throws CatException
   {
     try
     {
