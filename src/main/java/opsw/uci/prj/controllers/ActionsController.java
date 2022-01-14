@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.controllers;
 
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import opsw.uci.prj.arifacts.OpswEjbContext;
@@ -12,14 +13,18 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
+import opsw.uci.prj.gramexcel.logic.LcGramAssetsExportExcel;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.SymbService;
+import opsw.uci.prj.utils.OpswDateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,10 +125,29 @@ public class ActionsController
   }
   
   @PostMapping("/exportfile/post")
-  public String exportFilePost(@ModelAttribute("dateFrom") String dateFrom, @ModelAttribute("dateTo") String dateTo) throws Exception
+  public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("dateFrom") String dateFrom, @ModelAttribute("dateTo") String dateTo) throws Exception
   {
-    Logger logger = OpswLogger.getLogger();
-    logger.debug(dateFrom);
-    return "redirect:/actions/exportfile";
+    ResponseEntity<byte[]> result = null;
+    try
+    {
+    String dateFormat = "yyyy-MM-dd";
+    LcGramAssetsExcelBase excelUnit = new LcGramAssetsExportExcel();
+    excelUnit.setAssetets00Service(this.Assetets00Service);
+    excelUnit.setSymbService(this.SymbService);
+    ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateFrom, dateFormat));
+    ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateTo, dateFormat));
+    
+    byte[] excelFile = excelUnit.ExportExcel();
+    result = ResponseEntity.ok()
+            .header("Content-Disposition", "attachment; filename=assets_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".xlsx")
+            .contentLength(excelFile.length)
+            .contentType(MediaType.APPLICATION_OCTET_STREAM)
+            .body(excelFile);
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
   }
 }

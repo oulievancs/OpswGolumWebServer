@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
@@ -30,4 +31,6 @@ public interface Assets00Service
           throws CatException;
 
   public List<Assets00Rec01> Assets00Rec01List01() throws CatException;
+  
+  public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;
 }
