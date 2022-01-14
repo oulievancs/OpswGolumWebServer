@@ -116,25 +116,35 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
       }
       else if (this.assets.size() >= currentRow)
       {
-        List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(this.assets.get(currentRow));
+        List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(this.assets.get(currentRow - 1));
         if (objectList != null && !objectList.isEmpty())
         {
           //int cellCounter = 0;
           for (CatReflectObject01 ob : objectList)
           {
-            Cell cell = params.getExcelRow().createCell(cellCounter);
-            if (ob.getFieldType().equals(String.class))
+            if (ob.getFieldValue() != null)
             {
-              cell.setCellFormula((String) ob.getFieldValue());
-            }
-            if (ob.getFieldType().equals(Double.class) || ob.getFieldType().equals(Integer.class)
-                    || ob.getFieldType().equals(Long.class))
-            {
-              cell.setCellValue((double) ob.getFieldValue());
-            }
-            if (ob.getFieldType().equals(Calendar.class))
-            {
-              cell.setCellValue((Calendar) ob.getFieldValue());
+              Cell cell = params.getExcelRow().createCell(cellCounter);
+              if (ob.getFieldType() == String.class)
+              {
+                cell.setCellValue((String) ob.getFieldValue());
+              }
+              else if (ob.getFieldType() == Double.class)
+              {
+                cell.setCellValue((double) ob.getFieldValue());
+              }
+              else if (ob.getFieldType() == Integer.class)
+              {
+                cell.setCellValue((int) ob.getFieldValue());
+              }
+              else if (ob.getFieldType() == Long.class)
+              {
+                cell.setCellValue((long) ob.getFieldValue());
+              }
+              else if (ob.getFieldType() == Calendar.class)
+              {
+                cell.setCellValue((Calendar) ob.getFieldValue());
+              }
             }
             cellCounter++;
           }
@@ -161,7 +171,7 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
     }
     catch (Exception e)
     {
-
+      CatException.RethrowCatException(e);
     }
   }
 

@@ -11,6 +11,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.cat.CatReflectObject01;
 
 /**
@@ -126,7 +127,7 @@ public class OpswReflection
 
       if (vmethod != null)
       {
-        vvalue = (Object) (vmethod.invoke(obj, null));
+        vvalue = (Object) (vmethod.invoke(obj, (Object[]) null));
       }
     }
     catch (Exception ex)
@@ -181,7 +182,7 @@ public class OpswReflection
   private static Field[] GetObjectDeclaredFields(Class<?> iclass)
           throws CatException
   {
-    return (Field[]) GetAllFieldsIncludeSuperClass01(iclass);
+    return (Field[]) GetAllFieldsIncludeSuperClass01(iclass, false);
   }
 
   public static List<CatReflectObject01> ReflectObjectToObject01List(Object obj)
@@ -210,7 +211,7 @@ public class OpswReflection
   {
     try
     {
-      Field[] vfields = GetAllFieldsIncludeSuperClass01(obj.getClass());
+      Field[] vfields = GetAllFieldsIncludeSuperClass01(obj.getClass(), true);
 
       if (vfields != null)
       {
@@ -324,16 +325,29 @@ public class OpswReflection
 
     try
     {
-      Field[] vfields = GetAllFieldsIncludeSuperClass01(clazz);
+      Field[] vfields = GetAllFieldsIncludeSuperClass01(clazz, false);
 
       if (vfields != null)
       {
-        for (Field ff : vfields)
+        boolean isSuper = false;
+        for (Class<?> superClass = clazz; superClass != null
+                && superClass != Object.class; superClass = superClass
+                        .getSuperclass())
         {
-          if (ff.getName().equals(ifieldName))
+          for (Field ff : vfields)
           {
-            ls = ff;
+            if (isSuper && ff.getModifiers() == Modifier.PRIVATE)
+            {
+              throw new CatException("Το πεδίο [field = " + ff.getName() + "] είναι private!");
+            }
+
+            if (ff.getName().equals(ifieldName))
+            {
+              ls = ff;
+            }
           }
+
+          isSuper = true;
         }
       }
 
@@ -347,7 +361,7 @@ public class OpswReflection
     return ls;
   }
 
-  private static Field[] GetAllFieldsIncludeSuperClass01(Class<?> clazz)
+  private static Field[] GetAllFieldsIncludeSuperClass01(Class<?> clazz, boolean makeInception)
           throws CatException
   {
     Field[] vfields = null;
@@ -355,10 +369,9 @@ public class OpswReflection
     {
       List<Field> vlistFields = new ArrayList<>();
 
-      boolean isSuper = false;
-
+      boolean isSubclass = true;
       for (Class<?> superClass = clazz; superClass != null
-              && superClass != Object.class; superClass = superClass
+              && superClass != Object.class && (makeInception || isSubclass); superClass = superClass
                       .getSuperclass())
       {
         Field[] fields = superClass.getDeclaredFields();
@@ -367,17 +380,14 @@ public class OpswReflection
         {
           Field f = fields[i];
 
-          if (isSuper && f.getModifiers() == Modifier.PRIVATE)
-          {
-            throw new CatException("Το πεδίο [field = " + f.getName() + "] είναι private!");
-          }
-
           vlistFields.add(f);
         }
-        isSuper = true;
+
+        isSubclass = false;
       }
 
-      vfields = (Field[]) vlistFields.toArray();
+      vfields = new Field[vlistFields.size()];
+      vfields = (Field[]) vlistFields.toArray(vfields);
     }
     catch (Exception ex)
     {
