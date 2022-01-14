@@ -18,10 +18,10 @@ import opsw.uci.prj.cat.CatException;
 public class OpswDateUtils
 {
 
-  public final static String OPSW_DATE_DEFAULT_FORMAT = "dd-MM-YYYY";
-  public final static String OPSW_DATE_TIME_DEFAULT_FORMAT = "dd-MM-YYYY HH:mm:ss";
-  public final static String OPSW_DATE_FORMAT_AMER = "MM-dd-YYYY";
-  public final static String OPSW_DATE_TIME_FORMAT_AMER = "MM-dd-YYYY HH:mm:ss";
+  public final static String OPSW_DATE_DEFAULT_FORMAT = "dd-MM-yyyy";
+  public final static String OPSW_DATE_TIME_DEFAULT_FORMAT = "dd-MM-yyyy HH:mm:ss";
+  public final static String OPSW_DATE_FORMAT_AMER = "MM-dd-yyyy";
+  public final static String OPSW_DATE_TIME_FORMAT_AMER = "MM-dd-yyyy HH:mm:ss";
 
   public static String DateTimeToStr01(Calendar icalendar)
           throws CatException
