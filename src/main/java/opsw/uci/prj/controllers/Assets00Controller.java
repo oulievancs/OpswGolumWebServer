@@ -43,7 +43,7 @@ public class Assets00Controller
     List<Assets00Rec01> assets00List = null;
     try
     {
-      OpswEjbContext.setCurrentTenant(null);
+      //OpswEjbContext.setCurrentTenant(null);
 //      KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
 //              .getAuthentication();
 //      OpswLogger.LoggerLogDebug("Token " + authentication.getAccount().getKeycloakSecurityContext().getToken().getAccessTokenHash());
