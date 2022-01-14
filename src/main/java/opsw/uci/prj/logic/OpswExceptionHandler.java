@@ -102,7 +102,7 @@ public class OpswExceptionHandler
           }
 
           if (!keySet.contains(CatException.CATEXCEPTION_THYMLEAF_ERROR)
-                  || OpswStringUtils.OpswStringIsEmpty((String) ex1.getErrorParameters().get(CatException.CATEXCEPTION_THYMLEAF_ERROR)))
+                  || ex1.getErrorParameters().get(CatException.CATEXCEPTION_THYMLEAF_ERROR) == null)
           {
             ra.addFlashAttribute(CatException.CATEXCEPTION_THYMLEAF_ERROR, false);
           }
