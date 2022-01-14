@@ -27,7 +27,7 @@ public class OpswReflection
     try
     {
       //field = obj.getClass().getDeclaredField(fieldName);
-      field = GetAllFieldsIncludeSuperClass(obj.getClass(), fieldName);
+      field = GetFieldIncludeSuperClass(obj.getClass(), fieldName);
 
       if (field == null)
       {
@@ -181,7 +181,7 @@ public class OpswReflection
   private static Field[] GetObjectDeclaredFields(Class<?> iclass)
           throws CatException
   {
-    return (Field[]) iclass.getDeclaredFields();
+    return (Field[]) GetAllFieldsIncludeSuperClass01(iclass);
   }
 
   public static List<CatReflectObject01> ReflectObjectToObject01List(Object obj)
@@ -194,17 +194,31 @@ public class OpswReflection
       {
         throw new CatException("Δώθηκε null Object!");
       }
-
-      Field[] vfields = GetObjectDeclaredFields(obj.getClass());
-
       resList = new ArrayList<>();
+
+      ReflectObjectToObject01List_Internal(obj, resList);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return resList;
+  }
+
+  private static void ReflectObjectToObject01List_Internal(Object obj, List<CatReflectObject01> wList)
+          throws CatException
+  {
+    try
+    {
+      Field[] vfields = GetAllFieldsIncludeSuperClass01(obj.getClass());
+
       if (vfields != null)
       {
         CatReflectObject01 vcatObj01 = null;
         for (Field fld : vfields)
         {
           vcatObj01 = new CatReflectObject01();
-          resList.add(vcatObj01);
+          wList.add(vcatObj01);
 
           vcatObj01.setFieldName(fld.getName());
           vcatObj01.setFieldType(fld.getType());
@@ -216,7 +230,6 @@ public class OpswReflection
     {
       CatException.RethrowCatException(ex);
     }
-    return resList;
   }
 
   public static void OpswReflectionCopyParentObject(Object objFrom, Object objeTo, Class<?> iclass)
@@ -304,13 +317,44 @@ public class OpswReflection
     return ls;
   }
 
-  private static Field GetAllFieldsIncludeSuperClass(Class<?> clazz, String ifieldName)
+  private static Field GetFieldIncludeSuperClass(Class<?> clazz, String ifieldName)
           throws CatException
   {
     Field ls = null;
 
     try
     {
+      Field[] vfields = GetAllFieldsIncludeSuperClass01(clazz);
+
+      if (vfields != null)
+      {
+        for (Field ff : vfields)
+        {
+          if (ff.getName().equals(ifieldName))
+          {
+            ls = ff;
+          }
+        }
+      }
+
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+
+    }
+
+    return ls;
+  }
+
+  private static Field[] GetAllFieldsIncludeSuperClass01(Class<?> clazz)
+          throws CatException
+  {
+    Field[] vfields = null;
+    try
+    {
+      List<Field> vlistFields = new ArrayList<>();
+
       boolean isSuper = false;
 
       for (Class<?> superClass = clazz; superClass != null
@@ -325,25 +369,21 @@ public class OpswReflection
 
           if (isSuper && f.getModifiers() == Modifier.PRIVATE)
           {
-            throw new CatException("Το πεδίο [field = " + ifieldName + "] είναι private!");
+            throw new CatException("Το πεδίο [field = " + f.getName() + "] είναι private!");
           }
 
-          if (f.getName().equals(ifieldName))
-          {
-            ls = f;
-          }
+          vlistFields.add(f);
         }
-
         isSuper = true;
       }
 
+      vfields = (Field[]) vlistFields.toArray();
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
-
     }
 
-    return ls;
+    return vfields;
   }
 }
