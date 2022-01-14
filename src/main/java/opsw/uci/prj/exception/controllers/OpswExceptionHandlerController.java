@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.logging.OpswLogger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,19 @@ public class OpswExceptionHandlerController
   //        reason = "Data integrity violation")  // 409
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ModelAndView conflict(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
   {
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
     return mav;
   }
 
@@ -46,9 +57,19 @@ public class OpswExceptionHandlerController
           reason = "Internal Error!"
   )
   public ModelAndView internalError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
   {
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
     return mav;
   }
 
@@ -57,9 +78,19 @@ public class OpswExceptionHandlerController
           reason = "Resource not found!"
   )
   public ModelAndView notFound(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
   {
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
     return mav;
   }
 
@@ -69,6 +100,7 @@ public class OpswExceptionHandlerController
             SQLException.class, DataAccessException.class
           })
   public ModelAndView databaseError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
   {
     // Nothing to do.  Returns the logical view name of an error page, passed
     // to the view-resolver(s) in usual way.
@@ -76,7 +108,16 @@ public class OpswExceptionHandlerController
     // to the model) but see "Extending ExceptionHandlerExceptionResolver"
     // below.
     ModelAndView mav = new ModelAndView();
-    OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
     return mav;
   }
 
@@ -89,9 +130,19 @@ public class OpswExceptionHandlerController
             CatExceptionUser.class
           })
   public ModelAndView handleError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
   {
     ModelAndView mav = new ModelAndView();
-    mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
     return mav;
   }
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.logging.OpswLogger;
+import opsw.uci.prj.utils.OpswStringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +23,7 @@ public class OpswExceptionHandler
 
   public static ModelAndView HandleControllerExceptionAndModelView(HttpServletRequest req,
           RedirectAttributes ra, Exception ex, ModelAndView mav)
+          throws CatException
   {
     HandleControllerException(req, ex);
 
@@ -60,6 +62,7 @@ public class OpswExceptionHandler
 
   private static ModelAndView HandleModelAndView(HttpServletRequest req, RedirectAttributes ra,
           Exception ex, ModelAndView mav)
+          throws CatException
   {
     CatException ex1 = null;
 
@@ -96,6 +99,18 @@ public class OpswExceptionHandler
           for (String key : keySet)
           {
             ra.addFlashAttribute(key, ex1.getErrorParameters().get(key));
+          }
+
+          if (!keySet.contains(CatException.CATEXCEPTION_THYMLEAF_ERROR)
+                  || ex1.getErrorParameters().get(CatException.CATEXCEPTION_THYMLEAF_ERROR) == null)
+          {
+            ra.addFlashAttribute(CatException.CATEXCEPTION_THYMLEAF_ERROR, false);
+          }
+
+          if (!keySet.contains(CatException.CATEXCEPTION_THYMLEAF_MESSAGE)
+                  || OpswStringUtils.OpswStringIsEmpty((String) ex1.getErrorParameters().get(CatException.CATEXCEPTION_THYMLEAF_MESSAGE)))
+          {
+            ra.addFlashAttribute(CatException.CATEXCEPTION_THYMLEAF_MESSAGE, "Internal Error!");
           }
         }
       }

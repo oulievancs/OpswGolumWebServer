@@ -17,6 +17,9 @@ import java.util.Map;
 public class CatException extends Exception
 {
 
+  public static final String CATEXCEPTION_THYMLEAF_ERROR = "error";
+  public static final String CATEXCEPTION_THYMLEAF_MESSAGE = "message";
+
   public static final byte CODE_CHECK_ERROR = 1;
   public static final byte CODE_NULL_PRM = 2;
   public static final byte CODE_USER_EXCEPTION = 3;
@@ -204,6 +207,16 @@ public class CatException extends Exception
   {
     ErrorAddParameterKoina01(ex);
     ex.getErrorParameters().put(name, new Integer(value));
+  }
+
+  public static void ErrorAddErrorParameter(CatException ex, boolean value)
+  {
+    ErrorAddParameter(ex, CATEXCEPTION_THYMLEAF_ERROR, value);
+  }
+
+  public static void ErrorAddErrorMessageParameter(CatException ex, String value)
+  {
+    ErrorAddParameter(ex, CATEXCEPTION_THYMLEAF_MESSAGE, value);
   }
 
   private static void ErrorAddParameterKoina01(CatException ex)
