@@ -117,34 +117,35 @@ public class ActionsController
     }
     return "redirect:/actions/inportfile";
   }
-  
+
   @GetMapping("/exportfile")
   public String exportFile(Model model) throws Exception
   {
     return "exportform";
   }
-  
+
   @PostMapping("/exportfile/post")
   public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("dateFrom") String dateFrom, @ModelAttribute("dateTo") String dateTo) throws Exception
   {
     ResponseEntity<byte[]> result = null;
     try
     {
-    String dateFormat = "yyyy-MM-dd";
-    LcGramAssetsExcelBase excelUnit = new LcGramAssetsExportExcel();
-    excelUnit.setAssetets00Service(this.Assetets00Service);
-    excelUnit.setSymbService(this.SymbService);
-    ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateFrom, dateFormat));
-    ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateTo, dateFormat));
-    
-    byte[] excelFile = excelUnit.ExportExcel();
-    result = ResponseEntity.ok()
-            .header("Content-Disposition", "attachment; filename=assets_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".xlsx")
-            .contentLength(excelFile.length)
-            .contentType(MediaType.APPLICATION_OCTET_STREAM)
-            .body(excelFile);
+      String dateFormat = "yyyy-MM-dd";
+      LcGramAssetsExcelBase excelUnit = new LcGramAssetsExportExcel();
+      excelUnit.setAssetets00Service(this.Assetets00Service);
+      excelUnit.setSymbService(this.SymbService);
+      excelUnit.setGram01Service(this.Gram01Service);
+      ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateFrom, dateFormat));
+      ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.StrToDate(dateTo, dateFormat));
+
+      byte[] excelFile = excelUnit.ExportExcel();
+      result = ResponseEntity.ok()
+              .header("Content-Disposition", "attachment; filename=assets_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".xlsx")
+              .contentLength(excelFile.length)
+              .contentType(MediaType.APPLICATION_OCTET_STREAM)
+              .body(excelFile);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
