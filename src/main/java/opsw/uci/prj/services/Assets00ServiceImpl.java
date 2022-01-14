@@ -117,7 +117,7 @@ public class Assets00ServiceImpl implements Assets00Service
     try
     {
       List<Assets00> vlist1 = this.Assets00List02();
-      this.Assets00Rec01FromAssets00(vlist1);
+      vlist = this.Assets00Rec01FromAssets00(vlist1);
     }
     catch (Exception ex)
     {

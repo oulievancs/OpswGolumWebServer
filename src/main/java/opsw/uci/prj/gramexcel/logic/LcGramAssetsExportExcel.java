@@ -9,9 +9,12 @@ import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.cat.CatReflectObject01;
+import opsw.uci.prj.records.cat.CatThmlfObject01;
+import opsw.uci.prj.utils.OpswArrayUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -81,13 +84,42 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
   {
     try
     {
-      int currentRow = params.getExcelRow().getRowNum(); 
-      if (this.assets.size() > currentRow)
+      int cellCounter = 0;
+      int currentRow = params.getExcelRow().getRowNum();
+      if (currentRow == 0)
+      {
+        List<CatThmlfObject01> fields = this.Gram01Service.FieldsList01(Opswconstsv.ASSETS_VALUE);
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(fields))
+        {
+          for (CatThmlfObject01 ob1 : fields)
+          {
+            //List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(ob1);
+            /*if (OpswArrayUtils.OpswArrayContainsAtLeastOne(objectList))
+            {
+              int cellCounter = 0;
+              for (CatReflectObject01 ob2 : objectList)
+              {
+                Cell cell = params.getExcelRow().createCell(cellCounter);
+                if (ob2.getFieldType().equals(String.class))
+                {
+                  cell.setCellFormula((String) ob2.getFieldValue());
+                }
+                cellCounter++;
+              }
+            }*/
+            Cell cell = params.getExcelRow().createCell(cellCounter);
+            cell.setCellValue(ob1.getDescr());
+            cellCounter++;
+          }
+        }
+
+      }
+      else if (this.assets.size() >= currentRow)
       {
         List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(this.assets.get(currentRow));
         if (objectList != null && !objectList.isEmpty())
         {
-          int cellCounter = 0;
+          //int cellCounter = 0;
           for (CatReflectObject01 ob : objectList)
           {
             Cell cell = params.getExcelRow().createCell(cellCounter);
