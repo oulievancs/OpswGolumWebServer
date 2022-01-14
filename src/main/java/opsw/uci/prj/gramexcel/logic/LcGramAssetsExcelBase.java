@@ -17,6 +17,8 @@ import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.logic.OpswReflection;
+import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.cat.CatReflectObject01;
 import opsw.uci.prj.repositories.SymbRepository;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
@@ -93,6 +95,40 @@ public abstract class LcGramAssetsExcelBase
     this.gram = gram;
   }
 
+  protected static class GramAssetsExcelPrms01
+  {
+
+    private Row excelRow;
+    private boolean hasNextrow;
+
+    public GramAssetsExcelPrms01()
+    {
+      this.excelRow = null;
+      this.hasNextrow = false;
+    }
+
+    public Row getExcelRow()
+    {
+      return excelRow;
+    }
+
+    public void setExcelRow(Row excelRow)
+    {
+      this.excelRow = excelRow;
+    }
+
+    public boolean isHasNextrow()
+    {
+      return hasNextrow;
+    }
+
+    public void setHasNextrow(boolean hasNextrow)
+    {
+      this.hasNextrow = hasNextrow;
+    }
+
+  }
+
   public void ReadFileFromMultipart(MultipartFile ifile)
           throws CatException
   {
@@ -144,14 +180,15 @@ public abstract class LcGramAssetsExcelBase
     try
     {
       Iterator<Row> rowIterator = this.FXssfsheet.iterator();
-
+      GramAssetsExcelPrms01 params = new GramAssetsExcelPrms01();
       int idx = 1;
       while (rowIterator.hasNext())
       {
         if (idx >= this.GetIndexOfFirstLine())
         {
           this.assets00 = new Assets00();
-          this.NextRow(rowIterator.next());
+          params.setExcelRow(rowIterator.next());
+          this.NextRow(params);
           this.Assetets00Service.Assets00Post02(assets00, true);
         }
 
@@ -336,13 +373,68 @@ public abstract class LcGramAssetsExcelBase
     return vsymaa;
   }
 
+  private void createWorbook() throws CatException
+  {
+    try
+    {
+      this.FXssfworkbook = new XSSFWorkbook();
+      this.FXssfsheet = this.FXssfworkbook.createSheet("Assets00");
+      this.FXssfworkbook.setActiveSheet(0);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+  }
+
+  private Row fillRow(Assets00Rec01 rec, int rowNum) throws CatException
+  {
+    Row row = null;
+    try
+    {
+      row = this.FXssfsheet.createRow(rowNum);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return row;
+  }
+
+  public byte[] ExportExcel() throws CatException
+  {
+    byte[] results = null;
+    GramAssetsExcelPrms01 params = new GramAssetsExcelPrms01();
+    try
+    {
+      int rowCounter = 0;
+      this.createWorbook();
+      SelectSheetAndDo(this.FXssfworkbook);
+      params.setHasNextrow(true);
+      while(params.isHasNextrow())
+      {
+        params.setExcelRow(this.FXssfsheet.createRow(rowCounter));
+        NextRow(params);
+        rowCounter ++;
+      }
+      this.baos = new ByteArrayOutputStream();
+      this.FXssfworkbook.write(this.baos);
+      results = this.baos.toByteArray();
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return results;
+  }
+
   /**
    * Καλείται στην κάθε γραμμή του Excel δίντας ένα αντικείμενο ROW.
    *
    * @param row
    * @throws CatException
    */
-  protected abstract void NextRow(Row row) throws CatException;
+  protected abstract void NextRow(GramAssetsExcelPrms01 params) throws CatException;
 
   /**
    * καλείται αφού διαβαστεί το αρχείο και επιλέγει το/τα sheets που θα

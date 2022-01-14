@@ -33,11 +33,11 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
   }
 
   @Override
-  protected void NextRow(Row row) throws CatException
+  protected void NextRow(GramAssetsExcelPrms01 params) throws CatException
   {
     try
     {
-      Iterator<Cell> cellIterator = row.cellIterator();
+      Iterator<Cell> cellIterator = params.getExcelRow().cellIterator();
 
       int j = 0;
       while (cellIterator.hasNext())

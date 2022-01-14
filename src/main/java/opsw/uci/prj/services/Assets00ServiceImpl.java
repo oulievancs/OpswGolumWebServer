@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -116,35 +117,7 @@ public class Assets00ServiceImpl implements Assets00Service
     try
     {
       List<Assets00> vlist1 = this.Assets00List02();
-
-      Assets00Rec01 vrec1 = null;
-      if (vlist1 != null)
-      {
-        vlist = new ArrayList<>();
-
-        if (!vlist1.isEmpty())
-        {
-          for (Assets00 aa : vlist1)
-          {
-            vrec1 = new Assets00Rec01();
-            vlist.add(vrec1);
-
-            Assets00Rec01.CopyAssets00Rec01FromAssents00(aa, (Assets00) vrec1);
-
-            if (OpswNumberUtils.OpswGetLong(aa.getSymb_id()) > 0)
-            {
-              Symb vsymb = this.SymbService.SymbSelect01(aa.getSymb_id());
-
-              if (vsymb != null)
-              {
-                vrec1.setSymb_name(vsymb.getName());
-                vrec1.setSymb_surename(vsymb.getSurename());
-                vrec1.setSymb_tele(vsymb.getTele());
-              }
-            }
-          }
-        }
-      }
+      this.Assets00Rec01FromAssets00(vlist1);
     }
     catch (Exception ex)
     {
@@ -152,6 +125,56 @@ public class Assets00ServiceImpl implements Assets00Service
     }
 
     return vlist;
+  }
+  
+  private List<Assets00Rec01> Assets00Rec01FromAssets00(List<Assets00> assets) throws CatException
+  {
+    List<Assets00Rec01> result = null;
+    try
+    {
+      result = new ArrayList<>();
+      if (assets != null && !assets.isEmpty())
+      {
+        for (Assets00 asset : assets)
+        {
+          Assets00Rec01 rec = new Assets00Rec01();
+          result.add(rec);
+          Assets00Rec01.CopyAssets00Rec01FromAssents00(asset, (Assets00) rec);
+          if (OpswNumberUtils.OpswGetLong(asset.getSymb_id()) > 0)
+          {
+            Symb vsymb = this.SymbService.SymbSelect01(asset.getSymb_id());
+
+            if (vsymb != null)
+            {
+              rec.setSymb_name(vsymb.getName());
+              rec.setSymb_surename(vsymb.getSurename());
+              rec.setSymb_tele(vsymb.getTele());
+            }
+          }
+        }
+      }
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
+  }
+  
+  @Override
+  public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException
+  {
+    List<Assets00Rec01> resultList = null;
+    try
+    {
+      List<Assets00> vlist = this.Assets00Repository.Assets00FindByDate(dateFrom, dateTo);
+      resultList = this.Assets00Rec01FromAssets00(vlist);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return resultList;
   }
 
 }
