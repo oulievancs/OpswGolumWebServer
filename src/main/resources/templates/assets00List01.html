@@ -170,7 +170,7 @@
             <tr th:each = "ass00: ${CLM0}">
               <td th:text = "${ass00.getAsset()}"></td>
               <td th:text = "${ass00.getAauci()}"></td>
-              <td th:text = "${ass00.getAssfile()}"></td>
+              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getAssfile())}"></td>
               <td th:text = "${ass00.getIntrnlkey()}"></td>
               <td th:text = "${ass00.getStatus()}"></td>
               <td th:text = "${ass00.getUniqcode()}"></td>
@@ -203,7 +203,7 @@
               <td th:text = "${ass00.getFloor()}"></td>
               <td th:text = "${ass00.getAuction_id()}"></td>
               <td th:text = "${ass00.getUniqauction_code()}"></td>
-              <td th:text = "${ass00.getAuction_date()}"></td>
+              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getAuction_date())}"></td>
               <td th:text = "${ass00.getStartingprice()}"></td>
               <td th:text = "${ass00.getLandealink()}"></td>
               <td th:text = "${ass00.getRegion()}"></td>

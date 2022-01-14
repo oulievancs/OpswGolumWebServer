@@ -29,6 +29,7 @@ import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -182,12 +183,16 @@ public abstract class LcGramAssetsExcelBase
       Iterator<Row> rowIterator = this.FXssfsheet.iterator();
       GramAssetsExcelPrms01 params = new GramAssetsExcelPrms01();
       int idx = 1;
+
+      Row vrow = null;
       while (rowIterator.hasNext())
       {
+        vrow = rowIterator.next();
+
         if (idx >= this.GetIndexOfFirstLine())
         {
           this.assets00 = new Assets00();
-          params.setExcelRow(rowIterator.next());
+          params.setExcelRow(vrow);
           this.NextRow(params);
           this.Assetets00Service.Assets00Post02(assets00, true);
         }
@@ -264,7 +269,7 @@ public abstract class LcGramAssetsExcelBase
       //****** OLA TA ALLA ********
       else if (gram01.getField_type() == Gram01.FIELD_TYPE_NUMBER)
       {
-        double vnumFiled = cell.getNumericCellValue();
+        double vnumFiled = GetCellContentAsDouble(cell);
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
       }
@@ -280,16 +285,117 @@ public abstract class LcGramAssetsExcelBase
         {
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
-        String vstrField = cell.getStringCellValue();
+        String vstrField = GetCellContentAsString(cell);
         Calendar vcal = OpswDateUtils.StrToDate(vstrField, gram01.getDate_format());
 
         OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vcal);
+      }
+      else if (gram01.getField_type() == Gram01.FIELD_TYPE_LONG)
+      {
+        long vnumFiled = GetCellContentAsLong(cell);
+
+        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
       }
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  protected void CellValidationByType(Cell icell)
+          throws CatException
+  {
+    try
+    {
+      CellType ct = icell.getCellType();
+
+      if (ct == CellType.ERROR || ct == CellType.BOOLEAN
+              || ct == CellType.FORMULA || ct == CellType._NONE)
+      {
+        throw new CatExceptionUser("Δεν υποστηρίζεται ο τύπος του κελιού "
+                + "[Cords x: " + (icell.getRow().getRowNum() + 1) + ", y: "
+                + "" + (icell.getColumnIndex() + 1) + "]!");
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  protected String GetCellContentAsString(Cell icell)
+          throws CatException
+  {
+    String result = null;
+    try
+    {
+      CellType ct = icell.getCellType();
+
+      if (ct == CellType.STRING)
+      {
+        result = icell.getStringCellValue();
+      }
+      else if (ct == CellType.NUMERIC)
+      {
+        result = OpswStringUtils.OpswDoubleToString(icell.getNumericCellValue());
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  protected double GetCellContentAsDouble(Cell icell)
+          throws CatException
+  {
+    double result = 0;
+    try
+    {
+      CellType ct = icell.getCellType();
+
+      if (ct == CellType.STRING)
+      {
+        result = OpswNumberUtils.OpswGetDoubleFromString(icell.getStringCellValue());
+      }
+      else if (ct == CellType.NUMERIC)
+      {
+        result = icell.getNumericCellValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return result;
+  }
+
+  protected long GetCellContentAsLong(Cell icell)
+          throws CatException
+  {
+    long result = 0;
+    try
+    {
+      CellType ct = icell.getCellType();
+
+      if (ct == CellType.STRING)
+      {
+        result = OpswNumberUtils.OpswGetLongFromString(icell.getStringCellValue());
+      }
+      else if (ct == CellType.NUMERIC)
+      {
+        result = (long) icell.getNumericCellValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return result;
   }
 
   private Symb Assets00InvokeSymbByNameOrTel(String nameOrSurename, String tel)
@@ -411,11 +517,11 @@ public abstract class LcGramAssetsExcelBase
       this.createWorbook();
       SelectSheetAndDo(this.FXssfworkbook);
       params.setHasNextrow(true);
-      while(params.isHasNextrow())
+      while (params.isHasNextrow())
       {
         params.setExcelRow(this.FXssfsheet.createRow(rowCounter));
         NextRow(params);
-        rowCounter ++;
+        rowCounter++;
       }
       this.baos = new ByteArrayOutputStream();
       this.FXssfworkbook.write(this.baos);

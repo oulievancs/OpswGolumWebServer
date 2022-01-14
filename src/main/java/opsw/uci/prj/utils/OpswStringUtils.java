@@ -41,6 +41,22 @@ public class OpswStringUtils
     return vNumber;
   }
 
+  public static String OpswDoubleToString(double wDouble)
+          throws CatException
+  {
+    String res = null;
+    try
+    {
+      DecimalFormat df = new DecimalFormat("#");
+      res = df.format(wDouble);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
   public static String OpswShortToString(short wShort)
           throws CatException
   {

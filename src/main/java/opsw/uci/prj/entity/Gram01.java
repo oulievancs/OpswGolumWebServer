@@ -25,6 +25,7 @@ public class Gram01 implements Serializable
   public static final Short FIELD_TYPE_NUMBER = 0;
   public static final Short FIELD_TYPE_STRING = 1;
   public static final Short FIELD_TYPE_CALENDAR = 2;
+  public static final Short FIELD_TYPE_LONG = 3;
   
   @Id
   private Long gram;
