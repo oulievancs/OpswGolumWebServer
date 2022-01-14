@@ -11,6 +11,7 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.sql.DataSource;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.logging.OpswLogger;
 import org.apache.catalina.core.StandardServer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -181,13 +182,31 @@ public class OpswSystemWebServer01
   }
 
   private static DataSource OpswInitializeDatasource(DataSource dataSource)
+          throws CatException
   {
-    //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
-    //ClassPathResource dataResource = new ClassPathResource("data.sql");
-    ClassPathResource altersSource = new ClassPathResource("schema/alters.sql");
-    ClassPathResource viewsSource = new ClassPathResource("schema/views.sql");
-    ResourceDatabasePopulator populator = new ResourceDatabasePopulator(altersSource, viewsSource);
-    populator.execute(dataSource);
+    try
+    {
+      //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
+      //ClassPathResource dataResource = new ClassPathResource("data.sql");
+      ClassPathResource altersSource = new ClassPathResource("schema/alters.sql");
+      ResourceDatabasePopulator vpop = new ResourceDatabasePopulator(true, true, "us-ascii", altersSource);
+      vpop.execute(dataSource);
+    }
+    catch (Exception ex)
+    {
+      OpswLogger.LoggerLogException(ex);
+    }
+    
+    try
+    {
+      ClassPathResource viewsSource = new ClassPathResource("schema/views.sql");
+      ResourceDatabasePopulator vpop = new ResourceDatabasePopulator(true, true, "us-ascii", viewsSource);
+      vpop.execute(dataSource);
+    }
+    catch (Exception ex)
+    {
+      OpswLogger.LoggerLogException(ex);
+    }
     return dataSource;
   }
 }
