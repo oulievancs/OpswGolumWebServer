@@ -1,14 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  oulis
- * Created: Jan 13, 2022
- */
-
--- -----------------------------------------------------
+---------------------------------------------------
 -- View `OPSWDB`.`OPSWCONSTSV`
 -- -----------------------------------------------------
 CREATE OR REPLACE VIEW OPSWCONSTSV AS
@@ -85,4 +75,5 @@ SELECT  'ASSETS_VALUE' CODE, 'LANDEA_LEADS'              VALUE,  'Landea Leads' 
 SELECT  'ASSETS_VALUE' CODE, 'LANDEA_COMMENTS'         VALUE,  'Landea Comments' DESCR FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'UPDATE_AUCTION'                 VALUE,  'Update Auction' DESCR FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'HIGH_INTEREST'                 VALUE,  'HIGH INTEREST' DESCR FROM DUAL
-) consts
+) consts;
+

@@ -11,6 +11,7 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.sql.DataSource;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.logging.OpswLogger;
 import org.apache.catalina.core.StandardServer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -33,17 +34,20 @@ public class OpswSystemWebServer01
   /**
    * Web Server configuration.
    */
-  public static String JBOSS_DS_PREFIX = "java:jboss/comp/env/";
-  public static String TOMCAT_DS_PREFIX = "java:/comp/env/";
+  public static final String JBOSS_DS_PREFIX = "java:jboss/comp/env/";
+  public static final String TOMCAT_DS_PREFIX = "java:/comp/env/";
   /**
    * ********************************************************
    */
 
-  private static boolean OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS = true;
+  private static final boolean OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS = true;
 
-  public static String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
+  public static final String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
 
   public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
+
+  public final static String OPSW_DS_SCRIPTS_START = "<opsw_start>";
+  public final static String OPSW_DS_SCRIPTS_END = "<opsw_end>";
 
   public static byte DetermineWebServer()
           throws CatException
@@ -169,7 +173,7 @@ public class OpswSystemWebServer01
         DataSource vDs = iDs;
         if (OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS)
         {
-          vDs = OpswInitializeDatasource(vDs);
+          vDs = OpswInitializeDatasource(vDs, iDsName);
         }
         wDs.put(iDsName, vDs);
       }
@@ -180,14 +184,42 @@ public class OpswSystemWebServer01
     }
   }
 
-  private static DataSource OpswInitializeDatasource(DataSource dataSource)
+  private static DataSource OpswInitializeDatasource(DataSource dataSource, String dataSourceName)
+          throws CatException
   {
-    //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
-    //ClassPathResource dataResource = new ClassPathResource("data.sql");
-    ClassPathResource altersSource = new ClassPathResource("schema/alters.sql");
-    ClassPathResource viewsSource = new ClassPathResource("schema/views.sql");
-    ResourceDatabasePopulator populator = new ResourceDatabasePopulator(altersSource, viewsSource);
-    populator.execute(dataSource);
+    try
+    {
+      OpswLogger.LoggerLogDebug("Running alters on " + dataSourceName + " -1");
+      //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
+      //ClassPathResource dataResource = new ClassPathResource("data.sql");
+      ClassPathResource altersSource = new ClassPathResource("/schema/alters.sql");
+      ResourceDatabasePopulator vpop = new ResourceDatabasePopulator();
+      vpop.addScript(altersSource);
+      vpop.setIgnoreFailedDrops(true);
+      vpop.setContinueOnError(true);
+      vpop.execute(dataSource);
+      OpswLogger.LoggerLogDebug("Running alters on " + dataSourceName + " -2");
+    }
+    catch (Exception ex)
+    {
+      OpswLogger.LoggerLogException(ex);
+    }
+
+    try
+    {
+      OpswLogger.LoggerLogDebug("Running views on " + dataSourceName + " -1");
+      ClassPathResource viewsSource = new ClassPathResource("/schema/views.sql");
+      ResourceDatabasePopulator vpop = new ResourceDatabasePopulator();
+      vpop.addScript(viewsSource);
+      vpop.setIgnoreFailedDrops(true);
+      vpop.setContinueOnError(true);
+      vpop.execute(dataSource);
+      OpswLogger.LoggerLogDebug("Running views on " + dataSourceName + " -2");
+    }
+    catch (Exception ex)
+    {
+      OpswLogger.LoggerLogException(ex);
+    }
     return dataSource;
   }
 }
