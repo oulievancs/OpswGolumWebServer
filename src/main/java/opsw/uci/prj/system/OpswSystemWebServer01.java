@@ -197,6 +197,7 @@ public class OpswSystemWebServer01
       vpop.addScript(altersSource);
       vpop.setIgnoreFailedDrops(true);
       vpop.setContinueOnError(true);
+      vpop.setSqlScriptEncoding("UTF-8");
       vpop.execute(dataSource);
       OpswLogger.LoggerLogDebug("Running alters on " + dataSourceName + " -2");
     }
@@ -213,6 +214,7 @@ public class OpswSystemWebServer01
       vpop.addScript(viewsSource);
       vpop.setIgnoreFailedDrops(true);
       vpop.setContinueOnError(true);
+      vpop.setSqlScriptEncoding("UTF-8");
       vpop.execute(dataSource);
       OpswLogger.LoggerLogDebug("Running views on " + dataSourceName + " -2");
     }
