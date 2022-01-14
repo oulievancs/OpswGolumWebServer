@@ -22,6 +22,8 @@ public class OpswDateUtils
   public final static String OPSW_DATE_TIME_DEFAULT_FORMAT = "dd-MM-yyyy HH:mm:ss";
   public final static String OPSW_DATE_FORMAT_AMER = "MM-dd-yyyy";
   public final static String OPSW_DATE_TIME_FORMAT_AMER = "MM-dd-yyyy HH:mm:ss";
+  public final static String OPSW_DATE_THYMLEAF_01 = "dd/MM/yyyy";
+  public final static String OPSW_DATE_THYMLEAF_02 = "yyyy-MM-dd";
 
   public static String DateTimeToStr01(Calendar icalendar)
           throws CatException
