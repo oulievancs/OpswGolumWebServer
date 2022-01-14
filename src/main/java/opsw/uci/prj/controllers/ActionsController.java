@@ -106,8 +106,8 @@ public class ActionsController
     {
       ex.setRedirectToError(false);
       ex.setRedirectPath("actions/inportfile");
-      CatException.ErrorAddParameter(ex, "error", new Boolean(true));
-      CatException.ErrorAddParameter(ex, "message", ex.getTechMessage());
+      CatException.ErrorAddErrorParameter(ex, new Boolean(true));
+      CatException.ErrorAddErrorMessageParameter(ex, ex.getTechMessage());
       CatException.RethrowCatException(ex);
     }
     return "redirect:/actions/inportfile";

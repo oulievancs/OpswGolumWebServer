@@ -28,8 +28,10 @@
                 <div class="form-group">
                   <label>Field Type</label>
                   <select class="form-control" th:field="*{field_type}" name="field_type" placeholder="Enter field type">
-                    <option value="0">Number</option>
-                    <option value="1">String</option>
+                    <option th:each="field : ${fieldsList1}"
+                            th:value="${field.getCode()}"
+                            th:text="${field.getCode()} +' - '+${field.getDescr()}">
+                    </option>
                   </select>
                   <label>Field Name</label>
                   <!--<input
