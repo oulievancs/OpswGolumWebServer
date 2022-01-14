@@ -17,18 +17,21 @@ import opsw.uci.prj.cat.CatException;
 public class OpswDateUtils
 {
 
-  public static String DateTimeToStr01(Calendar calendar)
+  public final static String OPSW_DATE_DEFAULT_FORMAT = "DD-MM-YYYY";
+  public final static String OPSW_DATE_TIME_DEFAULT_FORMAT = "DD-MM-YYYY HH:mm:ss";
+  public final static String OPSW_DATE_FORMAT_AMER = "MM-DD-YYYY";
+  public final static String OPSW_DATE_TIME_FORMAT_AMER = "MM-DD-YYYY HH:mm:ss";
+
+  public static String DateTimeToStr01(Calendar icalendar)
           throws CatException
   {
-    SimpleDateFormat df = null;
     String result = "";
 
     try
     {
-      if (calendar != null)
+      if (icalendar != null)
       {
-        df = new SimpleDateFormat("DD-MM-YYYY HH:mm:ss");
-        result = df.format(calendar.getTime());
+        result = DateToStr(icalendar, OPSW_DATE_TIME_DEFAULT_FORMAT);
       }
     }
     catch (Exception ex)
@@ -38,18 +41,16 @@ public class OpswDateUtils
     return result;
   }
 
-  public static String DateToStr01(Calendar calendar)
+  public static String DateToStr01(Calendar icalendar)
           throws CatException
   {
-    SimpleDateFormat df = null;
     String result = "";
 
     try
     {
-      if (calendar != null)
+      if (icalendar != null)
       {
-        df = new SimpleDateFormat("DD-MM-YYYY");
-        result = df.format(calendar.getTime());
+        result = DateToStr(icalendar, OPSW_DATE_DEFAULT_FORMAT);
       }
     }
     catch (Exception ex)
@@ -67,7 +68,7 @@ public class OpswDateUtils
     {
       if (idateStr != null)
       {
-
+        vcal = StrToDate(idateStr, OPSW_DATE_DEFAULT_FORMAT);
       }
     }
     catch (Exception ex)
@@ -106,5 +107,31 @@ public class OpswDateUtils
     }
 
     return vcal;
+  }
+
+  public static String DateToStr(Calendar icalendar, String vdateFormat)
+          throws CatException
+  {
+    String vdateStr = null;
+    try
+    {
+      SimpleDateFormat df = null;
+      if (vdateFormat != null)
+      {
+        df = new SimpleDateFormat(vdateFormat);
+      }
+
+      if (df == null)
+      {
+        throw new CatException("Δεν δόθηκε format για την ημ/νία!");
+      }
+
+      vdateStr = df.format(icalendar.getTime());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vdateStr;
   }
 }
