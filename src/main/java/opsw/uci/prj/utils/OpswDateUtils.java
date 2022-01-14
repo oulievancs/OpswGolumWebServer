@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.utils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -85,7 +86,7 @@ public class OpswDateUtils
     Calendar vcal = null;
     try
     {
-      SimpleDateFormat vf = null;
+      DateFormat vf = null;
       if (iformat != null)
       {
         vf = new SimpleDateFormat(iformat);
@@ -115,7 +116,7 @@ public class OpswDateUtils
     String vdateStr = null;
     try
     {
-      SimpleDateFormat df = null;
+      DateFormat df = null;
       if (vdateFormat != null)
       {
         df = new SimpleDateFormat(vdateFormat);
