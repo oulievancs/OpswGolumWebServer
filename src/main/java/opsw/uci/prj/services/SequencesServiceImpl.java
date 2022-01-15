@@ -32,7 +32,7 @@ public class SequencesServiceImpl implements SequencesService
   }
 
   @Override
-  public Long SequencesGetNextVal(String seq_gen)
+  public synchronized Long SequencesGetNextVal(String seq_gen)
   {
     long nextVal = -1;
 
