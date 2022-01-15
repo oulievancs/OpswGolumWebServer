@@ -137,4 +137,45 @@ public class OpswDateUtils
     }
     return vdateStr;
   }
+
+  private static Calendar DateToCalendar_Internal(Date idate, boolean thowException)
+          throws CatException
+  {
+    Calendar vcal = null;
+    try
+    {
+      vcal = Calendar.getInstance();
+
+      if (thowException)
+      {
+        throw new CatException("Δεν έχει δοθεί ημ/νία!");
+      }
+      else if (idate != null)
+      {
+        vcal.setTime(idate);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vcal;
+  }
+
+  public static Calendar DateToCalendarElseNow(Date idate)
+          throws CatException
+  {
+    Calendar vcal = null;
+    try
+    {
+      vcal = DateToCalendar_Internal(idate, false);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vcal;
+  }
 }

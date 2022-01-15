@@ -82,6 +82,24 @@
             <h1>List of Assets00</h1>
           </div>
         </div>
+        
+        
+        <form th:action="@{/assets/assets00/list01}" method="POST" th:object="${searchDates}">
+          <div class="card-body">
+            <label for="assets">Date From</label>
+            <div>
+              <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{dateFrom}"/>
+            </div>
+            <label for="assets">Date To</label>
+            <div>
+              <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{dateTo}"/>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>Search</button>
+          </div>
+        </form>
+        
         <!--<div class="table-responsive">-->
         <table id="table1" style="width:100%" class="hover table-responsive">
           <thead>
