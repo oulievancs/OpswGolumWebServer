@@ -84,15 +84,23 @@
         </div>
         
         
-        <form th:action="@{/assets/assets00/list01}" method="POST" th:object="${searchDates}">
+        <form th:action="@{/assets/assets00/list01}" method="POST" th:object="${params}">
           <div class="card-body">
-            <label for="assets">Date From</label>
             <div>
-              <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{dateFrom}"/>
+              <label for="assets">Date From</label>
+              <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
+              <label for="assets">Date To</label>
+              <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/>
             </div>
-            <label for="assets">Date To</label>
             <div>
-              <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{dateTo}"/>
+              <label>Συμβολαιογράφος</label>
+              <select  class="form-control" th:field="*{symb_id}" name="symb_id"  type="number">
+                <option value="">Συμβολαιογράφος (Filter)...</option>
+                <option th:each="s : ${CLM1}"
+                        th:value="${s.getId()}"
+                        th:text="${s.getName()} + ' ' + ${s.getSurename()}">
+                </option>
+              </select>
             </div>
           </div>
           <div class="box-footer">

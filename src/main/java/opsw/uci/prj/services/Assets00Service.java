@@ -10,6 +10,7 @@ import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00SearchParams01;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,6 +32,8 @@ public interface Assets00Service
           throws CatException;
 
   public List<Assets00Rec01> Assets00Rec01List01() throws CatException;
-  
+
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;
+
+  public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException;
 }

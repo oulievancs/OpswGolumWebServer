@@ -21,4 +21,6 @@ public interface SymbService
   public List<Symb> SymbList01(String param) throws CatException;
 
   public Symb SymbPost01(Symb symb) throws CatException;
+
+  public List<Symb> SymbList02() throws CatException;
 }

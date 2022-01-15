@@ -16,6 +16,7 @@ import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.repositories.Assets00Repository;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +127,7 @@ public class Assets00ServiceImpl implements Assets00Service
 
     return vlist;
   }
-  
+
   private List<Assets00Rec01> Assets00Rec01FromAssets00(List<Assets00> assets) throws CatException
   {
     List<Assets00Rec01> result = null;
@@ -154,13 +155,13 @@ public class Assets00ServiceImpl implements Assets00Service
         }
       }
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
     return result;
   }
-  
+
   @Override
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException
   {
@@ -175,6 +176,44 @@ public class Assets00ServiceImpl implements Assets00Service
       CatException.RethrowCatException(e);
     }
     return resultList;
+  }
+
+  @Override
+  public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException
+  {
+    List<Assets00Rec01> vlist = null;
+    try
+    {
+      EntityManager em = (EntityManager) this.connection.getConnection();
+
+      String vsql = "SELECT a FROM Assets00 a ";
+
+      vsql += " WHERE a.assfile BETWEEN :dateFrom AND :dateTo ";
+
+      if (iparams.getSymb_id() > 0)
+      {
+        vsql += " AND a.symb_id = :symb_id ";
+      }
+
+      Query q = em.createQuery(vsql);
+      q.setParameter("dateFrom", iparams.getDateFrom());
+      q.setParameter("dateTo", iparams.getDateTo());
+
+      if (iparams.getSymb_id() > 0)
+      {
+        q.setParameter("symb_id", iparams.getSymb_id());
+      }
+
+      List<Assets00> vlist00 = (List<Assets00>) q.getResultList();
+
+      vlist = this.Assets00Rec01FromAssets00(vlist00);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vlist;
   }
 
 }

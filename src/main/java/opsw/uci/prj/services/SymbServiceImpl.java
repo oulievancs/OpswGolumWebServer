@@ -56,7 +56,7 @@ public class SymbServiceImpl implements SymbService
       {
         symb.setId(this.SequenceService.SequencesGetNextVal(Sequences.SEQ_SYMB));
       }
-      
+
       vsymb = (Symb) this.SymbRepository.save(symb);
     }
     catch (Exception ex)
@@ -65,5 +65,21 @@ public class SymbServiceImpl implements SymbService
     }
 
     return vsymb;
+  }
+
+  @Override
+  public List<Symb> SymbList02() throws CatException
+  {
+    List<Symb> vsymbList = null;
+    try
+    {
+      vsymbList = (List<Symb>) this.SymbRepository.findAll();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vsymbList;
   }
 }
