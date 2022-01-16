@@ -86,26 +86,21 @@
 
         <form method="POST" th:object="${params}">
           <div class="card-body">
-            <div class="row" id="parent-row">
-              
-                <div class="child-in-col">
-                  <label for="assets">Date From</label>
-                  <input type="date" class="form-control-filters" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
-                </div>
-                <div class="child-in-col">
-                  <label for="assets">Date To</label>
-                  <input type="date" class="form-control-filters" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/>
-                </div> 
-              <div class="child-in-col">
-                <label>Συμβολαιογράφος</label>
-                <select  class="form-control-filters" th:field="*{symb_id}" name="symb_id"  type="number">
-                  <option value="">Συμβολαιογράφος (Filter)...</option>
-                  <option th:each="s : ${CLM1}"
-                          th:value="${s.getId()}"
-                          th:text="${s.getName()} + ' ' + ${s.getSurename()}">
-                  </option>
-                </select>
-              </div>
+            <div class="custom-row">
+              <label for="assets">Date From</label>
+              <input type="date" class="form-control-filters" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
+              <label for="assets">Date To</label>
+              <input type="date" class="form-control-filters" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/> 
+            </div>
+            <div>
+              <label>Συμβολαιογράφος</label>
+              <select  class="form-control-filters" th:field="*{symb_id}" name="symb_id"  type="number">
+                <option value="">Συμβολαιογράφος (Filter)...</option>
+                <option th:each="s : ${CLM1}"
+                        th:value="${s.getId()}"
+                        th:text="${s.getName()} + ' ' + ${s.getSurename()}">
+                </option>
+              </select>
             </div>
           </div>
           <div class="box-footer">

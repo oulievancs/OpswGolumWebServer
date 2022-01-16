@@ -226,3 +226,7 @@ a.article:hover {
   width: 26.67%; 
   margin-left: 5% ;
 }
+
+.custom-row{
+  float:left;
+}
