@@ -41,16 +41,7 @@
           <h3>Main Menu</h3>
         </div>
 
-        <nav id="sidebar">
-          <div id="dismiss">
-            <i class="fas fa-arrow-left"></i>
-          </div>
-
-          <div class="sidebar-header">
-            <h3>Main Menu</h3>
-          </div>
-
-          <ul class="list-unstyled components">
+        <ul class="list-unstyled components">
           <div th:each="choice : ${menu}">
             <li th:if="${choice.isIsActive() and !choice.isHaveSub()}" class="active">
               <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"></a>
@@ -59,8 +50,8 @@
               <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
             </li>
             <li th:if="${choice.isHaveSub()}">
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
-              <ul class="collapse list-unstyled" id="pageSubmenu">
+              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
                   <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
                 </li>
@@ -68,7 +59,6 @@
             </li>
           </div>
         </ul>
-        </nav>
       </nav>
       <!--Content-->
       <div id="content">
@@ -87,19 +77,20 @@
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
               <h1 class=""text-center>Export File from Assets</h1>
-              <form th:action="@{/actions/exportfile/post}" method="POST">
+              <form th:action="@{/actions/exportfile/post?dateFrom={dateFrom}&dateTo={dateTo} 
+                    (dateFrom=${paramsOb.searchDates.getDateFrom()}, dateTo=${paramsOb.searchDates.getDateTo()}) }" method="POST" th:object="${paramsOb}">
                 <div class="card-body">
                   <label for="birthdate">Date From</label>
                   <div>
-                    <input type="date" class="form-control" id="birthdate" autocomplete="off" name="dateFrom" th:value="${#dates.format(dateFrom, 'dd/MM/yyyy')}"/>
+                    <input type="date" class="form-control" id="dataToExport" placeholder="dd-MM-yyyy" autocomplete="off" name="dateFrom"  th:field="*{searchDates.dateFrom}" />
                   </div>
                   <label for="birthdate">Date To</label>
                   <div>
-                    <input type="date" class="form-control" id="birthdate" autocomplete="off" name="dateTo" th:value="${#dates.format(dateTo, 'dd/MM/yyyy')}"/>
+                    <input type="date" class="form-control" id="dataToExport" placeholder="dd-MM-yyyy" autocomplete="off" name="dateTo"  th:field="*{searchDates.dateTo}"/>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Export</button>
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i>Export</button>
                 </div>
               </form>
             </div>
@@ -107,7 +98,6 @@
         </div>
       </div>
     </div>
-  </div>
 
   <div class="overlay"></div>
 

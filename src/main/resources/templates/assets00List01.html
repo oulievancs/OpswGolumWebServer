@@ -54,8 +54,8 @@
               <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
             </li>
             <li th:if="${choice.isHaveSub()}">
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
-              <ul class="collapse list-unstyled" id="pageSubmenu">
+              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
                   <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
                 </li>
@@ -82,32 +82,37 @@
             <h1>List of Assets00</h1>
           </div>
         </div>
-        
-        
-        <form th:action="@{/assets/assets00/list01}" method="POST" th:object="${params}">
+
+
+        <form method="POST" th:object="${params}">
           <div class="card-body">
-            <div>
-              <label for="assets">Date From</label>
-              <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
-              <label for="assets">Date To</label>
-              <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/>
-            </div>
-            <div>
-              <label>Συμβολαιογράφος</label>
-              <select  class="form-control" th:field="*{symb_id}" name="symb_id"  type="number">
-                <option value="">Συμβολαιογράφος (Filter)...</option>
-                <option th:each="s : ${CLM1}"
-                        th:value="${s.getId()}"
-                        th:text="${s.getName()} + ' ' + ${s.getSurename()}">
-                </option>
-              </select>
+            <div class="row" id="parent-row">
+              
+                <div class="child-in-col">
+                  <label for="assets">Date From</label>
+                  <input type="date" class="form-control-filters" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
+                </div>
+                <div class="child-in-col">
+                  <label for="assets">Date To</label>
+                  <input type="date" class="form-control-filters" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/>
+                </div> 
+              <div class="child-in-col">
+                <label>Συμβολαιογράφος</label>
+                <select  class="form-control-filters" th:field="*{symb_id}" name="symb_id"  type="number">
+                  <option value="">Συμβολαιογράφος (Filter)...</option>
+                  <option th:each="s : ${CLM1}"
+                          th:value="${s.getId()}"
+                          th:text="${s.getName()} + ' ' + ${s.getSurename()}">
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>Search</button>
+            <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>Search</button>
+            <button type="submit" th:formaction="@{/actions/exportfile/post}" class="btn btn-primary" name="action" value="export"><i class="fas fa-download"></i>Export</button>
           </div>
         </form>
-        
         <!--<div class="table-responsive">-->
         <table id="table1" style="width:100%" class="hover table-responsive">
           <thead>

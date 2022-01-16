@@ -57,8 +57,8 @@
               <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
             </li>
             <li th:if="${choice.isHaveSub()}">
-              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
-              <ul class="collapse list-unstyled" th:id="${choice.getId()">
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li th:each="subchoice : ${choice.getSubs()}">
                   <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
                 </li>
@@ -82,36 +82,55 @@
         </nav>
         <div class="container">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
-              <h1 class=""text-center>File Inport</h1>
-              <div class="card-body">
-                <form method="post" th:action="@{/actions/inportfile/post}" th:object="${gramRec}" enctype="multipart/form-data">
-                  <div class="row">
-                    <div class="col-md-8 mx-auto">
-                      <p th:text="${message}" th:if="${message ne null and !error}" class="alert alert-primary"></p>
-                      <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
-                      <div class="form-group">
-                        <input type="file" name="file" class="form-control-file">
-                        <label>Field Type</label>
-                        <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
-                          <option value="">Select Gram...</option>
-                          <option th:each="gr : ${gramList}"
-                                  th:value="${gr.getGram()}"
-                                  th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
-                          </option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Upload File</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class=""text-center>Edit Notary</h1>
+              <form th:action="/notary/ed01?id={id} (id=${CLM0.id})" method="POST" th:object="${CLM0}">
+                <div class="card-body">
+                  <div class="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    th:field="*{name}"
+                    class="form-control"
+                    placeholder="Enter Notary Name"
+                    />
+                </div>
+                  <label>SurName</label>
+                  <input
+                    type="text"
+                    name="surname"
+                    th:field="*{surname}"
+                    class="form-control"
+                    placeholder="Enter Notary Surname"
+                    />
+                  <label>Telephone</label>
+                  <input
+                    type="telephone"
+                    name="tele"
+                    th:field="*{tele}"
+                    class="form-control"
+                    placeholder="Enter Notary Telephone"
+                    />
+                  <label>E-mail</label>
+                  <input
+                    type="mail"
+                    name="email"
+                    th:field="*{email}"
+                    class="form-control"
+                    placeholder="Enter Notary E-mail"
+                    />
+                </div>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                  <a th:href="@{/gram/gram00/ed01?gram={gram} (gram=${CLM0.gram})}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
   <div class="overlay"></div>
 
@@ -123,7 +142,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <!-- jQuery Custom Scroller CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+  
   <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
@@ -142,6 +161,6 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-  </script>
+    </script>
 </body>
 </html>

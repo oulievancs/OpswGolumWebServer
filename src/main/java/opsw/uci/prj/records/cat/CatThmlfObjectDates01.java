@@ -46,4 +46,9 @@ public class CatThmlfObjectDates01
   {
     this.dateTo = dateTo;
   }
+
+  public Object getSearchDates()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 }

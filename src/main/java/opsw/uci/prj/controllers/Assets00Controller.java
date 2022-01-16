@@ -9,15 +9,19 @@ import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
+import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -42,6 +46,9 @@ public class Assets00Controller
   @Autowired
   private SymbService SymbService;
 
+  @Autowired
+  private Gram01Service Gram01Service;
+
   @GetMapping("/assets00/list01")
   public String Assets00List01(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
           @RequestParam(name = "dateTo", required = false) String dateTo,*/
@@ -61,7 +68,7 @@ public class Assets00Controller
     return "assets00List01";
   }
 
-  @PostMapping("/assets00/list01")
+  @PostMapping(value = "/assets00/list01")
   public String Assets00List01Post(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
           @RequestParam(name = "dateTo", required = false) String dateTo,*/
           @ModelAttribute(name = "params") CatThmlfAssets00List01Params iparams,

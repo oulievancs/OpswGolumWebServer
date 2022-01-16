@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.gramexcel.logic;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
@@ -12,11 +13,18 @@ import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.records.cat.CatReflectObject01;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.utils.OpswArrayUtils;
+import opsw.uci.prj.utils.OpswDateUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Color;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -27,14 +35,15 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
 {
 
   private List<Assets00Rec01> assets;
+  private List<CatThmlfObject01> fields;
   private Calendar dateFrom;
   private Calendar dateTo;
+  private Long symb_id;
 
   public LcGramAssetsExportExcel()
   {
     this.assets = null;
-    this.dateFrom = null;
-    this.dateTo = null;
+    this.fields = null;
   }
 
   public List<Assets00Rec01> getAssets()
@@ -45,6 +54,16 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
   public void setAssets(List<Assets00Rec01> assets)
   {
     this.assets = assets;
+  }
+
+  public List<CatThmlfObject01> getFields()
+  {
+    return fields;
+  }
+
+  public void setFields(List<CatThmlfObject01> fields)
+  {
+    this.fields = fields;
   }
 
   public Calendar getDateFrom()
@@ -67,11 +86,27 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
     this.dateTo = dateTo;
   }
 
+  public Long getSymb_id()
+  {
+    return symb_id;
+  }
+
+  public void setSymb_id(Long symb_id)
+  {
+    this.symb_id = symb_id;
+  }
+  
+
   public void findAssets() throws CatException
   {
     try
     {
-      this.assets = this.Assetets00Service.Assets00List02(this.dateFrom, this.dateTo);
+      this.fields = this.Gram01Service.FieldsList01(Opswconstsv.ASSETS_VALUE);
+      Assets00SearchParams01 assetsParams = new Assets00SearchParams01();
+      assetsParams.setDateFrom(this.dateFrom);
+      assetsParams.setDateTo(this.dateTo);
+      assetsParams.setSymb_id(this.symb_id);
+      this.assets = this.Assetets00Service.Assets00List03(assetsParams);
     }
     catch (Exception e)
     {
@@ -88,25 +123,10 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
       int currentRow = params.getExcelRow().getRowNum();
       if (currentRow == 0)
       {
-        List<CatThmlfObject01> fields = this.Gram01Service.FieldsList01(Opswconstsv.ASSETS_VALUE);
-        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(fields))
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.fields))
         {
           for (CatThmlfObject01 ob1 : fields)
           {
-            //List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(ob1);
-            /*if (OpswArrayUtils.OpswArrayContainsAtLeastOne(objectList))
-            {
-              int cellCounter = 0;
-              for (CatReflectObject01 ob2 : objectList)
-              {
-                Cell cell = params.getExcelRow().createCell(cellCounter);
-                if (ob2.getFieldType().equals(String.class))
-                {
-                  cell.setCellFormula((String) ob2.getFieldValue());
-                }
-                cellCounter++;
-              }
-            }*/
             Cell cell = params.getExcelRow().createCell(cellCounter);
             cell.setCellValue(ob1.getDescr());
             cellCounter++;
@@ -117,40 +137,51 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
       else if (this.assets.size() >= currentRow)
       {
         List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(this.assets.get(currentRow - 1));
-        if (objectList != null && !objectList.isEmpty())
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.fields))
         {
-          //int cellCounter = 0;
-          for (CatReflectObject01 ob : objectList)
+          for (CatThmlfObject01 ob1 : this.fields)
           {
-            if (ob.getFieldValue() != null)
+            if (OpswArrayUtils.OpswArrayContainsAtLeastOne(objectList))
             {
-              Cell cell = params.getExcelRow().createCell(cellCounter);
-              if (ob.getFieldType() == String.class)
+              for (CatReflectObject01 ob : objectList)
               {
-                cell.setCellValue((String) ob.getFieldValue());
+                if (ob1.getCode().equalsIgnoreCase(ob.getFieldName()))
+                {
+                  if (ob.getFieldValue() != null)
+                  {
+                    Cell cell = params.getExcelRow().createCell(cellCounter);
+                    
+                    if (ob.getFieldType() == String.class)
+                    {
+                      cell.setCellValue((String) ob.getFieldValue());
+                    }
+                    else if (ob.getFieldType() == Double.class)
+                    {
+                      cell.setCellValue((double) ob.getFieldValue());
+                    }
+                    else if (ob.getFieldType() == Integer.class)
+                    {
+                      cell.setCellValue((int) ob.getFieldValue());
+                    }
+                    else if (ob.getFieldType() == Long.class)
+                    {
+                      cell.setCellValue((long) ob.getFieldValue());
+                    }
+                    else if (ob.getFieldType() == Calendar.class)
+                    {
+                      cell.setCellValue(OpswDateUtils.DateToStr((Calendar) ob.getFieldValue(), "dd/MM/yyyy"));
+                    }
+                  }
+                  
+                  break;
+                }
               }
-              else if (ob.getFieldType() == Double.class)
-              {
-                cell.setCellValue((double) ob.getFieldValue());
-              }
-              else if (ob.getFieldType() == Integer.class)
-              {
-                cell.setCellValue((int) ob.getFieldValue());
-              }
-              else if (ob.getFieldType() == Long.class)
-              {
-                cell.setCellValue((long) ob.getFieldValue());
-              }
-              else if (ob.getFieldType() == Calendar.class)
-              {
-                cell.setCellValue((Calendar) ob.getFieldValue());
-              }
+              cellCounter++;
             }
-            cellCounter++;
           }
         }
       }
-      params.setHasNextrow(this.assets.size() > currentRow + 1);
+      params.setHasNextrow(this.assets.size() >= currentRow + 1);
     }
     catch (Exception e)
     {

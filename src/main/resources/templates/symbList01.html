@@ -2,19 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>Form</title>
+    <title>UCI Customer Managment System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
     <link rel="icon" th:href="@{static/assets/favicon.ico}" type = "image/x-icon">
-    <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}">
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome JS -->
-    <link rel=“stylesheet” href=“https://use.fontawesome.com/releases/v5.5.0/css/all.css” integrity=“sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU” crossorigin=“anonymous”>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
@@ -27,17 +26,16 @@
     <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
     <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-      let table = new DataTable('#table1', {
-        ordering: false
-    });
-});
+      $(document).ready(function () {
+        $('#table1').DataTable({});
+      });
     </script>
     <!------------------------------>
 
 
   </head>
   <body>
+
     <div class="wrapper">
       <nav id="sidebar">
         <div id="dismiss">
@@ -58,7 +56,7 @@
             </li>
             <li th:if="${choice.isHaveSub()}">
               <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
-              <ul class="collapse list-unstyled" th:id="${choice.getId()">
+              <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
                   <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
                 </li>
@@ -82,49 +80,60 @@
         </nav>
         <div class="container">
           <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
-              <h1 class=""text-center>File Inport</h1>
-              <div class="card-body">
-                <form method="post" th:action="@{/actions/inportfile/post}" th:object="${gramRec}" enctype="multipart/form-data">
-                  <div class="row">
-                    <div class="col-md-8 mx-auto">
-                      <p th:text="${message}" th:if="${message ne null and !error}" class="alert alert-primary"></p>
-                      <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
-                      <div class="form-group">
-                        <input type="file" name="file" class="form-control-file">
-                        <label>Field Type</label>
-                        <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
-                          <option value="">Select Gram...</option>
-                          <option th:each="gr : ${gramList}"
-                                  th:value="${gr.getGram()}"
-                                  th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
-                          </option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Upload File</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+            <h1>List of Notary</h1>
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-3">
+            <a th:href="@{/notary/ed01}" class="btn btn-primary btn-sm mb-3">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Add Gram00
+            </a>
+          </div>
+        </div>
+        <table id="table1" class="hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Telephone</th>
+              <th>E-mail</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each = "notary : ${CLM0}">
+              <td th:text = "${notary.getName()}"></td>
+              <td th:text = "${notary.getSurename()}"></td>
+              <td th:text = "${notary.getTele()}"></td>
+              <td th:text = "${notary.getEmail()}"></td>
+              <td>
+                <a th:href="@{/notary/ed01?id={id}(id=${notary.getId()})}" class="btn btn-primary btn-sm mb-3">
+                  <i class="fa fa-edit"></i>
+                  Edit
+                </a>
+                <a th:href ="@{/notary/delete01/{id} (id=${notary.getId()}) }" class="btn btn-danger btn-sm mb-3">
+                  <i class="fa fa-trash-alt"></i>  
+                  Delete
+                </a>
+              </td>
+            </tr>            
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
 
-  <div class="overlay"></div>
+    <div class="overlay"></div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-  <!-- jQuery CDN - Slim version (=without AJAX) -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <!-- Popper.JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-  <!-- jQuery Custom Scroller CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-  <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
@@ -142,6 +151,6 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

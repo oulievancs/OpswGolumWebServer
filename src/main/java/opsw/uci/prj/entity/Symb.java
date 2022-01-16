@@ -25,6 +25,7 @@ public class Symb implements Serializable
   private String name;
   private String surename;
   private String tele;
+  private String email;
 
   public Symb()
   {
@@ -32,6 +33,7 @@ public class Symb implements Serializable
     this.name = null;
     this.surename = null;
     this.tele = null;
+    this.email = null;
   }
 
   public Long getId()
@@ -72,6 +74,16 @@ public class Symb implements Serializable
   public void setTele(String tele)
   {
     this.tele = tele;
+  }
+
+  public String getEmail()
+  {
+    return email;
+  }
+
+  public void setEmail(String email)
+  {
+    this.email = email;
   }
 
   @Override

@@ -86,6 +86,32 @@ public class OpswMenuDo01
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
+      choice.setId("actionsSub");
+
+      menu.add(choice);
+      
+      subMenu = new ArrayList<>();
+      choice1 = new OpswMenu01();
+      //Choice inport File
+      choice1.setCaption("Edit");
+      choice1.setPath("/notary/edit01");
+      choice1.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice1.setHaveSub(false);
+      subMenu.add(choice1);
+      choice1 = new OpswMenu01();
+      choice1.setCaption("Index");
+      choice1.setPath("/notary/list01");
+      choice1.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice1.setHaveSub(false);
+      subMenu.add(choice1);
+      //choice for Actions
+      choice = new OpswMenu01();
+      choice.setCaption("Notary");
+      choice.setPath("");
+      choice.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice.setHaveSub(true);
+      choice.setSubs(subMenu);
+      choice.setId("notarysub");
 
       menu.add(choice);
 

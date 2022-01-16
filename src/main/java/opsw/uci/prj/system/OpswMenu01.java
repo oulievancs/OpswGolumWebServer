@@ -20,6 +20,7 @@ public class OpswMenu01
   private String caption;
   private boolean haveSub;
   private List<OpswMenu01> subs;
+  private String id;
 
   public OpswMenu01()
   {
@@ -28,6 +29,7 @@ public class OpswMenu01
     this.caption = null;
     this.haveSub = false;
     this.subs = null;
+    this.id = null;
   }
 
   public String getPath()
@@ -78,6 +80,16 @@ public class OpswMenu01
   public void setSubs(List<OpswMenu01> subs)
   {
     this.subs = subs;
+  }
+
+  public String getId()
+  {
+    return id;
+  }
+
+  public void setId(String id)
+  {
+    this.id = id;
   }
   
 }
