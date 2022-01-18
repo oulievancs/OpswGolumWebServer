@@ -141,4 +141,17 @@ public class OpswEntityManagerJpa extends OpswEntityManagerBase
       }
     }
   }
+
+  @Override
+  public void flush() throws CatException
+  {
+    try
+    {
+      this.em.flush();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
 }

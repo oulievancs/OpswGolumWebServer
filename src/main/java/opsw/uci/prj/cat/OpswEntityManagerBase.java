@@ -59,4 +59,6 @@ public abstract class OpswEntityManagerBase
   }
 
   public abstract void DetachObject(Object obj) throws CatException;
+
+  public abstract void flush() throws CatException;
 }
