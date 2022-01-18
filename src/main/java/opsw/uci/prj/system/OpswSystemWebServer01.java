@@ -110,21 +110,21 @@ public class OpswSystemWebServer01
         throw new CatException("Unknown web server!");
       }
 
-      String dsUrl = env.getProperty(orclh_minlo);
+      String dsUrl1 = env.getProperty(orclh_minlo);
 
-      if (dsUrl != null)
+      if (dsUrl1 != null)
       {
-        dsUrl = TOMCAT_DS_PREFIX + dsUrl;
+        String dsUrl = TOMCAT_DS_PREFIX + dsUrl1;
 
         if (iwebServer == JBOSS_WEB_SERVER)
         {
-          dsUrl = JBOSS_DS_PREFIX + dsUrl;
+          dsUrl = JBOSS_DS_PREFIX + dsUrl1;
         }
 
         ds = (DataSource) new JndiTemplate().lookup(dsUrl);
       }
 
-      if (dsUrl == null && ithrowExceptionNotFound)
+      if (dsUrl1 == null && ithrowExceptionNotFound)
       {
         throw new CatException("Property not found [Name = " + orclh_minlo + "]!");
       }
