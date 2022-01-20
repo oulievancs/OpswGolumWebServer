@@ -37,4 +37,6 @@ public interface Assets00Service
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;
 
   public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException;
+
+  public long Assets00Count01(Long symb_id) throws CatException;
 }

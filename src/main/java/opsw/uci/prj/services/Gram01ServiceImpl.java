@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
@@ -33,6 +34,15 @@ public class Gram01ServiceImpl implements Gram01Service
 
   @Autowired
   private Gram01Repository Gram01Repository;
+
+  @Autowired
+  private OpswGlobalServices01 OpswGlobalServices01;
+
+  @PostConstruct
+  public void init00()
+  {
+    this.OpswGlobalServices01.setGram01Service(this);
+  }
 
   @Override
   public List<Gram01> Gram01List01(Long gram)

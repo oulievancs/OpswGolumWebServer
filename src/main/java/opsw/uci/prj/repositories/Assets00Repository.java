@@ -21,9 +21,13 @@ import org.springframework.stereotype.Component;
 @Component
 public interface Assets00Repository extends CatEjbJpaBase<Assets00, Long>
 {
+
   @Query("SELECT a FROM Assets00 a WHERE a.status = ?1")
   List<Assets00> Assets00FindByStatus(Byte status);
-  
+
   @Query("SELECT a FROM Assets00 a WHERE a.assfile BETWEEN ?1 AND ?2 ")
   List<Assets00> Assets00FindByDate(Calendar dateFrom, Calendar dateTo);
+
+  @Query("SELECT Count(a) FROM Assets00 a WHERE a.symb_id = ?1")
+  long Assets00Count01(Long symb_id);
 }

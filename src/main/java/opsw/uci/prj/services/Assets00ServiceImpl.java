@@ -8,6 +8,7 @@ package opsw.uci.prj.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import opsw.uci.prj.cat.CatException;
@@ -42,7 +43,13 @@ public class Assets00ServiceImpl implements Assets00Service
   private SequencesService SequencesService;
 
   @Autowired
-  private SymbService SymbService;
+  private OpswGlobalServices01 OpswGlobalServices01;
+
+  @PostConstruct
+  public void init00()
+  {
+    this.OpswGlobalServices01.setAssets00Service(this);
+  }
 
   @Override
   public List<Assets00> Assets00List01(Byte status)
@@ -97,7 +104,7 @@ public class Assets00ServiceImpl implements Assets00Service
     {
       if (postSymb && vassets00.getSymb() != null)
       {
-        Symb vsymb = this.SymbService.SymbPost01(vassets00.getSymb());
+        Symb vsymb = this.OpswGlobalServices01.getSymbService().SymbPost01(vassets00.getSymb());
 
         vassets00.setSymb(vsymb);
       }
@@ -144,7 +151,7 @@ public class Assets00ServiceImpl implements Assets00Service
           Assets00Rec01.CopyAssets00Rec01FromAssents00(asset, (Assets00) rec);
           if (OpswNumberUtils.OpswGetLong(asset.getSymb_id()) > 0)
           {
-            Symb vsymb = this.SymbService.SymbSelect01(asset.getSymb_id());
+            Symb vsymb = this.OpswGlobalServices01.getSymbService().SymbSelect01(asset.getSymb_id());
 
             if (vsymb != null)
             {
@@ -215,6 +222,21 @@ public class Assets00ServiceImpl implements Assets00Service
     }
 
     return vlist;
+  }
+
+  @Override
+  public long Assets00Count01(Long symb_id) throws CatException
+  {
+    long vcount = 0;
+    try
+    {
+      vcount = OpswNumberUtils.OpswGetLong(this.Assets00Repository.Assets00Count01(symb_id));
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vcount;
   }
 
 }

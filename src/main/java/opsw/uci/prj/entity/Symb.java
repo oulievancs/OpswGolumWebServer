@@ -6,10 +6,13 @@
 package opsw.uci.prj.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,6 +29,12 @@ public class Symb implements Serializable
   private String surename;
   private String tele;
   private String email;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar date_create;
+  private String user_create;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Calendar date_modify;
+  private String user_modify;
 
   public Symb()
   {
@@ -34,6 +43,10 @@ public class Symb implements Serializable
     this.surename = null;
     this.tele = null;
     this.email = null;
+    this.date_create = null;
+    this.user_create = null;
+    this.date_modify = null;
+    this.user_modify = null;
   }
 
   public Long getId()
@@ -84,6 +97,46 @@ public class Symb implements Serializable
   public void setEmail(String email)
   {
     this.email = email;
+  }
+
+  public Calendar getDate_create()
+  {
+    return date_create;
+  }
+
+  public void setDate_create(Calendar date_create)
+  {
+    this.date_create = date_create;
+  }
+
+  public String getUser_create()
+  {
+    return user_create;
+  }
+
+  public void setUser_create(String user_create)
+  {
+    this.user_create = user_create;
+  }
+
+  public Calendar getDate_modify()
+  {
+    return date_modify;
+  }
+
+  public void setDate_modify(Calendar date_modify)
+  {
+    this.date_modify = date_modify;
+  }
+
+  public String getUser_modify()
+  {
+    return user_modify;
+  }
+
+  public void setUser_modify(String user_modify)
+  {
+    this.user_modify = user_modify;
   }
 
   @Override
