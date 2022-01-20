@@ -46,6 +46,7 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Override
   public List<Assets00> Assets00List01(Byte status)
+          throws CatException
   {
     return (List<Assets00>) this.Assets00Repository.Assets00FindByStatus(status);
   }

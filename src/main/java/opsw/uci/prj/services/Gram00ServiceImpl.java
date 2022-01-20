@@ -5,9 +5,9 @@
  */
 package opsw.uci.prj.services;
 
-
 import java.util.Calendar;
 import java.util.List;
+import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
@@ -46,12 +46,14 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public List<Gram00> Gram00List01()
+          throws CatException
   {
     return (List<Gram00>) this.Gram00Repository.findAll();
   }
 
   @Override
   public Gram00 Gram00Select02(Long gram)
+          throws CatException
   {
     Gram00 gram00 = null;
 
@@ -66,6 +68,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00Post01(Gram00 gram00)
+          throws CatException
   {
     if (gram00.getGram() == null || gram00.getGram() <= 0)
     {
@@ -77,6 +80,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00Post02(Long gram, Gram00 gram00, OpswLoginVars loginVars)
+          throws CatException
   {
     Gram00 gram00db = null;
     Calendar cal2 = Calendar.getInstance();
@@ -97,6 +101,7 @@ public class Gram00ServiceImpl implements Gram00Service
   }
 
   private void CopyGram00(Gram00 gram00db, Gram00 gram00)
+          throws CatException
   {
     gram00db.setDescr(gram00.getDescr());
     gram00db.setDescr_sea(gram00.getDescr_sea());
@@ -105,6 +110,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public void Gram00Delete01(Long gram)
+          throws CatException
   {
     Gram00 gram00 = this.Gram00Select02(gram);
     if (gram00 != null)
@@ -123,6 +129,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00PostED01(Long gram, Gram00 gram00, OpswLoginVars loginVars)
+          throws CatException
   {
     gram00.setUser_modify(loginVars.getLoginUser());
     return this.Gram00Post02(gram, gram00, loginVars);
@@ -130,6 +137,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public List<Gram00Rec01> Gram00Rec01List01()
+          throws CatException
   {
     return this.Gram00Repository.gram00Rec01List01();
   }

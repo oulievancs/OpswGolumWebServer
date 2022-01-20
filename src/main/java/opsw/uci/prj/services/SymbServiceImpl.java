@@ -82,4 +82,44 @@ public class SymbServiceImpl implements SymbService
 
     return vsymbList;
   }
+
+  @Override
+  public Symb SymbEDPost01(Symb symb) throws CatException
+  {
+    Symb vsymb = null;
+    try
+    {
+      vsymb = this.SymbSelect01(OpswNumberUtils.OpswGetLong(symb.getId()));
+
+      if (vsymb == null)
+      {
+        vsymb = new Symb();
+      }
+
+      SymbEDCopy01(vsymb, symb);
+
+      vsymb = this.SymbPost01(symb);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vsymb;
+  }
+
+  private void SymbEDCopy01(Symb symbDb, Symb symbOrig)
+          throws CatException
+  {
+    try
+    {
+      symbDb.setName(symbOrig.getName());
+      symbDb.setSurename(symbOrig.getSurename());
+      symbDb.setTele(symbOrig.getTele());
+      symbDb.setEmail(symbOrig.getEmail());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
 }

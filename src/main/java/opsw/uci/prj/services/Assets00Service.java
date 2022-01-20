@@ -20,7 +20,8 @@ import org.springframework.stereotype.Component;
 public interface Assets00Service
 {
 
-  public List<Assets00> Assets00List01(Byte status);
+  public List<Assets00> Assets00List01(Byte status)
+          throws CatException;
 
   public List<Assets00> Assets00List02() throws CatException;
 

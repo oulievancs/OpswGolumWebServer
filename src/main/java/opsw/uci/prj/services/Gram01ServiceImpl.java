@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
@@ -16,6 +17,7 @@ import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.Gram01Rec01;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.repositories.Gram01Repository;
+import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -34,12 +36,14 @@ public class Gram01ServiceImpl implements Gram01Service
 
   @Override
   public List<Gram01> Gram01List01(Long gram)
+          throws CatException
   {
     return (List<Gram01>) this.Gram01Repository.gram01List01(gram);
   }
 
   @Override
   public Long Gram01MaxSenu(Long gram)
+          throws CatException
   {
     Long maxSenu = this.Gram01Repository.gram01MaxSenu(gram);
     if (maxSenu == null)
@@ -51,6 +55,7 @@ public class Gram01ServiceImpl implements Gram01Service
 
   @Override
   public Gram01 Gram01Select01(Long gram, Long senu)
+          throws CatException
   {
     Gram01 gram01 = null;
     Gram01Key key = new Gram01Key(gram, senu);
@@ -60,8 +65,9 @@ public class Gram01ServiceImpl implements Gram01Service
 
   @Override
   public Gram01 Gram01Post01(Gram01 gram01)
+          throws CatException
   {
-    if ((gram01.getSenu() != null && gram01.getSenu() < 1) || gram01.getSenu() == null)
+    if (OpswNumberUtils.OpswGetLong(gram01.getSenu()) < 1)
     {
       gram01.setSenu(this.Gram01MaxSenu(gram01.getGram()) + 1);
     }
@@ -70,13 +76,14 @@ public class Gram01ServiceImpl implements Gram01Service
 
   @Override
   public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01)
+          throws CatException
   {
     Gram01 gram01db = null;
     if (senu != null)
     {
       gram01db = this.Gram01Select01(gram, senu);
     }
-    if(gram01db == null)
+    if (gram01db == null)
     {
       gram01db = new Gram01();
       gram01db.setGram(gram);
@@ -86,39 +93,50 @@ public class Gram01ServiceImpl implements Gram01Service
   }
 
   private void CopyGram01(Gram01 gram01db, Gram01 gram01)
+          throws CatException
   {
-    gram01db.setField_name(gram01.getField_name());
-    gram01db.setField_type(gram01.getField_type());
-    gram01db.setExcel_index(gram01.getExcel_index());
-    gram01db.setValue_num(gram01.getValue_num());
-    gram01db.setValue_str(gram01.getValue_str());
-    gram01db.setDate_format(gram01.getDate_format());
+    try
+    {
+      gram01db.setField_name(gram01.getField_name());
+      gram01db.setField_type(gram01.getField_type());
+      gram01db.setExcel_index(gram01.getExcel_index());
+      gram01db.setValue_num(gram01.getValue_num());
+      gram01db.setValue_str(gram01.getValue_str());
+      gram01db.setDate_format(gram01.getDate_format());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
-  
+
   @Override
   public void Gram01Delete01(Long gram, Long senu)
+          throws CatException
   {
     Gram01Key key = new Gram01Key(gram, senu);
     this.Gram01Delete02(key);
   }
-  
+
   @Override
   public void Gram01Delete02(Gram01Key key)
+          throws CatException
   {
-    this.Gram01Repository.deleteById(key);    
+    this.Gram01Repository.deleteById(key);
   }
-  
+
   @Override
   public List<Gram01Rec01> Gram01Rec01List01(Long gram)
-  {    
+          throws CatException
+  {
     return (List<Gram01Rec01>) this.Gram01Repository.gram01Rec01List01(gram, Opswconstsv.FIELD_TYPE);
   }
 
   @Override
   public List<CatThmlfObject01> FieldsList01(String constCode)
+          throws CatException
   {
     return (List<CatThmlfObject01>) this.Gram01Repository.FieldsList01(constCode);
   }
-
 
 }
