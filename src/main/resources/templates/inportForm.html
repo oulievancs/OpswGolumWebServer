@@ -58,7 +58,7 @@
             </li>
             <li th:if="${choice.isHaveSub()}">
               <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
-              <ul class="collapse list-unstyled" th:id="${choice.getId()">
+              <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
                   <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
                 </li>
@@ -92,7 +92,7 @@
                       <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
                       <div class="form-group">
                         <input type="file" name="file" class="form-control-file">
-                        <label>Field Type</label>
+                        <label>Gram</label>
                         <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
                           <option value="">Select Gram...</option>
                           <option th:each="gr : ${gramList}"

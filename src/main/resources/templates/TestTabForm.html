@@ -29,6 +29,26 @@
       });
     </script>
     <!------------------------------>
+    <!------------------------------>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <script>
+        $('#myTabs a').click(function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr("data-url");
+            var href = this.hash;
+            var pane = $(this);
+
+            // ajax load from data-url
+            $(href).load(url, function (result) {
+                pane.tab('show');
+            });
+        });
+
+        // load first tab content
+        $('#tab1').load($('.nav-link.active').attr("data-url"), function (result) {
+        });
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -74,58 +94,74 @@
           </div>
         </nav>
         <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-              <h1 class=""text-center>Export File from Assets</h1>
-              <form th:action="@{/actions/exportfile/post}" method="POST" th:object="${paramsOb}">
-                <div class="card-body">
-                  <label for="birthdate">Date From</label>
-                  <input 
-                    type="date"
+          <h2>Dynamic Tabs</h2>
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+            <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <form th:object="${asset}">
+              <div id="home" class="tab-pane fade in active">
+                <h3>HOME</h3>
+                <label>A/A UCI</label>
+                <input
+                  type="text"
+                  name="aauci"
+                  th:field="*{aauci}"
+                  th:value="${asset.getAauci()}"
+                  class="form-control"
+                  placeholder="Enter AAUCI"
+                  />
+              </div>
+              <div id="menu1" class="tab-pane fade">
+                <h3>Menu 1</h3>
+                <label>City</label>
+                <input
+                    type="text"
+                    name="city"
+                    th:field="*{city}"
+                    th:vaue="${asset.getCity()}"
                     class="form-control"
-                    id="dataToExport"
-                    placeholder="dd-MM-yyyy"
-                    autocomplete="off"
-                    name="dateFrom"
-                    th:field="*{searchDates.dateFrom}" />
-                  <label for="birthdate">Date To</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="dataToExport"
-                    placeholder="dd-MM-yyyy"
-                    autocomplete="off"
-                    name="dateTo"
-                    th:field="*{searchDates.dateTo}"/>
-                  <label>Συμβολαιογράφος</label>
-                  <select  class="form-control" th:field="*{symb_id}" name="symb_id"  type="number">
-                    <option value="">Συμβολαιογράφος (Filter)...</option>
-                    <option th:each="s : ${CLM1}"
-                            th:value="${s.getId()}"
-                            th:text="${s.getName()} + ' ' + ${s.getSurename()}">
-                    </option>
-                  </select>
-                  <label>Gram</label>
-                  <select  class="form-control" th:field="*{gram00}" name="gram"  type="number">
-                    <option value="">Select Gram...</option>
-                    <option th:each="gr : ${gramList}"
-                            th:value="${gr.getGram()}"
-                            th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
-                    </option>
-                  </select>
-                </div>
-                <div class="box-footer">
-                  <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i>Export</button>
-                </div>
-              </form>
-            </div>
+                    placeholder="Enter a City"
+                    />
+              </div>
+              <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+              </div>
+              <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
 
     <div class="overlay"></div>
+        <script type="text/javascript">
+      $(document).ready(function () {
+          $("#sidebar").mCustomScrollbar({
+              theme: "minimal"
+          });
 
+          $('#dismiss, .overlay').on('click', function () {
+              $('#sidebar').removeClass('active');
+              $('.overlay').removeClass('active');
+          });
+
+          $('#sidebarCollapse').on('click', function () {
+              $('#sidebar').addClass('active');
+              $('.overlay').addClass('active');
+              $('.collapse.in').toggleClass('in');
+              $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+          });
+      });
+    </script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
@@ -134,27 +170,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!------------------------------->
 
 
 
-    <script type="text/javascript">
-          $(document).ready(function () {
-              $("#sidebar").mCustomScrollbar({
-                  theme: "minimal"
-              });
 
-              $('#dismiss, .overlay').on('click', function () {
-                  $('#sidebar').removeClass('active');
-                  $('.overlay').removeClass('active');
-              });
 
-              $('#sidebarCollapse').on('click', function () {
-                  $('#sidebar').addClass('active');
-                  $('.overlay').addClass('active');
-                  $('.collapse.in').toggleClass('in');
-                  $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-              });
-          });
-    </script>
+
+
   </body>
 </html>

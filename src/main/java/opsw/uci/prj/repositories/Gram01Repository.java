@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface Gram01Repository extends CatEjbJpaBase<Gram01, Gram01Key>
 {
-  @Query("SELECT a FROM Gram01 a WHERE a.gram = ?1 ORDER BY a.excel_index DESC")
+  @Query("SELECT a FROM Gram01 a WHERE a.gram = ?1 ORDER BY a.excel_index")
   public List<Gram01> gram01List01(Long gram);
   
   @Query("SELECT MAX(a.senu) FROM Gram01 a WHERE a.gram = ?1")

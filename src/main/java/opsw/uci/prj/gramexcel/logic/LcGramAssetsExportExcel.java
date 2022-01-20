@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
@@ -19,12 +20,6 @@ import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Color;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -36,6 +31,7 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
 
   private List<Assets00Rec01> assets;
   private List<CatThmlfObject01> fields;
+  private List<Gram01> columns;
   private Calendar dateFrom;
   private Calendar dateTo;
   private Long symb_id;
@@ -95,6 +91,17 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
   {
     this.symb_id = symb_id;
   }
+
+  public List<Gram01> getColumns()
+  {
+    return columns;
+  }
+
+  public void setColumns(List<Gram01> columns)
+  {
+    this.columns = columns;
+  }
+
   
 
   public void findAssets() throws CatException
@@ -105,7 +112,8 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
       Assets00SearchParams01 assetsParams = new Assets00SearchParams01();
       assetsParams.setDateFrom(this.dateFrom);
       assetsParams.setDateTo(this.dateTo);
-      assetsParams.setSymb_id(this.symb_id);
+      //assetsParams.setSymb_id(this.symb_id);
+      this.columns = this.Gram01Service.Gram01List01(this.gram);
       this.assets = this.Assetets00Service.Assets00List03(assetsParams);
     }
     catch (Exception e)
@@ -123,29 +131,37 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
       int currentRow = params.getExcelRow().getRowNum();
       if (currentRow == 0)
       {
-        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.fields))
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.columns))
         {
-          for (CatThmlfObject01 ob1 : fields)
+          for(Gram01 col : this.columns)
           {
-            Cell cell = params.getExcelRow().createCell(cellCounter);
-            cell.setCellValue(ob1.getDescr());
-            cellCounter++;
+            if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.fields))
+            {
+              for (CatThmlfObject01 ob1 : fields)
+              {
+                if(col.getField_name().equalsIgnoreCase(ob1.getCode()))
+                {
+                  Cell cell = params.getExcelRow().createCell(cellCounter);
+                  cell.setCellValue(ob1.getDescr());
+                  cellCounter++;
+                }
+              }
+            }
           }
         }
-
       }
       else if (this.assets.size() >= currentRow)
       {
         List<CatReflectObject01> objectList = OpswReflection.ReflectObjectToObject01List(this.assets.get(currentRow - 1));
-        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.fields))
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(this.columns))
         {
-          for (CatThmlfObject01 ob1 : this.fields)
+          for (Gram01 ob1 : this.columns)
           {
             if (OpswArrayUtils.OpswArrayContainsAtLeastOne(objectList))
             {
               for (CatReflectObject01 ob : objectList)
               {
-                if (ob1.getCode().equalsIgnoreCase(ob.getFieldName()))
+                if (ob1.getField_name().equalsIgnoreCase(ob.getFieldName()))
                 {
                   if (ob.getFieldValue() != null)
                   {

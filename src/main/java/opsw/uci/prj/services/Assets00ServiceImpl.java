@@ -216,4 +216,20 @@ public class Assets00ServiceImpl implements Assets00Service
     return vlist;
   }
 
+  @Override
+  public Assets00 Assets00Select01(Long id) throws CatException
+  {
+    Assets00 result = null;
+    try
+    {
+      result = (Assets00) this.Assets00Repository.findById(id).orElse(null);
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+      
+    }
+    return result;
+  }
+
 }

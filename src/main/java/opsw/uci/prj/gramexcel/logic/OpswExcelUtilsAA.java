@@ -8,6 +8,7 @@ package opsw.uci.prj.gramexcel.logic;
 import java.util.Date;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
+import opsw.uci.prj.records.cat.CatThmlfAssets00List02Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram01Service;
@@ -32,7 +33,7 @@ public class OpswExcelUtilsAA
   }
   
   
-  public byte[] ExportExcelFile(CatThmlfAssets00List01Params iparams) throws CatException
+  public byte[] ExportExcelFile(CatThmlfAssets00List02Params iparams) throws CatException
   {
     byte[] result = null;
     try
@@ -41,11 +42,13 @@ public class OpswExcelUtilsAA
       excelUnit.setAssetets00Service(this.assets00Service);
       excelUnit.setSymbService(this.symbService);
       excelUnit.setGram01Service(this.gram01Service);
+      
       if (iparams != null && iparams.getSearchDates() != null)
       {
         ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.DateToCalendarElseNow(iparams.getSearchDates().getDateFrom()));
         ((LcGramAssetsExportExcel) excelUnit).setDateTo(OpswDateUtils.DateToCalendarElseNow(iparams.getSearchDates().getDateTo()));
         ((LcGramAssetsExportExcel) excelUnit).setSymb_id(iparams.getSymb_id());
+        excelUnit.setGram(iparams.getGram00());
       }
 
       result = excelUnit.ExportExcel();

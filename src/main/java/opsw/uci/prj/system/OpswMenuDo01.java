@@ -116,6 +116,14 @@ public class OpswMenuDo01
       menu.add(choice);
 
       choice = new OpswMenu01();
+      choice.setCaption("Tab Test");
+      choice.setPath("/actions/testtab");
+      choice.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice.setHaveSub(false);
+
+      menu.add(choice);
+      
+      choice = new OpswMenu01();
       choice.setCaption("Usage (Database)");
       choice.setPath("/init1");
       choice.setIsActive(requstedUrl.contains(choice.getPath()));

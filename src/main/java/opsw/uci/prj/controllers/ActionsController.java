@@ -12,6 +12,8 @@ import javax.annotation.security.RolesAllowed;
 import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExportExcel;
@@ -19,6 +21,7 @@ import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
+import opsw.uci.prj.records.cat.CatThmlfAssets00List02Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
@@ -122,43 +125,69 @@ public class ActionsController
     return "redirect:/actions/inportfile";
   }
 
+  @PostMapping("/exportfile/post02")
+  public String exportfile02(@ModelAttribute("params") CatThmlfAssets00List01Params iparams, Model model) throws Exception
+  {
+    CatThmlfAssets00List02Params returnParams = null;
+    List<Gram00Rec01> gramList = null;
+    List<Symb> symbList01 = null;
+    try
+    {
+      gramList = this.Gram00Service.Gram00Rec01List01();
+      symbList01 = this.SymbService.SymbList02();
+      if (iparams != null)
+      {
+        returnParams = new CatThmlfAssets00List02Params();
+        returnParams.setSearchDates(iparams.getSearchDates());
+        returnParams.setSymb_id(iparams.getSymb_id());
+      }
+      model.addAttribute("CLM1", symbList01);
+      model.addAttribute("gramList", gramList);
+      model.addAttribute("paramsOb", returnParams);
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    
+    return "exportform";
+  }
+  
   @GetMapping("/exportfile")
   public String exportFile(Model model) throws Exception
   {
-    CatThmlfAssets00List01Params params = null;
+    CatThmlfAssets00List02Params params = null;
+    List<Gram00Rec01> gramList = null;
+    List<Symb> symbList01 = null;
     try
     {
-      params = new CatThmlfAssets00List01Params();
+      gramList = this.Gram00Service.Gram00Rec01List01();
+      symbList01 = this.SymbService.SymbList02();
+      params = new CatThmlfAssets00List02Params();
       CatThmlfObjectDates01 dates = new CatThmlfObjectDates01();
       Calendar today = Calendar.getInstance();
       dates.setDateFrom(today.getTime());
       dates.setDateTo(today.getTime());
       params.setSearchDates(dates);
+      
+      model.addAttribute("CLM1", symbList01);
+      model.addAttribute("gramList", gramList);
+      model.addAttribute("paramsOb", params);
     }
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
-    model.addAttribute("paramsOb", params);
+    
     return "exportform";
   }
 
   @PostMapping("/exportfile/post")
-  public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("params") CatThmlfAssets00List01Params iparams) throws Exception
+  public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("paramsOb") CatThmlfAssets00List02Params iparams) throws Exception
   {
     ResponseEntity<byte[]> result = null;
     try
     {
-      /*LcGramAssetsExcelBase excelUnit = new LcGramAssetsExportExcel();
-      excelUnit.setAssetets00Service(this.Assetets00Service);
-      excelUnit.setSymbService(this.SymbService);
-      excelUnit.setGram01Service(this.Gram01Service);
-      if (obParam != null && obParam.getSearchDates() != null)
-      {
-        ((LcGramAssetsExportExcel) excelUnit).setDateFrom(OpswDateUtils.DateToCalendarElseNow(obParam.getSearchDates().getDateFrom()));
-        ((LcGramAssetsExportExcel) excelUnit).setDateTo(OpswDateUtils.DateToCalendarElseNow(obParam.getSearchDates().getDateTo()));
-      }
-      */
       OpswExcelUtilsAA excelUtils = new OpswExcelUtilsAA(this.Assetets00Service, this.SymbService, this.Gram01Service);
       byte[] excelFile = excelUtils.ExportExcelFile(iparams);
       result = ResponseEntity.ok()
@@ -173,4 +202,22 @@ public class ActionsController
     }
     return result;
   }
+  
+  @GetMapping("/testtab")
+  public String TabTest(Model model) throws CatException
+  {
+    Assets00 asset = null;
+    try
+    {
+      long id = 2005;
+      asset = this.Assetets00Service.Assets00Select01(id);
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    model.addAttribute("asset", asset);
+    return "TestTabForm";
+  }
+  
 }
