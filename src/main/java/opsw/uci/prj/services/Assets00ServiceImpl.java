@@ -232,12 +232,15 @@ public class Assets00ServiceImpl implements Assets00Service
     {
       result = (Assets00) this.Assets00Repository.findById(id).orElse(null);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
-      
+
     }
     return result;
+  }
+
+  @Override
   public long Assets00Count01(Long symb_id) throws CatException
   {
     long vcount = 0;
