@@ -5,11 +5,16 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.Calendar;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.repositories.SymbRepository;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +38,15 @@ public class SymbServiceImpl implements SymbService
 
   @Autowired
   private SequencesService SequenceService;
+
+  @Autowired
+  private OpswGlobalServices01 OpswGlobalServices01;
+
+  @PostConstruct
+  public void init00()
+  {
+    this.OpswGlobalServices01.setSymbService(this);
+  }
 
   @Override
   public Symb SymbSelect01(Long id) throws CatException
@@ -81,5 +95,130 @@ public class SymbServiceImpl implements SymbService
     }
 
     return vsymbList;
+  }
+
+  @Override
+  public Symb SymbEDPost01(Long symb_id, Symb symb, OpswLoginVars ilogvar)
+          throws CatException
+  {
+    Symb vsymb = null;
+    try
+    {
+      Calendar vcal = Calendar.getInstance();
+
+      vsymb = this.SymbSelect01(OpswNumberUtils.OpswGetLong(symb_id));
+
+      if (vsymb == null)
+      {
+        vsymb = new Symb();
+        vsymb.setDate_create(vcal);
+        vsymb.setUser_create(ilogvar.getLoginUser());
+      }
+
+      vsymb.setDate_modify(vcal);
+      vsymb.setUser_modify(ilogvar.getLoginUser());
+
+      SymbEDCopy01(vsymb, symb);
+
+      vsymb = this.SymbPost01(vsymb);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vsymb;
+  }
+
+  private void SymbEDCopy01(Symb symbDb, Symb symbOrig)
+          throws CatException
+  {
+    try
+    {
+      symbDb.setName(symbOrig.getName());
+      symbDb.setSurename(symbOrig.getSurename());
+      symbDb.setTele(symbOrig.getTele());
+      symbDb.setEmail(symbOrig.getEmail());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  @Override
+  public List<Symb> SymbPRDelete01(Long symb_id) throws CatException
+  {
+    List<Symb> vlistSymb = null;
+    try
+    {
+      Symb vsymb = this.SymbSelect01(symb_id);
+
+      SymbPRDeleteChecks(vsymb);
+
+      if (vsymb != null)
+      {
+        this.SymbDelete01(vsymb);
+      }
+
+      vlistSymb = this.SymbList02();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vlistSymb;
+  }
+
+  private void SymbPRDeleteChecks(Symb vsymb)
+          throws CatException
+  {
+    try
+    {
+      long vdepends = this.OpswGlobalServices01.getAssets00Service().Assets00Count01(vsymb.getId());
+
+      if (vdepends > 0)
+      {
+        throw new CatExceptionUser("There are Master Files records that depended on this notary!");
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  @Override
+  public void SymbDelete01(Symb symb) throws CatException
+  {
+    try
+    {
+      this.SymbRepository.delete(symb);
+    }
+    catch (Exception ex)
+    {
+      OpswEntityManagerBase.RollbackAndCatException(this.connection, ex);
+    }
+  }
+
+  @Override
+  public Symb SymbSelect02(Long id) throws CatException
+  {
+    Symb vsymb = null;
+    try
+    {
+      if (OpswNumberUtils.OpswGetLong(id) > 0)
+      {
+        vsymb = this.SymbSelect01(id);
+      }
+      else
+      {
+        vsymb = new Symb();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vsymb;
   }
 }

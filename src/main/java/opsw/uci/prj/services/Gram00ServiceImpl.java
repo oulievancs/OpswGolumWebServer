@@ -5,9 +5,10 @@
  */
 package opsw.uci.prj.services;
 
-
 import java.util.Calendar;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
@@ -16,6 +17,7 @@ import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.Gram01Rec01;
 import opsw.uci.prj.repositories.Gram00Repository;
+import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,13 @@ public class Gram00ServiceImpl implements Gram00Service
   private SequencesService SequencesService;
 
   @Autowired
-  private Gram01Service Gram01Service;
+  private OpswGlobalServices01 OpswGlobalServices01;
+
+  @PostConstruct
+  public void init00()
+  {
+    this.OpswGlobalServices01.setGram00Service(this);
+  }
 
   @Override
   public Gram00 Gram00Select01(Long gram)
@@ -46,19 +54,21 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public List<Gram00> Gram00List01()
+          throws CatException
   {
     return (List<Gram00>) this.Gram00Repository.findAll();
   }
 
   @Override
   public Gram00 Gram00Select02(Long gram)
+          throws CatException
   {
     Gram00 gram00 = null;
 
     gram00 = this.Gram00Select01(gram);
     if (gram00 != null)
     {
-      gram00.setGram01List(this.Gram01Service.Gram01List01(gram00.getGram()));
+      gram00.setGram01List(this.OpswGlobalServices01.getGram01Service().Gram01List01(gram00.getGram()));
     }
 
     return gram00;
@@ -66,6 +76,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00Post01(Gram00 gram00)
+          throws CatException
   {
     if (gram00.getGram() == null || gram00.getGram() <= 0)
     {
@@ -77,6 +88,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00Post02(Long gram, Gram00 gram00, OpswLoginVars loginVars)
+          throws CatException
   {
     Gram00 gram00db = null;
     Calendar cal2 = Calendar.getInstance();
@@ -97,6 +109,7 @@ public class Gram00ServiceImpl implements Gram00Service
   }
 
   private void CopyGram00(Gram00 gram00db, Gram00 gram00)
+          throws CatException
   {
     gram00db.setDescr(gram00.getDescr());
     gram00db.setDescr_sea(gram00.getDescr_sea());
@@ -105,6 +118,7 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public void Gram00Delete01(Long gram)
+          throws CatException
   {
     Gram00 gram00 = this.Gram00Select02(gram);
     if (gram00 != null)
@@ -114,7 +128,7 @@ public class Gram00ServiceImpl implements Gram00Service
         for (Gram01 gram01 : gram00.getGram01List())
         {
           Gram01Key key = new Gram01Key(gram01.getGram(), gram01.getSenu());
-          this.Gram01Service.Gram01Delete02(key);
+          this.OpswGlobalServices01.getGram01Service().Gram01Delete02(key);
         }
       }
       this.Gram00Repository.deleteById(gram00.getGram());
@@ -123,13 +137,27 @@ public class Gram00ServiceImpl implements Gram00Service
 
   @Override
   public Gram00 Gram00PostED01(Long gram, Gram00 gram00, OpswLoginVars loginVars)
+          throws CatException
   {
-    gram00.setUser_modify(loginVars.getLoginUser());
-    return this.Gram00Post02(gram, gram00, loginVars);
+    Gram00 vgram00 = null;
+    try
+    {
+      gram00.setUser_modify(loginVars.getLoginUser());
+      vgram00 = this.Gram00Post02(gram, gram00, loginVars);
+
+      vgram00.setGram01List(this.OpswGlobalServices01.getGram01Service()
+              .Gram01List01(OpswNumberUtils.OpswGetLong(vgram00.getGram())));
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vgram00;
   }
 
   @Override
   public List<Gram00Rec01> Gram00Rec01List01()
+          throws CatException
   {
     return this.Gram00Repository.gram00Rec01List01();
   }

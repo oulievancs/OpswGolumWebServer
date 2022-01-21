@@ -20,7 +20,8 @@ import org.springframework.stereotype.Component;
 public interface Assets00Service
 {
 
-  public List<Assets00> Assets00List01(Byte status);
+  public List<Assets00> Assets00List01(Byte status)
+          throws CatException;
 
   public List<Assets00> Assets00List02() throws CatException;
 
@@ -38,4 +39,7 @@ public interface Assets00Service
   public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException;
   
   public Assets00 Assets00Select01(Long id) throws CatException;
+
+  public long Assets00Count01(Long symb_id) throws CatException;
+
 }

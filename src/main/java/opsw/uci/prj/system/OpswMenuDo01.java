@@ -94,7 +94,7 @@ public class OpswMenuDo01
       choice1 = new OpswMenu01();
       //Choice inport File
       choice1.setCaption("Edit");
-      choice1.setPath("/notary/edit01");
+      choice1.setPath("/notary/ed01");
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
       subMenu.add(choice1);

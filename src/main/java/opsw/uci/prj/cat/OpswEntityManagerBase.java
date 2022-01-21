@@ -51,12 +51,14 @@ public abstract class OpswEntityManagerBase
 
   public abstract void close() throws CatException;
 
-  public void RollbackAndCatException(OpswEntityManagerBase con, Throwable ex)
+  public static void RollbackAndCatException(OpswEntityManagerBase con, Throwable ex)
           throws CatException
   {
-    this.transactionRollback();
+    con.transactionRollback();
     throw new CatException(ex);
   }
 
   public abstract void DetachObject(Object obj) throws CatException;
+
+  public abstract void flush() throws CatException;
 }
