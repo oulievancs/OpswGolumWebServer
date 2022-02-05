@@ -7,31 +7,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 
     <link rel="icon" th:href="@{static/assets/favicon.ico}" type = "image/x-icon">
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
-    <!-- Our Custom CSS -->
-    <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet"></link>
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}"></link>
-    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css"></link>
+      <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
+      <!-- Our Custom CSS -->
+      <link type="text/css" th:href="@{/static/css/style3.css}" rel="stylesheet"></link>
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css}"></link>
+      <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css"></link>
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+      <!-- Font Awesome JS -->
+      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-    <!-- AWESOME DATA TABLE -------->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
-    <!--<script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
-    <script defer src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <!--<link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>-->
-    <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css}"></link>
-    <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
-    <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
-    <script>
-      $(document).ready(function () {
-        $('#table1').DataTable({});
-      });
-    </script>
-    <!------------------------------>
+      <!-- AWESOME DATA TABLE -------->
+      <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+      <!--<script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" type="text/javascript"></script>-->
+      <script defer src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
+      <!--<link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css}"></link>-->
+      <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css}"></link>
+      <link rel="stylesheet" defer th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css}"></link>
+      <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
+      <!--Test---------------------------------------->
+      <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+      <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+      <link rel="stylesheet" defer th:href="@{https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css}"></link>
+
+      <script>
+        $(document).ready(function() {
+          var table = $('#table1').DataTable();
+
+          $('#table1 tbody').on( 'click', 'tr', function () {
+              if ( $(this).hasClass('selected') ) {
+                  $(this).removeClass('selected');
+              }
+              else {
+                  table.$('tr.selected').removeClass('selected');
+                  $(this).addClass('selected');
+              }
+          } );
+
+          $('#button').click( function () {
+            //var vid = table.row('.selected').$('#current').attr('value');
+            var row = table.row('.selected').data();
+            window.location.href = 'http://localhost:8080/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0];
+            //Http.open("GET", url);
+            //Http.send();
+          } );
+        } );
+      </script>
+      <!--Test---------------------------------------->
+      <script>
+        $(document).ready(function () {
+        });
+      </script>
+      <!------------------------------>
   </head>
   <body>
 
@@ -108,6 +136,7 @@
             <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-primary" name="action" value="export"><i class="fas fa-download"></i>Export</button>
           </div>
         </form>
+        <button style="margin-bottom: 15px;" id="button" class="btn btn-primary" ><i class="fa fa-edit"></i>Edit</button>
         <!--<div class="table-responsive">-->
         <table id="table1" style="width:100%" class="hover table-responsive">
           <thead>

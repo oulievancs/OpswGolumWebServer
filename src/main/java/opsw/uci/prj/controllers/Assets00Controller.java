@@ -8,6 +8,7 @@ package opsw.uci.prj.controllers;
 import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.records.Assets00Rec01;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -144,6 +146,27 @@ public class Assets00Controller
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  @GetMapping("/assets00/ed01")
+  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model) throws Exception
+  {
+    Assets00Rec01 asset = null;
+    try
+    {
+      //long id = 2005;
+      if(assetId != null)
+      {
+        asset = this.Assets00Service.Assets00Select01(assetId);
+      }
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    model.addAttribute("CLM0", asset);
+
+    return "assets00Ed01";
   }
 }
 //OpswEjbContext.setCurrentTenant(null);

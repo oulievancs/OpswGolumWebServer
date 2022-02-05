@@ -19,6 +19,7 @@ public class Assets00Rec01 extends Assets00
   private String symb_name;
   private String symb_surename;
   private String symb_tele;
+  private String symb_mail;
 
   public Assets00Rec01()
   {
@@ -56,6 +57,16 @@ public class Assets00Rec01 extends Assets00
   public void setSymb_tele(String symb_tel)
   {
     this.symb_tele = symb_tel;
+  }
+
+  public String getSymb_mail()
+  {
+    return symb_mail;
+  }
+
+  public void setSymb_mail(String symb_mail)
+  {
+    this.symb_mail = symb_mail;
   }
 
   public static void CopyAssets00Rec01FromAssents00(Assets00 from, Assets00 to)

@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
@@ -225,17 +226,45 @@ public class Assets00ServiceImpl implements Assets00Service
   }
 
   @Override
-  public Assets00 Assets00Select01(Long id) throws CatException
+  public Assets00Rec01 Assets00Select01(Long id) throws CatException
   {
-    Assets00 result = null;
+    Assets00Rec01 result = null;
     try
     {
-      result = (Assets00) this.Assets00Repository.findById(id).orElse(null);
+      Assets00 asset = this.Assets00Repository.findById(id).orElse(null);
+      result = this.Assets00Rec01FromAssets00Record(asset);
     }
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
 
+    }
+    return result;
+  }
+  
+  private Assets00Rec01 Assets00Rec01FromAssets00Record(Assets00 asset) throws CatException
+  {
+    Assets00Rec01 result = null;
+    try
+    {
+      result = new Assets00Rec01();
+      Assets00Rec01.CopyAssets00Rec01FromAssents00(asset, (Assets00)result);
+      if (OpswNumberUtils.OpswGetLong(asset.getSymb_id()) > 0)
+      {
+        Symb vsymb = this.OpswGlobalServices01.getSymbService().SymbSelect01(asset.getSymb_id());
+
+        if (vsymb != null)
+        {
+          result.setSymb_name(vsymb.getName());
+          result.setSymb_surename(vsymb.getSurename());
+          result.setSymb_tele(vsymb.getTele());
+          result.setSymb_mail(vsymb.getEmail());
+        }
+      }
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
     }
     return result;
   }
