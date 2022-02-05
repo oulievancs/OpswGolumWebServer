@@ -18,6 +18,15 @@ import opsw.uci.prj.records.cat.CatThmlfObject02;
 public class OpswErpRecords01
 {
 
+  public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
+
+  public static final String[] OPSW_CONNECTIONS =
+  {
+    DEFAULT_ORCLH_MINLO,
+    "ORCLH_MINLO1",
+    "ORCLH_MINLO2"
+  };
+
   public static List<CatThmlfObject02> OpswListXrhshListObj()
           throws CatException
   {
@@ -49,13 +58,13 @@ public class OpswErpRecords01
       switch (ietai)
       {
         case 1:
-          wLoginVar.setConnectionDs("ORCLH_MINLO");
+          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[0]);
           break;
         case 2:
-          wLoginVar.setConnectionDs("ORCLH_MINLO1");
+          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[1]);
           break;
         case 3:
-          wLoginVar.setConnectionDs("ORCLH_MINLO2");
+          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[2]);
           break;
         default:
           break;
