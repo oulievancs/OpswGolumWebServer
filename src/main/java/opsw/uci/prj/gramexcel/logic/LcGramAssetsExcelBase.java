@@ -277,7 +277,7 @@ public abstract class LcGramAssetsExcelBase
       {
         String vstrField = cell.getStringCellValue();
 
-        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vstrField);
+        OpswReflection.SetFieldValueAppend(this.assets00, vfieldName.toLowerCase(), vstrField, " ");
       }
       else if (gram01.getField_type() == Gram01.FIELD_TYPE_CALENDAR)
       {

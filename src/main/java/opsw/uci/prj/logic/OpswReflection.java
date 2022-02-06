@@ -156,6 +156,46 @@ public class OpswReflection
     }
   }
 
+  public static void SetFieldValueAppend(Object obj, String fieldName, Object value, String prefix)
+          throws CatException
+  {
+    try
+    {
+      Field vfield = GetFieldByName(obj, fieldName);
+
+      if (vfield != null)
+      {
+        Object vval = value;
+        if ((value instanceof String) && (vfield.getType().getName().equals(String.class.getClass().getName())))
+        {
+          String vstr = null;
+          Object vstrObj = CallGetterMethod(obj, fieldName, vfield.getClass());
+
+          if (vstrObj != null && vstrObj instanceof String)
+          {
+            vstr = (String) vstrObj;
+          }
+
+          if (vstr == null)
+          {
+            vstr = (String) value;
+          }
+          else
+          {
+            vstr += prefix + (String) value;
+          }
+
+          vval = vstr;
+        }
+        CallSetterMethod(obj, fieldName, vval, vfield.getType());
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
   private static void CallSetterMethod(Object obj, String fieldName, Object value, Class<?> paramType)
           throws CatException
   {

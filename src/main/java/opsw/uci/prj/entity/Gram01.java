@@ -37,6 +37,7 @@ public class Gram01 implements Serializable
   private Double value_num;
   private Integer excel_index;
   private String date_format;
+  private Byte concatOrder;
 
   public Gram01()
   {
@@ -49,6 +50,7 @@ public class Gram01 implements Serializable
     this.value_num = null;
     this.excel_index = null;
     this.date_format = null;
+    this.concatOrder = null;
   }
 
   public Long getGram()
@@ -129,6 +131,16 @@ public class Gram01 implements Serializable
   public void setDate_format(String date_format)
   {
     this.date_format = date_format;
+  }
+
+  public Byte getConcatOrder()
+  {
+    return concatOrder;
+  }
+
+  public void setConcatOrder(Byte concatOrder)
+  {
+    this.concatOrder = concatOrder;
   }
 
   @Override

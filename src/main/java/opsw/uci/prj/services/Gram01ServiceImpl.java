@@ -149,4 +149,10 @@ public class Gram01ServiceImpl implements Gram01Service
     return (List<CatThmlfObject01>) this.Gram01Repository.FieldsList01(constCode);
   }
 
+  @Override
+  public List<Gram01> Gram01List02(Long gram) throws CatException
+  {
+    return (List<Gram01>) this.Gram01Repository.gram01List02(gram);
+  }
+
 }
