@@ -223,6 +223,10 @@
               <th>Landea Comments</th>
               <th>Update Auction</th>
               <th>HIGH INTEREST</th>
+              <th>User Create</th>
+              <th>Date Create</th>
+              <th>User Modify</th>
+              <th>Date Modify</th>
             </tr>
           </thead>
           <tbody>
@@ -294,6 +298,10 @@
               <td th:text = "${ass00.getLandea_comments()}"></td>
               <td th:text = "${ass00.getUpdate_auction()}"></td>
               <td th:text = "${ass00.getHigh_interest()}"></td>
+              <td th:text = "${ass00.getUser_create()}"></td>
+              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getDate_create())}"></td>
+              <td th:text = "${ass00.getUser_modify()}"></td>
+              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getDate_modify())}"></td>
             </tr>
           </tbody>
         </table>
