@@ -113,6 +113,7 @@ public class Gram01ServiceImpl implements Gram01Service
       gram01db.setValue_num(gram01.getValue_num());
       gram01db.setValue_str(gram01.getValue_str());
       gram01db.setDate_format(gram01.getDate_format());
+      gram01db.setConcatOrder(gram01.getConcatOrder());
     }
     catch (Exception ex)
     {
