@@ -59,7 +59,7 @@ public class OpswReflection
         throw new CatException("Δεν βρέθηκε setter διαδικασία για το πεδίο [Field = " + fieldName + "]!");
       }
 
-      if (method.getModifiers() != Modifier.PUBLIC)
+      if (!Modifier.isPublic(method.getModifiers()))
       {
         throw new CatException("Το πεδίο [Field = " + fieldName + "] δεν έχει public setter method!");
       }
@@ -329,7 +329,7 @@ public class OpswReflection
         {
           Method m = methods[i];
 
-          if (isSuper && m.getModifiers() == Modifier.PRIVATE)
+          if (isSuper && Modifier.isPrivate(m.getModifiers()))
           {
             throw new CatException("Η μέθοδος [Method = " + imethodName + "] είναι private!");
           }
@@ -376,7 +376,7 @@ public class OpswReflection
         {
           for (Field ff : vfields)
           {
-            if (isSuper && ff.getModifiers() == Modifier.PRIVATE)
+            if (isSuper && Modifier.isPrivate(ff.getModifiers()))
             {
               throw new CatException("Το πεδίο [field = " + ff.getName() + "] είναι private!");
             }
@@ -420,7 +420,15 @@ public class OpswReflection
         {
           Field f = fields[i];
 
-          vlistFields.add(f);
+          if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers())
+                  || Modifier.isTransient(f.getModifiers()))
+          {
+            //
+          }
+          else
+          {
+            vlistFields.add(f);
+          }
         }
 
         isSubclass = false;
