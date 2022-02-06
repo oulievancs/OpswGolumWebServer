@@ -9,15 +9,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExportExcel;
 import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
+import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
@@ -85,10 +88,12 @@ public class ActionsController
 
   @PostMapping("/inportfile/post")
   public String uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute("gramRec") Gram00Rec01 gramrec,
-          RedirectAttributes attributes) throws Exception
+          RedirectAttributes attributes, HttpServletRequest request) throws Exception
   {
     try
     {
+      OpswLoginVars vlogvar = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, vlogvar);
       //check for file
       if (file.isEmpty())
       {
@@ -108,6 +113,7 @@ public class ActionsController
         excelUnit.setGram00Service(this.Gram00Service);
         excelUnit.setGram01Service(this.Gram01Service);
         excelUnit.setSymbService(this.SymbService);
+        excelUnit.setLogivars(vlogvar);
 
         excelUnit.ReadFileFromMultipart(file);
         attributes.addFlashAttribute("message", "The file uploaded.");

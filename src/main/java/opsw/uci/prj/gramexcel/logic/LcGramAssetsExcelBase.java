@@ -16,6 +16,7 @@ import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.cat.CatReflectObject01;
@@ -56,6 +57,8 @@ public abstract class LcGramAssetsExcelBase
 
   private byte[] file;
 
+  private OpswLoginVars logivars;
+
   private ByteArrayOutputStream baos;
 
   //Create Workbook instance holding reference to .xlsx file
@@ -74,6 +77,7 @@ public abstract class LcGramAssetsExcelBase
     this.gram = 0;
     this.assets00 = null;
     this.SymbService = null;
+    this.logivars = null;
   }
 
   public byte[] getFile()
@@ -94,6 +98,16 @@ public abstract class LcGramAssetsExcelBase
   public void setGram(long gram)
   {
     this.gram = gram;
+  }
+
+  public OpswLoginVars getLogivars()
+  {
+    return logivars;
+  }
+
+  public void setLogivars(OpswLoginVars logivars)
+  {
+    this.logivars = logivars;
   }
 
   protected static class GramAssetsExcelPrms01
@@ -154,6 +168,11 @@ public abstract class LcGramAssetsExcelBase
         throw new CatException(CatException.CODE_NULL_PRM, "Δεν δόθηκε παράμετρος filename!");
       }
 
+      if (this.logivars == null)
+      {
+        throw new CatException(CatException.CODE_NULL_PRM, "Δεν δόθηκε loginvars!");
+      }
+
       this.FXssfworkbook = new XSSFWorkbook(new ByteArrayInputStream(this.file));
 
       this.SelectSheetAndDo(this.FXssfworkbook);
@@ -192,6 +211,8 @@ public abstract class LcGramAssetsExcelBase
         if (idx >= this.GetIndexOfFirstLine())
         {
           this.assets00 = new Assets00();
+          this.assets00.setUser_modify(this.logivars.getLoginUser());
+          this.assets00.setDate_modify(Calendar.getInstance());
           params.setExcelRow(vrow);
           this.NextRow(params);
           this.Assetets00Service.Assets00Post02(assets00, true);
