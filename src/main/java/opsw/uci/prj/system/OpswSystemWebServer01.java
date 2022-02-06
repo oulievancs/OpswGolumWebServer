@@ -11,6 +11,7 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import javax.sql.DataSource;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.logging.OpswLogger;
 import org.apache.catalina.core.StandardServer;
 import org.springframework.core.env.Environment;
@@ -44,7 +45,7 @@ public class OpswSystemWebServer01
 
   public static final String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
 
-  public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
+  public static final String DEFAULT_ORCLH_MINLO = OpswErpRecords01.DEFAULT_ORCLH_MINLO;
 
   public final static String OPSW_DS_SCRIPTS_START = "<opsw_start>";
   public final static String OPSW_DS_SCRIPTS_END = "<opsw_end>";
@@ -142,16 +143,16 @@ public class OpswSystemWebServer01
     try
     {
       String dsNamePath = DEFAULT_ORCLH_MINLO_PROPERTY;
-      String dsName = DEFAULT_ORCLH_MINLO;
+      String dsName = OpswErpRecords01.OPSW_CONNECTIONS[0];
       OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
       /**
        * **************************************************************************************************
        *////
       dsNamePath = "opsw.datasource.01";
-      dsName = "ORCLH_MINLO1";
+      dsName = OpswErpRecords01.OPSW_CONNECTIONS[1];
       OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
       dsNamePath = "opsw.datasource.02";
-      dsName = "ORCLH_MINLO2";
+      dsName = OpswErpRecords01.OPSW_CONNECTIONS[2];
       OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
       /**
        * **************************************************************************************************
