@@ -239,15 +239,14 @@ public abstract class LcGramAssetsExcelBase
     }
   }
 
-  protected void Assets00InvokeByField(Gram01 gram01, Cell cell)
+  private void Assets00InvokeByField_Internal(String ifieldName, String ifieldDateFormat,
+          short ifieldType, Cell cell)
           throws CatException
   {
     try
     {
-      String vfieldName = gram01.getField_name();
-
       //Logic Pedia
-      if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
+      if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
       {
         String vnamee = cell.getStringCellValue();
@@ -267,7 +266,7 @@ public abstract class LcGramAssetsExcelBase
           this.assets00.getSymb().setName(vnamee);
         }
       }
-      else if (vfieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
+      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
       {
         String vtelaa = cell.getStringCellValue();
@@ -288,35 +287,57 @@ public abstract class LcGramAssetsExcelBase
         }
       }
       //****** OLA TA ALLA ********
-      else if (gram01.getField_type() == Gram01.FIELD_TYPE_NUMBER)
+      else if (ifieldType == Gram01.FIELD_TYPE_NUMBER)
       {
         double vnumFiled = GetCellContentAsDouble(cell);
 
-        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
+        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
       }
-      else if (gram01.getField_type() == Gram01.FIELD_TYPE_STRING)
+      else if (ifieldType == Gram01.FIELD_TYPE_STRING)
       {
         String vstrField = cell.getStringCellValue();
 
-        OpswReflection.SetFieldValueAppend(this.assets00, vfieldName.toLowerCase(), vstrField, " ");
+        OpswReflection.SetFieldValueAppend(this.assets00, ifieldName.toLowerCase(), vstrField, " ");
       }
-      else if (gram01.getField_type() == Gram01.FIELD_TYPE_CALENDAR)
+      else if (ifieldType == Gram01.FIELD_TYPE_CALENDAR)
       {
-        if (OpswStringUtils.OpswStringIsEmpty(gram01.getDate_format()))
+        if (OpswStringUtils.OpswStringIsEmpty(ifieldDateFormat))
         {
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
         String vstrField = GetCellContentAsString(cell);
-        Calendar vcal = OpswDateUtils.StrToDate(vstrField, gram01.getDate_format());
+        Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat);
 
-        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vcal);
+        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vcal);
       }
-      else if (gram01.getField_type() == Gram01.FIELD_TYPE_LONG)
+      else if (ifieldType == Gram01.FIELD_TYPE_LONG)
       {
         long vnumFiled = GetCellContentAsLong(cell);
 
-        OpswReflection.SetFieldValue(this.assets00, vfieldName.toLowerCase(), vnumFiled);
+        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
       }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  protected void Assets00InvokeByField(Gram01 gram01, Cell cell)
+          throws CatException
+  {
+    String vmess = "";
+    try
+    {
+      String vfieldName = gram01.getField_name();
+      vmess = "Field = " + vfieldName + " ";
+
+      Assets00InvokeByField_Internal(vfieldName, gram01.getDate_format(), gram01.getField_type(), cell);
+    }
+    catch (CatException ex)
+    {
+      ex.setTechMessage(ex.getMessage() + " " + vmess);
+      CatException.RethrowCatException(ex);
     }
     catch (Exception ex)
     {
