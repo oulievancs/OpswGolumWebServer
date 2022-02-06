@@ -8,6 +8,7 @@ package opsw.uci.prj.gramexcel.logic;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
@@ -29,6 +30,7 @@ import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -305,7 +307,7 @@ public abstract class LcGramAssetsExcelBase
         {
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
-        String vstrField = GetCellContentAsString(cell);
+        String vstrField = GetCellContentAsString(cell, ifieldDateFormat);
         Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat);
 
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vcal);
@@ -337,7 +339,11 @@ public abstract class LcGramAssetsExcelBase
     }
     catch (CatException ex)
     {
-      ex.setTechMessage(ex.getMessage() + " " + vmess);
+      String vtexchMes
+              = (ex.getMessage() != null ? ex.getMessage() : "")
+              + " " + (ex.getTechMessage() != null ? ex.getTechMessage() : "")
+              + " " + vmess;
+      ex.setTechMessage(vtexchMes);
       CatException.RethrowCatException(ex);
     }
     catch (Exception ex)
@@ -367,7 +373,7 @@ public abstract class LcGramAssetsExcelBase
     }
   }
 
-  protected String GetCellContentAsString(Cell icell)
+  protected String GetCellContentAsString(Cell icell, String idateFormat)
           throws CatException
   {
     String result = null;
@@ -378,6 +384,16 @@ public abstract class LcGramAssetsExcelBase
       if (ct == CellType.STRING)
       {
         result = icell.getStringCellValue();
+      }
+      else if (HSSFDateUtil.isCellDateFormatted(icell))
+      {
+        Date vdate = icell.getDateCellValue();
+        if (vdate != null)
+        {
+          Calendar vcal = Calendar.getInstance();
+          vcal.setTime(vdate);
+          result = OpswDateUtils.DateToStr(vcal, icell.getCellStyle().getDataFormatString());
+        }
       }
       else if (ct == CellType.NUMERIC)
       {
