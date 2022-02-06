@@ -166,7 +166,8 @@ public class Assets00Controller
     }
     model.addAttribute("CLM0", asset);
 
-    return "assets00Ed01";
+    //return "assets00Ed01";
+    return "TestTabForm";
   }
 }
 //OpswEjbContext.setCurrentTenant(null);
