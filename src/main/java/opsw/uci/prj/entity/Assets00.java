@@ -31,6 +31,7 @@ public class Assets00 implements Serializable
   private Calendar assfile;
   private String intrnlkey;
   private Byte status;
+  private String statusdeff;
   private String uniqcode;
   private String auctionurl;
   private Long symb_id;
@@ -107,6 +108,7 @@ public class Assets00 implements Serializable
     this.assfile = null;
     this.intrnlkey = null;
     this.status = null;
+    this.statusdeff = null;
     this.uniqcode = null;
     this.auctionurl = null;
     this.symb_id = null;
@@ -222,6 +224,16 @@ public class Assets00 implements Serializable
   public void setStatus(Byte status)
   {
     this.status = status;
+  }
+
+  public String getStatusdeff()
+  {
+    return statusdeff;
+  }
+
+  public void setStatusdeff(String statusdeff)
+  {
+    this.statusdeff = statusdeff;
   }
 
   public String getUniqcode()
