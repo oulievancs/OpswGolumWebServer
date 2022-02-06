@@ -307,7 +307,7 @@ public abstract class LcGramAssetsExcelBase
         {
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
-        String vstrField = GetCellContentAsString(cell, ifieldDateFormat);
+        String vstrField = GetCellContentAsString(cell);
         Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat);
 
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vcal);
@@ -317,6 +317,18 @@ public abstract class LcGramAssetsExcelBase
         long vnumFiled = GetCellContentAsLong(cell);
 
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
+      }
+      else if (ifieldType == Gram01.FIELD_TYPE_Y_OR_N)
+      {
+        byte vval = Assets00.FIELD_Y_OR_N_NO;
+        String vfval = GetCellContentAsString(cell);
+
+        if (vfval != null && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_YES))
+        {
+          vval = Assets00.FIELD_Y_OR_N_NO;
+        }
+
+        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vval);
       }
     }
     catch (Exception ex)
@@ -373,7 +385,7 @@ public abstract class LcGramAssetsExcelBase
     }
   }
 
-  protected String GetCellContentAsString(Cell icell, String idateFormat)
+  protected String GetCellContentAsString(Cell icell)
           throws CatException
   {
     String result = null;

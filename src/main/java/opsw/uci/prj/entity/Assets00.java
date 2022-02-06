@@ -24,6 +24,9 @@ import javax.persistence.Transient;
 public class Assets00 implements Serializable
 {
 
+  public static final byte FILED_Y_OR_N_YES = 1;
+  public static final byte FIELD_Y_OR_N_NO = 0;
+
   @Id
   private Long asset;
   private Long aauci;
