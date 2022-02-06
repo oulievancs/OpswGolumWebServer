@@ -331,6 +331,7 @@ public abstract class LcGramAssetsExcelBase
     {
       String vfieldName = gram01.getField_name();
       vmess = "Field = " + vfieldName + " ";
+      vmess += "Line = " + cell.getRowIndex() + " ";
 
       Assets00InvokeByField_Internal(vfieldName, gram01.getDate_format(), gram01.getField_type(), cell);
     }
