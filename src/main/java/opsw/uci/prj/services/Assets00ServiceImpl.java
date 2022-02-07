@@ -85,6 +85,8 @@ public class Assets00ServiceImpl implements Assets00Service
       if (assets00.getAsset() == null || assets00.getAsset() < 1)
       {
         assets00.setAsset(this.SequencesService.SequencesGetNextVal(Sequences.SEQ_ASSETS00));
+        assets00.setUser_create(assets00.getUser_modify());
+        assets00.setDate_create(assets00.getDate_modify());
       }
 
       vassets00 = this.Assets00Insert(assets00);

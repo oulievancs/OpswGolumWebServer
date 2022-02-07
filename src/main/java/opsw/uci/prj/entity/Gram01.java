@@ -26,7 +26,11 @@ public class Gram01 implements Serializable
   public static final Short FIELD_TYPE_STRING = 1;
   public static final Short FIELD_TYPE_CALENDAR = 2;
   public static final Short FIELD_TYPE_LONG = 3;
-  
+  public static final Short FIELD_TYPE_Y_OR_N = 4;
+
+  public static final String FIELD_Y_OR_N_YES = "Y";
+  public static final String FIELS_Y_OR_N_NO = "N";
+
   @Id
   private Long gram;
   @Id
@@ -37,6 +41,7 @@ public class Gram01 implements Serializable
   private Double value_num;
   private Integer excel_index;
   private String date_format;
+  private Byte concatOrder;
 
   public Gram01()
   {
@@ -49,6 +54,7 @@ public class Gram01 implements Serializable
     this.value_num = null;
     this.excel_index = null;
     this.date_format = null;
+    this.concatOrder = null;
   }
 
   public Long getGram()
@@ -129,6 +135,16 @@ public class Gram01 implements Serializable
   public void setDate_format(String date_format)
   {
     this.date_format = date_format;
+  }
+
+  public Byte getConcatOrder()
+  {
+    return concatOrder;
+  }
+
+  public void setConcatOrder(Byte concatOrder)
+  {
+    this.concatOrder = concatOrder;
   }
 
   @Override

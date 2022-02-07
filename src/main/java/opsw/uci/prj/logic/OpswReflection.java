@@ -59,7 +59,7 @@ public class OpswReflection
         throw new CatException("Δεν βρέθηκε setter διαδικασία για το πεδίο [Field = " + fieldName + "]!");
       }
 
-      if (method.getModifiers() != Modifier.PUBLIC)
+      if (!Modifier.isPublic(method.getModifiers()))
       {
         throw new CatException("Το πεδίο [Field = " + fieldName + "] δεν έχει public setter method!");
       }
@@ -148,6 +148,46 @@ public class OpswReflection
       if (vfield != null)
       {
         CallSetterMethod(obj, fieldName, value, vfield.getType());
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  public static void SetFieldValueAppend(Object obj, String fieldName, Object value, String prefix)
+          throws CatException
+  {
+    try
+    {
+      Field vfield = GetFieldByName(obj, fieldName);
+
+      if (vfield != null)
+      {
+        Object vval = value;
+        if ((value instanceof String) && (vfield.getType().getName().equals(String.class.getClass().getName())))
+        {
+          String vstr = null;
+          Object vstrObj = CallGetterMethod(obj, fieldName, vfield.getClass());
+
+          if (vstrObj != null && vstrObj instanceof String)
+          {
+            vstr = (String) vstrObj;
+          }
+
+          if (vstr == null)
+          {
+            vstr = (String) value;
+          }
+          else
+          {
+            vstr += prefix + (String) value;
+          }
+
+          vval = vstr;
+        }
+        CallSetterMethod(obj, fieldName, vval, vfield.getType());
       }
     }
     catch (Exception ex)
@@ -289,7 +329,7 @@ public class OpswReflection
         {
           Method m = methods[i];
 
-          if (isSuper && m.getModifiers() == Modifier.PRIVATE)
+          if (isSuper && Modifier.isPrivate(m.getModifiers()))
           {
             throw new CatException("Η μέθοδος [Method = " + imethodName + "] είναι private!");
           }
@@ -336,7 +376,7 @@ public class OpswReflection
         {
           for (Field ff : vfields)
           {
-            if (isSuper && ff.getModifiers() == Modifier.PRIVATE)
+            if (isSuper && Modifier.isPrivate(ff.getModifiers()))
             {
               throw new CatException("Το πεδίο [field = " + ff.getName() + "] είναι private!");
             }
@@ -380,7 +420,15 @@ public class OpswReflection
         {
           Field f = fields[i];
 
-          vlistFields.add(f);
+          if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers())
+                  || Modifier.isTransient(f.getModifiers()))
+          {
+            //
+          }
+          else
+          {
+            vlistFields.add(f);
+          }
         }
 
         isSubclass = false;

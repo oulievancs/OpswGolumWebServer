@@ -24,6 +24,9 @@ import javax.persistence.Transient;
 public class Assets00 implements Serializable
 {
 
+  public static final byte FILED_Y_OR_N_YES = 1;
+  public static final byte FIELD_Y_OR_N_NO = 0;
+
   @Id
   private Long asset;
   private Long aauci;
@@ -31,6 +34,7 @@ public class Assets00 implements Serializable
   private Calendar assfile;
   private String intrnlkey;
   private Byte status;
+  private String statusdeff;
   private String uniqcode;
   private String auctionurl;
   private Long symb_id;
@@ -91,6 +95,10 @@ public class Assets00 implements Serializable
   private String landea_comments;
   private String update_auction;
   private String high_interest;
+  private Calendar date_create;
+  private String user_create;
+  private Calendar date_modify;
+  private String user_modify;
 
   @Transient
   private Symb symb;
@@ -103,6 +111,7 @@ public class Assets00 implements Serializable
     this.assfile = null;
     this.intrnlkey = null;
     this.status = null;
+    this.statusdeff = null;
     this.uniqcode = null;
     this.auctionurl = null;
     this.symb_id = null;
@@ -162,6 +171,10 @@ public class Assets00 implements Serializable
     this.landea_comments = null;
     this.update_auction = null;
     this.high_interest = null;
+    this.date_create = null;
+    this.user_create = null;
+    this.date_modify = null;
+    this.user_modify = null;
     //
     this.symb = null;
   }
@@ -214,6 +227,16 @@ public class Assets00 implements Serializable
   public void setStatus(Byte status)
   {
     this.status = status;
+  }
+
+  public String getStatusdeff()
+  {
+    return statusdeff;
+  }
+
+  public void setStatusdeff(String statusdeff)
+  {
+    this.statusdeff = statusdeff;
   }
 
   public String getUniqcode()
@@ -814,6 +837,46 @@ public class Assets00 implements Serializable
   public void setSymb(Symb symb)
   {
     this.symb = symb;
+  }
+
+  public Calendar getDate_create()
+  {
+    return date_create;
+  }
+
+  public void setDate_create(Calendar date_create)
+  {
+    this.date_create = date_create;
+  }
+
+  public String getUser_create()
+  {
+    return user_create;
+  }
+
+  public void setUser_create(String user_create)
+  {
+    this.user_create = user_create;
+  }
+
+  public Calendar getDate_modify()
+  {
+    return date_modify;
+  }
+
+  public void setDate_modify(Calendar date_modify)
+  {
+    this.date_modify = date_modify;
+  }
+
+  public String getUser_modify()
+  {
+    return user_modify;
+  }
+
+  public void setUser_modify(String user_modify)
+  {
+    this.user_modify = user_modify;
   }
 
   @Override

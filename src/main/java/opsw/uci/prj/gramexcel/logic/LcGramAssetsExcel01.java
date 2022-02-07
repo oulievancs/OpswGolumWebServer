@@ -88,7 +88,7 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
           throw new CatException(CatException.CODE_DBREC_NOT_FOUND,
                   "Δεν βρέθηκε η γραμμογράφηση [Gram = " + this.gram + "]!");
         }
-        this.gram01List = this.Gram01Service.Gram01List01(this.gram);
+        this.gram01List = this.Gram01Service.Gram01List02(this.gram);
       }
     }
     catch (Exception ex)
