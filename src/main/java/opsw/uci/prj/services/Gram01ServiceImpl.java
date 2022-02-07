@@ -81,7 +81,7 @@ public class Gram01ServiceImpl implements Gram01Service
     {
       gram01.setSenu(this.Gram01MaxSenu(gram01.getGram()) + 1);
     }
-    return (Gram01) this.Gram01Repository.save(gram01);
+    return (Gram01) this.Gram01Repository.saveAndFlush(gram01);
   }
 
   @Override

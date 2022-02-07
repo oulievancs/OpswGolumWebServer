@@ -73,7 +73,7 @@ public class Assets00ServiceImpl implements Assets00Service
   @Override
   public Assets00 Assets00Insert(Assets00 assets00) throws CatException
   {
-    return (Assets00) this.Assets00Repository.save(assets00);
+    return (Assets00) this.Assets00Repository.saveAndFlush(assets00);
   }
 
   @Override

@@ -83,7 +83,7 @@ public class Gram00ServiceImpl implements Gram00Service
       gram00.setGram(this.SequencesService.SequencesGetNextVal(Sequences.SEQ_GRAM00));
       //gram00.setGram(Long.valueOf(1998));
     }
-    return (Gram00) this.Gram00Repository.save(gram00);
+    return (Gram00) this.Gram00Repository.saveAndFlush(gram00);
   }
 
   @Override

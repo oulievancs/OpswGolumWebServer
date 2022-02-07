@@ -71,7 +71,7 @@ public class SymbServiceImpl implements SymbService
         symb.setId(this.SequenceService.SequencesGetNextVal(Sequences.SEQ_SYMB));
       }
 
-      vsymb = (Symb) this.SymbRepository.save(symb);
+      vsymb = (Symb) this.SymbRepository.saveAndFlush(symb);
     }
     catch (Exception ex)
     {
