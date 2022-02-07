@@ -7,18 +7,23 @@ package opsw.uci.prj.gramexcel.logic;
 
 import java.util.Iterator;
 import java.util.List;
+import opsw.uci.prj.arifacts.OpswTransactional;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author oulis
  */
+@Component
+@Service
 public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
 {
 
@@ -30,6 +35,20 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
     super();
     this.gram00 = null;
     this.gram01List = null;
+  }
+
+  @OpswTransactional
+  public void ReadFileFromMultipartAndImport(MultipartFile ifile)
+          throws CatException
+  {
+    try
+    {
+      this.ReadFileFromMultipart(ifile);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 
   @Override

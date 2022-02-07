@@ -20,8 +20,6 @@ import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
-import opsw.uci.prj.records.cat.CatReflectObject01;
-import opsw.uci.prj.repositories.SymbRepository;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
@@ -218,6 +216,11 @@ public abstract class LcGramAssetsExcelBase
           params.setExcelRow(vrow);
           this.NextRow(params);
           this.Assetets00Service.Assets00Post02(assets00, true);
+
+          if (1 == 1)
+          {
+            throw new CatExceptionUser("Im here!");
+          }
         }
 
         idx++;

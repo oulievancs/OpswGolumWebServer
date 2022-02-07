@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -14,7 +15,7 @@ import opsw.uci.prj.globals.OpswLoginVars;
  *
  * @author oulis
  */
-public interface SymbService
+public interface SymbService extends CatEjbJpaServiceBase
 {
 
   public Symb SymbSelect01(Long id) throws CatException;

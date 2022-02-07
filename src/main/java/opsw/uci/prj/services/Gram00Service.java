@@ -6,17 +6,17 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.records.Gram00Rec01;
-import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
-public interface Gram00Service
+public interface Gram00Service extends CatEjbJpaServiceBase
 {
 
   public Gram00 Gram00Select01(Long gram) throws CatException;

@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Gram01Key;
@@ -16,7 +17,7 @@ import opsw.uci.prj.records.cat.CatThmlfObject01;
  *
  * @author oulis
  */
-public interface Gram01Service
+public interface Gram01Service extends CatEjbJpaServiceBase
 {
 
   public List<Gram01> Gram01List01(Long gram) throws CatException;

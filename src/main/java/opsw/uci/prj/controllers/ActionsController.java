@@ -6,11 +6,9 @@
 package opsw.uci.prj.controllers;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
@@ -68,6 +66,9 @@ public class ActionsController
   @Autowired
   private SymbService SymbService;
 
+  @Autowired
+  private LcGramAssetsExcel01 LcGramAssetsExcel01;
+
   @GetMapping("/inportfile")
   public String importFileFomr(Model model) throws Exception
   {
@@ -107,7 +108,7 @@ public class ActionsController
       }
       else
       {
-        LcGramAssetsExcelBase excelUnit = new LcGramAssetsExcel01();
+        LcGramAssetsExcelBase excelUnit = this.LcGramAssetsExcel01;
         excelUnit.setGram(gramrec.getGram());
         excelUnit.setAssetets00Service(this.Assetets00Service);
         excelUnit.setGram00Service(this.Gram00Service);
@@ -115,7 +116,7 @@ public class ActionsController
         excelUnit.setSymbService(this.SymbService);
         excelUnit.setLogivars(vlogvar);
 
-        excelUnit.ReadFileFromMultipart(file);
+        ((LcGramAssetsExcel01) excelUnit).ReadFileFromMultipartAndImport(file);
         attributes.addFlashAttribute("message", "The file uploaded.");
       }
       attributes.addFlashAttribute("error", false);

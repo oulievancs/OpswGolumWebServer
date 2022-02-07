@@ -5,14 +5,14 @@
  */
 package opsw.uci.prj.services;
 
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.entity.Sequences;
-import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
-public interface SequencesService
+public interface SequencesService extends CatEjbJpaServiceBase
 {
   public Sequences SequencesSelect01(String seq_gen);
   

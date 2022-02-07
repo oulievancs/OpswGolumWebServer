@@ -7,17 +7,17 @@ package opsw.uci.prj.services;
 
 import java.util.Calendar;
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00SearchParams01;
-import org.springframework.stereotype.Component;
 
 /**
  *
  * @author oulis
  */
-public interface Assets00Service
+public interface Assets00Service extends CatEjbJpaServiceBase
 {
 
   public List<Assets00> Assets00List01(Byte status)
