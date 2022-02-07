@@ -88,6 +88,10 @@ public class OpswDateUtils
     Calendar vcal = null;
     try
     {
+      if (idateStr == null)
+      {
+        throw new CatException("Δεν δόθηκε ημ/νία!");
+      }
       DateFormat vf = null;
       if (iformat != null)
       {

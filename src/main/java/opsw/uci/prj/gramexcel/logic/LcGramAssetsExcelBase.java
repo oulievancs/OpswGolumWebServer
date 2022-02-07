@@ -28,9 +28,9 @@ import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -210,11 +210,14 @@ public abstract class LcGramAssetsExcelBase
 
         if (idx >= this.GetIndexOfFirstLine())
         {
+          //Prepare Assets00//
           this.assets00 = new Assets00();
           this.assets00.setUser_modify(this.logivars.getLoginUser());
           this.assets00.setDate_modify(Calendar.getInstance());
+          //
           params.setExcelRow(vrow);
           this.NextRow(params);
+          //
           this.Assetets00Service.Assets00Post02(assets00, true);
         }
 
@@ -295,7 +298,7 @@ public abstract class LcGramAssetsExcelBase
       }
       else if (ifieldType == Gram01.FIELD_TYPE_STRING)
       {
-        String vstrField = cell.getStringCellValue();
+        String vstrField = RetousarismaValueString(cell.getStringCellValue());
 
         OpswReflection.SetFieldValueAppend(this.assets00, ifieldName.toLowerCase(), vstrField, " ");
       }
@@ -333,6 +336,24 @@ public abstract class LcGramAssetsExcelBase
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  private String RetousarismaValueString(String ival)
+          throws CatException
+  {
+    String result = null;
+    try
+    {
+      if (ival != null)
+      {
+        result = ival.trim();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
   }
 
   protected void Assets00InvokeByField(Gram01 gram01, Cell cell)
@@ -383,19 +404,83 @@ public abstract class LcGramAssetsExcelBase
     }
   }
 
-  protected String GetCellContentAsString(Cell icell)
+  protected boolean ExcelCellIsString(Cell icell)
           throws CatException
   {
-    String result = null;
+    boolean result = false;
     try
     {
       CellType ct = icell.getCellType();
 
       if (ct == CellType.STRING)
       {
+        result = true;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  protected boolean ExcelCellIsNumberic(Cell icell)
+          throws CatException
+  {
+    boolean result = false;
+    try
+    {
+      CellType ct = icell.getCellType();
+
+      if (ct == CellType.NUMERIC)
+      {
+        result = true;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  protected boolean ExcelCellIsDate(Cell icell)
+          throws CatException
+  {
+    boolean result = false;
+    try
+    {
+      CellType ct = icell.getCellType();
+      try
+      {
+        if (ct == CellType.NUMERIC && DateUtil.isCellDateFormatted(icell))
+        {
+          result = true;
+        }
+      }
+      catch (Exception ex)
+      {
+        throw new CatException("Cell [" + icell.getColumnIndex() + "] " + ex.getMessage());
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  protected String GetCellContentAsString(Cell icell)
+          throws CatException
+  {
+    String result = null;
+    try
+    {
+      if (ExcelCellIsString(icell))
+      {
         result = icell.getStringCellValue();
       }
-      else if (HSSFDateUtil.isCellDateFormatted(icell))
+      else if (ExcelCellIsDate(icell))
       {
         Date vdate = icell.getDateCellValue();
         if (vdate != null)
@@ -405,7 +490,7 @@ public abstract class LcGramAssetsExcelBase
           result = OpswDateUtils.DateToStr(vcal, icell.getCellStyle().getDataFormatString());
         }
       }
-      else if (ct == CellType.NUMERIC)
+      else if (ExcelCellIsNumberic(icell))
       {
         result = OpswStringUtils.OpswDoubleToString(icell.getNumericCellValue());
       }
@@ -601,6 +686,42 @@ public abstract class LcGramAssetsExcelBase
       CatException.RethrowCatException(e);
     }
     return results;
+  }
+
+  protected boolean ExcelRowIsEmpty(Row row)
+          throws CatException
+  {
+    boolean isEmptyRow = true;
+    try
+    {
+      for (int cellNum = row.getFirstCellNum(); cellNum < row.getLastCellNum(); cellNum++)
+      {
+        Cell vcell = row.getCell(cellNum);
+        if (vcell != null)
+        {
+          boolean vcellIsNullOrEmpty = true;
+          if (ExcelCellIsString(vcell) || ExcelCellIsDate(vcell))
+          {
+            String vval = GetCellContentAsString(vcell);
+            vcellIsNullOrEmpty = OpswStringUtils.OpswStringIsEmpty(vval);
+          }
+          else if (ExcelCellIsNumberic(vcell))
+          {
+            //
+          }
+          boolean vcellIsBlank = vcell.getCellType() == CellType.BLANK;
+          if (!vcellIsBlank && !vcellIsNullOrEmpty)
+          {
+            isEmptyRow = false;
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return isEmptyRow;
   }
 
   /**

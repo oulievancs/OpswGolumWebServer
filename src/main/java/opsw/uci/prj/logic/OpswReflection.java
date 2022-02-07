@@ -166,10 +166,10 @@ public class OpswReflection
       if (vfield != null)
       {
         Object vval = value;
-        if ((value instanceof String) && (vfield.getType().getName().equals(String.class.getClass().getName())))
+        if (value instanceof String)
         {
           String vstr = null;
-          Object vstrObj = CallGetterMethod(obj, fieldName, vfield.getClass());
+          Object vstrObj = CallGetterMethod(obj, fieldName, vfield.getType());
 
           if (vstrObj != null && vstrObj instanceof String)
           {

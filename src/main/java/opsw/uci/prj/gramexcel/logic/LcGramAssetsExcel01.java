@@ -56,13 +56,16 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
   {
     try
     {
-      Iterator<Cell> cellIterator = params.getExcelRow().cellIterator();
-
-      int j = 0;
-      while (cellIterator.hasNext())
+      if (!this.ExcelRowIsEmpty(params.getExcelRow()))
       {
-        Cell vcell = cellIterator.next();
-        OnEachCell(j++, vcell.getColumnIndex(), vcell);
+        Iterator<Cell> cellIterator = params.getExcelRow().cellIterator();
+
+        int j = 0;
+        while (cellIterator.hasNext())
+        {
+          Cell vcell = cellIterator.next();
+          OnEachCell(j++, vcell.getColumnIndex(), vcell);
+        }
       }
     }
     catch (Exception ex)
