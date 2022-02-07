@@ -216,11 +216,6 @@ public abstract class LcGramAssetsExcelBase
           params.setExcelRow(vrow);
           this.NextRow(params);
           this.Assetets00Service.Assets00Post02(assets00, true);
-
-          if (1 == 1)
-          {
-            throw new CatExceptionUser("Im here!");
-          }
         }
 
         idx++;
