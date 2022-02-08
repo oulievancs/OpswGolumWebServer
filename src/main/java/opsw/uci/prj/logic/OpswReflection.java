@@ -273,36 +273,109 @@ public class OpswReflection
     }
   }
 
-  public static void OpswReflectionCopyParentObject(Object objFrom, Object objeTo, Class<?> iclass)
+  public static void OpswReflectionCopyParentObject(Object objFrom, Object objTo, Class<?> iclass)
           throws CatException
   {
     try
     {
-      if (objFrom == null || objeTo == null)
+      if (objFrom == null || objTo == null)
       {
         throw new CatException(CatException.CODE_NULL_PRM, "Δεν δόθηκαν αντικείμενα!");
       }
 
       Field[] fields = GetObjectDeclaredFields(iclass);
 
-      Class vsuperObj = objeTo.getClass().getSuperclass();
+      Class vsuperObj = objTo.getClass().getSuperclass();
 
       if (!vsuperObj.getName().equals(iclass.getName()))
       {
         throw new CatException("Το αντικείμενο From δεν κληρωνομείται στο To!");
       }
 
-      if (fields != null && fields.length > 0)
+      ReflectionCopyFields(objFrom, objTo, fields);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  private static void ReflectionCopyFields(Object objFrom, Object objTo, Field[] ifields)
+          throws CatException
+  {
+    try
+    {
+      if (ifields != null && ifields.length > 0)
       {
         Object vval1 = null;
 
-        for (Field fld : fields)
+        for (Field fld : ifields)
         {
-          vval1 = GetFieldValue(objFrom, fld.getName(), fld.getType());
+          String vfieldName = fld.getName();
+          boolean vgoon = FieldExistsInClass(objFrom.getClass(), vfieldName);
 
-          CallSetterMethod(objeTo, fld.getName(), vval1, fld.getType());
+          vgoon &= FieldExistsInClass(objTo.getClass(), vfieldName);
+
+          if (vgoon)
+          {
+            vval1 = GetFieldValue(objFrom, vfieldName, fld.getType());
+
+            CallSetterMethod(objTo, vfieldName, vval1, fld.getType());
+          }
         }
       }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  private static boolean FieldExistsInClass(Class<?> iclass, String ifieldName)
+          throws CatException
+  {
+    boolean vfldExists = false;
+    try
+    {
+      for (Class<?> superClass = iclass; superClass != null
+              && superClass != Object.class; superClass = superClass
+                      .getSuperclass())
+      {
+        Field[] fields = GetObjectDeclaredFields(superClass);
+
+        if (fields != null && fields.length > 0)
+        {
+          for (Field fld : fields)
+          {
+            if (fld.getName() != null && fld.getName().equals(ifieldName))
+            {
+              vfldExists = true;
+              break;
+            }
+          }
+        }
+
+        if (vfldExists)
+        {
+          break;
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vfldExists;
+  }
+
+  public static void OpswReflectionCopyObjectFields(Object objFrom, Object objTo, Class<?> iclassSrc)
+          throws CatException
+  {
+    try
+    {
+      Field[] fields = GetObjectDeclaredFields(iclassSrc);
+
+      ReflectionCopyFields(objFrom, objTo, fields);
     }
     catch (Exception ex)
     {
