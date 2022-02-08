@@ -17,7 +17,9 @@ import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.repositories.Assets00Repository;
 import opsw.uci.prj.utils.OpswNumberUtils;
@@ -284,6 +286,21 @@ public class Assets00ServiceImpl implements Assets00Service
       CatException.RethrowCatException(ex);
     }
     return vcount;
+  }
+
+  @Override
+  public Assets00Rec02 Assets00PostEd01(Long assetId, Assets00Rec02 asset, OpswLoginVars logvars) throws CatException
+  {
+    Assets00Rec02 result = null;
+    try
+    {
+      
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
   }
 
 }

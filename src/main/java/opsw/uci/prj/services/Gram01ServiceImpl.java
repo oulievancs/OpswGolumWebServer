@@ -88,18 +88,27 @@ public class Gram01ServiceImpl implements Gram01Service
   public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01)
           throws CatException
   {
-    Gram01 gram01db = null;
-    if (senu != null)
+    Gram01 result = null;
+    try
     {
-      gram01db = this.Gram01Select01(gram, senu);
+      Gram01 gram01db = null;
+      if (senu != null)
+      {
+        gram01db = this.Gram01Select01(gram, senu);
+      }
+      if (gram01db == null)
+      {
+        gram01db = new Gram01();
+        gram01db.setGram(gram);
+      }
+      this.CopyGram01(gram01db, gram01);
+      result = (Gram01) Gram01Post01(gram01db);
     }
-    if (gram01db == null)
+    catch(Exception e)
     {
-      gram01db = new Gram01();
-      gram01db.setGram(gram);
+      CatException.RethrowCatException(e);
     }
-    this.CopyGram01(gram01db, gram01);
-    return (Gram01) Gram01Post01(gram01db);
+    return result;
   }
 
   private void CopyGram01(Gram01 gram01db, Gram01 gram01)

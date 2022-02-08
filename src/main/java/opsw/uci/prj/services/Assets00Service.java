@@ -10,7 +10,9 @@ import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
 
 /**
@@ -32,6 +34,8 @@ public interface Assets00Service extends CatEjbJpaServiceBase
   public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb)
           throws CatException;
 
+  public Assets00Rec02 Assets00PostEd01(Long assetId, Assets00Rec02 asset, OpswLoginVars logvars) throws CatException;
+  
   public List<Assets00Rec01> Assets00Rec01List01() throws CatException;
 
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;

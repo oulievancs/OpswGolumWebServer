@@ -7,11 +7,16 @@ package opsw.uci.prj.controllers;
 
 import java.util.Calendar;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
+import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
@@ -165,6 +170,26 @@ public class Assets00Controller
       CatException.RethrowCatException(e);
     }
     model.addAttribute("CLM0", asset);
+
+    //return "assets00Ed01";
+    return "TestTabForm";
+  }
+  
+  @PostMapping("/assets00/ed01/post01")
+  public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId, @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
+  {
+    Assets00Rec02 assetsReturned = null;
+    try
+    {
+      OpswLoginVars logvars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logvars);
+      assetsReturned = this.Assets00Service.Assets00PostEd01(assetId, asset01, logvars);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    model.addAttribute("CLM0", assetsReturned);
 
     //return "assets00Ed01";
     return "TestTabForm";
