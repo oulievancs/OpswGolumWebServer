@@ -65,13 +65,13 @@ public class OpswErpRecords01
     return list;
   }
 
-  public static CatThmlfObject02 OpswGetXrhshObj(long ietai)
+  public static CatThmlfObject02 OpswGetXrhshObj(short ietai)
           throws CatException
   {
     List<CatThmlfObject02> vlist = OpswListXrhshListObj();
 
     CatThmlfObject02 vobj = new CatThmlfObject02();
-    vobj.setCode(ietai);
+    vobj.setCode(new Long(ietai));
 
     Collections.sort(vlist, FETAIR_COMP);
     int j = Collections.binarySearch(vlist, vobj, FETAIR_COMP);
