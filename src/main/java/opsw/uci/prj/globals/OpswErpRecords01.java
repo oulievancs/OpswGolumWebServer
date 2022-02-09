@@ -6,6 +6,8 @@
 package opsw.uci.prj.globals;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
@@ -26,6 +28,19 @@ public class OpswErpRecords01
     "ORCLH_MINLO1",
     "ORCLH_MINLO2"
   };
+
+  private static class ErairComp implements Comparator<CatThmlfObject02>
+  {
+
+    @Override
+    public int compare(CatThmlfObject02 o1, CatThmlfObject02 o2)
+    {
+      return o1.getCode().compareTo(o2.getCode());
+    }
+
+  }
+
+  private static final ErairComp FETAIR_COMP = new ErairComp();
 
   public static List<CatThmlfObject02> OpswListXrhshListObj()
           throws CatException
@@ -48,6 +63,24 @@ public class OpswErpRecords01
     list.add(obj);
 
     return list;
+  }
+
+  public static CatThmlfObject02 OpswGetXrhshObj(long ietai)
+          throws CatException
+  {
+    List<CatThmlfObject02> vlist = OpswListXrhshListObj();
+
+    CatThmlfObject02 vobj = new CatThmlfObject02();
+    vobj.setCode(ietai);
+
+    Collections.sort(vlist, FETAIR_COMP);
+    int j = Collections.binarySearch(vlist, vobj, FETAIR_COMP);
+
+    if (j > -1)
+    {
+      vobj.setDescr(vlist.get(j).getDescr());
+    }
+    return vobj;
   }
 
   public static void OpswXrhshByEtairSetConnection(OpswLoginVars wLoginVar, short ietai)
