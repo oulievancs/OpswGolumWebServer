@@ -313,8 +313,9 @@ public class Assets00ServiceImpl implements Assets00Service
       {
         assetdb = new Assets00();
       }
-      OpswReflection.OpswReflectionCopyObjectFields(asset, assetdb, Assets00Rec02.class);
-      assetdb.setAuction_date(OpswDateUtils.DateToCalendarElseNow(asset.getAuction_datedate()));
+      //OpswReflection.OpswReflectionCopyObjectFields(asset, assetdb, Assets00Rec02.class);
+      //assetdb.setAuction_date(OpswDateUtils.DateToCalendarElseNow(asset.getAuction_datedate()));
+      Assets00Rec02.Assets00Rec02ToAssets00(asset, assetdb);
       assetdb = this.Assets00Post01(assetdb);
       result = asset;
     }
@@ -334,6 +335,9 @@ public class Assets00ServiceImpl implements Assets00Service
     {
       Assets00 asset = this.Assets00Select02(id);
       result = new Assets00Rec02();
+      //OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
+      //result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
+      Assets00Rec02.Assets00ToAssets00Rec02(asset, result);
       OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
 
