@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -772,7 +773,14 @@ public class Assets00Rec02
   
   public static void Assets00Rec02ToAssets00(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
   {
-    
+    OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00Rec02.class);
+    iTo.setAuction_date(OpswDateUtils.DateToCalendarElseNow(iFrom.getAuction_datedate()));
+  }
+  
+  public static void Assets00ToAssets00Rec02(Assets00 iFrom, Assets00Rec02 iTo) throws CatException
+  {
+    OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00.class);
+    iTo.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(iFrom.getAuction_date()));
   }
   
 }

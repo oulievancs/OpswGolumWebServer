@@ -119,7 +119,7 @@ public class MainController
     catch (CatException ex)
     {
       CatException.ErrorAddParameter(ex, "errorMessage", ex.getTechMessage());
-      ex.setRedirectToError(true);
+      ex.setRedirectToError(false);
       ex.setRedirectPath("init1");
       CatException.RethrowCatException(ex);
     }
