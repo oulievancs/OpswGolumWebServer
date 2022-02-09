@@ -340,7 +340,6 @@ public class Assets00ServiceImpl implements Assets00Service
       Assets00Rec02.Assets00ToAssets00Rec02(asset, result);
       OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
-
     }
     catch (Exception e)
     {
