@@ -18,6 +18,13 @@ public class Assets00flKey implements Serializable
   private Long asset;
   private String fld;
 
+  public Assets00flKey()
+  {
+    super();
+    this.asset = null;
+    this.fld = null;
+  }
+
   public Long getAsset()
   {
     return asset;

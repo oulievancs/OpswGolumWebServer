@@ -27,6 +27,7 @@ import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.apache.log4j.Logger;
@@ -68,6 +69,9 @@ public class ActionsController
 
   @Autowired
   private LcGramAssetsExcel01 LcGramAssetsExcel01;
+
+  @Autowired
+  private OpswconstvService OpswconstvService;
 
   @GetMapping("/inportfile")
   public String importFileFomr(Model model) throws Exception
@@ -114,6 +118,7 @@ public class ActionsController
         excelUnit.setGram00Service(this.Gram00Service);
         excelUnit.setGram01Service(this.Gram01Service);
         excelUnit.setSymbService(this.SymbService);
+        excelUnit.setOpswconstvService(OpswconstvService);
         excelUnit.setLogivars(vlogvar);
 
         ((LcGramAssetsExcel01) excelUnit).ReadFileFromMultipartAndImport(file);

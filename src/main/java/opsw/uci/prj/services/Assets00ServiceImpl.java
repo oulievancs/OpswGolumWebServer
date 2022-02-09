@@ -16,6 +16,7 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Assets00fl;
+import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -53,6 +54,9 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Autowired
   private Assets00flService Assets00flService;
+
+  @Autowired
+  private OpswconstvService OpswconstvService;
 
   @PostConstruct
   public void init00()
@@ -103,6 +107,7 @@ public class Assets00ServiceImpl implements Assets00Service
       {
         for (Assets00fl assfl : assets00.getAssets00fl())
         {
+          assfl.setAsset(assets00.getAsset());
           this.Assets00flService.Assets00flPost01(assfl);
         }
       }
@@ -353,6 +358,34 @@ public class Assets00ServiceImpl implements Assets00Service
   public Assets00 Assets00Select02(Long id) throws CatException
   {
     return this.Assets00Repository.findById(id).orElse(null);
+  }
+
+  @Override
+  public List<Assets00> Assets00List03() throws CatException
+  {
+    List<Assets00> vlistAssets00 = this.Assets00List02();
+
+    if (vlistAssets00 != null)
+    {
+      for (Assets00 ass : vlistAssets00)
+      {
+        List<Opswconstsv> vlistconst = this.OpswconstvService.OpswconstvList01(Opswconstsv.ASSETS00_FLDS);
+
+        List<Assets00fl> vfllist = null;
+        if (vlistconst != null)
+        {
+          vfllist = new ArrayList<>();
+          for (Opswconstsv con : vlistconst)
+          {
+
+            vfllist.add(this.Assets00flService.Assets00flSelect02(ass.getAsset(), con.getValue()));
+          }
+        }
+        ass.setAssets00fl(vfllist);
+      }
+    }
+
+    return vlistAssets00;
   }
 
 }

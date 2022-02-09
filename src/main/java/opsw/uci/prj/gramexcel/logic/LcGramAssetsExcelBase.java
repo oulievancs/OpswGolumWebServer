@@ -83,6 +83,10 @@ public abstract class LcGramAssetsExcelBase
     this.assets00 = null;
     this.SymbService = null;
     this.logivars = null;
+    this.OpswconstvService = null;
+    this.Gram01Service = null;
+    this.Gram00Service = null;
+    this.Assetets00Service = null;
   }
 
   public byte[] getFile()
@@ -113,6 +117,16 @@ public abstract class LcGramAssetsExcelBase
   public void setLogivars(OpswLoginVars logivars)
   {
     this.logivars = logivars;
+  }
+
+  public OpswconstvService getOpswconstvService()
+  {
+    return OpswconstvService;
+  }
+
+  public void setOpswconstvService(OpswconstvService OpswconstvService)
+  {
+    this.OpswconstvService = OpswconstvService;
   }
 
   protected static class GramAssetsExcelPrms01
@@ -263,6 +277,7 @@ public abstract class LcGramAssetsExcelBase
       {
         vfiledIsFld = true;
         vassetfl = new Assets00fl();
+        vassetfl.setFld(ifieldName.toUpperCase());
       }
 
       //Logic Pedia
@@ -317,6 +332,7 @@ public abstract class LcGramAssetsExcelBase
         }
         else
         {
+          vassetfl.setType(Assets00fl.ASSETS_FLD_NUMBER);
           vassetfl.setValnum(vnumFiled);
         }
       }
@@ -330,6 +346,7 @@ public abstract class LcGramAssetsExcelBase
         }
         else
         {
+          vassetfl.setType(Assets00fl.ASSETS_FLD_STRING);
           vassetfl.setValstr(vstrField);
         }
       }

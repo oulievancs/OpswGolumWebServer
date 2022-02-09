@@ -57,7 +57,7 @@ public class Assets00flServiceImpl implements Assets00flService
     assets00flKey.setAsset(assets00fl.getAsset());
     assets00flKey.setFld(assets00fl.getFld());
 
-    if (this.Assets00flRepository.existsById(assets00flKey))
+    if (!this.Assets00flRepository.existsById(assets00flKey))
     {
       vassets00fl = this.Assets00flInsert01(assets00fl);
     }

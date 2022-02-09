@@ -33,6 +33,16 @@ public class Assets00fl implements Serializable
   private Double valnum;
   private Byte type;
 
+  public Assets00fl()
+  {
+    super();
+    this.asset = null;
+    this.fld = null;
+    this.valstr = null;
+    this.valnum = null;
+    this.type = null;
+  }
+
   public Long getAsset()
   {
     return asset;
