@@ -10,46 +10,40 @@ import java.util.Objects;
 
 /**
  *
- * @author n.oulis
+ * @author oulis
  */
-public class OpswconstsvKey implements Serializable
+public class Assets00flKey implements Serializable
 {
 
-  private String code;
-  private String value;
+  private Long asset;
+  private String fld;
 
-  public OpswconstsvKey()
+  public Long getAsset()
   {
-    this.code = null;
-    this.value = null;
+    return asset;
   }
 
-  public String getCode()
+  public void setAsset(Long asset)
   {
-    return code;
+    this.asset = asset;
   }
 
-  public void setCode(String code)
+  public String getFld()
   {
-    this.code = code;
+    return fld;
   }
 
-  public String getValue()
+  public void setFld(String fld)
   {
-    return value;
-  }
-
-  public void setValue(String value)
-  {
-    this.value = value;
+    this.fld = fld;
   }
 
   @Override
   public int hashCode()
   {
-    int hash = 7;
-    hash = 79 * hash + Objects.hashCode(this.code);
-    hash = 79 * hash + Objects.hashCode(this.value);
+    int hash = 5;
+    hash = 83 * hash + Objects.hashCode(this.asset);
+    hash = 83 * hash + Objects.hashCode(this.fld);
     return hash;
   }
 
@@ -68,16 +62,15 @@ public class OpswconstsvKey implements Serializable
     {
       return false;
     }
-    final OpswconstsvKey other = (OpswconstsvKey) obj;
-    if (!Objects.equals(this.code, other.code))
+    final Assets00flKey other = (Assets00flKey) obj;
+    if (!Objects.equals(this.fld, other.fld))
     {
       return false;
     }
-    if (!Objects.equals(this.value, other.value))
+    if (!Objects.equals(this.asset, other.asset))
     {
       return false;
     }
     return true;
   }
-
 }

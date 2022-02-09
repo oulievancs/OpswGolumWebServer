@@ -108,7 +108,7 @@ public class LcGramAssetsExportExcel extends LcGramAssetsExcelBase
   {
     try
     {
-      this.fields = this.Gram01Service.FieldsList01(Opswconstsv.ASSETS_VALUE);
+      this.fields = this.OpswconstvService.FieldsList01(Opswconstsv.ASSETS_VALUE);
       Assets00SearchParams01 assetsParams = new Assets00SearchParams01();
       assetsParams.setDateFrom(this.dateFrom);
       assetsParams.setDateTo(this.dateTo);

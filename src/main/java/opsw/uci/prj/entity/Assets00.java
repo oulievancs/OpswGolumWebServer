@@ -8,6 +8,7 @@ package opsw.uci.prj.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -106,6 +107,9 @@ public class Assets00 implements Serializable
   @Transient
   private Symb symb;
 
+  @Transient
+  private List<Assets00fl> assets00fl;
+
   public Assets00()
   {
     super();
@@ -180,6 +184,7 @@ public class Assets00 implements Serializable
     this.user_modify = null;
     //
     this.symb = null;
+    this.assets00fl = null;
   }
 
   public Long getAsset()
@@ -880,6 +885,16 @@ public class Assets00 implements Serializable
   public void setUser_modify(String user_modify)
   {
     this.user_modify = user_modify;
+  }
+
+  public List<Assets00fl> getAssets00fl()
+  {
+    return assets00fl;
+  }
+
+  public void setAssets00fl(List<Assets00fl> assets00fl)
+  {
+    this.assets00fl = assets00fl;
   }
 
   @Override

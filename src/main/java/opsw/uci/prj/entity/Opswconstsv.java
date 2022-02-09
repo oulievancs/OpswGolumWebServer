@@ -23,6 +23,7 @@ public class Opswconstsv implements Serializable
 
   public static final String FIELD_TYPE = "FIELD_TYPE";
   public static final String ASSETS_VALUE = "ASSETS_VALUE";
+  public static final String ASSETS00_FLDS = "ASSETS00_FLDS";
 
   public static final String FIELD_ASSETS_VALUE_SYMB_NAME = "SYMB_NAME";
   public static final String FIELD_ASSETS_VALUE_SYMB_TEL = "SYMB_TEL";

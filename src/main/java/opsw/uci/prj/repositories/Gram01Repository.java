@@ -35,12 +35,6 @@ public interface Gram01Repository extends CatEjbJpaBase<Gram01, Gram01Key>
           + " ORDER BY a.excel_index")
   public List<Gram01Rec01> gram01Rec01List01(Long gram, String const_Code);
 
-  @Query("SELECT new"
-          + " opsw.uci.prj.records.cat.CatThmlfObject01(a.value, a.descr) "
-          + " FROM Opswconstsv a "
-          + " WHERE a.code=?1")
-  public List<CatThmlfObject01> FieldsList01(String constCode);
-
   @Query("SELECT a FROM Gram01 a WHERE a.gram = ?1 ORDER BY a.concatOrder")
   public List<Gram01> gram01List02(Long gram);
 }

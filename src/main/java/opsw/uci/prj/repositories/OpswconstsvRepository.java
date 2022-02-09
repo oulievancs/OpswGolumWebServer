@@ -5,9 +5,12 @@
  */
 package opsw.uci.prj.repositories;
 
+import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.OpswconstsvKey;
+import opsw.uci.prj.records.cat.CatThmlfObject01;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,5 +20,13 @@ import org.springframework.stereotype.Component;
 @Component
 public interface OpswconstsvRepository extends CatEjbJpaBase<Opswconstsv, OpswconstsvKey>
 {
-  
+
+  @Query("SELECT new"
+          + " opsw.uci.prj.records.cat.CatThmlfObject01(a.value, a.descr) "
+          + " FROM Opswconstsv a "
+          + " WHERE a.code=?1")
+  public List<CatThmlfObject01> FieldsList01(String constCode);
+
+  @Query("SELECT a FROM Opswconstsv a WHERE a.code = ?1 ")
+  public List<Opswconstsv> OpswconstsvList01(String code);
 }

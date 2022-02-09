@@ -16,6 +16,7 @@ import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.OpswconstvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,9 @@ public class Gram00Controller
 
   @Autowired
   private Gram01Service Gram01Service;
+
+  @Autowired
+  private OpswconstvService OpswconstvService;
 
   @GetMapping("/gram00/list01")
   public String Gram00List01(Model model) throws Exception
@@ -122,8 +126,8 @@ public class Gram00Controller
       gram01.setGram(gram);
     }
 
-    List<CatThmlfObject01> fieldsList = this.Gram01Service.FieldsList01(Opswconstsv.ASSETS_VALUE);
-    List<CatThmlfObject01> fieldsList1 = this.Gram01Service.FieldsList01(Opswconstsv.FIELD_TYPE);
+    List<CatThmlfObject01> fieldsList = this.OpswconstvService.FieldsList01(Opswconstsv.ASSETS_VALUE);
+    List<CatThmlfObject01> fieldsList1 = this.OpswconstvService.FieldsList01(Opswconstsv.FIELD_TYPE);
 
     model.addAttribute("CLM0", gram01);
     model.addAttribute("fieldsList", fieldsList);

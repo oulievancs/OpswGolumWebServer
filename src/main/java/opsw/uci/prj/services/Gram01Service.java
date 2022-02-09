@@ -36,7 +36,5 @@ public interface Gram01Service extends CatEjbJpaServiceBase
 
   public List<Gram01Rec01> Gram01Rec01List01(Long gram) throws CatException;
 
-  public List<CatThmlfObject01> FieldsList01(String constCode) throws CatException;
-
   public List<Gram01> Gram01List02(Long gram) throws CatException;
 }

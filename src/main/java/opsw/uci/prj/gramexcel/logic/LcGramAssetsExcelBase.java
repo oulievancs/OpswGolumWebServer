@@ -14,6 +14,7 @@ import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Symb;
@@ -23,6 +24,7 @@ import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
@@ -52,6 +54,8 @@ public abstract class LcGramAssetsExcelBase
   private Assets00 assets00;
 
   private SymbService SymbService;
+
+  protected OpswconstvService OpswconstvService;
 
   protected long gram;
 
@@ -248,6 +252,18 @@ public abstract class LcGramAssetsExcelBase
   {
     try
     {
+      boolean vfiledIsFld = false;
+
+      Assets00fl vassetfl = null;
+      Opswconstsv vopswConst
+              = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS00_FLDS, ifieldName.toUpperCase());
+
+      if (vopswConst != null)
+      {
+        vfiledIsFld = true;
+        vassetfl = new Assets00fl();
+      }
+
       //Logic Pedia
       if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
@@ -294,13 +310,27 @@ public abstract class LcGramAssetsExcelBase
       {
         double vnumFiled = GetCellContentAsDouble(cell);
 
-        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
+        if (!vfiledIsFld)
+        {
+          OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
+        }
+        else
+        {
+          vassetfl.setValnum(vnumFiled);
+        }
       }
       else if (ifieldType == Gram01.FIELD_TYPE_STRING)
       {
         String vstrField = RetousarismaValueString(cell.getStringCellValue());
 
-        OpswReflection.SetFieldValueAppend(this.assets00, ifieldName.toLowerCase(), vstrField, " ");
+        if (!vfiledIsFld)
+        {
+          OpswReflection.SetFieldValueAppend(this.assets00, ifieldName.toLowerCase(), vstrField, " ");
+        }
+        else
+        {
+          vassetfl.setValstr(vstrField);
+        }
       }
       else if (ifieldType == Gram01.FIELD_TYPE_CALENDAR)
       {
