@@ -167,6 +167,23 @@ public class OpswDateUtils
     return vcal;
   }
 
+  public static Date CalendarToDateElseNow(Calendar idate) throws CatException
+  {
+    Date result = null;
+    try
+    {
+      if(idate == null){
+        idate = Calendar.getInstance();
+      }
+      result = new Date();
+      result = idate.getTime();
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
+  }
   public static Calendar DateToCalendarElseNow(Date idate)
           throws CatException
   {

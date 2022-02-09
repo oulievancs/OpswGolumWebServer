@@ -237,7 +237,7 @@ public class Assets00ServiceImpl implements Assets00Service
     Assets00Rec01 result = null;
     try
     {
-      Assets00 asset = this.Assets00Repository.findById(id).orElse(null);
+      Assets00 asset = this.Assets00Select02(id);
       result = this.Assets00Rec01FromAssets00Record(asset);
     }
     catch (Exception e)
@@ -296,12 +296,13 @@ public class Assets00ServiceImpl implements Assets00Service
     Assets00Rec02 result = null;
     try
     {
-      Assets00 assetdb = this.Assets00Select01(assetId);
+      Assets00 assetdb = this.Assets00Select02(assetId);
       if(assetdb == null)
       {
         assetdb = new Assets00();
       }
       OpswReflection.OpswReflectionCopyObjectFields(asset, assetdb, Assets00Rec02.class);
+      assetdb.setAuction_date(OpswDateUtils.DateToCalendarElseNow(asset.getAuction_datedate()));
       assetdb = this.Assets00Post01(assetdb);
       result = asset;
     }
@@ -319,9 +320,10 @@ public class Assets00ServiceImpl implements Assets00Service
     
     try
     {
-      Assets00 asset = this.Assets00Select01(id);
+      Assets00 asset = this.Assets00Select02(id);
       result = new Assets00Rec02();
       OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
+      result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
       
     }
     catch(Exception e)
@@ -330,6 +332,12 @@ public class Assets00ServiceImpl implements Assets00Service
     }
     
     return result;
+  }
+
+  @Override
+  public Assets00 Assets00Select02(Long id) throws CatException
+  {
+    return this.Assets00Repository.findById(id).orElse(null);
   }
 
 }

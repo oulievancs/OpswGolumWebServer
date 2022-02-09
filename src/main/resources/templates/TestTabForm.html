@@ -117,8 +117,8 @@
               <div class="tab-pane fade show active" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
                 <div class="row g-3" style="display: inline-flex !important;">
                   <p>Tab1</p>
-                  <div class="col-md-4">
-                    <label for="status" class="form-label">Status</label>
+                  <!--<div class="col-md-4">
+                    <label for="statusdeff" class="form-label">Status</label>
                     <select  class="form-select" th:field="*{status}" id="status" name="status"  type="value">
                       <option value="">Select Field...</option>
                       <option th:each="field : ${fieldsList}"
@@ -126,6 +126,17 @@
                               th:text="${field.getCode()} +' - '+${field.getDescr()}">
                       </option>
                     </select>
+                  </div>-->
+                  <div class="col-md-4">
+                    <label for="statusdeff" class="form-label">Unique Code</label>
+                    <input
+                      id="statusdeff"
+                      type="text"
+                      name="statusdeff"
+                      th:field="*{statusdeff}"
+                      class="form-control"
+                      placeholder="Enter unique code"
+                      />
                   </div>
                   <div class="col-md-4">
                     <label for="uniqcode" class="form-label">Unique Code</label>
@@ -422,14 +433,14 @@
                         class="form-control" id="uniqauction_code" />
                     </div>
                     <div class="col-md-2">
-                      <label for="auction_date" class="form-label">Auction Date</label>
+                      <label for="auction_datedate" class="form-label">Auction Date</label>
                       <input 
                         type="date"
                         autocomplete="false"
-                        name="auction_date"
-                        th:field="*{auction_date}"
+                        name="auction_datedate"
+                        th:field="*{auction_datedate}"
                         placeholder="Enter Auction Date"
-                        class="form-control" id="auction_date" />
+                        class="form-control" id="auction_datedate" />
                     </div>
                     <div class="col-md-2">
                       <label for="auctiondate" class="form-label">Auction Date Month_Year</label>

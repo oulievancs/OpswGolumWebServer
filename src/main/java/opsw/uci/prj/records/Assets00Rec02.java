@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +25,10 @@ public class Assets00Rec02
   private String uniqcode;
   private String auctionurl;
   private Long symb_id;
+  private String symb_name;
+  private String symb_surename;
+  private String symb_tele;
+  private String symb_mail;
   private String borrname;
   private String property_id;
   private String callateral1;
@@ -43,8 +49,8 @@ public class Assets00Rec02
   private String floor;
   private String auction_id;
   private String uniqauction_code;
-  @DateTimeFormat(pattern = OpswDateUtils.OPSW_DATE_THYMLEAF_01)
-  private Date auction_date;
+  @DateTimeFormat(pattern = OpswDateUtils.OPSW_DATE_THYMLEAF_02)
+  private Date auction_datedate;
   private Double startingprice;
   private String landealink;
   private String region;
@@ -105,7 +111,7 @@ public class Assets00Rec02
     this.floor = null;
     this.auction_id = null;
     this.uniqauction_code = null;
-    this.auction_date = null;
+    this.auction_datedate = null;
     this.startingprice = null;
     this.landealink = null;
     this.region = null;
@@ -138,6 +144,10 @@ public class Assets00Rec02
     this.landea_comments = null;
     this.update_auction = null;
     this.high_interest = null;
+    this.symb_name = null;
+    this.symb_surename = null;
+    this.symb_tele = null;
+    this.symb_mail = null;
   }
 
   public Long getAsset()
@@ -390,14 +400,14 @@ public class Assets00Rec02
     this.uniqauction_code = uniqauction_code;
   }
 
-  public Date getAuction_date()
+  public Date getAuction_datedate()
   {
-    return auction_date;
+    return auction_datedate;
   }
 
-  public void setAuction_date(Date auction_date)
+  public void setAuction_datedate(Date auction_datedate)
   {
-    this.auction_date = auction_date;
+    this.auction_datedate = auction_datedate;
   }
 
   public Double getStartingprice()
@@ -719,5 +729,50 @@ public class Assets00Rec02
   {
     this.high_interest = high_interest;
   } 
+
+  public String getSymb_name()
+  {
+    return symb_name;
+  }
+
+  public void setSymb_name(String symb_name)
+  {
+    this.symb_name = symb_name;
+  }
+
+  public String getSymb_surename()
+  {
+    return symb_surename;
+  }
+
+  public void setSymb_surename(String symb_surename)
+  {
+    this.symb_surename = symb_surename;
+  }
+
+  public String getSymb_tele()
+  {
+    return symb_tele;
+  }
+
+  public void setSymb_tele(String symb_tele)
+  {
+    this.symb_tele = symb_tele;
+  }
+
+  public String getSymb_mail()
+  {
+    return symb_mail;
+  }
+
+  public void setSymb_mail(String symb_mail)
+  {
+    this.symb_mail = symb_mail;
+  }
+  
+  public static void Assets00Rec02ToAssets00(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
+  {
+    
+  }
   
 }
