@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -49,6 +50,9 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Autowired
   private OpswGlobalServices01 OpswGlobalServices01;
+
+  @Autowired
+  private Assets00flService Assets00flService;
 
   @PostConstruct
   public void init00()
@@ -94,6 +98,14 @@ public class Assets00ServiceImpl implements Assets00Service
       }
 
       vassets00 = this.Assets00Insert(assets00);
+
+      if (assets00.getAssets00fl() != null)
+      {
+        for (Assets00fl assfl : assets00.getAssets00fl())
+        {
+          this.Assets00flService.Assets00flPost01(assfl);
+        }
+      }
     }
     catch (Exception ex)
     {
@@ -247,14 +259,14 @@ public class Assets00ServiceImpl implements Assets00Service
     }
     return result;
   }
-  
+
   private Assets00Rec01 Assets00Rec01FromAssets00Record(Assets00 asset) throws CatException
   {
     Assets00Rec01 result = null;
     try
     {
       result = new Assets00Rec01();
-      Assets00Rec01.CopyAssets00Rec01FromAssents00(asset, (Assets00)result);
+      Assets00Rec01.CopyAssets00Rec01FromAssents00(asset, (Assets00) result);
       if (OpswNumberUtils.OpswGetLong(asset.getSymb_id()) > 0)
       {
         Symb vsymb = this.OpswGlobalServices01.getSymbService().SymbSelect01(asset.getSymb_id());
@@ -297,7 +309,7 @@ public class Assets00ServiceImpl implements Assets00Service
     try
     {
       Assets00 assetdb = this.Assets00Select02(assetId);
-      if(assetdb == null)
+      if (assetdb == null)
       {
         assetdb = new Assets00();
       }
@@ -306,31 +318,31 @@ public class Assets00ServiceImpl implements Assets00Service
       assetdb = this.Assets00Post01(assetdb);
       result = asset;
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
     return result;
   }
-  
+
   @Override
   public Assets00Rec02 Assets00Rec02Select01(Long id) throws CatException
   {
     Assets00Rec02 result = null;
-    
+
     try
     {
       Assets00 asset = this.Assets00Select02(id);
       result = new Assets00Rec02();
       OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
-      
+
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
-    
+
     return result;
   }
 
