@@ -7,6 +7,7 @@ package opsw.uci.prj.gramexcel.logic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -360,6 +361,19 @@ public abstract class LcGramAssetsExcelBase
         }
 
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vval);
+      }
+
+      if (vassetfl != null)
+      {
+        List<Assets00fl> vlist = this.assets00.getAssets00fl();
+
+        if (vlist == null)
+        {
+          vlist = new ArrayList<>();
+          this.assets00.setAssets00fl(vlist);
+        }
+
+        vlist.add(vassetfl);
       }
     }
     catch (Exception ex)
