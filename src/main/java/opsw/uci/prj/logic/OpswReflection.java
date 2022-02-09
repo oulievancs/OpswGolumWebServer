@@ -312,15 +312,16 @@ public class OpswReflection
         for (Field fld : ifields)
         {
           String vfieldName = fld.getName();
-          boolean vgoon = FieldExistsInClass(objFrom.getClass(), vfieldName);
+          Class<?> vfieldType = fld.getType();
+          boolean vgoon = FieldExistsInClass(objFrom.getClass(), vfieldName, vfieldType);
 
-          vgoon &= FieldExistsInClass(objTo.getClass(), vfieldName);
+          vgoon &= FieldExistsInClass(objTo.getClass(), vfieldName, vfieldType);
 
           if (vgoon)
           {
-            vval1 = GetFieldValue(objFrom, vfieldName, fld.getType());
+            vval1 = GetFieldValue(objFrom, vfieldName, vfieldType);
 
-            CallSetterMethod(objTo, vfieldName, vval1, fld.getType());
+            CallSetterMethod(objTo, vfieldName, vval1, vfieldType);
           }
         }
       }
@@ -331,7 +332,7 @@ public class OpswReflection
     }
   }
 
-  private static boolean FieldExistsInClass(Class<?> iclass, String ifieldName)
+  private static boolean FieldExistsInClass(Class<?> iclass, String ifieldName, Class<?> ifieldType)
           throws CatException
   {
     boolean vfldExists = false;
@@ -347,7 +348,8 @@ public class OpswReflection
         {
           for (Field fld : fields)
           {
-            if (fld.getName() != null && fld.getName().equals(ifieldName))
+            if (fld.getName() != null && fld.getName().equals(ifieldName)
+                    && fld.getType().getClass().getName().equals(ifieldType.getClass().getName()))
             {
               vfldExists = true;
               break;
