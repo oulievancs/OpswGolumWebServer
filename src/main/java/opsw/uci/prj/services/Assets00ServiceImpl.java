@@ -18,10 +18,12 @@ import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.repositories.Assets00Repository;
+import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -294,12 +296,39 @@ public class Assets00ServiceImpl implements Assets00Service
     Assets00Rec02 result = null;
     try
     {
+      Assets00 assetdb = this.Assets00Select01(assetId);
+      if(assetdb == null)
+      {
+        assetdb = new Assets00();
+      }
+      OpswReflection.OpswReflectionCopyObjectFields(asset, assetdb, Assets00Rec02.class);
+      assetdb = this.Assets00Post01(assetdb);
+      result = asset;
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
+  }
+  
+  @Override
+  public Assets00Rec02 Assets00Rec02Select01(Long id) throws CatException
+  {
+    Assets00Rec02 result = null;
+    
+    try
+    {
+      Assets00 asset = this.Assets00Select01(id);
+      result = new Assets00Rec02();
+      OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       
     }
     catch(Exception e)
     {
       CatException.RethrowCatException(e);
     }
+    
     return result;
   }
 

@@ -156,13 +156,12 @@ public class Assets00Controller
   @GetMapping("/assets00/ed01")
   public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model) throws Exception
   {
-    Assets00Rec01 asset = null;
+    Assets00Rec02 asset = null;
     try
     {
-      //long id = 2005;
       if(assetId != null)
       {
-        asset = this.Assets00Service.Assets00Select01(assetId);
+        asset = this.Assets00Service.Assets00Rec02Select01(assetId);
       }
     }
     catch (Exception e)
