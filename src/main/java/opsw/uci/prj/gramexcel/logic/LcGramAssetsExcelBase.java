@@ -20,6 +20,7 @@ import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.services.Assets00Service;
@@ -278,6 +279,7 @@ public abstract class LcGramAssetsExcelBase
         vfiledIsFld = true;
         vassetfl = new Assets00fl();
         vassetfl.setFld(ifieldName.toUpperCase());
+        vassetfl.setValstr(vopswConst.getDescr());
       }
 
       //Logic Pedia
