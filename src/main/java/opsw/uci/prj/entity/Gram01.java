@@ -31,6 +31,8 @@ public class Gram01 implements Serializable
   public static final String FIELD_Y_OR_N_YES = "Y";
   public static final String FIELS_Y_OR_N_NO = "N";
 
+  public static final byte GRAM01_FIELD_IS_NOT_EXCEL_FIELD = -1;
+
   @Id
   private Long gram;
   @Id
