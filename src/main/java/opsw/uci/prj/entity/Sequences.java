@@ -26,6 +26,8 @@ public class Sequences implements Serializable
 
   public static final String SEQ_SYMB = "SEQ_SYMB";
 
+  public static final String SEQ_AAUCI = "SEQ_AAUCI";
+
   @Id
   private String seq_gen;
   private Long seq_count;

@@ -36,6 +36,9 @@ public interface Assets00Service extends CatEjbJpaServiceBase
   public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb)
           throws CatException;
 
+  public Assets00 Assets00Post03(Assets00 assets00, boolean postSymb)
+          throws CatException;
+
   public Assets00Rec02 Assets00PostEd01(Long assetId, Assets00Rec02 asset, OpswLoginVars logvars) throws CatException;
 
   public List<Assets00Rec01> Assets00Rec01List01() throws CatException;
@@ -49,7 +52,7 @@ public interface Assets00Service extends CatEjbJpaServiceBase
   public Assets00Rec01 Assets00Rec01Select01(Long id) throws CatException;
 
   public Assets00Rec02 Assets00Rec02Select01(Long id) throws CatException;
-  
+
   public Assets00Rec02 Assets00Rec02Select02(Long id) throws CatException;
 
   public long Assets00Count01(Long symb_id) throws CatException;
