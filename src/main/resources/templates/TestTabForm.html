@@ -120,33 +120,33 @@
                 <div class="row g-3">
                   <p>Tab Info</p>
                   <div class="col-md-4">
-                    <label for="aauci" class="form-label">A/A Uci</label>
+                    <label for="aauci_rec" class="form-label">A/A Uci</label>
                     <input
                       id="aauci"
                       type="number"
-                      name="aauci"
-                      th:value="${CLM0.getAauci()}"
+                      name="aauci_rec"
+                      th:value="${CLM0.getAauci_rec()}"
                       class="form-control"
                       disabled/>
                   </div>
                   <div class="col-md-4">
-                    <label for="intrnlkey" class="form-label">Internal Key</label>
+                    <label for="intrnlkey_rec" class="form-label">Internal Key</label>
                     <input
-                      id="intrnlkey"
+                      id="intrnlkey_rec"
                       type="text"
-                      name="intrnlkey"
-                      th:value="${CLM0.getIntrnlkey()}"
+                      name="intrnlkey_rec"
+                      th:value="${CLM0.getIntrnlkey_rec()}"
                       class="form-control"
                       disabled/>
                   </div>
                   <div class="col-md-2">
-                    <label for="assfile" class="form-label">Assigmet Date</label>
+                    <label for="assfile_rec" class="form-label">Assigmet Date</label>
                     <input 
-                      type="date"
+                      type="text"
                       autocomplete="false"
-                      name="assfile"
-                      th:value="${CLM0.getAssfile()}"
-                      class="form-control" id="assfile"  disabled/>
+                      name="assfile_rec"
+                      th:value="${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(CLM0.getAssfile_rec())}"
+                      class="form-control" id="assfile_rec"  disabled/>
                   </div>
                 </div>
               </div>

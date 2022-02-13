@@ -24,9 +24,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Assets00Rec02
 {
   private Long asset;
-  private Long aauci;
-  private Calendar assfile;
-  private String intrnlkey;
+  private Long aauci_rec;
+  @DateTimeFormat(pattern = OpswDateUtils.OPSW_DATE_THYMLEAF_02)
+  private Date assfile_rec;
+  private String intrnlkey_rec;
   private String statusdeff;
   private String uniqcode;
   private String auctionurl;
@@ -95,9 +96,9 @@ public class Assets00Rec02
   public Assets00Rec02()
   {
     this.asset = null;
-    this.aauci = null;
-    this.assfile = null;
-    this.intrnlkey = null;
+    this.aauci_rec = null;
+    this.assfile_rec = null;
+    this.intrnlkey_rec = null;
     this.statusdeff = null;
     this.uniqcode = null;
     this.auctionurl = null;
@@ -172,34 +173,34 @@ public class Assets00Rec02
     this.asset = asset;
   }
 
-  public Long getAauci()
+  public Long getAauci_rec()
   {
-    return aauci;
+    return aauci_rec;
   }
 
-  public void setAauci(Long aauci)
+  public void setAauci_rec(Long aauci_rec)
   {
-    this.aauci = aauci;
+    this.aauci_rec = aauci_rec;
   }
 
-  public Calendar getAssfile()
+  public Date getAssfile_rec()
   {
-    return assfile;
+    return assfile_rec;
   }
 
-  public void setAssfile(Calendar assfile)
+  public void setAssfile_rec(Date assfile_rec)
   {
-    this.assfile = assfile;
+    this.assfile_rec = assfile_rec;
   }
 
-  public String getIntrnlkey()
+  public String getIntrnlkey_rec()
   {
-    return intrnlkey;
+    return intrnlkey_rec;
   }
 
-  public void setIntrnlkey(String intrnlkey)
+  public void setIntrnlkey_rec(String intrnlkey_rec)
   {
-    this.intrnlkey = intrnlkey;
+    this.intrnlkey_rec = intrnlkey_rec;
   }
 
   public String getStatusdeff()
@@ -832,6 +833,9 @@ public class Assets00Rec02
   {
     OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00.class);
     iTo.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(iFrom.getAuction_date()));
+    iTo.setAauci_rec(iFrom.getAauci());
+    iTo.setAssfile_rec(OpswDateUtils.CalendarToDateElseNow(iFrom.getAssfile()));
+    iTo.setIntrnlkey_rec(iFrom.getIntrnlkey());
   }
   
 }

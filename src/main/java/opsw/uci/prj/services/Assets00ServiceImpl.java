@@ -426,12 +426,6 @@ public class Assets00ServiceImpl implements Assets00Service
           if (vassfl != null)
           {
             OpswReflection.OpswReflectionCopyObjectFields(vassfl, vassflRec, Assets00fl.class);
-            /*if(vassfl.getType() == Assets00fl.ASSETS_FLD_STRING) {
-              vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_TEXT);
-              }
-              else {
-                vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_NUMBER);
-              }*/
           }
 
           Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, con.getCode());
