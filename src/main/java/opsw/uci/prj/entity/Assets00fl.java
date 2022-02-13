@@ -32,7 +32,6 @@ public class Assets00fl implements Serializable
   private String valstr;
   private Double valnum;
   private Byte type;
-  private String fldescr;
 
   public Assets00fl()
   {
@@ -42,7 +41,6 @@ public class Assets00fl implements Serializable
     this.valstr = null;
     this.valnum = null;
     this.type = null;
-    this.fldescr = null;
   }
 
   public Long getAsset()
@@ -93,16 +91,6 @@ public class Assets00fl implements Serializable
   public void setType(Byte type)
   {
     this.type = type;
-  }
-
-  public String getFldescr()
-  {
-    return fldescr;
-  }
-
-  public void setFldescr(String fldescr)
-  {
-    this.fldescr = fldescr;
   }
 
   @Override

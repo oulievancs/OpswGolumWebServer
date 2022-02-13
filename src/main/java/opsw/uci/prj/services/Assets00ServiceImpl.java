@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import com.sun.xml.internal.ws.api.config.management.policy.ManagedClientAssertion;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,6 +18,7 @@ import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Opswconstsv;
+import opsw.uci.prj.entity.Opswfldsv;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -24,6 +26,7 @@ import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
+import opsw.uci.prj.records.Assets00flRec01;
 import opsw.uci.prj.repositories.Assets00Repository;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
@@ -58,6 +61,9 @@ public class Assets00ServiceImpl implements Assets00Service
   @Autowired
   private OpswconstvService OpswconstvService;
 
+  @Autowired
+  private OpswfldsvService OpswfldsvService;
+  
   @PostConstruct
   public void init00()
   {
@@ -249,12 +255,12 @@ public class Assets00ServiceImpl implements Assets00Service
   }
 
   @Override
-  public Assets00Rec01 Assets00Select01(Long id) throws CatException
+  public Assets00Rec01 Assets00Rec01Select01(Long id) throws CatException
   {
     Assets00Rec01 result = null;
     try
     {
-      Assets00 asset = this.Assets00Select02(id);
+      Assets00 asset = this.Assets00Select01(id);
       result = this.Assets00Rec01FromAssets00Record(asset);
     }
     catch (Exception e)
@@ -313,15 +319,29 @@ public class Assets00ServiceImpl implements Assets00Service
     Assets00Rec02 result = null;
     try
     {
-      Assets00 assetdb = this.Assets00Select02(assetId);
+      Assets00 assetdb = this.Assets00Select01(assetId);
       if (assetdb == null)
       {
         assetdb = new Assets00();
       }
-      //OpswReflection.OpswReflectionCopyObjectFields(asset, assetdb, Assets00Rec02.class);
-      //assetdb.setAuction_date(OpswDateUtils.DateToCalendarElseNow(asset.getAuction_datedate()));
       Assets00Rec02.Assets00Rec02ToAssets00(asset, assetdb);
-      assetdb = this.Assets00Post01(assetdb);
+      if (asset.getAssets00flrec() != null && !asset.getAssets00flrec().isEmpty()) 
+      {
+        List<Assets00fl> assetsflList = new ArrayList<>();
+        for(Assets00flRec01 assetflrec : asset.getAssets00flrec())
+        {
+          Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, assetflrec.getFld());
+          assetflrec.setFldDescr(opswConst.getDescr());
+          Opswfldsv opswfld = this.OpswfldsvService.OpswfldsvSelect01(assetflrec.getFld());
+          assetflrec.setType(opswfld.getType());
+          Assets00fl assetfl = new Assets00fl();
+          OpswReflection.OpswReflectionCopyObjectFields(assetflrec, assetfl, Assets00fl.class);
+          assetsflList.add(assetfl);
+          
+        }
+        assetdb.setAssets00fl(assetsflList);
+        assetdb = this.Assets00Post01(assetdb);
+      }
       result = asset;
     }
     catch (Exception e)
@@ -338,13 +358,11 @@ public class Assets00ServiceImpl implements Assets00Service
 
     try
     {
-      Assets00 asset = this.Assets00Select02(id);
+      Assets00 asset = this.Assets00Select01(id);
       result = new Assets00Rec02();
       //OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       //result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
       Assets00Rec02.Assets00ToAssets00Rec02(asset, result);
-      OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
-      result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
     }
     catch (Exception e)
     {
@@ -355,7 +373,7 @@ public class Assets00ServiceImpl implements Assets00Service
   }
 
   @Override
-  public Assets00 Assets00Select02(Long id) throws CatException
+  public Assets00 Assets00Select01(Long id) throws CatException
   {
     return this.Assets00Repository.findById(id).orElse(null);
   }
@@ -377,7 +395,7 @@ public class Assets00ServiceImpl implements Assets00Service
           vfllist = new ArrayList<>();
           for (Opswconstsv con : vlistconst)
           {
-
+            
             vfllist.add(this.Assets00flService.Assets00flSelect02(ass.getAsset(), con.getValue()));
           }
         }
@@ -386,6 +404,54 @@ public class Assets00ServiceImpl implements Assets00Service
     }
 
     return vlistAssets00;
+  }
+
+  @Override
+  public Assets00Rec02 Assets00Rec02Select02(Long id) throws CatException
+  {
+    Assets00Rec02 result = null;
+    try
+    {
+      result = this.Assets00Rec02Select01(id);
+      List<Opswfldsv> vlistconst = this.OpswfldsvService.OpswfldsvList01();
+
+        List<Assets00flRec01> vfllist = null;
+        if (vlistconst != null)
+        {
+          vfllist = new ArrayList<>();
+          for (Opswfldsv con : vlistconst)
+          {
+            Assets00fl vassfl = this.Assets00flService.Assets00flSelect02(result.getAsset(), con.getCode());
+            Assets00flRec01 vassflRec = new Assets00flRec01();
+            
+            if(vassfl != null)
+            {
+              OpswReflection.OpswReflectionCopyObjectFields(vassfl, vassflRec, Assets00fl.class);
+              /*if(vassfl.getType() == Assets00fl.ASSETS_FLD_STRING) {
+              vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_TEXT);
+              }
+              else {
+                vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_NUMBER);
+              }*/
+            }
+            
+            Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, con.getCode());
+            vassflRec.setAsset(id);
+            vassflRec.setType(con.getType());
+            vassflRec.setFld(con.getCode());
+            vassflRec.setFldDescr(opswConst.getDescr());            
+            vfllist.add(vassflRec);
+          }
+        }
+        result.setAssets00flrec(vfllist);
+      
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    
+    return result;
   }
 
 }

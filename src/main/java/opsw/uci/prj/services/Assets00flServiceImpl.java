@@ -5,9 +5,11 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Assets00flKey;
+import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.repositories.Assets00flRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -84,6 +86,48 @@ public class Assets00flServiceImpl implements Assets00flService
     {
       this.Assets00flRepository.delete(vassets00fl);
     }
+  }
+
+  @Override
+  public List<Assets00fl> Assets00flList01(Long id) throws CatException
+  {
+    List<Assets00fl> result = null;
+    try
+    {
+      if(id != null)
+      {
+        result = this.Assets00flRepository.Assets00flFindByAsset(id);
+      }
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    
+    return result;
+  }
+
+  @Override
+  public Assets00fl Assets00flPost02(Assets00fl assets00fl) throws CatException
+  {
+    Assets00fl result = null;
+    try
+    {
+      result = this.Assets00flSelect02(assets00fl.getAsset(), assets00fl.getFld());
+      if(result != null)
+      {
+        Byte vType = result.getType();
+        OpswReflection.OpswReflectionCopyObjectFields(assets00fl, result, Assets00fl.class);
+        result.setType(vType);
+        result = this.Assets00flPost01(result);
+      }
+      
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return result;
   }
 
 }

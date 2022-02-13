@@ -93,9 +93,10 @@
             <button type="button" id="sidebarCollapse" class="btn btn-info">
               <i class="fas fa-align-left"></i>
             </button>
-            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <label th:if="${xrhsh.getDescr() != null}" th:text="${'Portofolio: ' + xrhsh.getCode() + ' - ' + xrhsh.getDescr()}"></label>
+            <!--<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <i class="fas fa-align-justify"></i>
-            </button>
+            </button>-->
           </div>
         </nav>
         <div class="container">
@@ -108,6 +109,7 @@
               <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">First Information Received</button>
               <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">Links</button>
               <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">Final Information</button>
+              <button class="nav-link" id="nav-other-tab" data-bs-toggle="tab" data-bs-target="#nav-other" type="button" role="tab" aria-controls="nav-other" aria-selected="false">Other</button>
             </div>
           </nav>
           <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
@@ -741,6 +743,38 @@
                     <label for="landea_comments">Landea Comments</label>
                   </div>
                 </div>
+              </div>
+              <!-- Tab 05-->
+              <div class="tab-pane fade show active" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
+                <div class="row g-3" style="padding: 15px 0 0 0;">
+                  <div th:each="field, itemstat : *{assets00flrec}" class="col-md-3">
+                    <input
+                      type="hidden" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].fld}"
+                      th:name="${field.getFld() + '_fld'}"
+                      th:id="${field.getFld() + '_fld'}" />
+                    <label th:if="${field.getType()==1}" th:for="${field.getFld() + '_text'}" class="form-label" th:text="${field.getFldDescr()}"></label>
+                    <input
+                      th:if="${field.getType()==1}"
+                      type="text" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].valstr}"
+                      th:name="${field.getFld()}"
+                      th:placeholder="${'Enter ' + field.getFldDescr()}"
+                      th:id="${field.getFld() + '_text'}" />
+
+                    <label th:if="${field.getType()==2}" th:for="${field.getFld() + '_number'}" class="form-label" th:text="${field.getFldDescr()}"></label>
+                    <input
+                      th:if="${field.getType()==2}"
+                      type="number" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].valnum}"
+                      th:name="${field.getFld()}"
+                      th:placeholder="${'Enter ' + field.getFldDescr()}"
+                      th:id="${field.getFld() + '_number'}" />
+                  </div>  
+                </div>              
               </div>
             </div>
             <div class="col-12" style="margin-bottom: 15px;margin-top: 10px">

@@ -48,6 +48,10 @@ public class OpswMenuDo01
     }
     else
     {
+      logivars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logivars);
+      xrhshObj = OpswErpRecords01.OpswGetXrhshObj(logivars.getEtai());
+      
       //Choice for HOME
       choice = new OpswMenu01();
       choice.setCaption("Home");
@@ -142,39 +146,37 @@ public class OpswMenuDo01
       subMenu = new ArrayList<>();
       choice1 = new OpswMenu01();
       //Choice inport File
-      choice1.setCaption("Edit");
-      choice1.setPath("/notary/ed01");
+      choice1.setCaption(logivars.getLoginUser());
+      choice1.setPath("#");
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
       subMenu.add(choice1);
       choice1 = new OpswMenu01();
-      choice1.setCaption("Index");
-      choice1.setPath("/notary/list01");
+      choice1.setCaption("Logout");
+      choice1.setPath("/logout");
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
       subMenu.add(choice1);
       
       choice = new OpswMenu01();
-      choice.setCaption("Notary");
+      choice.setCaption("Account");
       choice.setPath("");
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
-      choice.setId("notarysub");
+      choice.setId("accountsub");
+      choice.setIcon("fas fa-user-alt");
 
       menu.add(choice);
       
-      choice = new OpswMenu01();
+      /*choice = new OpswMenu01();
       choice.setCaption("Logout");
       choice.setPath("/logout");
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(false);
 
-      menu.add(choice);
+      menu.add(choice);*/
       
-      logivars = new OpswLoginVars();
-      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logivars);
-      xrhshObj = OpswErpRecords01.OpswGetXrhshObj(logivars.getEtai());
       
     }
 

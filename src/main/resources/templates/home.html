@@ -45,16 +45,16 @@
         <ul class="list-unstyled components">
           <div th:each="choice : ${menu}">
             <li th:if="${choice.isIsActive() and !choice.isHaveSub()}" class="active">
-              <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"></a>
+              <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"><i th:if="${choice.getIcon()!= null}" th:class="${choice.getIcon()}"></i></a>
             </li>
             <li th:if="${!choice.isIsActive() and !choice.isHaveSub()}">
-              <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
+              <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"><i th:if="${choice.getIcon()!= null}" th:class="${choice.getIcon()}"></i></a>
             </li>
             <li th:if="${choice.isHaveSub()}">
-              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"><i th:class="${choice.getIcon()}"></i></a>
               <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
-                  <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
+                  <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"><i th:if="${subchoice.getIcon()!= null}" th:class="${subchoice.getIcon()}"></i></a>
                 </li>
               </ul>
             </li>

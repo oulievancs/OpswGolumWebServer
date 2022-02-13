@@ -7,10 +7,12 @@ package opsw.uci.prj.records;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -84,7 +86,9 @@ public class Assets00Rec02
   private String landea_comments;
   private String update_auction;
   private String high_interest;
-
+  
+  private List<Assets00flRec01> assets00flrec;
+  
   public Assets00Rec02()
   {
     this.asset = null;
@@ -149,6 +153,7 @@ public class Assets00Rec02
     this.symb_surename = null;
     this.symb_tele = null;
     this.symb_mail = null;
+    this.assets00flrec = null;
   }
 
   public Long getAsset()
@@ -769,6 +774,16 @@ public class Assets00Rec02
   public void setSymb_mail(String symb_mail)
   {
     this.symb_mail = symb_mail;
+  }
+
+  public List<Assets00flRec01> getAssets00flrec()
+  {
+    return assets00flrec;
+  }
+
+  public void setAssets00flrec(List<Assets00flRec01> assets00flrec)
+  {
+    this.assets00flrec = assets00flrec;
   }
   
   public static void Assets00Rec02ToAssets00(Assets00Rec02 iFrom, Assets00 iTo) throws CatException

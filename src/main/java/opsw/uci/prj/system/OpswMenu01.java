@@ -21,6 +21,7 @@ public class OpswMenu01
   private boolean haveSub;
   private List<OpswMenu01> subs;
   private String id;
+  private String icon;
 
   public OpswMenu01()
   {
@@ -30,6 +31,7 @@ public class OpswMenu01
     this.haveSub = false;
     this.subs = null;
     this.id = null;
+    this.icon = null;
   }
 
   public String getPath()
@@ -90,6 +92,16 @@ public class OpswMenu01
   public void setId(String id)
   {
     this.id = id;
+  }
+
+  public String getIcon()
+  {
+    return icon;
+  }
+
+  public void setIcon(String icon)
+  {
+    this.icon = icon;
   }
   
 }

@@ -44,11 +44,13 @@ public interface Assets00Service extends CatEjbJpaServiceBase
 
   public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException;
 
-  public Assets00 Assets00Select02(Long id) throws CatException;
+  public Assets00 Assets00Select01(Long id) throws CatException;
 
-  public Assets00Rec01 Assets00Select01(Long id) throws CatException;
+  public Assets00Rec01 Assets00Rec01Select01(Long id) throws CatException;
 
   public Assets00Rec02 Assets00Rec02Select01(Long id) throws CatException;
+  
+  public Assets00Rec02 Assets00Rec02Select02(Long id) throws CatException;
 
   public long Assets00Count01(Long symb_id) throws CatException;
 

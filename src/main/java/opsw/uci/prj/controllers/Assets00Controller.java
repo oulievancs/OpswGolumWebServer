@@ -18,6 +18,7 @@ import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
+import opsw.uci.prj.records.Assets00flRec01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
@@ -161,7 +162,7 @@ public class Assets00Controller
     {
       if(assetId != null)
       {
-        asset = this.Assets00Service.Assets00Rec02Select01(assetId);
+        asset = this.Assets00Service.Assets00Rec02Select02(assetId);
       }
     }
     catch (Exception e)
@@ -175,7 +176,8 @@ public class Assets00Controller
   }
   
   @PostMapping("/assets00/ed01/post01")
-  public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId, @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
+  public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId,
+          @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
   {
     Assets00Rec02 assetsReturned = null;
     try
