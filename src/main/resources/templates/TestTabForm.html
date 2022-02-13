@@ -105,7 +105,8 @@
           </div>
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="true">Auction Details</button>
+              <button class="nav-link active" id="nav-cust-info-tab" data-bs-toggle="tab" data-bs-target="#nav-cust-info" type="button" role="tab" aria-controls="nav-cust-info" aria-selected="true">Information</button>
+              <button class="nav-link" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="false">Auction Details</button>
               <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">First Information Received</button>
               <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">Links</button>
               <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">Final Information</button>
@@ -114,21 +115,46 @@
           </nav>
           <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
             <div class="tab-content" id="nav-tabContent">
+              <!-- Tab1 -->
+              <div class="tab-pane fade show active" id="nav-cust-info" role="tabpanel" aria-labelledby="nav-cust-info-tab">
+                <div class="row g-3">
+                  <p>Tab Info</p>
+                  <div class="col-md-4">
+                    <label for="aauci" class="form-label">A/A Uci</label>
+                    <input
+                      id="aauci"
+                      type="number"
+                      name="aauci"
+                      th:value="${CLM0.getAauci()}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="intrnlkey" class="form-label">Internal Key</label>
+                    <input
+                      id="intrnlkey"
+                      type="text"
+                      name="intrnlkey"
+                      th:value="${CLM0.getIntrnlkey()}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="assfile" class="form-label">Assigmet Date</label>
+                    <input 
+                      type="date"
+                      autocomplete="false"
+                      name="assfile"
+                      th:value="${CLM0.getAssfile()}"
+                      class="form-control" id="assfile"  disabled/>
+                  </div>
+                </div>
+              </div>
 
               <!--Tab 1 content-->
-              <div class="tab-pane fade show active" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
+              <div class="tab-pane fade show" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
                 <div class="row g-3" style="display: inline-flex !important;">
                   <p>Tab1</p>
-                  <!--<div class="col-md-4">
-                    <label for="statusdeff" class="form-label">Status</label>
-                    <select  class="form-select" th:field="*{status}" id="status" name="status"  type="value">
-                      <option value="">Select Field...</option>
-                      <option th:each="field : ${fieldsList}"
-                              th:value="${field.getCode()}"
-                              th:text="${field.getCode()} +' - '+${field.getDescr()}">
-                      </option>
-                    </select>
-                  </div>-->
                   <div class="col-md-4">
                     <label for="statusdeff" class="form-label">Status</label>
                     <input
@@ -779,7 +805,8 @@
             </div>
             <div class="col-12" style="margin-bottom: 15px;margin-top: 10px">
               <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-              <a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>
+              <!--<a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>-->
+              <input class="btn btn-danger" type="button" value="Cancel" onclick="history.back()">
             </div>
           </form>
         </div>

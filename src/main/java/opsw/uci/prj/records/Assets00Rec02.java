@@ -24,6 +24,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Assets00Rec02
 {
   private Long asset;
+  private Long aauci;
+  private Calendar assfile;
+  private String intrnlkey;
   private String statusdeff;
   private String uniqcode;
   private String auctionurl;
@@ -92,6 +95,9 @@ public class Assets00Rec02
   public Assets00Rec02()
   {
     this.asset = null;
+    this.aauci = null;
+    this.assfile = null;
+    this.intrnlkey = null;
     this.statusdeff = null;
     this.uniqcode = null;
     this.auctionurl = null;
@@ -164,6 +170,36 @@ public class Assets00Rec02
   public void setAsset(Long asset)
   {
     this.asset = asset;
+  }
+
+  public Long getAauci()
+  {
+    return aauci;
+  }
+
+  public void setAauci(Long aauci)
+  {
+    this.aauci = aauci;
+  }
+
+  public Calendar getAssfile()
+  {
+    return assfile;
+  }
+
+  public void setAssfile(Calendar assfile)
+  {
+    this.assfile = assfile;
+  }
+
+  public String getIntrnlkey()
+  {
+    return intrnlkey;
+  }
+
+  public void setIntrnlkey(String intrnlkey)
+  {
+    this.intrnlkey = intrnlkey;
   }
 
   public String getStatusdeff()
