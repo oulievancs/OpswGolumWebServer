@@ -331,8 +331,10 @@ public class Assets00ServiceImpl implements Assets00Service
         {
           Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, assetflrec.getFld());
           assetflrec.setFldDescr(opswConst.getDescr());
+
           Opswfldsv opswfld = this.OpswfldsvService.OpswfldsvSelect01(assetflrec.getFld());
           assetflrec.setType(opswfld.getType());
+
           Assets00fl assetfl = new Assets00fl();
           OpswReflection.OpswReflectionCopyObjectFields(assetflrec, assetfl, Assets00fl.class);
           assetsflList.add(assetfl);
@@ -344,6 +346,7 @@ public class Assets00ServiceImpl implements Assets00Service
       result = new Assets00Rec02();
 
       Assets00Rec02.Assets00ToAssets00Rec02(assetdb, result);
+      result.setAssets00flrec(asset.getAssets00flrec());
     }
     catch (Exception e)
     {
