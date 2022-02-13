@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.entity.Gram00;
@@ -13,6 +14,7 @@ import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Gram00Rec01;
+import opsw.uci.prj.records.Gram00Rec02;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
@@ -60,18 +62,21 @@ public class Gram00Controller
           throws Exception
   {
     Gram00 gram00 = null;
+    List<CatThmlfObject01> vcatLst = new ArrayList<>();
     if (gram != null)
     {
-      gram00 = this.Gram00Service.Gram00Select02(gram);
+      gram00 = this.Gram00Service.Gram00Rec02EDSelect02(gram, vcatLst);
     }
     if (gram00 == null)
     {
-      gram00 = new Gram00();
+      gram00 = new Gram00Rec02();
     }
     model.addAttribute("CLM0", gram00);
+
     if (gram00 != null)
     {
       model.addAttribute("CLM1", this.Gram01Service.Gram01Rec01List01(gram));
+      model.addAttribute("internalKeyFldsLst", vcatLst);
     }
 
     return "gram00Ed01";
@@ -92,14 +97,18 @@ public class Gram00Controller
   }*/
   @PostMapping("/gram00/ed01/post01")
   public String Gram00Ed01Post01(@RequestParam(name = "gram", required = false) Long gram,
-          @ModelAttribute("CLM0") Gram00 gram00, Model model, HttpServletRequest request)
+          @ModelAttribute("CLM0") Gram00Rec02 gram00Rec02, Model model, HttpServletRequest request)
           throws Exception
   {
     OpswLoginVars vlogvar = new OpswLoginVars();
     OpswCookies01.OpswFillLoginVarsFromCookies01(request, vlogvar);
 
-    Gram00 aft_gram00 = this.Gram00Service.Gram00PostED01(gram, gram00, vlogvar);
+    List<CatThmlfObject01> vcatLst = new ArrayList<>();
+    Gram00 aft_gram00 = this.Gram00Service.Gram00PostED02(gram, gram00Rec02,
+            vlogvar, vcatLst);
+
     model.addAttribute("CLM0", aft_gram00);
+    model.addAttribute("internalKeyFldsLst", vcatLst);
 
     if (aft_gram00 != null)
     {
