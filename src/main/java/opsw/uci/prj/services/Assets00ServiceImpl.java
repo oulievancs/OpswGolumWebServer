@@ -341,7 +341,9 @@ public class Assets00ServiceImpl implements Assets00Service
         assetdb.setAssets00fl(assetsflList);
         assetdb = this.Assets00Post01(assetdb);
       }
-      result = asset;
+      result = new Assets00Rec02();
+
+      Assets00Rec02.Assets00ToAssets00Rec02(assetdb, result);
     }
     catch (Exception e)
     {
@@ -466,6 +468,21 @@ public class Assets00ServiceImpl implements Assets00Service
       CatException.RethrowCatException(ex);
     }
     return vassets00;
+  }
+
+  @Override
+  public Assets00Rec02 Assets00SelectEd01(Long assetId) throws CatException
+  {
+    Assets00Rec02 assets00Rec02 = null;
+    try
+    {
+      assets00Rec02 = this.Assets00Rec02Select02(assetId);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return assets00Rec02;
   }
 
 }

@@ -160,9 +160,9 @@ public class Assets00Controller
     Assets00Rec02 asset = null;
     try
     {
-      if(assetId != null)
+      if (assetId != null)
       {
-        asset = this.Assets00Service.Assets00Rec02Select02(assetId);
+        asset = this.Assets00Service.Assets00SelectEd01(assetId);
       }
     }
     catch (Exception e)
@@ -171,10 +171,9 @@ public class Assets00Controller
     }
     model.addAttribute("CLM0", asset);
 
-    //return "assets00Ed01";
-    return "TestTabForm";
+    return "assets00Ed01";
   }
-  
+
   @PostMapping("/assets00/ed01/post01")
   public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId,
           @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
@@ -192,8 +191,7 @@ public class Assets00Controller
     }
     model.addAttribute("CLM0", assetsReturned);
 
-    //return "assets00Ed01";
-    return "TestTabForm";
+    return "assets00Ed01";
   }
 }
 //OpswEjbContext.setCurrentTenant(null);

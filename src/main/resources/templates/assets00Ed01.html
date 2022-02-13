@@ -28,6 +28,29 @@
         $('#table1').DataTable({});
       });
     </script>
+    <script>
+      function copyToClipboard(text) {
+        var sampleTextarea = document.createElement("textarea");
+        document.body.appendChild(sampleTextarea);
+        sampleTextarea.value = text; //save main text in it
+        sampleTextarea.select(); //select textarea contenrs
+        document.execCommand("copy");
+        document.body.removeChild(sampleTextarea);
+      }
+      
+      var option = {
+        animation : true,
+        delay : 2000
+      };
+      
+      function myFunction(){
+        var copyText = document.getElementById("gpscords");
+        copyToClipboard(copyText.value);
+        var toastHTMLElement = document.getElementById("toastMessage");
+        var toastElement = new bootstrap.Toast(toastHTMLElement, option);
+        toastElement.show();
+      }
+    </script>
     <!------------------------------>
     <!---------For tabs--------------------->
     <script defer src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -64,102 +87,735 @@
       </nav>
       <!--Content-->
       <div id="content">
-        <div class="row">
-          <h1 class="text-center">Edit Asset00</h1>
-        </div>
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="true">Auction Details</button>
-            <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">First Information Received</button>
-            <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">Links</button>
-            <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">Final Information</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+              <i class="fas fa-align-left"></i>
+            </button>
+            <label th:if="${xrhsh.getDescr() != null}" th:text="${'Portofolio: ' + xrhsh.getCode() + ' - ' + xrhsh.getDescr()}"></label>
+            <!--<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-align-justify"></i>
+            </button>-->
           </div>
         </nav>
-        <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
-              <p>Tab1</p>
-              <label>Status</label>
-              <select  class="form-control" th:field="*{status}" id="status" name="status"  type="value">
-                <option value="">Select Field...</option>
-                <option th:each="field : ${fieldsList}"
-                        th:value="${field.getCode()}"
-                        th:text="${field.getCode()} +' - '+${field.getDescr()}">
-                </option>
-              </select>
-              <label>Unique Code</label>
-              <input
-                type="text"
-                name="uniqcode"
-                th:field="*{uniqcode}"
-                class="form-control"
-                placeholder="Enter unique code"
-                />
-              <label>Auction URL</label>
-              <input
-                type="text"
-                name="auctionurl"
-                th:field="*{auctionurl}"
-                class="form-control"
-                placeholder="Enter Auction url"
-                />
-              <label>Notary Name</label>
-              <input
-                type="text"
-                name="symb_name"
-                th:field="*{symb_name}"
-                class="form-control"
-                placeholder="Enter Notary name"
-                />
-              <label>Notary Surname</label>
-              <input
-                type="text"
-                name="symb_surename"
-                th:field="*{symb_surename}"
-                class="form-control"
-                placeholder="Enter Notary surname"
-                />
-              <label>Notary Telephone</label>
-              <input
-                type="text"
-                name="symb_tele"
-                th:field="*{symb_tele}"
-                class="form-control"
-                placeholder="Enter Notary Telephone"
-                />
-              <label>Notary Email</label>
-              <input
-                type="text"
-                name="symb_mail"
-                th:field="*{symb_mail}"
-                class="form-control"
-                placeholder="Enter Notary E-mail"
-                />
-            </div>
-            <div class="tab-pane fade" id="nav-first-information" role="tabpanel" aria-labelledby="nav-first-information-tab">
-              <p>Tab2</p>
-              <p>Tab2</p>
-              <p>Tab2</p>
-              <p>Tab2</p>
-              <p>Tab2</p>
-            </div>
-            <div class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
-              <p>Tab3</p>
-              
-            </div>
-            <div class="tab-pane fade" id="nav-final-information" role="tabpanel" aria-labelledby="nav-final-information-tab">
-              <p>Tab4</p>
-            </div>
+        <div class="container">
+          <div class="row">
+            <h1 class="text-center">Edit Asset00</h1>
           </div>
-          <div class="box-footer">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-            <a class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-cust-info-tab" data-bs-toggle="tab" data-bs-target="#nav-cust-info" type="button" role="tab" aria-controls="nav-cust-info" aria-selected="true">Information</button>
+              <button class="nav-link" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="false">Auction Details</button>
+              <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">First Information Received</button>
+              <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">Links</button>
+              <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">Final Information</button>
+              <button class="nav-link" id="nav-other-tab" data-bs-toggle="tab" data-bs-target="#nav-other" type="button" role="tab" aria-controls="nav-other" aria-selected="false">Other</button>
+            </div>
+          </nav>
+          <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
+            <div class="tab-content" id="nav-tabContent">
+              <!-- Tab1 -->
+              <div class="tab-pane fade show active" id="nav-cust-info" role="tabpanel" aria-labelledby="nav-cust-info-tab">
+                <div class="row g-3">
+                  <p>Tab Info</p>
+                  <div class="col-md-4">
+                    <label for="aauci_rec" class="form-label">A/A Uci</label>
+                    <input
+                      id="aauci"
+                      type="number"
+                      name="aauci_rec"
+                      th:value="${CLM0.getAauci_rec()}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="intrnlkey_rec" class="form-label">Internal Key</label>
+                    <input
+                      id="intrnlkey_rec"
+                      type="text"
+                      name="intrnlkey_rec"
+                      th:value="${CLM0.getIntrnlkey_rec()}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="assfile_rec" class="form-label">Assigmet Date</label>
+                    <input 
+                      type="text"
+                      autocomplete="false"
+                      name="assfile_rec"
+                      th:value="${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(CLM0.getAssfile_rec())}"
+                      class="form-control" id="assfile_rec"  disabled/>
+                  </div>
+                </div>
+              </div>
 
-    <div class="overlay"></div>
+              <!--Tab 1 content-->
+              <div class="tab-pane fade show" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
+                <div class="row g-3" style="display: inline-flex !important;">
+                  <p>Tab1</p>
+                  <div class="col-md-4">
+                    <label for="statusdeff" class="form-label">Status</label>
+                    <input
+                      id="statusdeff"
+                      type="text"
+                      name="statusdeff"
+                      th:field="*{statusdeff}"
+                      class="form-control"
+                      placeholder="Enter Status"
+                      />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="uniqcode" class="form-label">Unique Code</label>
+                    <input
+                      id="uniqcode"
+                      type="text"
+                      name="uniqcode"
+                      th:field="*{uniqcode}"
+                      class="form-control"
+                      placeholder="Enter unique code"
+                      />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="auctionurl" class="form-label">Auction URL</label>
+                    <div class="input-group">
+                      <span class="input-group-text">www</span>
+                      <input
+                        id="auctionurl"
+                        type="text"
+                        name="auctionurl"
+                        th:field="*{auctionurl}"
+                        class="form-control"
+                        placeholder="Enter Auction url"
+                        />
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="notary-name" class="form-label">Notary Name</label>
+                    <input
+                      id="notary-name"
+                      type="text"
+                      name="symb_name"
+                      th:field="*{symb_name}"
+                      class="form-control"
+                      placeholder="Enter Notary name"
+                      />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="notary-surname" class="form-label">Notary Surname</label>
+                    <input
+                      id="notary-surname"
+                      type="text"
+                      name="symb_surename"
+                      th:field="*{symb_surename}"
+                      class="form-control"
+                      placeholder="Enter Notary surname"
+                      />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="notary-tel" class="form-label">Notary Telephone</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                      <input
+                        id="notary-tel"
+                        type="text"
+                        name="symb_tele"
+                        th:field="*{symb_tele}"
+                        class="form-control"
+                        placeholder="Enter Notary Telephone"
+                        />
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="notary-email" class="form-label">Notary Email</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                      <input
+                        id="notary-email"
+                        type="text"
+                        name="symb_mail"
+                        th:field="*{symb_mail}"
+                        class="form-control"
+                        placeholder="Enter Notary E-mail"
+                        />
+                    </div>
+                  </div>
+                </div>  
+              </div>
+
+              <!-- Tab2 Content -->
+              <div class="tab-pane fade row g-3" id="nav-first-information" role="tabpanel" aria-labelledby="nav-first-information-tab">
+                <div class="row g-3" style="display: inline-flex !important;">
+                  <p>Tab2</p>
+                  <div class="col-md-3">
+                    <label for="borrname" class="form-label">Borrower Name</label>
+                    <input 
+                      type="text"
+                      name="borrname"
+                      th:field="*{borrname}"
+                      placeholder="Enter Borrower Name"
+                      class="form-control" id="borrname" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="property-id" class="form-label">Property ID</label>
+                    <input 
+                      type="text"
+                      name="property_id"
+                      th:field="*{property_id}"
+                      placeholder="Enter Property ID"
+                      class="form-control" id="property-id" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="callateral1" class="form-label">Collateral Use</label>
+                    <input
+                      type="text"
+                      name="callateral1"
+                      th:field="*{callateral1}"
+                      placeholder="Enter Collateral Use"
+                      class="form-control" id="callateral1" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="callateral_sub_type" class="form-label">Collateral Sub Type</label>
+                    <input 
+                      type="text" class="form-control" 
+                      name="callateral_sub_type"
+                      th:field="*{callateral_sub_type}"
+                      placeholder="Enter Collateral Sub Type"
+                      id="callateral_sub_type" />
+                  </div>
+
+
+                  <div class="col-md-3">
+                    <label for="municipality" class="form-label">Municipality</label>
+                    <input 
+                      type="text"
+                      name="municipality"
+                      th:field="*{municipality}"
+                      placeholder="Enter Municipality"
+                      class="form-control" id="municipality" />
+                  </div>
+                  <div class="col-md-2">
+                    <label for="city" class="form-label">City</label>
+                    <input 
+                      type="text"
+                      name="city"
+                      th:field="*{city}"
+                      placeholder="Enter City"
+                      class="form-control" id="city" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      th:field="*{address}"
+                      placeholder="Enter Address"
+                      class="form-control" id="address" />
+                  </div>
+                  <div class="col-md-2" style="width: 10% !important;">
+                    <label for="zipcode" class="form-label">Zip Code</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="zipcode"
+                      th:field="*{zipcode}"
+                      placeholder="Enter Zip Code"
+                      id="zipcode" />
+                  </div>
+                  <div class="col-md-3" style="width: 23% !important;">
+                    <label for="gpscords" class="form-label">GPS Coordinates</label>
+                    <div class="input-group">
+                      <!--<span class="input-group-text" id="inputGroupPrepend2"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
+                      <button class="btn btn-outline-secondary" type="button" id="clipboard" onclick="myFunction()"><i class="fa fa-clone" aria-hidden="true"></i></button>
+                      <input 
+                        type="text" 
+                        class="form-control" 
+                        name="gpscords"
+                        th:field="*{gpscords}"
+                        placeholder="Enter GPS Coordinates"
+                        id="gpscords" />
+                    </div>
+                    <div class="toast bg-success text-white" id="toastMessage" role="alert" aria-live="assertive" aria-atomic="true">
+                      <div class="d-flex">
+                        <div class="toast-body">
+                          GPS Cordinates Copy to Clipboard
+                          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span> 
+                          </button>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="description">Description</label>
+                    <div class="form-floating">
+                      <textarea
+                        style="height: 125px;"
+                        type="text" 
+                        class="form-control" 
+                        name="description"
+                        th:field="*{description}"
+                        placeholder="Enter Description"
+                        id="description"></textarea>
+                      <label for="description">Description</label>
+                    </div>
+                  </div>
+                  <div class="row" style="display: flex;align-items: center;justify-content: center;padding: 15px 0 15px 0;">
+                    <div class="col-md-2">
+                      <label for="landarea" class="form-label">Land Area</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="landarea"
+                        th:field="*{landarea}"
+                        placeholder="Enter Land Area"
+                        id="landarea" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="buildarea" class="form-label">Build Area</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="buildarea"
+                        th:field="*{buildarea}"
+                        placeholder="Enter Build Area"
+                        id="buildarea" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="mainsurefacearea" class="form-label">Surface Area</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="mainsurefacearea"
+                        th:field="*{mainsurefacearea}"
+                        placeholder="Enter Surface Area"
+                        id="mainsurefacearea" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="auxilliarysurefacearea" class="form-label">Auxilary Area</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="auxilliarysurefacearea"
+                        th:field="*{auxilliarysurefacearea}"
+                        placeholder="Enter Auxilary Area"
+                        id="auxilliarysurefacearea" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="arbitarysurefacearea" class="form-label">Arbitary Area</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="arbitarysurefacearea"
+                        th:field="*{arbitarysurefacearea}"
+                        placeholder="Enter Arbitary Area"
+                        id="arbitarysurefacearea" />
+                    </div>
+                  </div>
+                  <div class="row" style="padding: 15px 0 15px 0;">
+                    <div class="col-md-4">
+                      <label for="fullownership" class="form-label">Full Ownership</label>
+                      <select  class="form-select" th:field="*{fullownership}" id="fullownership" name="fullownership"  type="value">
+                        <option value="">Full Ownership...</option>
+                        <option th:value="0" th:text="No"></option>
+                        <option th:value="1" th:text="Yes"></option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="constructionyear" class="form-label">Construction Year</label>
+                      <input 
+                        type="text"
+                        name="constructionyear"
+                        th:field="*{constructionyear}"
+                        placeholder="Enter Construction Year"
+                        class="form-control" id="constructionyear" />
+                    </div>
+                    <div class="col-md-3">
+                      <label for="floor" class="form-label">Floor</label>
+                      <input 
+                        type="text"
+                        name="floor"
+                        th:field="*{floor}"
+                        placeholder="Enter Floor"
+                        class="form-control" id="floor" />
+                    </div>
+                  </div>
+                  <div class="row" style="padding: 15px 0 15px 0;">
+                    <div class="col-md-4">
+                      <label for="auction_id" class="form-label">Auction ID</label>
+                      <input 
+                        type="text"
+                        name="auction_id"
+                        th:field="*{auction_id}"
+                        placeholder="Enter Auction ID"
+                        class="form-control" id="auction_id" />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="uniqauction_code" class="form-label">Unique Auction Code</label>
+                      <input 
+                        type="text"
+                        name="uniqauction_code"
+                        th:field="*{uniqauction_code}"
+                        placeholder="Enter Unique Auction Code"
+                        class="form-control" id="uniqauction_code" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="auction_datedate" class="form-label">Auction Date</label>
+                      <input 
+                        type="date"
+                        autocomplete="false"
+                        name="auction_datedate"
+                        th:field="*{auction_datedate}"
+                        placeholder="Enter Auction Date"
+                        class="form-control" id="auction_datedate" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="auctiondate" class="form-label">Auction Date Month_Year</label>
+                      <input 
+                        type="text"
+                        name="auctiondate"
+                        th:field="*{auctiondate}"
+                        placeholder="Enter Auction Date Month Year"
+                        class="form-control" id="auctiondate" />
+                    </div>
+                  </div>  
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="startingprice" class="form-label">Starting Price</label>
+                      <input 
+                        type="number" 
+                        class="form-control" 
+                        name="startingprice"
+                        th:field="*{startingprice}"
+                        placeholder="Enter Starting Price"
+                        id="startingprice" />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="landealink" class="form-label">Landea Link</label>
+                      <input 
+                        type="text"
+                        name="landealink"
+                        th:field="*{landealink}"
+                        placeholder="Enter Landea Link"
+                        class="form-control" id="landealink" />
+                    </div>
+                    <div class="col-md-3">
+                      <label for="region" class="form-label">Region</label>
+                      <input 
+                        type="text"
+                        name="region"
+                        th:field="*{region}"
+                        placeholder="Enter Region"
+                        class="form-control" id="region" />
+                    </div>
+                    <div class="col-md-3">
+                      <label for="prefecture" class="form-label">Prefecture</label>
+                      <input 
+                        type="text"
+                        name="prefecture"
+                        th:field="*{prefecture}"
+                        placeholder="Enter Prefecture"
+                        class="form-control" id="prefecture" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3 Content -->
+              <div class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
+                <p>Tab3</p>
+                <div class="col-md-6">
+                  <label for="image1" class="form-label">Image 1</label>
+                  <input 
+                    type="text"
+                    name="image1"
+                    th:field="*{image1}"
+                    placeholder="Enter Image 1"
+                    class="form-control" id="image1" />
+                </div>
+                <div class="col-md-6">
+                  <label for="image2" class="form-label">Image 2</label>
+                  <input 
+                    type="text"
+                    name="image2"
+                    th:field="*{image2}"
+                    placeholder="Enter Image 2"
+                    class="form-control" id="image2" />
+                </div>
+                <div class="col-md-6">
+                  <label for="site" class="form-label">Site</label>
+                  <input 
+                    type="text"
+                    name="site"
+                    th:field="*{site}"
+                    placeholder="Enter Site"
+                    class="form-control" id="site" />
+                </div>
+                <div class="col-md-6">
+                  <label for="broker_site" class="form-label">Broker Site</label>
+                  <input 
+                    type="text"
+                    name="broker_site"
+                    th:field="*{broker_site}"
+                    placeholder="Enter Broker Site"
+                    class="form-control" id="broker_site" />
+                </div>
+              </div>
+
+              <!-- Tab 4 Content -->
+              <div class="tab-pane fade" id="nav-final-information" role="tabpanel" aria-labelledby="nav-final-information-tab">
+                <p>Tab4</p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="ekth_ektim" class="form-label">Assessment Report</label>
+                    <select  class="form-select" th:field="*{ekth_ektim}" id="ekth_ektim" name="ekth_ektim"  type="value">
+                      <option value="">Assessment Report...</option>
+                      <option th:value="0" th:text="No"></option>
+                      <option th:value="1" th:text="Yes"></option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="techn_fakel" class="form-label">Technical Folder</label>
+                    <select  class="form-select" th:field="*{techn_fakel}" id="techn_fakel" name="techn_fakel"  type="value">
+                      <option value="">Technical Folder...</option>
+                      <option th:value="0" th:text="No"></option>
+                      <option th:value="1" th:text="Yes"></option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="teaser" class="form-label">Teaser</label>
+                    <select  class="form-select" th:field="*{teaser}" id="teaser" name="teaser"  type="value">
+                      <option value="">Full Teaser...</option>
+                      <option th:value="0" th:text="No"></option>
+                      <option th:value="1" th:text="Yes"></option>
+                    </select>
+                  </div>
+                </div>  
+                <div class="row" style="padding: 15px 0 15px 0;">
+                  <div class="col-md-4">
+                    <label for="subbroker_name" class="form-label">Sub Broker Name</label>
+                    <input 
+                      type="text"
+                      name="subbroker_name"
+                      th:field="*{subbroker_name}"
+                      placeholder="Enter Sub Broker Name"
+                      class="form-control" id="subbroker_name" />
+                  </div>
+                  <div class="col-md-2">
+                    <label for="visitors_count" class="form-label">Visitors Count</label>
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      name="visitors_count"
+                      th:field="*{visitors_count}"
+                      placeholder="Enter Visitors Count"
+                      id="visitors_count" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="begin_endiaferon" class="form-label">Initial interest</label>
+                    <select  class="form-select" th:field="*{begin_endiaferon}" id="begin_endiaferon" name="begin_endiaferon"  type="value">
+                      <option value="">Initial interest...</option>
+                      <option th:value="0" th:text="No"></option>
+                      <option th:value="1" th:text="Yes"></option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="leads" class="form-label">Leads</label>
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      name="leads"
+                      th:field="*{leads}"
+                      placeholder="Enter Leads"
+                      id="leads" />
+                  </div>
+                </div>
+                <div class="row" style="padding: 15px 0 15px 0;">
+                  <div class="col-md-3">
+                    <label for="endiaferomenos_info" class="form-label">Ιnterested</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="endiaferomenos_info"
+                      th:field="*{endiaferomenos_info}"
+                      placeholder="Enter Ιnterested"
+                      id="endiaferomenos_info" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="endiaferomenos_info1" class="form-label">Ιnterested 2</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="endiaferomenos_info1"
+                      th:field="*{endiaferomenos_info1}"
+                      placeholder="Enter Ιnterested 2"
+                      id="endiaferomenos_info1" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="endiaferomenos_info3" class="form-label">Ιnterested 3</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="endiaferomenos_info3"
+                      th:field="*{endiaferomenos_info3}"
+                      placeholder="Enter Ιnterested 3"
+                      id="endiaferomenos_info3" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="endiaferomenos_info4" class="form-label">Ιnterested 4</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="endiaferomenos_info4"
+                      th:field="*{endiaferomenos_info4}"
+                      placeholder="Enter Ιnterested 4"
+                      id="endiaferomenos_info4" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="endiaferomenos_info5" class="form-label">Ιnterested 5</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="endiaferomenos_info5"
+                      th:field="*{endiaferomenos_info5}"
+                      placeholder="Enter Ιnterested 5"
+                      id="endiaferomenos_info5" />
+                  </div>
+                </div>
+                <div class="row" style="padding: 15px 0 15px 0;">
+                  <div class="col-md-6">
+                    <!--<label class="form-label" for="comments1">Comments</label>-->
+                    <div class="form-floating">
+                      <textarea
+                        style="height: 125px;"
+                        type="text" 
+                        class="form-control" 
+                        name="comments1"
+                        th:field="*{comments1}"
+                        placeholder="Enter Comments 1"
+                        id="comments1"></textarea>
+                      <label for="comments1">Comments</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <!--<label class="form-label" for="comments2">Comments 2</label>-->
+                    <div class="form-floating">
+                      <textarea
+                        style="height: 125px;"
+                        type="text" 
+                        class="form-control" 
+                        name="comments2"
+                        th:field="*{comments2}"
+                        placeholder="Enter Comments 2"
+                        id="description"></textarea>
+                      <label for="comments2">Comments 2</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="padding: 15px 0 15px 0;">
+                  <div class="col-md-3">
+                    <label for="marketability_name" class="form-label">Marketability Name</label>
+                    <input 
+                      type="number" 
+                      class="form-control" 
+                      name="marketability_name"
+                      th:field="*{marketability_name}"
+                      placeholder="Enter Marketability Name"
+                      id="marketability_name" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="landea_leads" class="form-label">Landea Leads</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="landea_leads"
+                      th:field="*{landea_leads}"
+                      placeholder="Enter Landea Leads"
+                      id="landea_leads" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="update_auction" class="form-label">Update Auction</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="update_auction"
+                      th:field="*{update_auction}"
+                      placeholder="Enter Update Auction"
+                      id="update_auction" />
+                  </div>
+                  <div class="col-md-3">
+                    <label for="high_interest" class="form-label">High Interest</label>
+                    <input 
+                      type="text" 
+                      class="form-control" 
+                      name="high_interest"
+                      th:field="*{high_interest}"
+                      placeholder="Enter High Interest"
+                      id="high_interest" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <!--<label class="form-label" for="comments2">Comments 2</label>-->
+                  <div class="form-floating">
+                    <textarea
+                      style="height: 125px;"
+                      type="text" 
+                      class="form-control" 
+                      name="landea_comments"
+                      th:field="*{landea_comments}"
+                      placeholder="Enter Landea Comments"
+                      id="landea_comments"></textarea>
+                    <label for="landea_comments">Landea Comments</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Tab 05-->
+              <div class="tab-pane fade show" id="nav-other" role="tabpanel" aria-labelledby="nav-other-tab">
+                <div class="row g-3" style="padding: 15px 0 0 0;">
+                  <div th:each="field, itemstat : *{assets00flrec}" class="col-md-3">
+                    <input
+                      type="hidden" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].fld}"
+                      th:name="${field.getFld() + '_fld'}"
+                      th:id="${field.getFld() + '_fld'}" />
+                    <label th:if="${field.getType()==1}" th:for="${field.getFld() + '_text'}" class="form-label" th:text="${field.getFldDescr()}"></label>
+                    <input
+                      th:if="${field.getType()==1}"
+                      type="text" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].valstr}"
+                      th:name="${field.getFld()}"
+                      th:placeholder="${'Enter ' + field.getFldDescr()}"
+                      th:id="${field.getFld() + '_text'}" />
+
+                    <label th:if="${field.getType()==2}" th:for="${field.getFld() + '_number'}" class="form-label" th:text="${field.getFldDescr()}"></label>
+                    <input
+                      th:if="${field.getType()==2}"
+                      type="number" 
+                      class="form-control"
+                      th:field="*{assets00flrec[__${itemstat.index}__].valnum}"
+                      th:name="${field.getFld()}"
+                      th:placeholder="${'Enter ' + field.getFldDescr()}"
+                      th:id="${field.getFld() + '_number'}" />
+                  </div>  
+                </div>              
+              </div>
+            </div>
+            <div class="col-12" style="margin-bottom: 15px;margin-top: 10px">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+              <!--<a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>-->
+              <input class="btn btn-danger" type="button" value="Cancel" onclick="history.back()">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>  
+
+    <div class="overlay">
+
+    </div>
     <script type="text/javascript">
       $(document).ready(function () {
           $("#sidebar").mCustomScrollbar({

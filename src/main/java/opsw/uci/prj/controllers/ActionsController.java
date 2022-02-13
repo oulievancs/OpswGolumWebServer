@@ -220,7 +220,7 @@ public class ActionsController
     return result;
   }
 
-  @GetMapping("/testtab")
+  /*@GetMapping("/testtab")
   public String TabTest(Model model) throws CatException
   {
     Assets00 asset = null;
@@ -235,6 +235,5 @@ public class ActionsController
     }
     model.addAttribute("asset", asset);
     return "TestTabForm";
-  }
-
+  }*/
 }

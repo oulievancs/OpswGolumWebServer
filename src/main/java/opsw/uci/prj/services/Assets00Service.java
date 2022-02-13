@@ -41,6 +41,8 @@ public interface Assets00Service extends CatEjbJpaServiceBase
 
   public Assets00Rec02 Assets00PostEd01(Long assetId, Assets00Rec02 asset, OpswLoginVars logvars) throws CatException;
 
+  public Assets00Rec02 Assets00SelectEd01(Long assetId) throws CatException;
+
   public List<Assets00Rec01> Assets00Rec01List01() throws CatException;
 
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;

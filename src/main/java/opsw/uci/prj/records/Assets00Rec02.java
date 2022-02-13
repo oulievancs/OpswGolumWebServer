@@ -5,14 +5,10 @@
  */
 package opsw.uci.prj.records;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
-import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
