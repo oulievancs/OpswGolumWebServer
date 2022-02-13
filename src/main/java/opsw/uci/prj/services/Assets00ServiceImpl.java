@@ -5,7 +5,6 @@
  */
 package opsw.uci.prj.services;
 
-import com.sun.xml.internal.ws.api.config.management.policy.ManagedClientAssertion;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

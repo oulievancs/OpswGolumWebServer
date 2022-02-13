@@ -68,5 +68,13 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
     //
     OpswMenuDo01.MakeMenu01(request, model);
     //
+    this.SetRequestResponseHeaders(request, response);
+  }
+
+  private void SetRequestResponseHeaders(HttpServletRequest request, HttpServletResponse response)
+  {
+    //Για το resubmition form στο back button του browser.
+    //https://stackoverflow.com/questions/19215637/navigate-back-with-php-form-submission
+    response.addHeader("Cache-Control", "no cache");
   }
 }
