@@ -46,7 +46,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
     //*************VALIDATIONS*********************//
     OpswLoginVars vLoginVars = new OpswLoginVars();
     OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
-    OpswValidations01.MakeLoginValidations01(vLoginVars, request, response);
+    result &= OpswValidations01.MakeLoginValidations01(vLoginVars, request, response);
     //*********************************************//
 
     return result;

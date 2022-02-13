@@ -5,6 +5,8 @@
  */
 package opsw.uci.prj.globals;
 
+import java.util.List;
+
 /**
  *
  * @author oulis
@@ -20,6 +22,7 @@ public class OpswLoginVars
   private String loginUser;
   private short etai;
   private String connectionDs;
+  private List<String> roles;
 
   public OpswLoginVars()
   {
@@ -27,13 +30,15 @@ public class OpswLoginVars
     this.loginUser = null;
     this.etai = 0;
     this.connectionDs = null;
+    this.roles = null;
   }
-  
+
   public static void copyFrom(OpswLoginVars from, OpswLoginVars to)
   {
     to.setConnectionDs(from.getConnectionDs());
     to.setEtai(from.getEtai());
     to.setLoginUser(from.getLoginUser());
+    to.setRoles(from.getRoles());
   }
 
   public String getLoginUser()
@@ -64,5 +69,15 @@ public class OpswLoginVars
   public void setConnectionDs(String connectionDs)
   {
     this.connectionDs = connectionDs;
+  }
+
+  public List<String> getRoles()
+  {
+    return roles;
+  }
+
+  public void setRoles(List<String> roles)
+  {
+    this.roles = roles;
   }
 }

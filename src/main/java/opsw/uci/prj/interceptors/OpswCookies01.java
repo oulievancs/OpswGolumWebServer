@@ -5,13 +5,19 @@
  */
 package opsw.uci.prj.interceptors;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import opsw.uci.prj.arifacts.OpswEjbContext;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.utils.OpswStringUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  *
@@ -120,14 +126,52 @@ public class OpswCookies01
 
       if (vsess != null)
       {
-        String vlogUser = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST);
-        wLoginVars.setLoginUser(vlogUser);
+        //String vlogUser = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST);
+        //wLoginVars.setLoginUser(vlogUser);
 
         String vlogEtai = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_ETAI_CONST);
         wLoginVars.setEtai(OpswStringUtils.OpswStringToShort(vlogEtai));
 
         String vConnectionDs = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS);
         wLoginVars.setConnectionDs(vConnectionDs);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Principal principal = null;
+
+        if (authentication != null)
+        {
+          principal = (Principal) authentication.getPrincipal();
+        }
+
+        if (principal != null)
+        {
+          wLoginVars.setLoginUser(principal.getName());
+        }
+        else
+        {
+          wLoginVars.setLoginUser("dev");
+        }
+
+        if (authentication != null)
+        {
+          List<String> vroles = new ArrayList<>();
+
+          wLoginVars.setRoles(vroles);
+          boolean vauthorities = authentication.getAuthorities().stream()
+                  .anyMatch(a ->
+                  {
+                    String vopswRole = a.getAuthority();
+
+                    if (vopswRole != null)
+                    {
+                      vopswRole = vopswRole.substring(5);
+                    }
+                    vroles.add(vopswRole);
+                    //OpswLogger.LoggerLogDebug("Authority -> " + vopswRole);
+                    return false;
+                  });
+        }
       }
 
 //      Cookie[] vcookies = request.getCookies();
@@ -183,7 +227,7 @@ public class OpswCookies01
 
       HttpSession vsess = request.getSession(true);
 
-      vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST, wLoginVars.getLoginUser());
+      //vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST, wLoginVars.getLoginUser());
       vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_ETAI_CONST, OpswStringUtils.OpswShortToString(wLoginVars.getEtai()));
       vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS, wLoginVars.getConnectionDs());
 

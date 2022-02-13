@@ -5,7 +5,6 @@
  */
 package opsw.uci.prj.controllers;
 
-import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
@@ -86,7 +85,6 @@ public class MainController
   @PostMapping("init1/post")
   public String init1Post(@ModelAttribute("CLM0") CatThmlfObject02 clm0,
           HttpServletRequest request,
-          Principal principal,
           RedirectAttributes redirectAttrs)
           throws Exception
   {
@@ -102,15 +100,6 @@ public class MainController
       OpswLoginVars wLoginVars = new OpswLoginVars();
       OpswErpRecords01.OpswXrhshByEtairSetConnection(wLoginVars, obj.getCode().shortValue());
       wLoginVars.setEtai(obj.getCode().shortValue());
-
-      if (principal != null)
-      {
-        wLoginVars.setLoginUser(principal.getName());
-      }
-      else
-      {
-        wLoginVars.setLoginUser("dev");
-      }
 
       OpswCookies01.OpswFillCookiesFromLoginVars01(request, wLoginVars);
       redirectAttrs.addFlashAttribute("message", "Η αλλαγή πραγματοποιήθηκε με επιτυχία");
