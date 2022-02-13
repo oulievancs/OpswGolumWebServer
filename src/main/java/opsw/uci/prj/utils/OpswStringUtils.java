@@ -47,7 +47,7 @@ public class OpswStringUtils
     String res = null;
     try
     {
-      DecimalFormat df = new DecimalFormat("#");
+      DecimalFormat df = new DecimalFormat("#.00");
       res = df.format(wDouble);
     }
     catch (Exception ex)
@@ -112,6 +112,21 @@ public class OpswStringUtils
       {
         res = false;
       }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  public static String OpswLongToString(long wLong) throws CatException
+  {
+    String res = null;
+    try
+    {
+      DecimalFormat df = new DecimalFormat("#");
+      res = df.format(wLong);
     }
     catch (Exception ex)
     {

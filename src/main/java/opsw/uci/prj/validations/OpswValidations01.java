@@ -18,10 +18,11 @@ import opsw.uci.prj.system.OpswSystemWebServer01;
 public class OpswValidations01
 {
 
-  public static void MakeLoginValidations01(OpswLoginVars iLoginVars, HttpServletRequest request,
+  public static boolean MakeLoginValidations01(OpswLoginVars iLoginVars, HttpServletRequest request,
           HttpServletResponse response)
           throws CatException
   {
+    boolean result = true;
     try
     {
       boolean vgoon = true;
@@ -37,6 +38,7 @@ public class OpswValidations01
                 && !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/init1/post")))
         {
           response.sendRedirect(OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/init1");
+          result = false;
         }
       }
     }
@@ -44,5 +46,6 @@ public class OpswValidations01
     {
       CatException.RethrowCatException(ex);
     }
+    return result;
   }
 }
