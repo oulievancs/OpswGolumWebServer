@@ -168,7 +168,7 @@ public class OpswCookies01
                       vopswRole = vopswRole.substring(5);
                     }
                     vroles.add(vopswRole);
-                    OpswLogger.LoggerLogDebug("Authority -> " + vopswRole);
+                    //OpswLogger.LoggerLogDebug("Authority -> " + vopswRole);
                     return false;
                   });
         }
