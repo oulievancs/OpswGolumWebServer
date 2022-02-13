@@ -28,6 +28,7 @@ import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.OpswconstvService;
+import opsw.uci.prj.services.SequencesService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import org.apache.log4j.Logger;
@@ -72,6 +73,9 @@ public class ActionsController
 
   @Autowired
   private OpswconstvService OpswconstvService;
+
+  @Autowired
+  private SequencesService SequencesService;
 
   @GetMapping("/inportfile")
   public String importFileFomr(Model model) throws Exception
@@ -119,6 +123,7 @@ public class ActionsController
         excelUnit.setGram01Service(this.Gram01Service);
         excelUnit.setSymbService(this.SymbService);
         excelUnit.setOpswconstvService(OpswconstvService);
+        excelUnit.setSequencesService(SequencesService);
         excelUnit.setLogivars(vlogvar);
 
         ((LcGramAssetsExcel01) excelUnit).ReadFileFromMultipartAndImport(file);
@@ -157,14 +162,14 @@ public class ActionsController
       model.addAttribute("gramList", gramList);
       model.addAttribute("paramsOb", returnParams);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
-    
+
     return "exportform";
   }
-  
+
   @GetMapping("/exportfile")
   public String exportFile(Model model) throws Exception
   {
@@ -181,7 +186,7 @@ public class ActionsController
       dates.setDateFrom(today.getTime());
       dates.setDateTo(today.getTime());
       params.setSearchDates(dates);
-      
+
       model.addAttribute("CLM1", symbList01);
       model.addAttribute("gramList", gramList);
       model.addAttribute("paramsOb", params);
@@ -190,7 +195,7 @@ public class ActionsController
     {
       CatException.RethrowCatException(e);
     }
-    
+
     return "exportform";
   }
 
@@ -214,7 +219,7 @@ public class ActionsController
     }
     return result;
   }
-  
+
   @GetMapping("/testtab")
   public String TabTest(Model model) throws CatException
   {
@@ -224,12 +229,12 @@ public class ActionsController
       long id = 2005;
       asset = this.Assetets00Service.Assets00Select01(id);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
     model.addAttribute("asset", asset);
     return "TestTabForm";
   }
-  
+
 }

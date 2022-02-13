@@ -62,7 +62,7 @@ public class Assets00ServiceImpl implements Assets00Service
 
   @Autowired
   private OpswfldsvService OpswfldsvService;
-  
+
   @PostConstruct
   public void init00()
   {
@@ -324,10 +324,10 @@ public class Assets00ServiceImpl implements Assets00Service
         assetdb = new Assets00();
       }
       Assets00Rec02.Assets00Rec02ToAssets00(asset, assetdb);
-      if (asset.getAssets00flrec() != null && !asset.getAssets00flrec().isEmpty()) 
+      if (asset.getAssets00flrec() != null && !asset.getAssets00flrec().isEmpty())
       {
         List<Assets00fl> assetsflList = new ArrayList<>();
-        for(Assets00flRec01 assetflrec : asset.getAssets00flrec())
+        for (Assets00flRec01 assetflrec : asset.getAssets00flrec())
         {
           Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, assetflrec.getFld());
           assetflrec.setFldDescr(opswConst.getDescr());
@@ -336,7 +336,7 @@ public class Assets00ServiceImpl implements Assets00Service
           Assets00fl assetfl = new Assets00fl();
           OpswReflection.OpswReflectionCopyObjectFields(assetflrec, assetfl, Assets00fl.class);
           assetsflList.add(assetfl);
-          
+
         }
         assetdb.setAssets00fl(assetsflList);
         assetdb = this.Assets00Post01(assetdb);
@@ -394,7 +394,7 @@ public class Assets00ServiceImpl implements Assets00Service
           vfllist = new ArrayList<>();
           for (Opswconstsv con : vlistconst)
           {
-            
+
             vfllist.add(this.Assets00flService.Assets00flSelect02(ass.getAsset(), con.getValue()));
           }
         }
@@ -414,43 +414,64 @@ public class Assets00ServiceImpl implements Assets00Service
       result = this.Assets00Rec02Select01(id);
       List<Opswfldsv> vlistconst = this.OpswfldsvService.OpswfldsvList01();
 
-        List<Assets00flRec01> vfllist = null;
-        if (vlistconst != null)
+      List<Assets00flRec01> vfllist = null;
+      if (vlistconst != null)
+      {
+        vfllist = new ArrayList<>();
+        for (Opswfldsv con : vlistconst)
         {
-          vfllist = new ArrayList<>();
-          for (Opswfldsv con : vlistconst)
+          Assets00fl vassfl = this.Assets00flService.Assets00flSelect02(result.getAsset(), con.getCode());
+          Assets00flRec01 vassflRec = new Assets00flRec01();
+
+          if (vassfl != null)
           {
-            Assets00fl vassfl = this.Assets00flService.Assets00flSelect02(result.getAsset(), con.getCode());
-            Assets00flRec01 vassflRec = new Assets00flRec01();
-            
-            if(vassfl != null)
-            {
-              OpswReflection.OpswReflectionCopyObjectFields(vassfl, vassflRec, Assets00fl.class);
-              /*if(vassfl.getType() == Assets00fl.ASSETS_FLD_STRING) {
+            OpswReflection.OpswReflectionCopyObjectFields(vassfl, vassflRec, Assets00fl.class);
+            /*if(vassfl.getType() == Assets00fl.ASSETS_FLD_STRING) {
               vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_TEXT);
               }
               else {
                 vassflRec.setTypeStr(Assets00flRec01.TYPE_STR_NUMBER);
               }*/
-            }
-            
-            Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, con.getCode());
-            vassflRec.setAsset(id);
-            vassflRec.setType(con.getType());
-            vassflRec.setFld(con.getCode());
-            vassflRec.setFldDescr(opswConst.getDescr());            
-            vfllist.add(vassflRec);
           }
+
+          Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, con.getCode());
+          vassflRec.setAsset(id);
+          vassflRec.setType(con.getType());
+          vassflRec.setFld(con.getCode());
+          vassflRec.setFldDescr(opswConst.getDescr());
+          vfllist.add(vassflRec);
         }
-        result.setAssets00flrec(vfllist);
-      
+      }
+      result.setAssets00flrec(vfllist);
+
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
-    
+
     return result;
+  }
+
+  @Override
+  public Assets00 Assets00Post03(Assets00 assets00, boolean postSymb) throws CatException
+  {
+    Assets00 vassets00 = null;
+    try
+    {
+      if (OpswNumberUtils.OpswGetLong(assets00.getAauci()) < 1)
+      {
+        assets00.setAauci(
+                this.SequencesService.SequencesGetNextVal(Sequences.SEQ_AAUCI)
+        );
+      }
+      vassets00 = this.Assets00Post02(assets00, postSymb);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vassets00;
   }
 
 }

@@ -18,15 +18,18 @@ import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
+import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.Assets00Rec01;
+import opsw.uci.prj.records.Gram00Rec02;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
 import opsw.uci.prj.services.Gram01Service;
 import opsw.uci.prj.services.OpswconstvService;
+import opsw.uci.prj.services.SequencesService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
@@ -78,6 +81,10 @@ public abstract class LcGramAssetsExcelBase
 
   protected String hartofolakio;
 
+  private Gram00Rec02 gram00Rec02;
+
+  protected SequencesService SequencesService;
+
   public LcGramAssetsExcelBase()
   {
     super();
@@ -95,6 +102,9 @@ public abstract class LcGramAssetsExcelBase
     this.Assetets00Service = null;
     this.isToSetInternalKey = false;
     this.hartofolakio = null;
+    //
+    this.gram00Rec02 = null;
+    this.SequencesService = null;
   }
 
   public byte[] getFile()
@@ -135,6 +145,16 @@ public abstract class LcGramAssetsExcelBase
   public void setOpswconstvService(OpswconstvService OpswconstvService)
   {
     this.OpswconstvService = OpswconstvService;
+  }
+
+  public SequencesService getSequencesService()
+  {
+    return SequencesService;
+  }
+
+  public void setSequencesService(SequencesService SequencesService)
+  {
+    this.SequencesService = SequencesService;
   }
 
   protected static class GramAssetsExcelPrms01
@@ -268,15 +288,22 @@ public abstract class LcGramAssetsExcelBase
           this.NextRow(params);
           //
 
+          if (OpswNumberUtils.OpswGetLong(this.assets00.getAauci()) < 1)
+          {
+            this.assets00.setAauci(
+                    this.SequencesService.SequencesGetNextVal(Sequences.SEQ_AAUCI)
+            );
+          }
+
           if (this.isToSetInternalKey)
           {
             String vinternalKey = null;
 
-            vinternalKey = this.AssetsInternlKeyComp();
+            vinternalKey = this.AssetsInternlKeyComp(this.assets00);
             OpswReflection.SetFieldValue(this.assets00, Opswconstsv.FIELD_ASSETS_VALUE_INTRNLKEY.toLowerCase(), vinternalKey);
           }
           //
-          this.Assetets00Service.Assets00Post02(assets00, true);
+          this.Assetets00Service.Assets00Post03(this.assets00, true);
         }
 
         idx++;
@@ -286,58 +313,6 @@ public abstract class LcGramAssetsExcelBase
     {
       CatException.RethrowCatException(ex);
     }
-  }
-
-  private String AssetsInternlKeyComp() throws CatException
-  {
-    String res = null;
-    try
-    {
-      if (this.assets00.getAauci() != null)
-      {
-        res += this.assets00.getAauci();
-      }
-
-      if (this.hartofolakio != null)
-      {
-        if (res != null)
-        {
-          res += "_";
-        }
-
-        res += this.hartofolakio;
-      }
-
-      if (this.assets00.getAssfile() != null)
-      {
-        if (res != null)
-        {
-          res += "_";
-        }
-
-        res += OpswDateUtils.DateToStr(this.assets00.getAssfile(), "ddMMyyyy");
-      }
-
-      if (this.assets00.getUniqcode() != null)
-      {
-        if (res != null)
-        {
-          res += "_";
-        }
-
-        res += this.assets00.getUniqcode();
-      }
-
-      if (OpswStringUtils.OpswStringIsEmpty(res))
-      {
-        throw new CatExceptionUser("Δεν μπόρεσε να δημιουργηθεί ο εσωτερικό κωδικός!");
-      }
-    }
-    catch (Exception ex)
-    {
-      CatException.RethrowCatException(ex);
-    }
-    return res;
   }
 
   protected void CloseWorkbook() throws CatException
@@ -434,7 +409,7 @@ public abstract class LcGramAssetsExcelBase
       }
       else if (ifieldType == Gram01.FIELD_TYPE_STRING)
       {
-        String vstrField = this.RetousarismaValueString(cell.getStringCellValue());
+        String vstrField = this.RetousarismaValueString(this.GetCellContentAsString(cell));
 
         if (!vfiledIsFld)
         {
@@ -975,6 +950,19 @@ public abstract class LcGramAssetsExcelBase
    * @throws CatException
    */
   protected abstract short GetIndexOfFirstLine() throws CatException;
+
+  /**
+   * Επιστρέφει το internal key όπως προκύπτει από την επεξεργασία της
+   * υλοποίησης.
+   *
+   * @param assets00
+   * @return
+   * @throws CatException
+   */
+  protected String AssetsInternlKeyComp(Assets00 assets00) throws CatException
+  {
+    return null;
+  }
 
   public Assets00Service getAssetets00Service()
   {

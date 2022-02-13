@@ -25,6 +25,11 @@ import javax.persistence.Transient;
 public class Gram00 implements Serializable
 {
 
+  public static final String GRAM00_INTERNALKEY_AAUCI = "AAUCI";
+  public static final String GRAM00_INTERNALKEY_ASSFILE = "ASSFILE";
+  public static final String GRAM00_INTERNALKEY_UNIQCODE = "UNIQCODE";
+  public static final String GRAM00_INTERNALKEY_DOV = "DOV";
+
   @Id
   private Long gram;
   private String descr;
@@ -36,6 +41,7 @@ public class Gram00 implements Serializable
   @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_modify;
   private String user_modify;
+  private String internalkey_flds;
 
   @Transient
   private List<Gram01> gram01List;
@@ -50,6 +56,7 @@ public class Gram00 implements Serializable
     this.user_create = null;
     this.date_modify = null;
     this.user_modify = null;
+    this.internalkey_flds = null;
   }
 
   public Long getGram()
@@ -140,6 +147,16 @@ public class Gram00 implements Serializable
   public void setGram01List(List<Gram01> gram01List)
   {
     this.gram01List = gram01List;
+  }
+
+  public String getInternalkey_flds()
+  {
+    return internalkey_flds;
+  }
+
+  public void setInternalkey_flds(String internalkey_flds)
+  {
+    this.internalkey_flds = internalkey_flds;
   }
 
   @Override

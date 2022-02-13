@@ -70,6 +70,22 @@
                     class="form-control"
                     placeholder="Enter start line"
                     />
+                  <label>Internal Key Fields</label>
+                  <select th:field="*{internalKeyFlds}" class="form-control" multiple>
+                    <option th:each="s : ${internalKeyFldsLst}"
+                            th:value="${s.getCode()}"
+                            th:text="${s.getCode() + '-' + s.getDescr()}"
+                      >
+                    </option>
+                  </select>
+                  <label>Internal Key Construction Sample</label>
+                  <input
+                    type="text"
+                    name="internalKeyFldsSample"
+                    th:field="*{internalKeyFldsSample}"
+                    class="form-control"
+                    disabled="true"
+                  />
                 </div>  
                 <div class="container">
                   <div class="row">
