@@ -72,4 +72,84 @@ public class OpswNumberUtils
 
     return num;
   }
+
+  public static int OpswGetIntFromString(String inumber)
+          throws CatException
+  {
+    int num = 0;
+    try
+    {
+      if (inumber != null && inumber.trim().length() > 0)
+      {
+        DecimalFormat df = new DecimalFormat("#");
+        num = df.parse(inumber).intValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return num;
+  }
+
+  public static byte OpswGetByteFromString(String inumber)
+          throws CatException
+  {
+    byte num = 0;
+    try
+    {
+      if (inumber != null && inumber.trim().length() > 0)
+      {
+        DecimalFormat df = new DecimalFormat("#");
+        num = df.parse(inumber).byteValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return num;
+  }
+
+  public static short OpswGetShortFromString(String inumber)
+          throws CatException
+  {
+    short num = 0;
+    try
+    {
+      if (inumber != null && inumber.trim().length() > 0)
+      {
+        DecimalFormat df = new DecimalFormat("#");
+        num = df.parse(inumber).shortValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return num;
+  }
+
+  public static float OpswGetFloatFromString(String inumber)
+          throws CatException
+  {
+    float num = 0;
+    try
+    {
+      if (inumber != null && inumber.trim().length() > 0)
+      {
+        DecimalFormat df = new DecimalFormat("#");
+        num = df.parse(inumber).floatValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return num;
+  }
 }
