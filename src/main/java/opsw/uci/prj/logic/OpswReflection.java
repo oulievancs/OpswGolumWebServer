@@ -79,7 +79,7 @@ public class OpswReflection
     {
       String vprefix = "get";
 
-      if (fieldType.getClass().getName().equalsIgnoreCase("boolean"))
+      if (fieldType.getClass().getSimpleName().equalsIgnoreCase("boolean"))
       {
         vprefix = "is";
       }
@@ -264,7 +264,17 @@ public class OpswReflection
           vcatObj01.setFieldName(fld.getName());
           vcatObj01.setFieldType(fld.getType());
           vcatObj01.setFieldValue(GetFieldValue(obj, fld.getName(), fld.getType()));
+          boolean isPrimitiveType
+                  = fld.getType().getClass().getSimpleName().equals(Boolean.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Long.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Short.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Byte.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Integer.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Double.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Float.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Character.class.getSimpleName());
           vcatObj01.setIsPrimitive(fld.getType().isPrimitive());
+          vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
         }
       }
     }
