@@ -11,15 +11,18 @@ package opsw.uci.prj.records.cat;
  */
 public class CatReflectObject01
 {
+
   private String fieldName;
   private Class<?> fieldType;
   private Object fieldValue;
+  private boolean isPrimitive;
 
   public CatReflectObject01()
   {
     this.fieldName = null;
     this.fieldType = null;
     this.fieldValue = null;
+    this.isPrimitive = false;
   }
 
   public String getFieldName()
@@ -50,5 +53,15 @@ public class CatReflectObject01
   public void setFieldValue(Object fieldValue)
   {
     this.fieldValue = fieldValue;
+  }
+
+  public boolean isIsPrimitive()
+  {
+    return isPrimitive;
+  }
+
+  public void setIsPrimitive(boolean isPrimitive)
+  {
+    this.isPrimitive = isPrimitive;
   }
 }

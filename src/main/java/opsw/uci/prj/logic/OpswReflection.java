@@ -264,6 +264,7 @@ public class OpswReflection
           vcatObj01.setFieldName(fld.getName());
           vcatObj01.setFieldType(fld.getType());
           vcatObj01.setFieldValue(GetFieldValue(obj, fld.getName(), fld.getType()));
+          vcatObj01.setIsPrimitive(fld.getType().isPrimitive());
         }
       }
     }
