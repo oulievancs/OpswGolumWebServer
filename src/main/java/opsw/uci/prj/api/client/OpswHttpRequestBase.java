@@ -43,6 +43,7 @@ public abstract class OpswHttpRequestBase
   private OpswHttpRequestProtocol httpProtocol;
   private Class<?> requestBody;
   private Class<?> responseBody;
+  private String dateFormat;
 
   public OpswHttpRequestBase()
   {
@@ -52,6 +53,7 @@ public abstract class OpswHttpRequestBase
     this.url = null;
     this.requestBody = null;
     this.responseBody = null;
+    this.dateFormat = "dd/MM/yyyy";
   }
 
   public OpswHttpMethod getMethod()
@@ -114,6 +116,16 @@ public abstract class OpswHttpRequestBase
     this.responseBody = responseBody;
   }
 
+  public String getDateFormat()
+  {
+    return dateFormat;
+  }
+
+  public void setDateFormat(String dateFormat)
+  {
+    this.dateFormat = dateFormat;
+  }
+
   protected abstract Object OpswHttpSendRequest(Object object) throws CatException;
 
   public Object OpswHttpSend(Object object) throws CatException
@@ -141,7 +153,8 @@ public abstract class OpswHttpRequestBase
         throw new CatException("Method not provided!");
       }
 
-      if (this.bodyType == null || this.bodyType == OpswHttpBodyType.OPSW_HTTP_BODY_NONE)
+      if ((this.method == OpswHttpMethod.OPSW_HTTP_MENTHOD_GET)
+              && (this.bodyType == null || this.bodyType == OpswHttpBodyType.OPSW_HTTP_BODY_NONE))
       {
         throw new CatException("Body type not provided!");
       }

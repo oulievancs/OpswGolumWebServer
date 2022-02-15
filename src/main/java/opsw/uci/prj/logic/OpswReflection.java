@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.logging.OpswLogger;
@@ -272,7 +274,9 @@ public class OpswReflection
                   || fld.getType().getClass().getSimpleName().equals(Integer.class.getSimpleName())
                   || fld.getType().getClass().getSimpleName().equals(Double.class.getSimpleName())
                   || fld.getType().getClass().getSimpleName().equals(Float.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Character.class.getSimpleName());
+                  || fld.getType().getClass().getSimpleName().equals(Character.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Calendar.class.getSimpleName())
+                  || fld.getType().getClass().getSimpleName().equals(Date.class.getSimpleName());
           vcatObj01.setIsPrimitive(fld.getType().isPrimitive());
           vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
         }
