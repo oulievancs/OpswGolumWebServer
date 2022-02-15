@@ -8,6 +8,7 @@ package opsw.uci.prj.logic;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -279,6 +280,14 @@ public class OpswReflection
                   || fld.getType().getClass().getSimpleName().equals(Date.class.getSimpleName());
           vcatObj01.setIsPrimitive(fld.getType().isPrimitive());
           vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
+
+          ParameterizedType genericType = (ParameterizedType) fld.getGenericType();
+
+          if (genericType != null)
+          {
+            vcatObj01.setIsGenericType(true);
+            vcatObj01.setGenericType((Class<?>) genericType.getActualTypeArguments()[0]);
+          }
         }
       }
     }

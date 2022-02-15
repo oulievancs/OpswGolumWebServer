@@ -16,7 +16,9 @@ public class CatReflectObject01
   private Class<?> fieldType;
   private Object fieldValue;
   private boolean isPrimitive;
+  private boolean isGenericType;
   private boolean isClassOfPrimitive;
+  private Class<?> genericType;
 
   public CatReflectObject01()
   {
@@ -24,7 +26,9 @@ public class CatReflectObject01
     this.fieldType = null;
     this.fieldValue = null;
     this.isPrimitive = false;
+    this.isGenericType = false;
     this.isClassOfPrimitive = false;
+    this.genericType = null;
   }
 
   public String getFieldName()
@@ -67,6 +71,16 @@ public class CatReflectObject01
     this.isPrimitive = isPrimitive;
   }
 
+  public boolean isIsGenericType()
+  {
+    return isGenericType;
+  }
+
+  public void setIsGenericType(boolean isGenericType)
+  {
+    this.isGenericType = isGenericType;
+  }
+
   public boolean isIsClassOfPrimitive()
   {
     return isClassOfPrimitive;
@@ -75,5 +89,15 @@ public class CatReflectObject01
   public void setIsClassOfPrimitive(boolean isClassOfPrimitive)
   {
     this.isClassOfPrimitive = isClassOfPrimitive;
+  }
+
+  public Class<?> getGenericType()
+  {
+    return genericType;
+  }
+
+  public void setGenericType(Class<?> genericType)
+  {
+    this.genericType = genericType;
   }
 }
