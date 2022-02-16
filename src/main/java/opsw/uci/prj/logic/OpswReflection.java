@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -228,6 +229,55 @@ public class OpswReflection
     return (Field[]) GetAllFieldsIncludeSuperClass01(iclass, false);
   }
 
+  public static CatReflectObject01 ReflectObject(Object obj) throws CatException
+  {
+    CatReflectObject01 vcatObj01 = null;
+    try
+    {
+      vcatObj01 = new CatReflectObject01();
+
+      vcatObj01.setFieldName(obj.getClass().getSimpleName());
+      vcatObj01.setFieldType(obj.getClass());
+      vcatObj01.setFieldValue(obj);
+
+      boolean isPrimitiveType = PrimitiveTypes(obj.getClass());
+
+      vcatObj01.setIsPrimitive(false);
+      vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
+      vcatObj01.setIsGenericType(false);
+      vcatObj01.setGenericType(null);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vcatObj01;
+  }
+
+  private static boolean PrimitiveTypes(Class<?> clazz) throws CatException
+  {
+    boolean result = false;
+    try
+    {
+      result = clazz.getSimpleName().equals(Boolean.class.getSimpleName())
+              || clazz.getSimpleName().equals(Long.class.getSimpleName())
+              || clazz.getSimpleName().equals(Short.class.getSimpleName())
+              || clazz.getSimpleName().equals(Byte.class.getSimpleName())
+              || clazz.getSimpleName().equals(Integer.class.getSimpleName())
+              || clazz.getSimpleName().equals(Double.class.getSimpleName())
+              || clazz.getSimpleName().equals(Float.class.getSimpleName())
+              || clazz.getSimpleName().equals(Character.class.getSimpleName())
+              || clazz.getSimpleName().equals(Calendar.class.getSimpleName())
+              || clazz.getSimpleName().equals(Date.class.getSimpleName())
+              || clazz.getSimpleName().equals(String.class.getSimpleName());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
   public static List<CatReflectObject01> ReflectObjectToObject01List(Object obj)
           throws CatException
   {
@@ -268,25 +318,20 @@ public class OpswReflection
           vcatObj01.setFieldType(fld.getType());
           vcatObj01.setFieldValue(GetFieldValue(obj, fld.getName(), fld.getType()));
           boolean isPrimitiveType
-                  = fld.getType().getClass().getSimpleName().equals(Boolean.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Long.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Short.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Byte.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Integer.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Double.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Float.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Character.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Calendar.class.getSimpleName())
-                  || fld.getType().getClass().getSimpleName().equals(Date.class.getSimpleName());
+                  = PrimitiveTypes(fld.getType());
           vcatObj01.setIsPrimitive(fld.getType().isPrimitive());
           vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
 
-          ParameterizedType genericType = (ParameterizedType) fld.getGenericType();
-
-          if (genericType != null)
+          Type type = fld.getGenericType();
+          if (type instanceof ParameterizedType)
           {
-            vcatObj01.setIsGenericType(true);
-            vcatObj01.setGenericType((Class<?>) genericType.getActualTypeArguments()[0]);
+            ParameterizedType genericType = (ParameterizedType) fld.getGenericType();
+
+            if (genericType != null)
+            {
+              vcatObj01.setIsGenericType(true);
+              vcatObj01.setGenericType((Class<?>) genericType.getActualTypeArguments()[0]);
+            }
           }
         }
       }

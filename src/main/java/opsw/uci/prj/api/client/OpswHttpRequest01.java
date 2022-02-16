@@ -6,6 +6,7 @@
 package opsw.uci.prj.api.client;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -208,14 +209,13 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
 
       if (wRefL != null)
       {
+        Element vel = document.createElement(obj.getClass().getSimpleName());
         for (CatReflectObject01 c : wRefL)
         {
-          Element vel = document.createElement(c.getFieldName());
-
           this.ObjectProcessFill01(vel, c, document);
 
-          document.appendChild(vel);
         }
+        document.appendChild(vel);
       }
     }
     catch (Exception ex)
@@ -232,17 +232,45 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     {
       if (!obj.isIsPrimitive() && !obj.isIsClassOfPrimitive())
       {
-        List<CatReflectObject01> objR = OpswReflection.ReflectObjectToObject01List(obj.getFieldValue());
-
-        if (objR != null)
+        if (obj.getFieldType().getName().equals(List.class.getName())
+                && obj.isIsGenericType())
         {
-          for (CatReflectObject01 c : objR)
+          List<Object> vlist = (List<Object>) obj.getFieldValue();
+
+          if (vlist != null)
           {
-            Element velement = document.createElement(c.getFieldName());
 
-            this.ObjectProcessFill01(velement, c, document);
+            for (Object o : vlist)
+            {
+              List<CatReflectObject01> vRefL = OpswReflection.ReflectObjectToObject01List(o);
+              Element velement = document.createElement(obj.getFieldName());
 
-            document.appendChild(velement);
+              if (vRefL != null)
+              {
+                for (CatReflectObject01 c : vRefL)
+                {
+                  this.ObjectProcessFill01(velement, c, document);
+                }
+              }
+
+              element.appendChild(velement);
+            }
+          }
+        }
+        else
+        {
+          List<CatReflectObject01> objR = OpswReflection.ReflectObjectToObject01List(obj.getFieldValue());
+
+          if (objR != null)
+          {
+            for (CatReflectObject01 c : objR)
+            {
+              Element velement = document.createElement(c.getFieldName());
+
+              this.ObjectProcessFill01(velement, c, document);
+
+              element.appendChild(velement);
+            }
           }
         }
       }
@@ -251,87 +279,12 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
         Object elVal = obj.getFieldValue();
 
         Object vval = null;
-        if (obj.getFieldType().getName().equals(Boolean.class.getName()))
-        {
-          boolean vbool = false;
-          if (elVal != null)
-          {
-            vbool = (Boolean) elVal;
-          }
-          vval = vbool;
-        }
-        else if (obj.getFieldType().getName().equals(Long.class.getName()))
-        {
-          long vlong = 0;
-          if (elVal != null)
-          {
-            vlong = (Long) elVal;
-          }
-          vval = vlong;
-        }
-        else if (obj.getFieldType().getName().equals(Integer.class.getName()))
-        {
-          int vint = 0;
-          if (elVal != null)
-          {
-            vint = (Integer) elVal;
-          }
-          vval = vint;
-        }
-        else if (obj.getFieldType().getName().equals(Short.class.getName()))
-        {
-          short vshort = 0;
-          if (elVal != null)
-          {
-            vshort = (Short) elVal;
-          }
-          vval = vshort;
-        }
-        else if (obj.getFieldType().getName().equals(Byte.class.getName()))
-        {
-          byte vbyte = 0;
-          if (elVal != null)
-          {
-            vbyte = (Byte) elVal;
-          }
-          vval = vbyte;
-        }
-        else if (obj.getFieldType().getName().equals(Double.class.getName()))
-        {
-          double vdouble = 0;
-          if (elVal != null)
-          {
-            vdouble = (Double) elVal;
-          }
-          vval = vdouble;
-        }
-        else if (obj.getFieldType().getName().equals(Float.class.getName()))
-        {
-          float vfloat = 0;
-          if (elVal != null)
-          {
-            vfloat = (Float) elVal;
-          }
-          vval = vfloat;
-        }
-        else if (obj.getFieldType().getName().equals(Calendar.class.getName()))
-        {
-          String valEl = null;
-          if (elVal != null)
-          {
-            valEl = (String) elVal;
-          }
 
-          vval = null;
-          if (!OpswStringUtils.OpswStringIsEmpty(valEl))
-          {
-            vval = OpswDateUtils.StrToDate(valEl, this.getDateFormat());
-          }
-        }
-        else
+        if (elVal != null)
         {
-          vval = elVal;
+          vval = this.GetValueByTypeWrite(obj, elVal);
         }
+
         // Create Last Name Element
         Element velem = document.createElement(obj.getFieldName());
         velem.appendChild(document.createTextNode(String.valueOf(vval)));
@@ -358,14 +311,11 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       // you're looking for. Use NodeList to get a list of all those nodes and just 
       // pull out the tag/attribute's value you want.
 
-      List<CatReflectObject01> fields = OpswReflection.ReflectObjectToObject01List(obj);
+      CatReflectObject01 lcatObj = OpswReflection.ReflectObject(obj);
 
-      if (fields != null)
+      if (lcatObj != null)
       {
-        for (CatReflectObject01 c : fields)
-        {
-          this.EntityProcessFill01(root, c, obj);
-        }
+        this.EntityProcessFill01(root, lcatObj, obj);
       }
     }
     catch (Exception ex)
@@ -382,25 +332,62 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     {
       if (!obj.isIsPrimitive() && !obj.isIsClassOfPrimitive())
       {
-        NodeList vNList = element.getElementsByTagName(obj.getFieldName());
+        List<CatReflectObject01> objR = null;
+        Object internalObj = null;
+        Node vnode = null;
 
-        if (vNList != null)
+        if (obj.getFieldType().getName().equals(List.class.getName())
+                && obj.isIsGenericType())
         {
-          for (int i = 0; i < vNList.getLength(); i++)
+          NodeList vNList = element.getElementsByTagName(obj.getFieldName());
+
+          if (vNList != null)
           {
-            Node vnode = vNList.item(i);
+            internalObj = new ArrayList<>();
 
-            if (vnode.getNodeType() == Node.ELEMENT_NODE)
+            for (int i = 0; i < vNList.getLength(); i++)
             {
-              List<CatReflectObject01> objR = OpswReflection.ReflectObjectToObject01List(obj.getFieldValue());
+              vnode = vNList.item(i);
+              Object internalObj1 = obj.getGenericType().newInstance();
 
-              if (objR != null)
+              objR = OpswReflection.ReflectObjectToObject01List(internalObj1);
+
+              for (CatReflectObject01 c : objR)
               {
-                Object internalObj = obj.getFieldType().newInstance();
+                Element vell = (Element) vnode;
+                this.EntityProcessFill01((Element) vell.getElementsByTagName(c.getFieldName()).item(0), c, internalObj1);
+              }
 
-                for (CatReflectObject01 c : objR)
+              ((List<Object>) internalObj).add(internalObj1);
+
+              OpswReflection.SetFieldValue(object, obj.getFieldName(), internalObj);
+            }
+          }
+        }
+        else
+        {
+          internalObj = object;
+          objR = OpswReflection.ReflectObjectToObject01List(internalObj);
+
+          if (objR != null)
+          {
+            for (CatReflectObject01 c : objR)
+            {
+              NodeList vNList = element.getElementsByTagName(c.getFieldName());
+
+              if (vNList != null)
+              {
+                for (int i = 0; i < vNList.getLength(); i++)
                 {
-                  this.EntityProcessFill01((Element) vnode, c, internalObj);
+                  vnode = vNList.item(i);
+
+                  if (vnode.getNodeType() == Node.ELEMENT_NODE)
+                  {
+                    if (vnode.getNodeName().equals(c.getFieldName()))
+                    {
+                      this.EntityProcessFill01((Element) vnode, c, internalObj);
+                    }
+                  }
                 }
               }
             }
@@ -409,89 +396,20 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       }
       else
       {
-        String elVal = element.getNodeValue();
+        String elVal = null;
+        try
+        {
+          elVal = element.getTextContent();
+        }
+        catch (Exception ex)
+        {
+          //
+        }
 
         Object vval = null;
-        if (obj.getFieldType().getName().equals(Boolean.class.getName()))
+        if (elVal != null)
         {
-          boolean vbool = false;
-          if (elVal != null && elVal.equals("1"))
-          {
-            vbool = true;
-          }
-          vval = vbool;
-        }
-        else if (obj.getFieldType().getName().equals(Long.class.getName()))
-        {
-          long vlong = 0;
-          if (elVal != null)
-          {
-            vlong = OpswNumberUtils.OpswGetLongFromString(elVal);
-          }
-          vval = vlong;
-        }
-        else if (obj.getFieldType().getName().equals(Integer.class.getName()))
-        {
-          int vint = 0;
-          if (elVal != null)
-          {
-            vint = OpswNumberUtils.OpswGetIntFromString(elVal);
-          }
-          vval = vint;
-        }
-        else if (obj.getFieldType().getName().equals(Short.class.getName()))
-        {
-          short vshort = 0;
-          if (elVal != null)
-          {
-            vshort = OpswNumberUtils.OpswGetShortFromString(elVal);
-          }
-          vval = vshort;
-        }
-        else if (obj.getFieldType().getName().equals(Byte.class.getName()))
-        {
-          byte vbyte = 0;
-          if (elVal != null)
-          {
-            vbyte = OpswNumberUtils.OpswGetByteFromString(elVal);
-          }
-          vval = vbyte;
-        }
-        else if (obj.getFieldType().getName().equals(Double.class.getName()))
-        {
-          double vdouble = 0;
-          if (elVal != null)
-          {
-            vdouble = OpswNumberUtils.OpswGetDoubleFromString(elVal);
-          }
-          vval = vdouble;
-        }
-        else if (obj.getFieldType().getName().equals(Float.class.getName()))
-        {
-          float vfloat = 0;
-          if (elVal != null)
-          {
-            vfloat = OpswNumberUtils.OpswGetFloatFromString(elVal);
-          }
-          vval = vfloat;
-        }
-        else if (obj.getFieldType().getName().equals(Calendar.class.getName()))
-        {
-          String valEl = null;
-          if (elVal != null)
-          {
-            valEl = (String) elVal;
-          }
-
-          vval = null;
-          if (!OpswStringUtils.OpswStringIsEmpty(valEl))
-          {
-            vval = OpswDateUtils.StrToDate(valEl, this.getDateFormat());
-          }
-        }
-        else
-        {
-          vval = elVal;
+          vval = this.GetValueByTypeRead(obj, elVal);
         }
 
         OpswReflection.SetFieldValue(object, obj.getFieldName(), vval);
@@ -503,4 +421,195 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     }
   }
 
+  private Object GetValueByTypeWrite(CatReflectObject01 obj, Object elVal) throws CatException
+  {
+    Object res = null;
+    try
+    {
+      res = GetValueByType(obj, elVal, true);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  private Object GetValueByTypeRead(CatReflectObject01 obj, Object elVal) throws CatException
+  {
+    Object res = null;
+    try
+    {
+      res = GetValueByType(obj, elVal, false);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  private Object GetValueByType(CatReflectObject01 obj, Object elVal, boolean ixmlWrite) throws CatException
+  {
+    Object vval = null;
+    try
+    {
+      if (this.TypesComp01(obj.getFieldType(), Boolean.class))
+      {
+        boolean vbool = false;
+        if (elVal != null)
+        {
+          if ((elVal instanceof String
+                  && ((((String) elVal).equalsIgnoreCase("1")) || (((String) elVal).equalsIgnoreCase("true")))))
+          {
+            vbool = true;
+          }
+          else if (ixmlWrite)
+          {
+            vbool = (boolean) elVal;
+          }
+        }
+        vval = vbool;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Long.class))
+      {
+        long vlong = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vlong = OpswNumberUtils.OpswGetLongFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vlong = (long) elVal;
+          }
+        }
+        vval = vlong;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Integer.class))
+      {
+        int vint = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vint = OpswNumberUtils.OpswGetIntFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vint = (int) elVal;
+          }
+        }
+        vval = vint;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Short.class))
+      {
+        short vshort = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vshort = OpswNumberUtils.OpswGetShortFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vshort = (short) elVal;
+          }
+        }
+        vval = vshort;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Byte.class))
+      {
+        byte vbyte = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vbyte = OpswNumberUtils.OpswGetByteFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vbyte = (byte) elVal;
+          }
+        }
+        vval = vbyte;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Double.class))
+      {
+        double vdouble = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vdouble = OpswNumberUtils.OpswGetDoubleFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vdouble = (double) elVal;
+          }
+        }
+        vval = vdouble;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Float.class))
+      {
+        float vfloat = 0;
+        if (elVal != null)
+        {
+          if (elVal instanceof String)
+          {
+            vfloat = OpswNumberUtils.OpswGetFloatFromString((String) elVal);
+          }
+          else if (ixmlWrite)
+          {
+            vfloat = (float) elVal;
+          }
+        }
+        vval = vfloat;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Calendar.class))
+      {
+        String valEl = null;
+        if (elVal != null)
+        {
+          valEl = (String) elVal;
+        }
+
+        vval = null;
+        if (!OpswStringUtils.OpswStringIsEmpty(valEl))
+        {
+          vval = OpswDateUtils.StrToDate(valEl, this.getDateFormat());
+        }
+      }
+      else
+      {
+        vval = elVal;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vval;
+  }
+
+  private boolean TypesComp01(Class<?> c1, Class<?> c2) throws CatException
+  {
+    boolean result = false;
+    try
+    {
+      String c11 = c1.getSimpleName();
+      String c22 = c2.getSimpleName();
+
+      if (c22.toLowerCase().startsWith(c11.toLowerCase()))
+      {
+        result = true;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
 }

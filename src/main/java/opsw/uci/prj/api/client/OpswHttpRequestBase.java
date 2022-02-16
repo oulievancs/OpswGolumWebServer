@@ -153,7 +153,7 @@ public abstract class OpswHttpRequestBase
         throw new CatException("Method not provided!");
       }
 
-      if ((this.method == OpswHttpMethod.OPSW_HTTP_MENTHOD_GET)
+      if ((this.method != OpswHttpMethod.OPSW_HTTP_MENTHOD_GET)
               && (this.bodyType == null || this.bodyType == OpswHttpBodyType.OPSW_HTTP_BODY_NONE))
       {
         throw new CatException("Body type not provided!");
