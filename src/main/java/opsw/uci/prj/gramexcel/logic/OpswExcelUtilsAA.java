@@ -12,6 +12,7 @@ import opsw.uci.prj.records.cat.CatThmlfAssets00List02Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 
@@ -24,12 +25,15 @@ public class OpswExcelUtilsAA
   private Assets00Service assets00Service;
   private SymbService symbService;
   private Gram01Service gram01Service;
+  private OpswconstvService opswconstvService;
 
-  public OpswExcelUtilsAA(Assets00Service assets00Service, SymbService symbService, Gram01Service gram01Service)
+  public OpswExcelUtilsAA(Assets00Service assets00Service, SymbService symbService, Gram01Service gram01Service,
+          OpswconstvService opswconstvService)
   {
     this.assets00Service = assets00Service;
     this.symbService = symbService;
     this.gram01Service = gram01Service;
+    this.opswconstvService = opswconstvService;
   }
   
   
@@ -42,6 +46,7 @@ public class OpswExcelUtilsAA
       excelUnit.setAssetets00Service(this.assets00Service);
       excelUnit.setSymbService(this.symbService);
       excelUnit.setGram01Service(this.gram01Service);
+      excelUnit.setOpswconstvService(this.opswconstvService);
       
       if (iparams != null && iparams.getSearchDates() != null)
       {

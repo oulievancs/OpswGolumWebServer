@@ -205,7 +205,9 @@ public class ActionsController
     ResponseEntity<byte[]> result = null;
     try
     {
-      OpswExcelUtilsAA excelUtils = new OpswExcelUtilsAA(this.Assetets00Service, this.SymbService, this.Gram01Service);
+      OpswExcelUtilsAA excelUtils = new OpswExcelUtilsAA(
+              this.Assetets00Service, this.SymbService, this.Gram01Service,
+              this.OpswconstvService);
       byte[] excelFile = excelUtils.ExportExcelFile(iparams);
       result = ResponseEntity.ok()
               .header("Content-Disposition", "attachment; filename=assets_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".xlsx")
