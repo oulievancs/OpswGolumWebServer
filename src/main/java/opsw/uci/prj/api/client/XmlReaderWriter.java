@@ -402,13 +402,17 @@ public class XmlReaderWriter
         String valEl = null;
         if (elVal != null)
         {
-          valEl = (String) elVal;
-        }
-
-        vval = null;
-        if (!OpswStringUtils.OpswStringIsEmpty(valEl))
-        {
-          vval = OpswDateUtils.StrToDate(valEl, this.dateFormat);
+          if (elVal instanceof String)
+          {
+            valEl = (String) elVal;
+          }
+          else if (ixmlWrite)
+          {
+            if (!OpswStringUtils.OpswStringIsEmpty(valEl))
+            {
+              vval = OpswDateUtils.StrToDate(valEl, this.dateFormat);
+            }
+          }
         }
       }
       else if (this.TypesComp01(obj.getFieldType(), BigDecimal.class))
