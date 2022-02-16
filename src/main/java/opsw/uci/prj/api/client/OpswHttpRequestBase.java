@@ -168,6 +168,8 @@ public abstract class OpswHttpRequestBase
       {
         throw new CatException("Http protocol not provided!");
       }
+
+      this.ValidationInternal();
     }
     catch (Exception ex)
     {
