@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.utils;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import opsw.uci.prj.cat.CatException;
 
@@ -143,6 +144,26 @@ public class OpswNumberUtils
       {
         DecimalFormat df = new DecimalFormat("#");
         num = df.parse(inumber).floatValue();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return num;
+  }
+
+  public static BigDecimal OpswGetBigDecimalFromString(String inumber)
+          throws CatException
+  {
+    BigDecimal num = null;
+    try
+    {
+      if (inumber != null && inumber.trim().length() > 0)
+      {
+        DecimalFormat df = new DecimalFormat("#");
+        num = BigDecimal.valueOf(df.parse(inumber).doubleValue());
       }
     }
     catch (Exception ex)

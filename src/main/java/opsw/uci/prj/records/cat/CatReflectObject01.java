@@ -19,6 +19,8 @@ public class CatReflectObject01
   private boolean isGenericType;
   private boolean isClassOfPrimitive;
   private Class<?> genericType;
+  private String xmlAnnotationName;
+  private boolean xmlElementRequired;
 
   public CatReflectObject01()
   {
@@ -29,6 +31,8 @@ public class CatReflectObject01
     this.isGenericType = false;
     this.isClassOfPrimitive = false;
     this.genericType = null;
+    this.xmlAnnotationName = null;
+    this.xmlElementRequired = false;
   }
 
   public String getFieldName()
@@ -99,5 +103,25 @@ public class CatReflectObject01
   public void setGenericType(Class<?> genericType)
   {
     this.genericType = genericType;
+  }
+
+  public String getXmlAnnotationName()
+  {
+    return xmlAnnotationName;
+  }
+
+  public void setXmlAnnotationName(String xmlAnnotationName)
+  {
+    this.xmlAnnotationName = xmlAnnotationName;
+  }
+
+  public boolean isXmlElementRequired()
+  {
+    return xmlElementRequired;
+  }
+
+  public void setXmlElementRequired(boolean xmlElementRequired)
+  {
+    this.xmlElementRequired = xmlElementRequired;
   }
 }

@@ -128,6 +128,11 @@ public abstract class OpswHttpRequestBase
 
   protected abstract Object OpswHttpSendRequest(Object object) throws CatException;
 
+  protected void ValidationInternal() throws CatException
+  {
+    //
+  }
+
   public Object OpswHttpSend(Object object) throws CatException
   {
     Object result = null;

@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.logic;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.cat.CatReflectObject01;
@@ -246,6 +248,22 @@ public class OpswReflection
       vcatObj01.setIsClassOfPrimitive(isPrimitiveType);
       vcatObj01.setIsGenericType(false);
       vcatObj01.setGenericType(null);
+
+      for (Annotation annotation : obj.getClass().getAnnotations())
+      {
+        Class<? extends Annotation> type = annotation.annotationType();
+
+        if (type.getName().equals(XmlElement.class.getName()))
+        {
+          XmlElement vxmlELement = (XmlElement) annotation;
+
+          if (vxmlELement != null)
+          {
+            vcatObj01.setXmlAnnotationName(vxmlELement.name());
+            vcatObj01.setXmlElementRequired(vxmlELement.required());
+          }
+        }
+      }
     }
     catch (Exception ex)
     {
