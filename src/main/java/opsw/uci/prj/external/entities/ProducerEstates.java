@@ -6,28 +6,32 @@
 package opsw.uci.prj.external.entities;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author oulis
  */
+@XmlRootElement(name = "ProducerEstates")
 public class ProducerEstates
 {
 
-  List<Estate> Estate;
+  @XmlElement(name = "Estate")
+  List<Estate> estates;
 
   public ProducerEstates()
   {
-    this.Estate = null;
+    this.estates = null;
   }
 
-  public List<Estate> getEstate()
+  public List<Estate> getEstates()
   {
-    return Estate;
+    return estates;
   }
 
-  public void setEstate(List<Estate> Estate)
+  public void setEstates(List<Estate> estates)
   {
-    this.Estate = Estate;
+    this.estates = estates;
   }
 }

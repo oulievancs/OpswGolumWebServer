@@ -21,6 +21,7 @@ public class CatReflectObject01
   private Class<?> genericType;
   private String xmlAnnotationName;
   private boolean xmlElementRequired;
+  private String xmlRootElementName;
 
   public CatReflectObject01()
   {
@@ -33,6 +34,7 @@ public class CatReflectObject01
     this.genericType = null;
     this.xmlAnnotationName = null;
     this.xmlElementRequired = false;
+    this.xmlRootElementName = null;
   }
 
   public String getFieldName()
@@ -123,5 +125,15 @@ public class CatReflectObject01
   public void setXmlElementRequired(boolean xmlElementRequired)
   {
     this.xmlElementRequired = xmlElementRequired;
+  }
+
+  public String getXmlRootElementName()
+  {
+    return xmlRootElementName;
+  }
+
+  public void setXmlRootElementName(String xmlRootElementName)
+  {
+    this.xmlRootElementName = xmlRootElementName;
   }
 }

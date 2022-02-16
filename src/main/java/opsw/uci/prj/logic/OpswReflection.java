@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.cat.CatReflectObject01;
@@ -249,7 +250,22 @@ public class OpswReflection
       vcatObj01.setIsGenericType(false);
       vcatObj01.setGenericType(null);
 
-      for (Annotation annotation : obj.getClass().getAnnotations())
+      ReflectObjectAnnotations(vcatObj01, obj.getClass());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vcatObj01;
+  }
+
+  private static void ReflectObjectAnnotations(CatReflectObject01 wCatObj01, Class<?> clazz)
+          throws CatException
+  {
+    try
+    {
+
+      for (Annotation annotation : clazz.getAnnotations())
       {
         Class<? extends Annotation> type = annotation.annotationType();
 
@@ -259,8 +275,18 @@ public class OpswReflection
 
           if (vxmlELement != null)
           {
-            vcatObj01.setXmlAnnotationName(vxmlELement.name());
-            vcatObj01.setXmlElementRequired(vxmlELement.required());
+            wCatObj01.setXmlAnnotationName(vxmlELement.name());
+            wCatObj01.setXmlElementRequired(vxmlELement.required());
+          }
+        }
+
+        if (type.getName().equals(XmlRootElement.class.getName()))
+        {
+          XmlRootElement vxmlELement = (XmlRootElement) annotation;
+
+          if (vxmlELement != null)
+          {
+            wCatObj01.setXmlRootElementName(vxmlELement.name());
           }
         }
       }
@@ -269,7 +295,6 @@ public class OpswReflection
     {
       CatException.RethrowCatException(ex);
     }
-    return vcatObj01;
   }
 
   private static boolean PrimitiveTypes(Class<?> clazz) throws CatException
@@ -351,6 +376,8 @@ public class OpswReflection
               vcatObj01.setGenericType((Class<?>) genericType.getActualTypeArguments()[0]);
             }
           }
+
+          ReflectObjectAnnotations(vcatObj01, fld.getType());
         }
       }
     }
