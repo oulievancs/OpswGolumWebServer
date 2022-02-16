@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.OpswconstsvKey;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author oulis
  */
 @Component
-public interface OpswconstvService
+public interface OpswconstvService extends CatEjbJpaServiceBase
 {
 
   public List<CatThmlfObject01> FieldsList01(String constCode) throws CatException;

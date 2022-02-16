@@ -7,6 +7,7 @@ package opsw.uci.prj.services;
 
 import java.util.Calendar;
 import java.util.List;
+import opsw.uci.prj.api.progress.OpswProcessParams;
 import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00;
@@ -48,6 +49,9 @@ public interface Assets00Service extends CatEjbJpaServiceBase
   public List<Assets00Rec01> Assets00List02(Calendar dateFrom, Calendar dateTo) throws CatException;
 
   public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException;
+
+  public List<Assets00Rec01> Assets00List04(Assets00SearchParams01 iparams, OpswProcessParams params)
+          throws CatException;
 
   public Assets00 Assets00Select01(Long id) throws CatException;
 

@@ -6,6 +6,7 @@
 package opsw.uci.prj.services;
 
 import java.util.List;
+import opsw.uci.prj.cat.CatEjbJpaServiceBase;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Opswfldsv;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author oulis
  */
 @Component
-public interface OpswfldsvService
+public interface OpswfldsvService extends CatEjbJpaServiceBase
 {
 
   public Opswfldsv OpswfldsvSelect01(String code) throws CatException;

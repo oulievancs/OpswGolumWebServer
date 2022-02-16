@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package opsw.uci.prj.cat;
+package opsw.uci.prj.api.progress;
+
+import opsw.uci.prj.cat.CatException;
 
 /**
  *
  * @author oulis
  */
-public interface CatEjbJpaServiceBase
+public interface OpswProcess
 {
 
-  default void OpswProgressEvent(double percent) throws CatException
-  {
-
-  }
+  public void DoProcess(OpswProcessParams params) throws CatException;
 }

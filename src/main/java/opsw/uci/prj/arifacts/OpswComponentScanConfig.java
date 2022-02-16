@@ -9,6 +9,7 @@ import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.interceptors.OpswWebMvcConfig;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
+import opsw.uci.prj.starter.OpswExecutorConfig;
 import opsw.uci.prj.starter.OpswJpaStarter;
 import opsw.uci.prj.starter.ServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,6 +31,7 @@ import org.springframework.context.annotation.Configuration;
           OpswEjbConnectionConfig.class,
           OpswDatasourceConnectionProvider.class,
           OpswWebMvcConfig.class,
+          OpswExecutorConfig.class,
           //---OWN SERVICES-----//
           LcGramAssetsExcel01.class
         },

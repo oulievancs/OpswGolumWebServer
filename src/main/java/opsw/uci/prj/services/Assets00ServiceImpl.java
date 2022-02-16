@@ -12,6 +12,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
+import opsw.uci.prj.api.progress.OpswProcessParams;
+import opsw.uci.prj.api.progress.OpswProgressEvent;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
@@ -63,10 +65,23 @@ public class Assets00ServiceImpl implements Assets00Service
   @Autowired
   private OpswfldsvService OpswfldsvService;
 
+  private OpswProgressEvent OpswProgressEvent;
+
   @PostConstruct
   public void init00()
   {
     this.OpswGlobalServices01.setAssets00Service(this);
+  }
+
+  @Override
+  public void OpswProgressEvent(double percent) throws CatException
+  {
+    Assets00Service.super.OpswProgressEvent(percent);
+
+    if (this.OpswProgressEvent != null)
+    {
+      this.OpswProgressEvent.SendProgress(percent);
+    }
   }
 
   @Override
@@ -173,6 +188,7 @@ public class Assets00ServiceImpl implements Assets00Service
       result = new ArrayList<>();
       if (assets != null && !assets.isEmpty())
       {
+        int ii = 0;
         for (Assets00 asset : assets)
         {
           Assets00Rec01 rec = new Assets00Rec01();
@@ -189,7 +205,10 @@ public class Assets00ServiceImpl implements Assets00Service
               rec.setSymb_tele(vsymb.getTele());
             }
           }
+          
+          this.OpswProgressEvent((ii / assets.size()) % 100);
         }
+        this.OpswProgressEvent(100);
       }
     }
     catch (Exception e)
@@ -242,6 +261,8 @@ public class Assets00ServiceImpl implements Assets00Service
       }
 
       List<Assets00> vlist00 = (List<Assets00>) q.getResultList();
+
+      this.OpswProgressEvent(10);
 
       vlist = this.Assets00Rec01FromAssets00(vlist00);
     }
@@ -486,6 +507,23 @@ public class Assets00ServiceImpl implements Assets00Service
       CatException.RethrowCatException(ex);
     }
     return assets00Rec02;
+  }
+
+  @Override
+  public List<Assets00Rec01> Assets00List04(Assets00SearchParams01 iparams, OpswProcessParams params) throws CatException
+  {
+    List<Assets00Rec01> assetsRec01 = null;
+    try
+    {
+      this.OpswProgressEvent = params.getProgressEvent();
+
+      assetsRec01 = this.Assets00List03(iparams);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return assetsRec01;
   }
 
 }
