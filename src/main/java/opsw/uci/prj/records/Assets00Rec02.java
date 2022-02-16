@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.records;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
@@ -19,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class Assets00Rec02
 {
+
   private Long asset;
   private Long aauci_rec;
   @DateTimeFormat(pattern = OpswDateUtils.OPSW_DATE_THYMLEAF_02)
@@ -86,9 +88,13 @@ public class Assets00Rec02
   private String landea_comments;
   private String update_auction;
   private String high_interest;
-  
+  private String user_create;
+  private Calendar date_create;
+  private String user_modify;
+  private Calendar date_modify;
+
   private List<Assets00flRec01> assets00flrec;
-  
+
   public Assets00Rec02()
   {
     this.asset = null;
@@ -157,6 +163,10 @@ public class Assets00Rec02
     this.symb_tele = null;
     this.symb_mail = null;
     this.assets00flrec = null;
+    this.user_create = null;
+    this.date_create = null;
+    this.user_modify = null;
+    this.date_modify = null;
   }
 
   public Long getAsset()
@@ -767,7 +777,7 @@ public class Assets00Rec02
   public void setHigh_interest(String high_interest)
   {
     this.high_interest = high_interest;
-  } 
+  }
 
   public String getSymb_name()
   {
@@ -818,13 +828,54 @@ public class Assets00Rec02
   {
     this.assets00flrec = assets00flrec;
   }
-  
+
+  public String getUser_create()
+  {
+    return user_create;
+  }
+
+  public void setUser_create(String user_create)
+  {
+    this.user_create = user_create;
+  }
+
+  public Calendar getDate_create()
+  {
+    return date_create;
+  }
+
+  public void setDate_create(Calendar date_create)
+  {
+    this.date_create = date_create;
+  }
+
+  public String getUser_modify()
+  {
+    return user_modify;
+  }
+
+  public void setUser_modify(String user_modify)
+  {
+    this.user_modify = user_modify;
+  }
+
+  public Calendar getDate_modify()
+  {
+    return date_modify;
+  }
+
+  public void setDate_modify(Calendar date_modify)
+  {
+    this.date_modify = date_modify;
+  }
+
   public static void Assets00Rec02ToAssets00(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
   {
-    OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00Rec02.class);
+    String[] ss = {"DATE_CREATE", "DATE_MODIFY", "USER_CREATE", "USER_MODIFY"};
+    OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00Rec02.class, ss);
     iTo.setAuction_date(OpswDateUtils.DateToCalendarElseNow(iFrom.getAuction_datedate()));
   }
-  
+
   public static void Assets00ToAssets00Rec02(Assets00 iFrom, Assets00Rec02 iTo) throws CatException
   {
     OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00.class);
@@ -833,5 +884,5 @@ public class Assets00Rec02
     iTo.setAssfile_rec(OpswDateUtils.CalendarToDateElseNow(iFrom.getAssfile()));
     iTo.setIntrnlkey_rec(iFrom.getIntrnlkey());
   }
-  
+
 }

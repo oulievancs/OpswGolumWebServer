@@ -99,8 +99,10 @@ public class Assets00 implements Serializable
   private String landea_comments;
   private String update_auction;
   private String high_interest;
+  @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_create;
   private String user_create;
+  @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_modify;
   private String user_modify;
 

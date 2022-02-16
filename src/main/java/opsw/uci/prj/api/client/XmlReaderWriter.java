@@ -31,6 +31,7 @@ public class XmlReaderWriter
 
   public XmlReaderWriter()
   {
+    super();
     this.dateFormat = null;
   }
 

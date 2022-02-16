@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import opsw.uci.prj.cat.CatException;
 
 /**
@@ -172,18 +173,20 @@ public class OpswDateUtils
     Date result = null;
     try
     {
-      if(idate == null){
+      if (idate == null)
+      {
         idate = Calendar.getInstance();
       }
       result = new Date();
       result = idate.getTime();
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
     return result;
   }
+
   public static Calendar DateToCalendarElseNow(Date idate)
           throws CatException
   {
@@ -198,5 +201,97 @@ public class OpswDateUtils
     }
 
     return vcal;
+  }
+
+  public static String CalendarLocale_FormatDateTime(Calendar calendar) throws CatException
+  {
+    return CalendarLocale_Internal(calendar, DateFormat.SHORT, DateFormat.SHORT, (byte) 2, null);
+  }
+
+  public static String CalendarLocale_FormatDate(Calendar calendar)
+          throws CatException
+  {
+    return CalendarLocale_Internal(calendar, DateFormat.SHORT, 0, (byte) 1, null);
+  }
+
+  public static String CalendarLocale_FormatTime(Calendar calendar)
+          throws CatException
+  {
+    return CalendarLocale_Internal(calendar, 0, DateFormat.SHORT, (byte) 3, null);
+  }
+
+  private static String CalendarLocale_FormatDateTime(Calendar calendar, int dateFormat,
+          int timeFormat) throws CatException
+  {
+    return CalendarLocale_Internal(calendar, dateFormat, timeFormat, (byte) 2, null);
+  }
+
+  private static String CalendarLocale_FormatDate(Calendar calendar, int dateFormat)
+          throws CatException
+  {
+    return CalendarLocale_Internal(calendar, dateFormat, 0, (byte) 1, null);
+  }
+
+  private static String CalendarLocale_FormatTime(Calendar calendar, int timeFormat)
+          throws CatException
+  {
+    return CalendarLocale_Internal(calendar, 0, timeFormat, (byte) 3, null);
+  }
+
+  private static String CalendarLocale_Internal(Calendar calendar, int dateFormat,
+          int timeFormat, byte imode, Locale locale)
+          throws CatException
+  {
+    String vval = null;
+    try
+    {
+      DateFormat df = null;
+      if (calendar != null)
+      {
+        if (imode == 1)
+        {
+          if (locale != null)
+          {
+            df = DateFormat.getDateInstance(dateFormat, locale);
+          }
+          else
+          {
+            df = DateFormat.getDateInstance(dateFormat);
+          }
+        }
+        else if (imode == 2)
+        {
+          if (locale != null)
+          {
+            df = DateFormat.getDateTimeInstance(dateFormat, timeFormat, locale);
+          }
+          else
+          {
+            df = DateFormat.getDateTimeInstance(dateFormat, timeFormat);
+          }
+        }
+        else if (imode == 3)
+        {
+          if (locale != null)
+          {
+            df = DateFormat.getTimeInstance(timeFormat, locale);
+          }
+          else
+          {
+            df = DateFormat.getTimeInstance(timeFormat);
+          }
+        }
+
+        if (df != null)
+        {
+          vval = df.format(calendar.getTime());
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vval;
   }
 }

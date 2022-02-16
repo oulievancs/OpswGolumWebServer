@@ -149,6 +149,58 @@
                       class="form-control" id="assfile_rec"  disabled/>
                   </div>
                 </div>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label for="asset" class="form-label">System Id</label>
+                    <input
+                      id="asset"
+                      type="number"
+                      name="asset_rec"
+                      th:value="${CLM0.getAsset()}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                </div>
+                <div class="row g-3 align-self-end" style="display: inline-flex !important;">
+                  <div class="col-md-8">
+                    <label for="user_create" class="form-label">User Create</label>
+                    <input
+                      id="user_create"
+                      type="text"
+                      name="user_create_rec"
+                      th:value="${CLM0.getUser_create()}"
+                      class="form-control"
+                      disabled/>
+                    <label for="date_create" class="form-label">Date Create</label>
+                    <input
+                      id="date_create"
+                      type="text"
+                      name="date_create_rec"
+                      th:value="${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(CLM0.getDate_create())}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                </div>
+                <div class="row g-3 align-self-end" style="display: inline-flex !important;">
+                  <div class="col-md-8">
+                    <label for="user_modify" class="form-label">User Modify</label>
+                    <input
+                      id="user_modify"
+                      type="text"
+                      name="user_modify_rec"
+                      th:value="${CLM0.getUser_modify()}"
+                      class="form-control"
+                      disabled/>
+                    <label for="date_modify" class="form-label">Date Modify</label>
+                    <input
+                      id="date_modify"
+                      type="text"
+                      name="date_modify_rec"
+                      th:value="${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(CLM0.getDate_modify())}"
+                      class="form-control"
+                      disabled/>
+                  </div>
+                </div>
               </div>
 
               <!--Tab 1 content-->
@@ -803,10 +855,23 @@
                 </div>              
               </div>
             </div>
-            <div class="col-12" style="margin-bottom: 15px;margin-top: 10px">
-              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-              <!--<a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>-->
-              <input class="btn btn-danger" type="button" value="Cancel" onclick="history.back()">
+            <div class="row g-3" style="margin-bottom: 15px;margin-top: 4vh">
+              <div class="col-1">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <!--<a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>-->
+                <span> </span>
+              </div>
+              <div class="col-1">
+                <button class="btn btn-warning" onClick="history.go(0);">
+                  <i class="fa fa-clone"></i> Reload
+                </button>
+                <span> </span>
+              </div>
+              <div class="col-1">
+                <button class="btn btn-danger" onclick="history.back()">
+                  <i class="fa fa-close"></i> Cancel
+                </button>
+              </div>
             </div>
           </form>
         </div>

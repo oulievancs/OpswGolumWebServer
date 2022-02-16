@@ -205,7 +205,7 @@ public class Assets00ServiceImpl implements Assets00Service
               rec.setSymb_tele(vsymb.getTele());
             }
           }
-          
+
           this.OpswProgressEvent((ii / assets.size()) % 100);
         }
         this.OpswProgressEvent(100);
@@ -345,6 +345,7 @@ public class Assets00ServiceImpl implements Assets00Service
         assetdb = new Assets00();
       }
       Assets00Rec02.Assets00Rec02ToAssets00(asset, assetdb);
+
       if (asset.getAssets00flrec() != null && !asset.getAssets00flrec().isEmpty())
       {
         List<Assets00fl> assetsflList = new ArrayList<>();
@@ -362,6 +363,9 @@ public class Assets00ServiceImpl implements Assets00Service
 
         }
         assetdb.setAssets00fl(assetsflList);
+        assetdb.setUser_modify(logvars.getLoginUser());
+        assetdb.setDate_modify(Calendar.getInstance());
+
         assetdb = this.Assets00Post01(assetdb);
       }
       result = new Assets00Rec02();

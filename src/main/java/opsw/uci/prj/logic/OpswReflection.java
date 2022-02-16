@@ -473,7 +473,7 @@ public class OpswReflection
         throw new CatException("Το αντικείμενο From δεν κληρωνομείται στο To!");
       }
 
-      ReflectionCopyFields(objFrom, objTo, fields);
+      ReflectionCopyFields(objFrom, objTo, fields, null);
     }
     catch (Exception ex)
     {
@@ -481,7 +481,7 @@ public class OpswReflection
     }
   }
 
-  private static void ReflectionCopyFields(Object objFrom, Object objTo, Field[] ifields)
+  private static void ReflectionCopyFields(Object objFrom, Object objTo, Field[] ifields, String[] iexclude)
           throws CatException
   {
     try
@@ -492,13 +492,27 @@ public class OpswReflection
 
         for (Field fld : ifields)
         {
+          boolean voidd = false;
+
+          if (iexclude != null)
+          {
+            for (String ie : iexclude)
+            {
+              if (fld.getName().equalsIgnoreCase(ie))
+              {
+                voidd = true;
+                break;
+              }
+            }
+          }
+
           String vfieldName = fld.getName();
           Class<?> vfieldType = fld.getType();
           boolean vgoon = FieldExistsInClass(objFrom.getClass(), vfieldName, vfieldType);
 
           vgoon &= FieldExistsInClass(objTo.getClass(), vfieldName, vfieldType);
 
-          if (vgoon)
+          if (vgoon && !voidd)
           {
             vval1 = GetFieldValue(objFrom, vfieldName, vfieldType);
 
@@ -558,7 +572,23 @@ public class OpswReflection
     {
       Field[] fields = GetObjectDeclaredFields(iclassSrc);
 
-      ReflectionCopyFields(objFrom, objTo, fields);
+      ReflectionCopyFields(objFrom, objTo, fields, null);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  public static void OpswReflectionCopyObjectFields(Object objFrom, Object objTo, Class<?> iclassSrc,
+          String[] iexclude)
+          throws CatException
+  {
+    try
+    {
+      Field[] fields = GetObjectDeclaredFields(iclassSrc);
+
+      ReflectionCopyFields(objFrom, objTo, fields, iexclude);
     }
     catch (Exception ex)
     {
