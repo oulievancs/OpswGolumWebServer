@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,7 +87,7 @@ public class OpswReflection
     {
       String vprefix = "get";
 
-      if (fieldType.getClass().getSimpleName().equalsIgnoreCase("boolean"))
+      if (fieldType.getSimpleName().equals("boolean"))
       {
         vprefix = "is";
       }
@@ -216,14 +217,62 @@ public class OpswReflection
 
       if (vmethod != null)
       {
+        Class<?> paramType_Internal = ReflectionGetParamtypeAsClass(paramType);
+
         //Invoke με type cast.
-        vmethod.invoke(obj, paramType.cast(value));
+        vmethod.invoke(obj, paramType_Internal.cast(value));
       }
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  private static Class<?> ReflectionGetParamtypeAsClass(Class<?> paramType)
+          throws CatException
+  {
+    Class<?> clazz = null;
+    try
+    {
+      if (paramType.getName().equals("int"))
+      {
+        clazz = Integer.class;
+      }
+      else if (paramType.getName().equals("long"))
+      {
+        clazz = Long.class;
+      }
+      else if (paramType.getName().equals("short"))
+      {
+        clazz = Short.class;
+      }
+      else if (paramType.getName().equals("byte"))
+      {
+        clazz = Byte.class;
+      }
+      else if (paramType.getName().equals("boolean"))
+      {
+        clazz = Boolean.class;
+      }
+      else if (paramType.getName().equals("float"))
+      {
+        clazz = Float.class;
+      }
+      else if (paramType.getName().equals("double"))
+      {
+        clazz = Double.class;
+      }
+      else
+      {
+        clazz = paramType;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return clazz;
   }
 
   private static Field[] GetObjectDeclaredFields(Class<?> iclass)
@@ -250,7 +299,7 @@ public class OpswReflection
       vcatObj01.setIsGenericType(false);
       vcatObj01.setGenericType(null);
 
-      ReflectObjectAnnotations(vcatObj01, obj.getClass());
+      ReflectObjectAnnotations(vcatObj01, null, obj.getClass());
     }
     catch (Exception ex)
     {
@@ -259,34 +308,51 @@ public class OpswReflection
     return vcatObj01;
   }
 
-  private static void ReflectObjectAnnotations(CatReflectObject01 wCatObj01, Class<?> clazz)
+  private static void ReflectObjectAnnotations(CatReflectObject01 wCatObj01, Field fld, Class<?> clazz)
           throws CatException
   {
     try
     {
 
-      for (Annotation annotation : clazz.getAnnotations())
+      if (clazz != null || fld != null)
       {
-        Class<? extends Annotation> type = annotation.annotationType();
+        Annotation[] annotations = null;
 
-        if (type.getName().equals(XmlElement.class.getName()))
+        if (clazz != null)
         {
-          XmlElement vxmlELement = (XmlElement) annotation;
-
-          if (vxmlELement != null)
-          {
-            wCatObj01.setXmlAnnotationName(vxmlELement.name());
-            wCatObj01.setXmlElementRequired(vxmlELement.required());
-          }
+          annotations = clazz.getAnnotations();
+        }
+        else if (fld != null)
+        {
+          annotations = fld.getAnnotations();
         }
 
-        if (type.getName().equals(XmlRootElement.class.getName()))
+        if (annotations != null)
         {
-          XmlRootElement vxmlELement = (XmlRootElement) annotation;
-
-          if (vxmlELement != null)
+          for (Annotation annotation : annotations)
           {
-            wCatObj01.setXmlRootElementName(vxmlELement.name());
+            Class<? extends Annotation> type = annotation.annotationType();
+
+            if (type.getName().equals(XmlElement.class.getName()))
+            {
+              XmlElement vxmlELement = (XmlElement) annotation;
+
+              if (vxmlELement != null)
+              {
+                wCatObj01.setXmlAnnotationName(vxmlELement.name());
+                wCatObj01.setXmlElementRequired(vxmlELement.required());
+              }
+            }
+
+            if (type.getName().equals(XmlRootElement.class.getName()))
+            {
+              XmlRootElement vxmlELement = (XmlRootElement) annotation;
+
+              if (vxmlELement != null)
+              {
+                wCatObj01.setXmlRootElementName(vxmlELement.name());
+              }
+            }
           }
         }
       }
@@ -312,7 +378,8 @@ public class OpswReflection
               || clazz.getSimpleName().equals(Character.class.getSimpleName())
               || clazz.getSimpleName().equals(Calendar.class.getSimpleName())
               || clazz.getSimpleName().equals(Date.class.getSimpleName())
-              || clazz.getSimpleName().equals(String.class.getSimpleName());
+              || clazz.getSimpleName().equals(String.class.getSimpleName())
+              || clazz.getSimpleName().equals(BigDecimal.class.getSimpleName());
     }
     catch (Exception ex)
     {
@@ -377,7 +444,7 @@ public class OpswReflection
             }
           }
 
-          ReflectObjectAnnotations(vcatObj01, fld.getType());
+          ReflectObjectAnnotations(vcatObj01, fld, null);
         }
       }
     }

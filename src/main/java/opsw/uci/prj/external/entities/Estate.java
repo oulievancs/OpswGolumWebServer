@@ -32,6 +32,7 @@ public class Estate
   protected Calendar sendDate;
   @XmlElement(name = "UpdateDate")
   protected Calendar updateDate;
+  @XmlElement(name = "isSync")
   protected boolean isSync;
   @XmlElement(name = "OwnerID")
   protected int ownerID;
@@ -367,6 +368,7 @@ public class Estate
   protected Boolean nightStream;
   @XmlElement(name = "Underfloor")
   protected Boolean underfloor;
+  @XmlElement(name = "isExclusive")
   protected Boolean isExclusive;
   @XmlElement(name = "Luxury")
   protected Boolean luxury;
@@ -475,5012 +477,2304 @@ public class Estate
   @XmlElement(name = "Photo25")
   protected String photo25;
 
-  /**
-   * Gets the value of the agencyKey property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAgencyKey()
   {
     return agencyKey;
   }
 
-  /**
-   * Sets the value of the agencyKey property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAgencyKey(String value)
+  public void setAgencyKey(String agencyKey)
   {
-    this.agencyKey = value;
+    this.agencyKey = agencyKey;
   }
 
-  /**
-   * Gets the value of the agencyEmail property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAgencyEmail()
   {
     return agencyEmail;
   }
 
-  /**
-   * Sets the value of the agencyEmail property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAgencyEmail(String value)
+  public void setAgencyEmail(String agencyEmail)
   {
-    this.agencyEmail = value;
+    this.agencyEmail = agencyEmail;
   }
 
-  /**
-   * Gets the value of the agencyPhone property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAgencyPhone()
   {
     return agencyPhone;
   }
 
-  /**
-   * Sets the value of the agencyPhone property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAgencyPhone(String value)
+  public void setAgencyPhone(String agencyPhone)
   {
-    this.agencyPhone = value;
+    this.agencyPhone = agencyPhone;
   }
 
-  /**
-   * Gets the value of the id property.
-   *
-   */
-  public int getID()
+  public int getId()
   {
     return id;
   }
 
-  /**
-   * Sets the value of the id property.
-   *
-   */
-  public void setID(int value)
+  public void setId(int id)
   {
-    this.id = value;
+    this.id = id;
   }
 
-  /**
-   * Gets the value of the mlsCode property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
-  public String getMLSCode()
+  public String getMlsCode()
   {
     return mlsCode;
   }
 
-  /**
-   * Sets the value of the mlsCode property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setMLSCode(String value)
+  public void setMlsCode(String mlsCode)
   {
-    this.mlsCode = value;
+    this.mlsCode = mlsCode;
   }
 
-  /**
-   * Gets the value of the status property.
-   *
-   */
   public int getStatus()
   {
     return status;
   }
 
-  /**
-   * Sets the value of the status property.
-   *
-   */
-  public void setStatus(int value)
+  public void setStatus(int status)
   {
-    this.status = value;
+    this.status = status;
   }
 
-  /**
-   * Gets the value of the sendDate property.
-   *
-   * @return possible object is {@link XMLGregorianCalendar }
-   *
-   */
   public Calendar getSendDate()
   {
     return sendDate;
   }
 
-  /**
-   * Sets the value of the sendDate property.
-   *
-   * @param value allowed object is {@link XMLGregorianCalendar }
-   *
-   */
-  public void setSendDate(Calendar value)
+  public void setSendDate(Calendar sendDate)
   {
-    this.sendDate = value;
+    this.sendDate = sendDate;
   }
 
-  /**
-   * Gets the value of the updateDate property.
-   *
-   * @return possible object is {@link XMLGregorianCalendar }
-   *
-   */
   public Calendar getUpdateDate()
   {
     return updateDate;
   }
 
-  /**
-   * Sets the value of the updateDate property.
-   *
-   * @param value allowed object is {@link XMLGregorianCalendar }
-   *
-   */
-  public void setUpdateDate(Calendar value)
+  public void setUpdateDate(Calendar updateDate)
   {
-    this.updateDate = value;
+    this.updateDate = updateDate;
   }
 
-  /**
-   * Gets the value of the isSync property.
-   *
-   */
   public boolean isIsSync()
   {
     return isSync;
   }
 
-  /**
-   * Sets the value of the isSync property.
-   *
-   */
-  public void setIsSync(boolean value)
+  public void setIsSync(boolean isSync)
   {
-    this.isSync = value;
+    this.isSync = isSync;
   }
 
-  /**
-   * Gets the value of the ownerID property.
-   *
-   */
   public int getOwnerID()
   {
     return ownerID;
   }
 
-  /**
-   * Sets the value of the ownerID property.
-   *
-   */
-  public void setOwnerID(int value)
+  public void setOwnerID(int ownerID)
   {
-    this.ownerID = value;
+    this.ownerID = ownerID;
   }
 
-  /**
-   * Gets the value of the ownerName property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOwnerName()
   {
     return ownerName;
   }
 
-  /**
-   * Sets the value of the ownerName property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOwnerName(String value)
+  public void setOwnerName(String ownerName)
   {
-    this.ownerName = value;
+    this.ownerName = ownerName;
   }
 
-  /**
-   * Gets the value of the realtorID property.
-   *
-   */
   public int getRealtorID()
   {
     return realtorID;
   }
 
-  /**
-   * Sets the value of the realtorID property.
-   *
-   */
-  public void setRealtorID(int value)
+  public void setRealtorID(int realtorID)
   {
-    this.realtorID = value;
+    this.realtorID = realtorID;
   }
 
-  /**
-   * Gets the value of the realtorName property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getRealtorName()
   {
     return realtorName;
   }
 
-  /**
-   * Sets the value of the realtorName property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setRealtorName(String value)
+  public void setRealtorName(String realtorName)
   {
-    this.realtorName = value;
+    this.realtorName = realtorName;
   }
 
-  /**
-   * Gets the value of the office property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOffice()
   {
     return office;
   }
 
-  /**
-   * Sets the value of the office property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOffice(String value)
+  public void setOffice(String office)
   {
-    this.office = value;
+    this.office = office;
   }
 
-  /**
-   * Gets the value of the titleGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getTitleGR()
   {
     return titleGR;
   }
 
-  /**
-   * Sets the value of the titleGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setTitleGR(String value)
+  public void setTitleGR(String titleGR)
   {
-    this.titleGR = value;
+    this.titleGR = titleGR;
   }
 
-  /**
-   * Gets the value of the titleEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getTitleEN()
   {
     return titleEN;
   }
 
-  /**
-   * Sets the value of the titleEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setTitleEN(String value)
+  public void setTitleEN(String titleEN)
   {
-    this.titleEN = value;
+    this.titleEN = titleEN;
   }
 
-  /**
-   * Gets the value of the descriptionGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getDescriptionGR()
   {
     return descriptionGR;
   }
 
-  /**
-   * Sets the value of the descriptionGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setDescriptionGR(String value)
+  public void setDescriptionGR(String descriptionGR)
   {
-    this.descriptionGR = value;
+    this.descriptionGR = descriptionGR;
   }
 
-  /**
-   * Gets the value of the descriptionEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getDescriptionEN()
   {
     return descriptionEN;
   }
 
-  /**
-   * Sets the value of the descriptionEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setDescriptionEN(String value)
+  public void setDescriptionEN(String descriptionEN)
   {
-    this.descriptionEN = value;
+    this.descriptionEN = descriptionEN;
   }
 
-  /**
-   * Gets the value of the htmlDescriptionBigGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHtmlDescriptionBigGR()
   {
     return htmlDescriptionBigGR;
   }
 
-  /**
-   * Sets the value of the htmlDescriptionBigGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHtmlDescriptionBigGR(String value)
+  public void setHtmlDescriptionBigGR(String htmlDescriptionBigGR)
   {
-    this.htmlDescriptionBigGR = value;
+    this.htmlDescriptionBigGR = htmlDescriptionBigGR;
   }
 
-  /**
-   * Gets the value of the htmlDescriptionBigEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHtmlDescriptionBigEN()
   {
     return htmlDescriptionBigEN;
   }
 
-  /**
-   * Sets the value of the htmlDescriptionBigEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHtmlDescriptionBigEN(String value)
+  public void setHtmlDescriptionBigEN(String htmlDescriptionBigEN)
   {
-    this.htmlDescriptionBigEN = value;
+    this.htmlDescriptionBigEN = htmlDescriptionBigEN;
   }
 
-  /**
-   * Gets the value of the aimID property.
-   *
-   */
   public int getAimID()
   {
     return aimID;
   }
 
-  /**
-   * Sets the value of the aimID property.
-   *
-   */
-  public void setAimID(int value)
+  public void setAimID(int aimID)
   {
-    this.aimID = value;
+    this.aimID = aimID;
   }
 
-  /**
-   * Gets the value of the aimGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAimGR()
   {
     return aimGR;
   }
 
-  /**
-   * Sets the value of the aimGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAimGR(String value)
+  public void setAimGR(String aimGR)
   {
-    this.aimGR = value;
+    this.aimGR = aimGR;
   }
 
-  /**
-   * Gets the value of the aimEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAimEN()
   {
     return aimEN;
   }
 
-  /**
-   * Sets the value of the aimEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAimEN(String value)
+  public void setAimEN(String aimEN)
   {
-    this.aimEN = value;
+    this.aimEN = aimEN;
   }
 
-  /**
-   * Gets the value of the estateCategoryID property.
-   *
-   */
   public int getEstateCategoryID()
   {
     return estateCategoryID;
   }
 
-  /**
-   * Sets the value of the estateCategoryID property.
-   *
-   */
-  public void setEstateCategoryID(int value)
+  public void setEstateCategoryID(int estateCategoryID)
   {
-    this.estateCategoryID = value;
+    this.estateCategoryID = estateCategoryID;
   }
 
-  /**
-   * Gets the value of the estateCategoryGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateCategoryGR()
   {
     return estateCategoryGR;
   }
 
-  /**
-   * Sets the value of the estateCategoryGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateCategoryGR(String value)
+  public void setEstateCategoryGR(String estateCategoryGR)
   {
-    this.estateCategoryGR = value;
+    this.estateCategoryGR = estateCategoryGR;
   }
 
-  /**
-   * Gets the value of the estateCategoryEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateCategoryEN()
   {
     return estateCategoryEN;
   }
 
-  /**
-   * Sets the value of the estateCategoryEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateCategoryEN(String value)
+  public void setEstateCategoryEN(String estateCategoryEN)
   {
-    this.estateCategoryEN = value;
+    this.estateCategoryEN = estateCategoryEN;
   }
 
-  /**
-   * Gets the value of the estateSubCategoryID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getEstateSubCategoryID()
   {
     return estateSubCategoryID;
   }
 
-  /**
-   * Sets the value of the estateSubCategoryID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setEstateSubCategoryID(Integer value)
+  public void setEstateSubCategoryID(Integer estateSubCategoryID)
   {
-    this.estateSubCategoryID = value;
+    this.estateSubCategoryID = estateSubCategoryID;
   }
 
-  /**
-   * Gets the value of the estateSubCategoryGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateSubCategoryGR()
   {
     return estateSubCategoryGR;
   }
 
-  /**
-   * Sets the value of the estateSubCategoryGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateSubCategoryGR(String value)
+  public void setEstateSubCategoryGR(String estateSubCategoryGR)
   {
-    this.estateSubCategoryGR = value;
+    this.estateSubCategoryGR = estateSubCategoryGR;
   }
 
-  /**
-   * Gets the value of the estateSubCategoryEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateSubCategoryEN()
   {
     return estateSubCategoryEN;
   }
 
-  /**
-   * Sets the value of the estateSubCategoryEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateSubCategoryEN(String value)
+  public void setEstateSubCategoryEN(String estateSubCategoryEN)
   {
-    this.estateSubCategoryEN = value;
+    this.estateSubCategoryEN = estateSubCategoryEN;
   }
 
-  /**
-   * Gets the value of the price property.
-   *
-   * @return possible object is {@link BigDecimal }
-   *
-   */
   public BigDecimal getPrice()
   {
     return price;
   }
 
-  /**
-   * Sets the value of the price property.
-   *
-   * @param value allowed object is {@link BigDecimal }
-   *
-   */
-  public void setPrice(BigDecimal value)
+  public void setPrice(BigDecimal price)
   {
-    this.price = value;
+    this.price = price;
   }
 
-  /**
-   * Gets the value of the currency property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getCurrency()
   {
     return currency;
   }
 
-  /**
-   * Sets the value of the currency property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setCurrency(String value)
+  public void setCurrency(String currency)
   {
-    this.currency = value;
+    this.currency = currency;
   }
 
-  /**
-   * Gets the value of the sqrMeters property.
-   *
-   */
   public double getSqrMeters()
   {
     return sqrMeters;
   }
 
-  /**
-   * Sets the value of the sqrMeters property.
-   *
-   */
-  public void setSqrMeters(double value)
+  public void setSqrMeters(double sqrMeters)
   {
-    this.sqrMeters = value;
+    this.sqrMeters = sqrMeters;
   }
 
-  /**
-   * Gets the value of the plotSqr property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getPlotSqr()
   {
     return plotSqr;
   }
 
-  /**
-   * Sets the value of the plotSqr property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setPlotSqr(Double value)
+  public void setPlotSqr(Double plotSqr)
   {
-    this.plotSqr = value;
+    this.plotSqr = plotSqr;
   }
 
-  /**
-   * Gets the value of the pricePerSqr property.
-   *
-   * @return possible object is {@link BigDecimal }
-   *
-   */
   public BigDecimal getPricePerSqr()
   {
     return pricePerSqr;
   }
 
-  /**
-   * Sets the value of the pricePerSqr property.
-   *
-   * @param value allowed object is {@link BigDecimal }
-   *
-   */
-  public void setPricePerSqr(BigDecimal value)
+  public void setPricePerSqr(BigDecimal pricePerSqr)
   {
-    this.pricePerSqr = value;
+    this.pricePerSqr = pricePerSqr;
   }
 
-  /**
-   * Gets the value of the subAreaID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getSubAreaID()
   {
     return subAreaID;
   }
 
-  /**
-   * Sets the value of the subAreaID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setSubAreaID(Integer value)
+  public void setSubAreaID(Integer subAreaID)
   {
-    this.subAreaID = value;
+    this.subAreaID = subAreaID;
   }
 
-  /**
-   * Gets the value of the subAreaGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getSubAreaGR()
   {
     return subAreaGR;
   }
 
-  /**
-   * Sets the value of the subAreaGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setSubAreaGR(String value)
+  public void setSubAreaGR(String subAreaGR)
   {
-    this.subAreaGR = value;
+    this.subAreaGR = subAreaGR;
   }
 
-  /**
-   * Gets the value of the subAreaEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getSubAreaEN()
   {
     return subAreaEN;
   }
 
-  /**
-   * Sets the value of the subAreaEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setSubAreaEN(String value)
+  public void setSubAreaEN(String subAreaEN)
   {
-    this.subAreaEN = value;
+    this.subAreaEN = subAreaEN;
   }
 
-  /**
-   * Gets the value of the areaID property.
-   *
-   */
   public int getAreaID()
   {
     return areaID;
   }
 
-  /**
-   * Sets the value of the areaID property.
-   *
-   */
-  public void setAreaID(int value)
+  public void setAreaID(int areaID)
   {
-    this.areaID = value;
+    this.areaID = areaID;
   }
 
-  /**
-   * Gets the value of the areaGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAreaGR()
   {
     return areaGR;
   }
 
-  /**
-   * Sets the value of the areaGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAreaGR(String value)
+  public void setAreaGR(String areaGR)
   {
-    this.areaGR = value;
+    this.areaGR = areaGR;
   }
 
-  /**
-   * Gets the value of the areaEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getAreaEN()
   {
     return areaEN;
   }
 
-  /**
-   * Sets the value of the areaEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAreaEN(String value)
+  public void setAreaEN(String areaEN)
   {
-    this.areaEN = value;
+    this.areaEN = areaEN;
   }
 
-  /**
-   * Gets the value of the prefectureID property.
-   *
-   */
   public int getPrefectureID()
   {
     return prefectureID;
   }
 
-  /**
-   * Sets the value of the prefectureID property.
-   *
-   */
-  public void setPrefectureID(int value)
+  public void setPrefectureID(int prefectureID)
   {
-    this.prefectureID = value;
+    this.prefectureID = prefectureID;
   }
 
-  /**
-   * Gets the value of the prefectureGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPrefectureGR()
   {
     return prefectureGR;
   }
 
-  /**
-   * Sets the value of the prefectureGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPrefectureGR(String value)
+  public void setPrefectureGR(String prefectureGR)
   {
-    this.prefectureGR = value;
+    this.prefectureGR = prefectureGR;
   }
 
-  /**
-   * Gets the value of the prefectureEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPrefectureEN()
   {
     return prefectureEN;
   }
 
-  /**
-   * Sets the value of the prefectureEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPrefectureEN(String value)
+  public void setPrefectureEN(String prefectureEN)
   {
-    this.prefectureEN = value;
+    this.prefectureEN = prefectureEN;
   }
 
-  /**
-   * Gets the value of the regionID property.
-   *
-   */
   public int getRegionID()
   {
     return regionID;
   }
 
-  /**
-   * Sets the value of the regionID property.
-   *
-   */
-  public void setRegionID(int value)
+  public void setRegionID(int regionID)
   {
-    this.regionID = value;
+    this.regionID = regionID;
   }
 
-  /**
-   * Gets the value of the regionGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getRegionGR()
   {
     return regionGR;
   }
 
-  /**
-   * Sets the value of the regionGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setRegionGR(String value)
+  public void setRegionGR(String regionGR)
   {
-    this.regionGR = value;
+    this.regionGR = regionGR;
   }
 
-  /**
-   * Gets the value of the regionEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getRegionEN()
   {
     return regionEN;
   }
 
-  /**
-   * Sets the value of the regionEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setRegionEN(String value)
+  public void setRegionEN(String regionEN)
   {
-    this.regionEN = value;
+    this.regionEN = regionEN;
   }
 
-  /**
-   * Gets the value of the countryID property.
-   *
-   */
   public int getCountryID()
   {
     return countryID;
   }
 
-  /**
-   * Sets the value of the countryID property.
-   *
-   */
-  public void setCountryID(int value)
+  public void setCountryID(int countryID)
   {
-    this.countryID = value;
+    this.countryID = countryID;
   }
 
-  /**
-   * Gets the value of the countryGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getCountryGR()
   {
     return countryGR;
   }
 
-  /**
-   * Sets the value of the countryGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setCountryGR(String value)
+  public void setCountryGR(String countryGR)
   {
-    this.countryGR = value;
+    this.countryGR = countryGR;
   }
 
-  /**
-   * Gets the value of the countryEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getCountryEN()
   {
     return countryEN;
   }
 
-  /**
-   * Sets the value of the countryEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setCountryEN(String value)
+  public void setCountryEN(String countryEN)
   {
-    this.countryEN = value;
+    this.countryEN = countryEN;
   }
 
-  /**
-   * Gets the value of the estateStatusID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getEstateStatusID()
   {
     return estateStatusID;
   }
 
-  /**
-   * Sets the value of the estateStatusID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setEstateStatusID(Integer value)
+  public void setEstateStatusID(Integer estateStatusID)
   {
-    this.estateStatusID = value;
+    this.estateStatusID = estateStatusID;
   }
 
-  /**
-   * Gets the value of the estateStatusGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateStatusGR()
   {
     return estateStatusGR;
   }
 
-  /**
-   * Sets the value of the estateStatusGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateStatusGR(String value)
+  public void setEstateStatusGR(String estateStatusGR)
   {
-    this.estateStatusGR = value;
+    this.estateStatusGR = estateStatusGR;
   }
 
-  /**
-   * Gets the value of the estateStatusEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEstateStatusEN()
   {
     return estateStatusEN;
   }
 
-  /**
-   * Sets the value of the estateStatusEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEstateStatusEN(String value)
+  public void setEstateStatusEN(String estateStatusEN)
   {
-    this.estateStatusEN = value;
+    this.estateStatusEN = estateStatusEN;
   }
 
-  /**
-   * Gets the value of the constuctYear property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getConstuctYear()
   {
     return constuctYear;
   }
 
-  /**
-   * Sets the value of the constuctYear property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setConstuctYear(Integer value)
+  public void setConstuctYear(Integer constuctYear)
   {
-    this.constuctYear = value;
+    this.constuctYear = constuctYear;
   }
 
-  /**
-   * Gets the value of the floorID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getFloorID()
   {
     return floorID;
   }
 
-  /**
-   * Sets the value of the floorID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setFloorID(Integer value)
+  public void setFloorID(Integer floorID)
   {
-    this.floorID = value;
+    this.floorID = floorID;
   }
 
-  /**
-   * Gets the value of the floorGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getFloorGR()
   {
     return floorGR;
   }
 
-  /**
-   * Sets the value of the floorGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setFloorGR(String value)
+  public void setFloorGR(String floorGR)
   {
-    this.floorGR = value;
+    this.floorGR = floorGR;
   }
 
-  /**
-   * Gets the value of the floorEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getFloorEN()
   {
     return floorEN;
   }
 
-  /**
-   * Sets the value of the floorEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setFloorEN(String value)
+  public void setFloorEN(String floorEN)
   {
-    this.floorEN = value;
+    this.floorEN = floorEN;
   }
 
-  /**
-   * Gets the value of the levels property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getLevels()
   {
     return levels;
   }
 
-  /**
-   * Sets the value of the levels property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setLevels(Integer value)
+  public void setLevels(Integer levels)
   {
-    this.levels = value;
+    this.levels = levels;
   }
 
-  /**
-   * Gets the value of the rooms property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getRooms()
   {
     return rooms;
   }
 
-  /**
-   * Sets the value of the rooms property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setRooms(Integer value)
+  public void setRooms(Integer rooms)
   {
-    this.rooms = value;
+    this.rooms = rooms;
   }
 
-  /**
-   * Gets the value of the bedRooms property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getBedRooms()
   {
     return bedRooms;
   }
 
-  /**
-   * Sets the value of the bedRooms property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setBedRooms(Integer value)
+  public void setBedRooms(Integer bedRooms)
   {
-    this.bedRooms = value;
+    this.bedRooms = bedRooms;
   }
 
-  /**
-   * Gets the value of the wc property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
-  public Integer getWC()
+  public Integer getWc()
   {
     return wc;
   }
 
-  /**
-   * Sets the value of the wc property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setWC(Integer value)
+  public void setWc(Integer wc)
   {
-    this.wc = value;
+    this.wc = wc;
   }
 
-  /**
-   * Gets the value of the parkings property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getParkings()
   {
     return parkings;
   }
 
-  /**
-   * Sets the value of the parkings property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setParkings(Integer value)
+  public void setParkings(Integer parkings)
   {
-    this.parkings = value;
+    this.parkings = parkings;
   }
 
-  /**
-   * Gets the value of the viewID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getViewID()
   {
     return viewID;
   }
 
-  /**
-   * Sets the value of the viewID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setViewID(Integer value)
+  public void setViewID(Integer viewID)
   {
-    this.viewID = value;
+    this.viewID = viewID;
   }
 
-  /**
-   * Gets the value of the viewGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getViewGR()
   {
     return viewGR;
   }
 
-  /**
-   * Sets the value of the viewGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setViewGR(String value)
+  public void setViewGR(String viewGR)
   {
-    this.viewGR = value;
+    this.viewGR = viewGR;
   }
 
-  /**
-   * Gets the value of the viewEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getViewEN()
   {
     return viewEN;
   }
 
-  /**
-   * Sets the value of the viewEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setViewEN(String value)
+  public void setViewEN(String viewEN)
   {
-    this.viewEN = value;
+    this.viewEN = viewEN;
   }
 
-  /**
-   * Gets the value of the storageRoom property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isStorageRoom()
+  public Boolean getStorageRoom()
   {
     return storageRoom;
   }
 
-  /**
-   * Sets the value of the storageRoom property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setStorageRoom(Boolean value)
+  public void setStorageRoom(Boolean storageRoom)
   {
-    this.storageRoom = value;
+    this.storageRoom = storageRoom;
   }
 
-  /**
-   * Gets the value of the balcony property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isBalcony()
+  public Boolean getBalcony()
   {
     return balcony;
   }
 
-  /**
-   * Sets the value of the balcony property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setBalcony(Boolean value)
+  public void setBalcony(Boolean balcony)
   {
-    this.balcony = value;
+    this.balcony = balcony;
   }
 
-  /**
-   * Gets the value of the heatSystemID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getHeatSystemID()
   {
     return heatSystemID;
   }
 
-  /**
-   * Sets the value of the heatSystemID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setHeatSystemID(Integer value)
+  public void setHeatSystemID(Integer heatSystemID)
   {
-    this.heatSystemID = value;
+    this.heatSystemID = heatSystemID;
   }
 
-  /**
-   * Gets the value of the heatSystemGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatSystemGR()
   {
     return heatSystemGR;
   }
 
-  /**
-   * Sets the value of the heatSystemGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatSystemGR(String value)
+  public void setHeatSystemGR(String heatSystemGR)
   {
-    this.heatSystemGR = value;
+    this.heatSystemGR = heatSystemGR;
   }
 
-  /**
-   * Gets the value of the heatSystemEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatSystemEN()
   {
     return heatSystemEN;
   }
 
-  /**
-   * Sets the value of the heatSystemEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatSystemEN(String value)
+  public void setHeatSystemEN(String heatSystemEN)
   {
-    this.heatSystemEN = value;
+    this.heatSystemEN = heatSystemEN;
   }
 
-  /**
-   * Gets the value of the airCondition property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isAirCondition()
+  public Boolean getAirCondition()
   {
     return airCondition;
   }
 
-  /**
-   * Sets the value of the airCondition property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setAirCondition(Boolean value)
+  public void setAirCondition(Boolean airCondition)
   {
-    this.airCondition = value;
+    this.airCondition = airCondition;
   }
 
-  /**
-   * Gets the value of the secureDoor property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isSecureDoor()
+  public Boolean getSecureDoor()
   {
     return secureDoor;
   }
 
-  /**
-   * Sets the value of the secureDoor property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setSecureDoor(Boolean value)
+  public void setSecureDoor(Boolean secureDoor)
   {
-    this.secureDoor = value;
+    this.secureDoor = secureDoor;
   }
 
-  /**
-   * Gets the value of the alarm property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isAlarm()
+  public Boolean getAlarm()
   {
     return alarm;
   }
 
-  /**
-   * Sets the value of the alarm property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setAlarm(Boolean value)
+  public void setAlarm(Boolean alarm)
   {
-    this.alarm = value;
+    this.alarm = alarm;
   }
 
-  /**
-   * Gets the value of the innerStairs property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isInnerStairs()
+  public Boolean getInnerStairs()
   {
     return innerStairs;
   }
 
-  /**
-   * Sets the value of the innerStairs property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setInnerStairs(Boolean value)
+  public void setInnerStairs(Boolean innerStairs)
   {
-    this.innerStairs = value;
+    this.innerStairs = innerStairs;
   }
 
-  /**
-   * Gets the value of the penthouse property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isPenthouse()
+  public Boolean getPenthouse()
   {
     return penthouse;
   }
 
-  /**
-   * Sets the value of the penthouse property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setPenthouse(Boolean value)
+  public void setPenthouse(Boolean penthouse)
   {
-    this.penthouse = value;
+    this.penthouse = penthouse;
   }
 
-  /**
-   * Gets the value of the corner property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isCorner()
+  public Boolean getCorner()
   {
     return corner;
   }
 
-  /**
-   * Sets the value of the corner property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setCorner(Boolean value)
+  public void setCorner(Boolean corner)
   {
-    this.corner = value;
+    this.corner = corner;
   }
 
-  /**
-   * Gets the value of the nearTo property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getNearTo()
   {
     return nearTo;
   }
 
-  /**
-   * Sets the value of the nearTo property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setNearTo(String value)
+  public void setNearTo(String nearTo)
   {
-    this.nearTo = value;
+    this.nearTo = nearTo;
   }
 
-  /**
-   * Gets the value of the distanceVilage property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getDistanceVilage()
   {
     return distanceVilage;
   }
 
-  /**
-   * Sets the value of the distanceVilage property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setDistanceVilage(Integer value)
+  public void setDistanceVilage(Integer distanceVilage)
   {
-    this.distanceVilage = value;
+    this.distanceVilage = distanceVilage;
   }
 
-  /**
-   * Gets the value of the distanceTown property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getDistanceTown()
   {
     return distanceTown;
   }
 
-  /**
-   * Sets the value of the distanceTown property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setDistanceTown(Integer value)
+  public void setDistanceTown(Integer distanceTown)
   {
-    this.distanceTown = value;
+    this.distanceTown = distanceTown;
   }
 
-  /**
-   * Gets the value of the distanceSea property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getDistanceSea()
   {
     return distanceSea;
   }
 
-  /**
-   * Sets the value of the distanceSea property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setDistanceSea(Integer value)
+  public void setDistanceSea(Integer distanceSea)
   {
-    this.distanceSea = value;
+    this.distanceSea = distanceSea;
   }
 
-  /**
-   * Gets the value of the distanceAirport property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getDistanceAirport()
   {
     return distanceAirport;
   }
 
-  /**
-   * Sets the value of the distanceAirport property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setDistanceAirport(Integer value)
+  public void setDistanceAirport(Integer distanceAirport)
   {
-    this.distanceAirport = value;
+    this.distanceAirport = distanceAirport;
   }
 
-  /**
-   * Gets the value of the streetAccessID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getStreetAccessID()
   {
     return streetAccessID;
   }
 
-  /**
-   * Sets the value of the streetAccessID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setStreetAccessID(Integer value)
+  public void setStreetAccessID(Integer streetAccessID)
   {
-    this.streetAccessID = value;
+    this.streetAccessID = streetAccessID;
   }
 
-  /**
-   * Gets the value of the streetAccessGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getStreetAccessGR()
   {
     return streetAccessGR;
   }
 
-  /**
-   * Sets the value of the streetAccessGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setStreetAccessGR(String value)
+  public void setStreetAccessGR(String streetAccessGR)
   {
-    this.streetAccessGR = value;
+    this.streetAccessGR = streetAccessGR;
   }
 
-  /**
-   * Gets the value of the streetAccessEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getStreetAccessEN()
   {
     return streetAccessEN;
   }
 
-  /**
-   * Sets the value of the streetAccessEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setStreetAccessEN(String value)
+  public void setStreetAccessEN(String streetAccessEN)
   {
-    this.streetAccessEN = value;
+    this.streetAccessEN = streetAccessEN;
   }
 
-  /**
-   * Gets the value of the objectivePrice property.
-   *
-   * @return possible object is {@link BigDecimal }
-   *
-   */
   public BigDecimal getObjectivePrice()
   {
     return objectivePrice;
   }
 
-  /**
-   * Sets the value of the objectivePrice property.
-   *
-   * @param value allowed object is {@link BigDecimal }
-   *
-   */
-  public void setObjectivePrice(BigDecimal value)
+  public void setObjectivePrice(BigDecimal objectivePrice)
   {
-    this.objectivePrice = value;
+    this.objectivePrice = objectivePrice;
   }
 
-  /**
-   * Gets the value of the legalResearch property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isLegalResearch()
+  public Boolean getLegalResearch()
   {
     return legalResearch;
   }
 
-  /**
-   * Sets the value of the legalResearch property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setLegalResearch(Boolean value)
+  public void setLegalResearch(Boolean legalResearch)
   {
-    this.legalResearch = value;
+    this.legalResearch = legalResearch;
   }
 
-  /**
-   * Gets the value of the mortgage property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isMortgage()
+  public Boolean getMortgage()
   {
     return mortgage;
   }
 
-  /**
-   * Sets the value of the mortgage property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setMortgage(Boolean value)
+  public void setMortgage(Boolean mortgage)
   {
-    this.mortgage = value;
+    this.mortgage = mortgage;
   }
 
-  /**
-   * Gets the value of the newBuild property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNewBuild()
+  public Boolean getNewBuild()
   {
     return newBuild;
   }
 
-  /**
-   * Sets the value of the newBuild property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNewBuild(Boolean value)
+  public void setNewBuild(Boolean newBuild)
   {
-    this.newBuild = value;
+    this.newBuild = newBuild;
   }
 
-  /**
-   * Gets the value of the internetLine property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isInternetLine()
+  public Boolean getInternetLine()
   {
     return internetLine;
   }
 
-  /**
-   * Sets the value of the internetLine property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setInternetLine(Boolean value)
+  public void setInternetLine(Boolean internetLine)
   {
-    this.internetLine = value;
+    this.internetLine = internetLine;
   }
 
-  /**
-   * Gets the value of the bathrooms property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getBathrooms()
   {
     return bathrooms;
   }
 
-  /**
-   * Sets the value of the bathrooms property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setBathrooms(Integer value)
+  public void setBathrooms(Integer bathrooms)
   {
-    this.bathrooms = value;
+    this.bathrooms = bathrooms;
   }
 
-  /**
-   * Gets the value of the kitchens property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getKitchens()
   {
     return kitchens;
   }
 
-  /**
-   * Sets the value of the kitchens property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setKitchens(Integer value)
+  public void setKitchens(Integer kitchens)
   {
-    this.kitchens = value;
+    this.kitchens = kitchens;
   }
 
-  /**
-   * Gets the value of the fireplaces property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getFireplaces()
   {
     return fireplaces;
   }
 
-  /**
-   * Sets the value of the fireplaces property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setFireplaces(Integer value)
+  public void setFireplaces(Integer fireplaces)
   {
-    this.fireplaces = value;
+    this.fireplaces = fireplaces;
   }
 
-  /**
-   * Gets the value of the pool property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isPool()
+  public Boolean getPool()
   {
     return pool;
   }
 
-  /**
-   * Sets the value of the pool property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setPool(Boolean value)
+  public void setPool(Boolean pool)
   {
-    this.pool = value;
+    this.pool = pool;
   }
 
-  /**
-   * Gets the value of the bbq property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isBBQ()
+  public Boolean getBbq()
   {
     return bbq;
   }
 
-  /**
-   * Sets the value of the bbq property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setBBQ(Boolean value)
+  public void setBbq(Boolean bbq)
   {
-    this.bbq = value;
+    this.bbq = bbq;
   }
 
-  /**
-   * Gets the value of the elevator property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isElevator()
+  public Boolean getElevator()
   {
     return elevator;
   }
 
-  /**
-   * Sets the value of the elevator property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setElevator(Boolean value)
+  public void setElevator(Boolean elevator)
   {
-    this.elevator = value;
+    this.elevator = elevator;
   }
 
-  /**
-   * Gets the value of the satelite property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isSatelite()
+  public Boolean getSatelite()
   {
     return satelite;
   }
 
-  /**
-   * Sets the value of the satelite property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setSatelite(Boolean value)
+  public void setSatelite(Boolean satelite)
   {
-    this.satelite = value;
+    this.satelite = satelite;
   }
 
-  /**
-   * Gets the value of the reBuild property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isReBuild()
+  public Boolean getReBuild()
   {
     return reBuild;
   }
 
-  /**
-   * Sets the value of the reBuild property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setReBuild(Boolean value)
+  public void setReBuild(Boolean reBuild)
   {
-    this.reBuild = value;
+    this.reBuild = reBuild;
   }
 
-  /**
-   * Gets the value of the solarSystem property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isSolarSystem()
+  public Boolean getSolarSystem()
   {
     return solarSystem;
   }
 
-  /**
-   * Sets the value of the solarSystem property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setSolarSystem(Boolean value)
+  public void setSolarSystem(Boolean solarSystem)
   {
-    this.solarSystem = value;
+    this.solarSystem = solarSystem;
   }
 
-  /**
-   * Gets the value of the cctv property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isCCTV()
+  public Boolean getCctv()
   {
     return cctv;
   }
 
-  /**
-   * Sets the value of the cctv property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setCCTV(Boolean value)
+  public void setCctv(Boolean cctv)
   {
-    this.cctv = value;
+    this.cctv = cctv;
   }
 
-  /**
-   * Gets the value of the playroom property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isPlayroom()
+  public Boolean getPlayroom()
   {
     return playroom;
   }
 
-  /**
-   * Sets the value of the playroom property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setPlayroom(Boolean value)
+  public void setPlayroom(Boolean playroom)
   {
-    this.playroom = value;
+    this.playroom = playroom;
   }
 
-  /**
-   * Gets the value of the garden property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isGarden()
+  public Boolean getGarden()
   {
     return garden;
   }
 
-  /**
-   * Sets the value of the garden property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setGarden(Boolean value)
+  public void setGarden(Boolean garden)
   {
-    this.garden = value;
+    this.garden = garden;
   }
 
-  /**
-   * Gets the value of the loft property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isLoft()
+  public Boolean getLoft()
   {
     return loft;
   }
 
-  /**
-   * Sets the value of the loft property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setLoft(Boolean value)
+  public void setLoft(Boolean loft)
   {
-    this.loft = value;
+    this.loft = loft;
   }
 
-  /**
-   * Gets the value of the petsAllow property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isPetsAllow()
+  public Boolean getPetsAllow()
   {
     return petsAllow;
   }
 
-  /**
-   * Sets the value of the petsAllow property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setPetsAllow(Boolean value)
+  public void setPetsAllow(Boolean petsAllow)
   {
-    this.petsAllow = value;
+    this.petsAllow = petsAllow;
   }
 
-  /**
-   * Gets the value of the ruralResidence property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isRuralResidence()
+  public Boolean getRuralResidence()
   {
     return ruralResidence;
   }
 
-  /**
-   * Sets the value of the ruralResidence property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setRuralResidence(Boolean value)
+  public void setRuralResidence(Boolean ruralResidence)
   {
-    this.ruralResidence = value;
+    this.ruralResidence = ruralResidence;
   }
 
-  /**
-   * Gets the value of the furnishing property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFurnishing()
+  public Boolean getFurnishing()
   {
     return furnishing;
   }
 
-  /**
-   * Sets the value of the furnishing property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFurnishing(Boolean value)
+  public void setFurnishing(Boolean furnishing)
   {
-    this.furnishing = value;
+    this.furnishing = furnishing;
   }
 
-  /**
-   * Gets the value of the safe property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isSafe()
+  public Boolean getSafe()
   {
     return safe;
   }
 
-  /**
-   * Sets the value of the safe property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setSafe(Boolean value)
+  public void setSafe(Boolean safe)
   {
-    this.safe = value;
+    this.safe = safe;
   }
 
-  /**
-   * Gets the value of the stadium property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isStadium()
+  public Boolean getStadium()
   {
     return stadium;
   }
 
-  /**
-   * Sets the value of the stadium property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setStadium(Boolean value)
+  public void setStadium(Boolean stadium)
   {
-    this.stadium = value;
+    this.stadium = stadium;
   }
 
-  /**
-   * Gets the value of the autoWatering property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isAutoWatering()
+  public Boolean getAutoWatering()
   {
     return autoWatering;
   }
 
-  /**
-   * Sets the value of the autoWatering property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setAutoWatering(Boolean value)
+  public void setAutoWatering(Boolean autoWatering)
   {
-    this.autoWatering = value;
+    this.autoWatering = autoWatering;
   }
 
-  /**
-   * Gets the value of the grass property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isGrass()
+  public Boolean getGrass()
   {
     return grass;
   }
 
-  /**
-   * Sets the value of the grass property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setGrass(Boolean value)
+  public void setGrass(Boolean grass)
   {
-    this.grass = value;
+    this.grass = grass;
   }
 
-  /**
-   * Gets the value of the trees property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isTrees()
+  public Boolean getTrees()
   {
     return trees;
   }
 
-  /**
-   * Sets the value of the trees property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setTrees(Boolean value)
+  public void setTrees(Boolean trees)
   {
-    this.trees = value;
+    this.trees = trees;
   }
 
-  /**
-   * Gets the value of the doubleGlasses property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isDoubleGlasses()
+  public Boolean getDoubleGlasses()
   {
     return doubleGlasses;
   }
 
-  /**
-   * Sets the value of the doubleGlasses property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setDoubleGlasses(Boolean value)
+  public void setDoubleGlasses(Boolean doubleGlasses)
   {
-    this.doubleGlasses = value;
+    this.doubleGlasses = doubleGlasses;
   }
 
-  /**
-   * Gets the value of the sd property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
-  public Double getSD()
+  public Double getSd()
   {
     return sd;
   }
 
-  /**
-   * Sets the value of the sd property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setSD(Double value)
+  public void setSd(Double sd)
   {
-    this.sd = value;
+    this.sd = sd;
   }
 
-  /**
-   * Gets the value of the sk property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
-  public Double getSK()
+  public Double getSk()
   {
     return sk;
   }
 
-  /**
-   * Sets the value of the sk property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setSK(Double value)
+  public void setSk(Double sk)
   {
-    this.sk = value;
+    this.sk = sk;
   }
 
-  /**
-   * Gets the value of the layoutSqr property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getLayoutSqr()
   {
     return layoutSqr;
   }
 
-  /**
-   * Sets the value of the layoutSqr property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setLayoutSqr(Double value)
+  public void setLayoutSqr(Double layoutSqr)
   {
-    this.layoutSqr = value;
+    this.layoutSqr = layoutSqr;
   }
 
-  /**
-   * Gets the value of the layoutLeft property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getLayoutLeft()
   {
     return layoutLeft;
   }
 
-  /**
-   * Sets the value of the layoutLeft property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setLayoutLeft(Double value)
+  public void setLayoutLeft(Double layoutLeft)
   {
-    this.layoutLeft = value;
+    this.layoutLeft = layoutLeft;
   }
 
-  /**
-   * Gets the value of the forDevelopment property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isForDevelopment()
+  public Boolean getForDevelopment()
   {
     return forDevelopment;
   }
 
-  /**
-   * Sets the value of the forDevelopment property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setForDevelopment(Boolean value)
+  public void setForDevelopment(Boolean forDevelopment)
   {
-    this.forDevelopment = value;
+    this.forDevelopment = forDevelopment;
   }
 
-  /**
-   * Gets the value of the fenced property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFenced()
+  public Boolean getFenced()
   {
     return fenced;
   }
 
-  /**
-   * Sets the value of the fenced property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFenced(Boolean value)
+  public void setFenced(Boolean fenced)
   {
-    this.fenced = value;
+    this.fenced = fenced;
   }
 
-  /**
-   * Gets the value of the amphitheatrical property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isAmphitheatrical()
+  public Boolean getAmphitheatrical()
   {
     return amphitheatrical;
   }
 
-  /**
-   * Sets the value of the amphitheatrical property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setAmphitheatrical(Boolean value)
+  public void setAmphitheatrical(Boolean amphitheatrical)
   {
-    this.amphitheatrical = value;
+    this.amphitheatrical = amphitheatrical;
   }
 
-  /**
-   * Gets the value of the borehole property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isBorehole()
+  public Boolean getBorehole()
   {
     return borehole;
   }
 
-  /**
-   * Sets the value of the borehole property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setBorehole(Boolean value)
+  public void setBorehole(Boolean borehole)
   {
-    this.borehole = value;
+    this.borehole = borehole;
   }
 
-  /**
-   * Gets the value of the frontage property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getFrontage()
   {
     return frontage;
   }
 
-  /**
-   * Sets the value of the frontage property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setFrontage(Double value)
+  public void setFrontage(Double frontage)
   {
-    this.frontage = value;
+    this.frontage = frontage;
   }
 
-  /**
-   * Gets the value of the depth property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getDepth()
   {
     return depth;
   }
 
-  /**
-   * Sets the value of the depth property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setDepth(Double value)
+  public void setDepth(Double depth)
   {
-    this.depth = value;
+    this.depth = depth;
   }
 
-  /**
-   * Gets the value of the aot property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
-  public String getAOT()
+  public String getAot()
   {
     return aot;
   }
 
-  /**
-   * Sets the value of the aot property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setAOT(String value)
+  public void setAot(String aot)
   {
-    this.aot = value;
+    this.aot = aot;
   }
 
-  /**
-   * Gets the value of the landUsageID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getLandUsageID()
   {
     return landUsageID;
   }
 
-  /**
-   * Sets the value of the landUsageID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setLandUsageID(Integer value)
+  public void setLandUsageID(Integer landUsageID)
   {
-    this.landUsageID = value;
+    this.landUsageID = landUsageID;
   }
 
-  /**
-   * Gets the value of the landUsageGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getLandUsageGR()
   {
     return landUsageGR;
   }
 
-  /**
-   * Sets the value of the landUsageGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setLandUsageGR(String value)
+  public void setLandUsageGR(String landUsageGR)
   {
-    this.landUsageGR = value;
+    this.landUsageGR = landUsageGR;
   }
 
-  /**
-   * Gets the value of the landUsageEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getLandUsageEN()
   {
     return landUsageEN;
   }
 
-  /**
-   * Sets the value of the landUsageEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setLandUsageEN(String value)
+  public void setLandUsageEN(String landUsageEN)
   {
-    this.landUsageEN = value;
+    this.landUsageEN = landUsageEN;
   }
 
-  /**
-   * Gets the value of the cityPlanID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getCityPlanID()
   {
     return cityPlanID;
   }
 
-  /**
-   * Sets the value of the cityPlanID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setCityPlanID(Integer value)
+  public void setCityPlanID(Integer cityPlanID)
   {
-    this.cityPlanID = value;
+    this.cityPlanID = cityPlanID;
   }
 
-  /**
-   * Gets the value of the cityPlanGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getCityPlanGR()
   {
     return cityPlanGR;
   }
 
-  /**
-   * Sets the value of the cityPlanGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setCityPlanGR(String value)
+  public void setCityPlanGR(String cityPlanGR)
   {
-    this.cityPlanGR = value;
+    this.cityPlanGR = cityPlanGR;
   }
 
-  /**
-   * Gets the value of the cityPlanEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getCityPlanEN()
   {
     return cityPlanEN;
   }
 
-  /**
-   * Sets the value of the cityPlanEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setCityPlanEN(String value)
+  public void setCityPlanEN(String cityPlanEN)
   {
-    this.cityPlanEN = value;
+    this.cityPlanEN = cityPlanEN;
   }
 
-  /**
-   * Gets the value of the retrospectionFloors property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getRetrospectionFloors()
   {
     return retrospectionFloors;
   }
 
-  /**
-   * Sets the value of the retrospectionFloors property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setRetrospectionFloors(Integer value)
+  public void setRetrospectionFloors(Integer retrospectionFloors)
   {
-    this.retrospectionFloors = value;
+    this.retrospectionFloors = retrospectionFloors;
   }
 
-  /**
-   * Gets the value of the retrospectionSqrMeters property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getRetrospectionSqrMeters()
   {
     return retrospectionSqrMeters;
   }
 
-  /**
-   * Sets the value of the retrospectionSqrMeters property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setRetrospectionSqrMeters(Double value)
+  public void setRetrospectionSqrMeters(Double retrospectionSqrMeters)
   {
-    this.retrospectionSqrMeters = value;
+    this.retrospectionSqrMeters = retrospectionSqrMeters;
   }
 
-  /**
-   * Gets the value of the shops property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getShops()
   {
     return shops;
   }
 
-  /**
-   * Sets the value of the shops property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setShops(Integer value)
+  public void setShops(Integer shops)
   {
-    this.shops = value;
+    this.shops = shops;
   }
 
-  /**
-   * Gets the value of the undergrounds property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getUndergrounds()
   {
     return undergrounds;
   }
 
-  /**
-   * Sets the value of the undergrounds property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setUndergrounds(Integer value)
+  public void setUndergrounds(Integer undergrounds)
   {
-    this.undergrounds = value;
+    this.undergrounds = undergrounds;
   }
 
-  /**
-   * Gets the value of the ramps property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isRamps()
+  public Boolean getRamps()
   {
     return ramps;
   }
 
-  /**
-   * Sets the value of the ramps property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setRamps(Boolean value)
+  public void setRamps(Boolean ramps)
   {
-    this.ramps = value;
+    this.ramps = ramps;
   }
 
-  /**
-   * Gets the value of the liftOfCharges property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isLiftOfCharges()
+  public Boolean getLiftOfCharges()
   {
     return liftOfCharges;
   }
 
-  /**
-   * Sets the value of the liftOfCharges property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setLiftOfCharges(Boolean value)
+  public void setLiftOfCharges(Boolean liftOfCharges)
   {
-    this.liftOfCharges = value;
+    this.liftOfCharges = liftOfCharges;
   }
 
-  /**
-   * Gets the value of the usageType property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getUsageType()
   {
     return usageType;
   }
 
-  /**
-   * Sets the value of the usageType property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setUsageType(String value)
+  public void setUsageType(String usageType)
   {
-    this.usageType = value;
+    this.usageType = usageType;
   }
 
-  /**
-   * Gets the value of the shopWindowSqr property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getShopWindowSqr()
   {
     return shopWindowSqr;
   }
 
-  /**
-   * Sets the value of the shopWindowSqr property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setShopWindowSqr(Double value)
+  public void setShopWindowSqr(Double shopWindowSqr)
   {
-    this.shopWindowSqr = value;
+    this.shopWindowSqr = shopWindowSqr;
   }
 
-  /**
-   * Gets the value of the loftSqr property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getLoftSqr()
   {
     return loftSqr;
   }
 
-  /**
-   * Sets the value of the loftSqr property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setLoftSqr(Double value)
+  public void setLoftSqr(Double loftSqr)
   {
-    this.loftSqr = value;
+    this.loftSqr = loftSqr;
   }
 
-  /**
-   * Gets the value of the undergroundSqr property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getUndergroundSqr()
   {
     return undergroundSqr;
   }
 
-  /**
-   * Sets the value of the undergroundSqr property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setUndergroundSqr(Double value)
+  public void setUndergroundSqr(Double undergroundSqr)
   {
-    this.undergroundSqr = value;
+    this.undergroundSqr = undergroundSqr;
   }
 
-  /**
-   * Gets the value of the fakeRoof property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFakeRoof()
+  public Boolean getFakeRoof()
   {
     return fakeRoof;
   }
 
-  /**
-   * Sets the value of the fakeRoof property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFakeRoof(Boolean value)
+  public void setFakeRoof(Boolean fakeRoof)
   {
-    this.fakeRoof = value;
+    this.fakeRoof = fakeRoof;
   }
 
-  /**
-   * Gets the value of the portalID property.
-   *
-   */
   public int getPortalID()
   {
     return portalID;
   }
 
-  /**
-   * Sets the value of the portalID property.
-   *
-   */
-  public void setPortalID(int value)
+  public void setPortalID(int portalID)
   {
-    this.portalID = value;
+    this.portalID = portalID;
   }
 
-  /**
-   * Gets the value of the producerID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getProducerID()
   {
     return producerID;
   }
 
-  /**
-   * Sets the value of the producerID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setProducerID(Integer value)
+  public void setProducerID(Integer producerID)
   {
-    this.producerID = value;
+    this.producerID = producerID;
   }
 
-  /**
-   * Gets the value of the latidude property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getLatidude()
   {
     return latidude;
   }
 
-  /**
-   * Sets the value of the latidude property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setLatidude(Double value)
+  public void setLatidude(Double latidude)
   {
-    this.latidude = value;
+    this.latidude = latidude;
   }
 
-  /**
-   * Gets the value of the longitude property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getLongitude()
   {
     return longitude;
   }
 
-  /**
-   * Sets the value of the longitude property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setLongitude(Double value)
+  public void setLongitude(Double longitude)
   {
-    this.longitude = value;
+    this.longitude = longitude;
   }
 
-  /**
-   * Gets the value of the tents property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isTents()
+  public Boolean getTents()
   {
     return tents;
   }
 
-  /**
-   * Sets the value of the tents property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setTents(Boolean value)
+  public void setTents(Boolean tents)
   {
-    this.tents = value;
+    this.tents = tents;
   }
 
-  /**
-   * Gets the value of the boiler property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isBoiler()
+  public Boolean getBoiler()
   {
     return boiler;
   }
 
-  /**
-   * Sets the value of the boiler property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setBoiler(Boolean value)
+  public void setBoiler(Boolean boiler)
   {
-    this.boiler = value;
+    this.boiler = boiler;
   }
 
-  /**
-   * Gets the value of the floorTypeID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getFloorTypeID()
   {
     return floorTypeID;
   }
 
-  /**
-   * Sets the value of the floorTypeID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setFloorTypeID(Integer value)
+  public void setFloorTypeID(Integer floorTypeID)
   {
-    this.floorTypeID = value;
+    this.floorTypeID = floorTypeID;
   }
 
-  /**
-   * Gets the value of the koufomataID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getKoufomataID()
   {
     return koufomataID;
   }
 
-  /**
-   * Sets the value of the koufomataID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setKoufomataID(Integer value)
+  public void setKoufomataID(Integer koufomataID)
   {
-    this.koufomataID = value;
+    this.koufomataID = koufomataID;
   }
 
-  /**
-   * Gets the value of the youTubeVideo property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getYouTubeVideo()
   {
     return youTubeVideo;
   }
 
-  /**
-   * Sets the value of the youTubeVideo property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setYouTubeVideo(String value)
+  public void setYouTubeVideo(String youTubeVideo)
   {
-    this.youTubeVideo = value;
+    this.youTubeVideo = youTubeVideo;
   }
 
-  /**
-   * Gets the value of the forStudents property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isForStudents()
+  public Boolean getForStudents()
   {
     return forStudents;
   }
 
-  /**
-   * Sets the value of the forStudents property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setForStudents(Boolean value)
+  public void setForStudents(Boolean forStudents)
   {
-    this.forStudents = value;
+    this.forStudents = forStudents;
   }
 
-  /**
-   * Gets the value of the diamperes property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isDiamperes()
+  public Boolean getDiamperes()
   {
     return diamperes;
   }
 
-  /**
-   * Sets the value of the diamperes property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setDiamperes(Boolean value)
+  public void setDiamperes(Boolean diamperes)
   {
-    this.diamperes = value;
+    this.diamperes = diamperes;
   }
 
-  /**
-   * Gets the value of the prosopseos property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isProsopseos()
+  public Boolean getProsopseos()
   {
     return prosopseos;
   }
 
-  /**
-   * Sets the value of the prosopseos property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setProsopseos(Boolean value)
+  public void setProsopseos(Boolean prosopseos)
   {
-    this.prosopseos = value;
+    this.prosopseos = prosopseos;
   }
 
-  /**
-   * Gets the value of the nearToTransport property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNearToTransport()
+  public Boolean getNearToTransport()
   {
     return nearToTransport;
   }
 
-  /**
-   * Sets the value of the nearToTransport property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNearToTransport(Boolean value)
+  public void setNearToTransport(Boolean nearToTransport)
   {
-    this.nearToTransport = value;
+    this.nearToTransport = nearToTransport;
   }
 
-  /**
-   * Gets the value of the nearToBus property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNearToBus()
+  public Boolean getNearToBus()
   {
     return nearToBus;
   }
 
-  /**
-   * Sets the value of the nearToBus property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNearToBus(Boolean value)
+  public void setNearToBus(Boolean nearToBus)
   {
-    this.nearToBus = value;
+    this.nearToBus = nearToBus;
   }
 
-  /**
-   * Gets the value of the nearToMetro property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNearToMetro()
+  public Boolean getNearToMetro()
   {
     return nearToMetro;
   }
 
-  /**
-   * Sets the value of the nearToMetro property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNearToMetro(Boolean value)
+  public void setNearToMetro(Boolean nearToMetro)
   {
-    this.nearToMetro = value;
+    this.nearToMetro = nearToMetro;
   }
 
-  /**
-   * Gets the value of the nearToTrain property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNearToTrain()
+  public Boolean getNearToTrain()
   {
     return nearToTrain;
   }
 
-  /**
-   * Sets the value of the nearToTrain property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNearToTrain(Boolean value)
+  public void setNearToTrain(Boolean nearToTrain)
   {
-    this.nearToTrain = value;
+    this.nearToTrain = nearToTrain;
   }
 
-  /**
-   * Gets the value of the nearToTram property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNearToTram()
+  public Boolean getNearToTram()
   {
     return nearToTram;
   }
 
-  /**
-   * Sets the value of the nearToTram property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNearToTram(Boolean value)
+  public void setNearToTram(Boolean nearToTram)
   {
-    this.nearToTram = value;
+    this.nearToTram = nearToTram;
   }
 
-  /**
-   * Gets the value of the masterBedrooms property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getMasterBedrooms()
   {
     return masterBedrooms;
   }
 
-  /**
-   * Sets the value of the masterBedrooms property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setMasterBedrooms(Integer value)
+  public void setMasterBedrooms(Integer masterBedrooms)
   {
-    this.masterBedrooms = value;
+    this.masterBedrooms = masterBedrooms;
   }
 
-  /**
-   * Gets the value of the stonehouse property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isStonehouse()
+  public Boolean getStonehouse()
   {
     return stonehouse;
   }
 
-  /**
-   * Sets the value of the stonehouse property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setStonehouse(Boolean value)
+  public void setStonehouse(Boolean stonehouse)
   {
-    this.stonehouse = value;
+    this.stonehouse = stonehouse;
   }
 
-  /**
-   * Gets the value of the neoclassical property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNeoclassical()
+  public Boolean getNeoclassical()
   {
     return neoclassical;
   }
 
-  /**
-   * Sets the value of the neoclassical property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNeoclassical(Boolean value)
+  public void setNeoclassical(Boolean neoclassical)
   {
-    this.neoclassical = value;
+    this.neoclassical = neoclassical;
   }
 
-  /**
-   * Gets the value of the heatMediumID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getHeatMediumID()
   {
     return heatMediumID;
   }
 
-  /**
-   * Sets the value of the heatMediumID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setHeatMediumID(Integer value)
+  public void setHeatMediumID(Integer heatMediumID)
   {
-    this.heatMediumID = value;
+    this.heatMediumID = heatMediumID;
   }
 
-  /**
-   * Gets the value of the heatMediumGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatMediumGR()
   {
     return heatMediumGR;
   }
 
-  /**
-   * Sets the value of the heatMediumGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatMediumGR(String value)
+  public void setHeatMediumGR(String heatMediumGR)
   {
-    this.heatMediumGR = value;
+    this.heatMediumGR = heatMediumGR;
   }
 
-  /**
-   * Gets the value of the heatMediumEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatMediumEN()
   {
     return heatMediumEN;
   }
 
-  /**
-   * Sets the value of the heatMediumEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatMediumEN(String value)
+  public void setHeatMediumEN(String heatMediumEN)
   {
-    this.heatMediumEN = value;
+    this.heatMediumEN = heatMediumEN;
   }
 
-  /**
-   * Gets the value of the heatTypeID property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getHeatTypeID()
   {
     return heatTypeID;
   }
 
-  /**
-   * Sets the value of the heatTypeID property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setHeatTypeID(Integer value)
+  public void setHeatTypeID(Integer heatTypeID)
   {
-    this.heatTypeID = value;
+    this.heatTypeID = heatTypeID;
   }
 
-  /**
-   * Gets the value of the heatTypeGR property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatTypeGR()
   {
     return heatTypeGR;
   }
 
-  /**
-   * Sets the value of the heatTypeGR property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatTypeGR(String value)
+  public void setHeatTypeGR(String heatTypeGR)
   {
-    this.heatTypeGR = value;
+    this.heatTypeGR = heatTypeGR;
   }
 
-  /**
-   * Gets the value of the heatTypeEN property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getHeatTypeEN()
   {
     return heatTypeEN;
   }
 
-  /**
-   * Sets the value of the heatTypeEN property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setHeatTypeEN(String value)
+  public void setHeatTypeEN(String heatTypeEN)
   {
-    this.heatTypeEN = value;
+    this.heatTypeEN = heatTypeEN;
   }
 
-  /**
-   * Gets the value of the view360 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getView360()
   {
     return view360;
   }
 
-  /**
-   * Sets the value of the view360 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setView360(String value)
+  public void setView360(String view360)
   {
-    this.view360 = value;
+    this.view360 = view360;
   }
 
-  /**
-   * Gets the value of the flag1 property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFlag1()
+  public Boolean getFlag1()
   {
     return flag1;
   }
 
-  /**
-   * Sets the value of the flag1 property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFlag1(Boolean value)
+  public void setFlag1(Boolean flag1)
   {
-    this.flag1 = value;
+    this.flag1 = flag1;
   }
 
-  /**
-   * Gets the value of the flag2 property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFlag2()
+  public Boolean getFlag2()
   {
     return flag2;
   }
 
-  /**
-   * Sets the value of the flag2 property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFlag2(Boolean value)
+  public void setFlag2(Boolean flag2)
   {
-    this.flag2 = value;
+    this.flag2 = flag2;
   }
 
-  /**
-   * Gets the value of the flag3 property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFlag3()
+  public Boolean getFlag3()
   {
     return flag3;
   }
 
-  /**
-   * Sets the value of the flag3 property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFlag3(Boolean value)
+  public void setFlag3(Boolean flag3)
   {
-    this.flag3 = value;
+    this.flag3 = flag3;
   }
 
-  /**
-   * Gets the value of the flag4 property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFlag4()
+  public Boolean getFlag4()
   {
     return flag4;
   }
 
-  /**
-   * Sets the value of the flag4 property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFlag4(Boolean value)
+  public void setFlag4(Boolean flag4)
   {
-    this.flag4 = value;
+    this.flag4 = flag4;
   }
 
-  /**
-   * Gets the value of the energyCertificate property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getEnergyCertificate()
   {
     return energyCertificate;
   }
 
-  /**
-   * Sets the value of the energyCertificate property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setEnergyCertificate(String value)
+  public void setEnergyCertificate(String energyCertificate)
   {
-    this.energyCertificate = value;
+    this.energyCertificate = energyCertificate;
   }
 
-  /**
-   * Gets the value of the spitogatosLevel2 property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getSpitogatosLevel2()
   {
     return spitogatosLevel2;
   }
 
-  /**
-   * Sets the value of the spitogatosLevel2 property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setSpitogatosLevel2(Integer value)
+  public void setSpitogatosLevel2(Integer spitogatosLevel2)
   {
-    this.spitogatosLevel2 = value;
+    this.spitogatosLevel2 = spitogatosLevel2;
   }
 
-  /**
-   * Gets the value of the spitogatosLevel3 property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getSpitogatosLevel3()
   {
     return spitogatosLevel3;
   }
 
-  /**
-   * Sets the value of the spitogatosLevel3 property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setSpitogatosLevel3(Integer value)
+  public void setSpitogatosLevel3(Integer spitogatosLevel3)
   {
-    this.spitogatosLevel3 = value;
+    this.spitogatosLevel3 = spitogatosLevel3;
   }
 
-  /**
-   * Gets the value of the orientation property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOrientation()
   {
     return orientation;
   }
 
-  /**
-   * Sets the value of the orientation property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOrientation(String value)
+  public void setOrientation(String orientation)
   {
-    this.orientation = value;
+    this.orientation = orientation;
   }
 
-  /**
-   * Gets the value of the bright property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isBright()
+  public Boolean getBright()
   {
     return bright;
   }
 
-  /**
-   * Sets the value of the bright property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setBright(Boolean value)
+  public void setBright(Boolean bright)
   {
-    this.bright = value;
+    this.bright = bright;
   }
 
-  /**
-   * Gets the value of the nightStream property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNightStream()
+  public Boolean getNightStream()
   {
     return nightStream;
   }
 
-  /**
-   * Sets the value of the nightStream property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNightStream(Boolean value)
+  public void setNightStream(Boolean nightStream)
   {
-    this.nightStream = value;
+    this.nightStream = nightStream;
   }
 
-  /**
-   * Gets the value of the underfloor property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isUnderfloor()
+  public Boolean getUnderfloor()
   {
     return underfloor;
   }
 
-  /**
-   * Sets the value of the underfloor property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setUnderfloor(Boolean value)
+  public void setUnderfloor(Boolean underfloor)
   {
-    this.underfloor = value;
+    this.underfloor = underfloor;
   }
 
-  /**
-   * Gets the value of the isExclusive property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isIsExclusive()
+  public Boolean getIsExclusive()
   {
     return isExclusive;
   }
 
-  /**
-   * Sets the value of the isExclusive property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setIsExclusive(Boolean value)
+  public void setIsExclusive(Boolean isExclusive)
   {
-    this.isExclusive = value;
+    this.isExclusive = isExclusive;
   }
 
-  /**
-   * Gets the value of the luxury property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isLuxury()
+  public Boolean getLuxury()
   {
     return luxury;
   }
 
-  /**
-   * Sets the value of the luxury property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setLuxury(Boolean value)
+  public void setLuxury(Boolean luxury)
   {
-    this.luxury = value;
+    this.luxury = luxury;
   }
 
-  /**
-   * Gets the value of the noKoinoxrista property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isNoKoinoxrista()
+  public Boolean getNoKoinoxrista()
   {
     return noKoinoxrista;
   }
 
-  /**
-   * Sets the value of the noKoinoxrista property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setNoKoinoxrista(Boolean value)
+  public void setNoKoinoxrista(Boolean noKoinoxrista)
   {
-    this.noKoinoxrista = value;
+    this.noKoinoxrista = noKoinoxrista;
   }
 
-  /**
-   * Gets the value of the listed property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isListed()
+  public Boolean getListed()
   {
     return listed;
   }
 
-  /**
-   * Sets the value of the listed property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setListed(Boolean value)
+  public void setListed(Boolean listed)
   {
-    this.listed = value;
+    this.listed = listed;
   }
 
-  /**
-   * Gets the value of the investment property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isInvestment()
+  public Boolean getInvestment()
   {
     return investment;
   }
 
-  /**
-   * Sets the value of the investment property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setInvestment(Boolean value)
+  public void setInvestment(Boolean investment)
   {
-    this.investment = value;
+    this.investment = investment;
   }
 
-  /**
-   * Gets the value of the frontaged property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isFrontaged()
+  public Boolean getFrontaged()
   {
     return frontaged;
   }
 
-  /**
-   * Sets the value of the frontaged property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setFrontaged(Boolean value)
+  public void setFrontaged(Boolean frontaged)
   {
-    this.frontaged = value;
+    this.frontaged = frontaged;
   }
 
-  /**
-   * Gets the value of the interior property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isInterior()
+  public Boolean getInterior()
   {
     return interior;
   }
 
-  /**
-   * Sets the value of the interior property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setInterior(Boolean value)
+  public void setInterior(Boolean interior)
   {
-    this.interior = value;
+    this.interior = interior;
   }
 
-  /**
-   * Gets the value of the sieves property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isSieves()
+  public Boolean getSieves()
   {
     return sieves;
   }
 
-  /**
-   * Sets the value of the sieves property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setSieves(Boolean value)
+  public void setSieves(Boolean sieves)
   {
-    this.sieves = value;
+    this.sieves = sieves;
   }
 
-  /**
-   * Gets the value of the renovationYear property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getRenovationYear()
   {
     return renovationYear;
   }
 
-  /**
-   * Sets the value of the renovationYear property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setRenovationYear(Integer value)
+  public void setRenovationYear(Integer renovationYear)
   {
-    this.renovationYear = value;
+    this.renovationYear = renovationYear;
   }
 
-  /**
-   * Gets the value of the postalCode property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPostalCode()
   {
     return postalCode;
   }
 
-  /**
-   * Sets the value of the postalCode property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPostalCode(String value)
+  public void setPostalCode(String postalCode)
   {
-    this.postalCode = value;
+    this.postalCode = postalCode;
   }
 
-  /**
-   * Gets the value of the traditional property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isTraditional()
+  public Boolean getTraditional()
   {
     return traditional;
   }
 
-  /**
-   * Sets the value of the traditional property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setTraditional(Boolean value)
+  public void setTraditional(Boolean traditional)
   {
-    this.traditional = value;
+    this.traditional = traditional;
   }
 
-  /**
-   * Gets the value of the mansion property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isMansion()
+  public Boolean getMansion()
   {
     return mansion;
   }
 
-  /**
-   * Sets the value of the mansion property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setMansion(Boolean value)
+  public void setMansion(Boolean mansion)
   {
-    this.mansion = value;
+    this.mansion = mansion;
   }
 
-  /**
-   * Gets the value of the airy property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isAiry()
+  public Boolean getAiry()
   {
     return airy;
   }
 
-  /**
-   * Sets the value of the airy property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setAiry(Boolean value)
+  public void setAiry(Boolean airy)
   {
-    this.airy = value;
+    this.airy = airy;
   }
 
-  /**
-   * Gets the value of the onHighway property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isOnHighway()
+  public Boolean getOnHighway()
   {
     return onHighway;
   }
 
-  /**
-   * Sets the value of the onHighway property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setOnHighway(Boolean value)
+  public void setOnHighway(Boolean onHighway)
   {
-    this.onHighway = value;
+    this.onHighway = onHighway;
   }
 
-  /**
-   * Gets the value of the painted property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isPainted()
+  public Boolean getPainted()
   {
     return painted;
   }
 
-  /**
-   * Sets the value of the painted property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setPainted(Boolean value)
+  public void setPainted(Boolean painted)
   {
-    this.painted = value;
+    this.painted = painted;
   }
 
-  /**
-   * Gets the value of the hmiypaithriosSQR property.
-   *
-   * @return possible object is {@link BigDecimal }
-   *
-   */
   public BigDecimal getHmiypaithriosSQR()
   {
     return hmiypaithriosSQR;
   }
 
-  /**
-   * Sets the value of the hmiypaithriosSQR property.
-   *
-   * @param value allowed object is {@link BigDecimal }
-   *
-   */
-  public void setHmiypaithriosSQR(BigDecimal value)
+  public void setHmiypaithriosSQR(BigDecimal hmiypaithriosSQR)
   {
-    this.hmiypaithriosSQR = value;
+    this.hmiypaithriosSQR = hmiypaithriosSQR;
   }
 
-  /**
-   * Gets the value of the hmiypaithriosLegal property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isHmiypaithriosLegal()
+  public Boolean getHmiypaithriosLegal()
   {
     return hmiypaithriosLegal;
   }
 
-  /**
-   * Sets the value of the hmiypaithriosLegal property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setHmiypaithriosLegal(Boolean value)
+  public void setHmiypaithriosLegal(Boolean hmiypaithriosLegal)
   {
-    this.hmiypaithriosLegal = value;
+    this.hmiypaithriosLegal = hmiypaithriosLegal;
   }
 
-  /**
-   * Gets the value of the livingRooms property.
-   *
-   * @return possible object is {@link Integer }
-   *
-   */
   public Integer getLivingRooms()
   {
     return livingRooms;
   }
 
-  /**
-   * Sets the value of the livingRooms property.
-   *
-   * @param value allowed object is {@link Integer }
-   *
-   */
-  public void setLivingRooms(Integer value)
+  public void setLivingRooms(Integer livingRooms)
   {
-    this.livingRooms = value;
+    this.livingRooms = livingRooms;
   }
 
-  /**
-   * Gets the value of the balconyArea property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getBalconyArea()
   {
     return balconyArea;
   }
 
-  /**
-   * Sets the value of the balconyArea property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setBalconyArea(Double value)
+  public void setBalconyArea(Double balconyArea)
   {
-    this.balconyArea = value;
+    this.balconyArea = balconyArea;
   }
 
-  /**
-   * Gets the value of the rooftopPrivate property.
-   *
-   * @return possible object is {@link Double }
-   *
-   */
   public Double getRooftopPrivate()
   {
     return rooftopPrivate;
   }
 
-  /**
-   * Sets the value of the rooftopPrivate property.
-   *
-   * @param value allowed object is {@link Double }
-   *
-   */
-  public void setRooftopPrivate(Double value)
+  public void setRooftopPrivate(Double rooftopPrivate)
   {
-    this.rooftopPrivate = value;
+    this.rooftopPrivate = rooftopPrivate;
   }
 
-  /**
-   * Gets the value of the maintenanceCharges property.
-   *
-   * @return possible object is {@link BigDecimal }
-   *
-   */
   public BigDecimal getMaintenanceCharges()
   {
     return maintenanceCharges;
   }
 
-  /**
-   * Sets the value of the maintenanceCharges property.
-   *
-   * @param value allowed object is {@link BigDecimal }
-   *
-   */
-  public void setMaintenanceCharges(BigDecimal value)
+  public void setMaintenanceCharges(BigDecimal maintenanceCharges)
   {
-    this.maintenanceCharges = value;
+    this.maintenanceCharges = maintenanceCharges;
   }
 
-  /**
-   * Gets the value of the tripleGlasses property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isTripleGlasses()
+  public Boolean getTripleGlasses()
   {
     return tripleGlasses;
   }
 
-  /**
-   * Sets the value of the tripleGlasses property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setTripleGlasses(Boolean value)
+  public void setTripleGlasses(Boolean tripleGlasses)
   {
-    this.tripleGlasses = value;
+    this.tripleGlasses = tripleGlasses;
   }
 
-  /**
-   * Gets the value of the jacuzzi property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isJacuzzi()
+  public Boolean getJacuzzi()
   {
     return jacuzzi;
   }
 
-  /**
-   * Sets the value of the jacuzzi property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setJacuzzi(Boolean value)
+  public void setJacuzzi(Boolean jacuzzi)
   {
-    this.jacuzzi = value;
+    this.jacuzzi = jacuzzi;
   }
 
-  /**
-   * Gets the value of the cableTV property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isCableTV()
+  public Boolean getCableTV()
   {
     return cableTV;
   }
 
-  /**
-   * Sets the value of the cableTV property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setCableTV(Boolean value)
+  public void setCableTV(Boolean cableTV)
   {
-    this.cableTV = value;
+    this.cableTV = cableTV;
   }
 
-  /**
-   * Gets the value of the professionalUse property.
-   *
-   * @return possible object is {@link Boolean }
-   *
-   */
-  public Boolean isProfessionalUse()
+  public Boolean getProfessionalUse()
   {
     return professionalUse;
   }
 
-  /**
-   * Sets the value of the professionalUse property.
-   *
-   * @param value allowed object is {@link Boolean }
-   *
-   */
-  public void setProfessionalUse(Boolean value)
+  public void setProfessionalUse(Boolean professionalUse)
   {
-    this.professionalUse = value;
+    this.professionalUse = professionalUse;
   }
 
-  /**
-   * Gets the value of the availableAtDate property.
-   *
-   * @return possible object is {@link XMLGregorianCalendar }
-   *
-   */
   public Calendar getAvailableAtDate()
   {
     return availableAtDate;
   }
 
-  /**
-   * Sets the value of the availableAtDate property.
-   *
-   * @param value allowed object is {@link XMLGregorianCalendar }
-   *
-   */
-  public void setAvailableAtDate(Calendar value)
+  public void setAvailableAtDate(Calendar availableAtDate)
   {
-    this.availableAtDate = value;
+    this.availableAtDate = availableAtDate;
   }
 
-  /**
-   * Gets the value of the onlineOwner property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOnlineOwner()
   {
     return onlineOwner;
   }
 
-  /**
-   * Sets the value of the onlineOwner property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOnlineOwner(String value)
+  public void setOnlineOwner(String onlineOwner)
   {
-    this.onlineOwner = value;
+    this.onlineOwner = onlineOwner;
   }
 
-  /**
-   * Gets the value of the onlineOwnerEmail property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOnlineOwnerEmail()
   {
     return onlineOwnerEmail;
   }
 
-  /**
-   * Sets the value of the onlineOwnerEmail property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOnlineOwnerEmail(String value)
+  public void setOnlineOwnerEmail(String onlineOwnerEmail)
   {
-    this.onlineOwnerEmail = value;
+    this.onlineOwnerEmail = onlineOwnerEmail;
   }
 
-  /**
-   * Gets the value of the onlineOwnerPhone property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getOnlineOwnerPhone()
   {
     return onlineOwnerPhone;
   }
 
-  /**
-   * Sets the value of the onlineOwnerPhone property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setOnlineOwnerPhone(String value)
+  public void setOnlineOwnerPhone(String onlineOwnerPhone)
   {
-    this.onlineOwnerPhone = value;
+    this.onlineOwnerPhone = onlineOwnerPhone;
   }
 
-  /**
-   * Gets the value of the photo1 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto1()
   {
     return photo1;
   }
 
-  /**
-   * Sets the value of the photo1 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto1(String value)
+  public void setPhoto1(String photo1)
   {
-    this.photo1 = value;
+    this.photo1 = photo1;
   }
 
-  /**
-   * Gets the value of the photo2 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto2()
   {
     return photo2;
   }
 
-  /**
-   * Sets the value of the photo2 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto2(String value)
+  public void setPhoto2(String photo2)
   {
-    this.photo2 = value;
+    this.photo2 = photo2;
   }
 
-  /**
-   * Gets the value of the photo3 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto3()
   {
     return photo3;
   }
 
-  /**
-   * Sets the value of the photo3 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto3(String value)
+  public void setPhoto3(String photo3)
   {
-    this.photo3 = value;
+    this.photo3 = photo3;
   }
 
-  /**
-   * Gets the value of the photo4 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto4()
   {
     return photo4;
   }
 
-  /**
-   * Sets the value of the photo4 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto4(String value)
+  public void setPhoto4(String photo4)
   {
-    this.photo4 = value;
+    this.photo4 = photo4;
   }
 
-  /**
-   * Gets the value of the photo5 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto5()
   {
     return photo5;
   }
 
-  /**
-   * Sets the value of the photo5 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto5(String value)
+  public void setPhoto5(String photo5)
   {
-    this.photo5 = value;
+    this.photo5 = photo5;
   }
 
-  /**
-   * Gets the value of the photo6 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto6()
   {
     return photo6;
   }
 
-  /**
-   * Sets the value of the photo6 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto6(String value)
+  public void setPhoto6(String photo6)
   {
-    this.photo6 = value;
+    this.photo6 = photo6;
   }
 
-  /**
-   * Gets the value of the photo7 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto7()
   {
     return photo7;
   }
 
-  /**
-   * Sets the value of the photo7 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto7(String value)
+  public void setPhoto7(String photo7)
   {
-    this.photo7 = value;
+    this.photo7 = photo7;
   }
 
-  /**
-   * Gets the value of the photo8 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto8()
   {
     return photo8;
   }
 
-  /**
-   * Sets the value of the photo8 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto8(String value)
+  public void setPhoto8(String photo8)
   {
-    this.photo8 = value;
+    this.photo8 = photo8;
   }
 
-  /**
-   * Gets the value of the photo9 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto9()
   {
     return photo9;
   }
 
-  /**
-   * Sets the value of the photo9 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto9(String value)
+  public void setPhoto9(String photo9)
   {
-    this.photo9 = value;
+    this.photo9 = photo9;
   }
 
-  /**
-   * Gets the value of the photo10 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto10()
   {
     return photo10;
   }
 
-  /**
-   * Sets the value of the photo10 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto10(String value)
+  public void setPhoto10(String photo10)
   {
-    this.photo10 = value;
+    this.photo10 = photo10;
   }
 
-  /**
-   * Gets the value of the photo11 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto11()
   {
     return photo11;
   }
 
-  /**
-   * Sets the value of the photo11 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto11(String value)
+  public void setPhoto11(String photo11)
   {
-    this.photo11 = value;
+    this.photo11 = photo11;
   }
 
-  /**
-   * Gets the value of the photo12 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto12()
   {
     return photo12;
   }
 
-  /**
-   * Sets the value of the photo12 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto12(String value)
+  public void setPhoto12(String photo12)
   {
-    this.photo12 = value;
+    this.photo12 = photo12;
   }
 
-  /**
-   * Gets the value of the photo13 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto13()
   {
     return photo13;
   }
 
-  /**
-   * Sets the value of the photo13 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto13(String value)
+  public void setPhoto13(String photo13)
   {
-    this.photo13 = value;
+    this.photo13 = photo13;
   }
 
-  /**
-   * Gets the value of the photo14 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto14()
   {
     return photo14;
   }
 
-  /**
-   * Sets the value of the photo14 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto14(String value)
+  public void setPhoto14(String photo14)
   {
-    this.photo14 = value;
+    this.photo14 = photo14;
   }
 
-  /**
-   * Gets the value of the photo15 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto15()
   {
     return photo15;
   }
 
-  /**
-   * Sets the value of the photo15 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto15(String value)
+  public void setPhoto15(String photo15)
   {
-    this.photo15 = value;
+    this.photo15 = photo15;
   }
 
-  /**
-   * Gets the value of the photo16 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto16()
   {
     return photo16;
   }
 
-  /**
-   * Sets the value of the photo16 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto16(String value)
+  public void setPhoto16(String photo16)
   {
-    this.photo16 = value;
+    this.photo16 = photo16;
   }
 
-  /**
-   * Gets the value of the photo17 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto17()
   {
     return photo17;
   }
 
-  /**
-   * Sets the value of the photo17 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto17(String value)
+  public void setPhoto17(String photo17)
   {
-    this.photo17 = value;
+    this.photo17 = photo17;
   }
 
-  /**
-   * Gets the value of the photo18 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto18()
   {
     return photo18;
   }
 
-  /**
-   * Sets the value of the photo18 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto18(String value)
+  public void setPhoto18(String photo18)
   {
-    this.photo18 = value;
+    this.photo18 = photo18;
   }
 
-  /**
-   * Gets the value of the photo19 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto19()
   {
     return photo19;
   }
 
-  /**
-   * Sets the value of the photo19 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto19(String value)
+  public void setPhoto19(String photo19)
   {
-    this.photo19 = value;
+    this.photo19 = photo19;
   }
 
-  /**
-   * Gets the value of the photo20 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto20()
   {
     return photo20;
   }
 
-  /**
-   * Sets the value of the photo20 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto20(String value)
+  public void setPhoto20(String photo20)
   {
-    this.photo20 = value;
+    this.photo20 = photo20;
   }
 
-  /**
-   * Gets the value of the photo21 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto21()
   {
     return photo21;
   }
 
-  /**
-   * Sets the value of the photo21 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto21(String value)
+  public void setPhoto21(String photo21)
   {
-    this.photo21 = value;
+    this.photo21 = photo21;
   }
 
-  /**
-   * Gets the value of the photo22 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto22()
   {
     return photo22;
   }
 
-  /**
-   * Sets the value of the photo22 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto22(String value)
+  public void setPhoto22(String photo22)
   {
-    this.photo22 = value;
+    this.photo22 = photo22;
   }
 
-  /**
-   * Gets the value of the photo23 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto23()
   {
     return photo23;
   }
 
-  /**
-   * Sets the value of the photo23 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto23(String value)
+  public void setPhoto23(String photo23)
   {
-    this.photo23 = value;
+    this.photo23 = photo23;
   }
 
-  /**
-   * Gets the value of the photo24 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto24()
   {
     return photo24;
   }
 
-  /**
-   * Sets the value of the photo24 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto24(String value)
+  public void setPhoto24(String photo24)
   {
-    this.photo24 = value;
+    this.photo24 = photo24;
   }
 
-  /**
-   * Gets the value of the photo25 property.
-   *
-   * @return possible object is {@link String }
-   *
-   */
   public String getPhoto25()
   {
     return photo25;
   }
 
-  /**
-   * Sets the value of the photo25 property.
-   *
-   * @param value allowed object is {@link String }
-   *
-   */
-  public void setPhoto25(String value)
+  public void setPhoto25(String photo25)
   {
-    this.photo25 = value;
+    this.photo25 = photo25;
   }
 
 }

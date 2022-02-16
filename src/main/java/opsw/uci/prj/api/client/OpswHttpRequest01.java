@@ -27,6 +27,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpStatus;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -216,11 +217,14 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
 
       document = docBuilder.newDocument();
 
+      CatReflectObject01 vRefRt = OpswReflection.ReflectObject(obj);
       List<CatReflectObject01> wRefL = OpswReflection.ReflectObjectToObject01List(obj);
 
       if (wRefL != null)
       {
-        Element vel = document.createElement(obj.getClass().getSimpleName());
+        this.xmlReaderWriter.CheckFieldBB(vRefRt);
+
+        Element vel = document.createElement(vRefRt.getXmlRootElementName());
         for (CatReflectObject01 c : wRefL)
         {
           this.xmlReaderWriter.ObjectProcessFill01(vel, c, document);
@@ -253,7 +257,16 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
 
       if (lcatObj != null)
       {
-        this.xmlReaderWriter.EntityProcessFill01(root, lcatObj, obj);
+        this.xmlReaderWriter.CheckFieldBB(lcatObj);
+
+        List<CatReflectObject01> vcatL = OpswReflection.ReflectObjectToObject01List(lcatObj.getFieldValue());
+        if (vcatL != null)
+        {
+          for (CatReflectObject01 v : vcatL)
+          {
+            this.xmlReaderWriter.EntityProcessFill01(root, v, obj);
+          }
+        }
       }
     }
     catch (Exception ex)

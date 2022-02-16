@@ -121,6 +121,7 @@ public class XmlReaderWriter
         if (obj.getFieldType().getName().equals(List.class.getName())
                 && obj.isIsGenericType())
         {
+          this.CheckFieldAA(obj);
           NodeList vNList = element.getElementsByTagName(obj.getXmlAnnotationName());
 
           if (vNList != null)
@@ -137,6 +138,7 @@ public class XmlReaderWriter
               for (CatReflectObject01 c : objR)
               {
                 Element vell = (Element) vnode;
+                this.CheckFieldAA(c);
                 this.EntityProcessFill01((Element) vell.getElementsByTagName(c.getXmlAnnotationName()).item(0), c, internalObj1);
               }
 
@@ -155,6 +157,7 @@ public class XmlReaderWriter
           {
             for (CatReflectObject01 c : objR)
             {
+              this.CheckFieldAA(c);
               NodeList vNList = element.getElementsByTagName(c.getXmlAnnotationName());
 
               if (vNList != null)
@@ -167,7 +170,8 @@ public class XmlReaderWriter
                   {
                     if (vnode.getNodeName().equals(c.getXmlAnnotationName()))
                     {
-                      this.EntityProcessFill01((Element) vnode, c, internalObj);
+                      Element vel = (Element) vnode;
+                      this.EntityProcessFill01((Element) vel, c, internalObj);
                     }
                   }
                 }
@@ -195,6 +199,50 @@ public class XmlReaderWriter
         }
 
         OpswReflection.SetFieldValue(object, obj.getFieldName(), vval);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  private void CheckFieldAA(CatReflectObject01 obj) throws CatException
+  {
+    try
+    {
+      if (obj != null)
+      {
+        if (OpswStringUtils.OpswStringIsEmpty(obj.getXmlAnnotationName()))
+        {
+          throw new CatException("Δεν έχει δοθεί Xml Tag Element για το πεδίο "
+                  + "[Filed = " + obj.getFieldName() + "]!");
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  /**
+   * Check root header!
+   *
+   * @param obj
+   * @throws CatException
+   */
+  public void CheckFieldBB(CatReflectObject01 obj) throws CatException
+  {
+    try
+    {
+      if (obj != null)
+      {
+        if (OpswStringUtils.OpswStringIsEmpty(obj.getXmlRootElementName()))
+        {
+          throw new CatException("Δεν έχει δοθεί Xml Root Tag Element για την κλάσση "
+                  + "[Class = " + obj.getFieldName() + "]!");
+        }
       }
     }
     catch (Exception ex)
