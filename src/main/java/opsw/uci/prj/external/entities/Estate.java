@@ -17,465 +17,465 @@ public class Estate
 {
 
   @XmlElement(name = "AgencyKey")
-  protected String agencyKey;
+  private String agencyKey;
   @XmlElement(name = "AgencyEmail", required = true)
-  protected String agencyEmail;
+  private String agencyEmail;
   @XmlElement(name = "AgencyPhone")
-  protected String agencyPhone;
+  private String agencyPhone;
   @XmlElement(name = "ID")
-  protected int id;
+  private int id;
   @XmlElement(name = "MLS_Code")
-  protected String mlsCode;
+  private String mlsCode;
   @XmlElement(name = "Status")
-  protected int status;
+  private int status;
   @XmlElement(name = "SendDate", required = true)
-  protected Calendar sendDate;
+  private Calendar sendDate;
   @XmlElement(name = "UpdateDate")
-  protected Calendar updateDate;
+  private Calendar updateDate;
   @XmlElement(name = "isSync")
-  protected boolean isSync;
+  private boolean isSync;
   @XmlElement(name = "OwnerID")
-  protected int ownerID;
+  private int ownerID;
   @XmlElement(name = "OwnerName", required = true)
-  protected String ownerName;
+  private String ownerName;
   @XmlElement(name = "RealtorID")
-  protected int realtorID;
+  private int realtorID;
   @XmlElement(name = "RealtorName", required = true)
-  protected String realtorName;
+  private String realtorName;
   @XmlElement(name = "Office")
-  protected String office;
+  private String office;
   @XmlElement(name = "Title_GR", required = true)
-  protected String titleGR;
+  private String titleGR;
   @XmlElement(name = "Title_EN", required = true)
-  protected String titleEN;
+  private String titleEN;
   @XmlElement(name = "Description_GR", required = true)
-  protected String descriptionGR;
+  private String descriptionGR;
   @XmlElement(name = "Description_EN", required = true)
-  protected String descriptionEN;
+  private String descriptionEN;
   @XmlElement(name = "HtmlDescriptionBig_GR", required = true)
-  protected String htmlDescriptionBigGR;
+  private String htmlDescriptionBigGR;
   @XmlElement(name = "HtmlDescriptionBig_EN", required = true)
-  protected String htmlDescriptionBigEN;
+  private String htmlDescriptionBigEN;
   @XmlElement(name = "Aim_ID")
-  protected int aimID;
+  private int aimID;
   @XmlElement(name = "Aim_GR")
-  protected String aimGR;
+  private String aimGR;
   @XmlElement(name = "Aim_EN")
-  protected String aimEN;
+  private String aimEN;
   @XmlElement(name = "EstateCategory_ID")
-  protected int estateCategoryID;
+  private int estateCategoryID;
   @XmlElement(name = "EstateCategory_GR")
-  protected String estateCategoryGR;
+  private String estateCategoryGR;
   @XmlElement(name = "EstateCategory_EN")
-  protected String estateCategoryEN;
+  private String estateCategoryEN;
   @XmlElement(name = "EstateSubCategory_ID")
-  protected Integer estateSubCategoryID;
+  private Integer estateSubCategoryID;
   @XmlElement(name = "EstateSubCategory_GR")
-  protected String estateSubCategoryGR;
+  private String estateSubCategoryGR;
   @XmlElement(name = "EstateSubCategory_EN")
-  protected String estateSubCategoryEN;
+  private String estateSubCategoryEN;
   @XmlElement(name = "Price")
-  protected BigDecimal price;
+  private BigDecimal price;
   @XmlElement(name = "Currency", required = true)
-  protected String currency;
+  private String currency;
   @XmlElement(name = "SqrMeters")
-  protected double sqrMeters;
+  private double sqrMeters;
   @XmlElement(name = "PlotSqr")
-  protected Double plotSqr;
+  private Double plotSqr;
   @XmlElement(name = "PricePerSqr")
-  protected BigDecimal pricePerSqr;
+  private BigDecimal pricePerSqr;
   @XmlElement(name = "SubArea_ID")
-  protected Integer subAreaID;
+  private Integer subAreaID;
   @XmlElement(name = "SubArea_GR")
-  protected String subAreaGR;
+  private String subAreaGR;
   @XmlElement(name = "SubArea_EN")
-  protected String subAreaEN;
+  private String subAreaEN;
   @XmlElement(name = "Area_ID")
-  protected int areaID;
+  private int areaID;
   @XmlElement(name = "Area_GR")
-  protected String areaGR;
+  private String areaGR;
   @XmlElement(name = "Area_EN")
-  protected String areaEN;
+  private String areaEN;
   @XmlElement(name = "Prefecture_ID")
-  protected int prefectureID;
+  private int prefectureID;
   @XmlElement(name = "Prefecture_GR")
-  protected String prefectureGR;
+  private String prefectureGR;
   @XmlElement(name = "Prefecture_EN")
-  protected String prefectureEN;
+  private String prefectureEN;
   @XmlElement(name = "Region_ID")
-  protected int regionID;
+  private int regionID;
   @XmlElement(name = "Region_GR")
-  protected String regionGR;
+  private String regionGR;
   @XmlElement(name = "Region_EN")
-  protected String regionEN;
+  private String regionEN;
   @XmlElement(name = "Country_ID")
-  protected int countryID;
+  private int countryID;
   @XmlElement(name = "Country_GR")
-  protected String countryGR;
+  private String countryGR;
   @XmlElement(name = "Country_EN")
-  protected String countryEN;
+  private String countryEN;
   @XmlElement(name = "EstateStatus_ID")
-  protected Integer estateStatusID;
+  private Integer estateStatusID;
   @XmlElement(name = "EstateStatus_GR")
-  protected String estateStatusGR;
+  private String estateStatusGR;
   @XmlElement(name = "EstateStatus_EN")
-  protected String estateStatusEN;
+  private String estateStatusEN;
   @XmlElement(name = "ConstuctYear")
-  protected Integer constuctYear;
+  private Integer constuctYear;
   @XmlElement(name = "Floor_ID")
-  protected Integer floorID;
+  private Integer floorID;
   @XmlElement(name = "Floor_GR")
-  protected String floorGR;
+  private String floorGR;
   @XmlElement(name = "Floor_EN")
-  protected String floorEN;
+  private String floorEN;
   @XmlElement(name = "Levels")
-  protected Integer levels;
+  private Integer levels;
   @XmlElement(name = "Rooms")
-  protected Integer rooms;
+  private Integer rooms;
   @XmlElement(name = "BedRooms")
-  protected Integer bedRooms;
+  private Integer bedRooms;
   @XmlElement(name = "WC")
-  protected Integer wc;
+  private Integer wc;
   @XmlElement(name = "Parkings")
-  protected Integer parkings;
+  private Integer parkings;
   @XmlElement(name = "View_ID")
-  protected Integer viewID;
+  private Integer viewID;
   @XmlElement(name = "View_GR")
-  protected String viewGR;
+  private String viewGR;
   @XmlElement(name = "View_EN")
-  protected String viewEN;
+  private String viewEN;
   @XmlElement(name = "StorageRoom")
-  protected Boolean storageRoom;
+  private Boolean storageRoom;
   @XmlElement(name = "Balcony")
-  protected Boolean balcony;
+  private Boolean balcony;
   @XmlElement(name = "HeatSystem_ID")
-  protected Integer heatSystemID;
+  private Integer heatSystemID;
   @XmlElement(name = "HeatSystem_GR")
-  protected String heatSystemGR;
+  private String heatSystemGR;
   @XmlElement(name = "HeatSystem_EN")
-  protected String heatSystemEN;
+  private String heatSystemEN;
   @XmlElement(name = "AirCondition")
-  protected Boolean airCondition;
+  private Boolean airCondition;
   @XmlElement(name = "SecureDoor")
-  protected Boolean secureDoor;
+  private Boolean secureDoor;
   @XmlElement(name = "Alarm")
-  protected Boolean alarm;
+  private Boolean alarm;
   @XmlElement(name = "InnerStairs")
-  protected Boolean innerStairs;
+  private Boolean innerStairs;
   @XmlElement(name = "Penthouse")
-  protected Boolean penthouse;
+  private Boolean penthouse;
   @XmlElement(name = "Corner")
-  protected Boolean corner;
+  private Boolean corner;
   @XmlElement(name = "NearTo")
-  protected String nearTo;
+  private String nearTo;
   @XmlElement(name = "DistanceVilage")
-  protected Integer distanceVilage;
+  private Integer distanceVilage;
   @XmlElement(name = "DistanceTown")
-  protected Integer distanceTown;
+  private Integer distanceTown;
   @XmlElement(name = "DistanceSea")
-  protected Integer distanceSea;
+  private Integer distanceSea;
   @XmlElement(name = "DistanceAirport")
-  protected Integer distanceAirport;
+  private Integer distanceAirport;
   @XmlElement(name = "StreetAccess_ID")
-  protected Integer streetAccessID;
+  private Integer streetAccessID;
   @XmlElement(name = "StreetAccess_GR")
-  protected String streetAccessGR;
+  private String streetAccessGR;
   @XmlElement(name = "StreetAccess_EN")
-  protected String streetAccessEN;
+  private String streetAccessEN;
   @XmlElement(name = "ObjectivePrice")
-  protected BigDecimal objectivePrice;
+  private BigDecimal objectivePrice;
   @XmlElement(name = "LegalResearch")
-  protected Boolean legalResearch;
+  private Boolean legalResearch;
   @XmlElement(name = "Mortgage")
-  protected Boolean mortgage;
+  private Boolean mortgage;
   @XmlElement(name = "NewBuild")
-  protected Boolean newBuild;
+  private Boolean newBuild;
   @XmlElement(name = "InternetLine")
-  protected Boolean internetLine;
+  private Boolean internetLine;
   @XmlElement(name = "Bathrooms")
-  protected Integer bathrooms;
+  private Integer bathrooms;
   @XmlElement(name = "Kitchens")
-  protected Integer kitchens;
+  private Integer kitchens;
   @XmlElement(name = "Fireplaces")
-  protected Integer fireplaces;
+  private Integer fireplaces;
   @XmlElement(name = "Pool")
-  protected Boolean pool;
+  private Boolean pool;
   @XmlElement(name = "BBQ")
-  protected Boolean bbq;
+  private Boolean bbq;
   @XmlElement(name = "Elevator")
-  protected Boolean elevator;
+  private Boolean elevator;
   @XmlElement(name = "Satelite")
-  protected Boolean satelite;
+  private Boolean satelite;
   @XmlElement(name = "ReBuild")
-  protected Boolean reBuild;
+  private Boolean reBuild;
   @XmlElement(name = "SolarSystem")
-  protected Boolean solarSystem;
+  private Boolean solarSystem;
   @XmlElement(name = "CCTV")
-  protected Boolean cctv;
+  private Boolean cctv;
   @XmlElement(name = "Playroom")
-  protected Boolean playroom;
+  private Boolean playroom;
   @XmlElement(name = "Garden")
-  protected Boolean garden;
+  private Boolean garden;
   @XmlElement(name = "Loft")
-  protected Boolean loft;
+  private Boolean loft;
   @XmlElement(name = "PetsAllow")
-  protected Boolean petsAllow;
+  private Boolean petsAllow;
   @XmlElement(name = "RuralResidence")
-  protected Boolean ruralResidence;
+  private Boolean ruralResidence;
   @XmlElement(name = "Furnishing")
-  protected Boolean furnishing;
+  private Boolean furnishing;
   @XmlElement(name = "Safe")
-  protected Boolean safe;
+  private Boolean safe;
   @XmlElement(name = "Stadium")
-  protected Boolean stadium;
+  private Boolean stadium;
   @XmlElement(name = "AutoWatering")
-  protected Boolean autoWatering;
+  private Boolean autoWatering;
   @XmlElement(name = "Grass")
-  protected Boolean grass;
+  private Boolean grass;
   @XmlElement(name = "Trees")
-  protected Boolean trees;
+  private Boolean trees;
   @XmlElement(name = "DoubleGlasses")
-  protected Boolean doubleGlasses;
+  private Boolean doubleGlasses;
   @XmlElement(name = "SD")
-  protected Double sd;
+  private Double sd;
   @XmlElement(name = "SK")
-  protected Double sk;
+  private Double sk;
   @XmlElement(name = "LayoutSqr")
-  protected Double layoutSqr;
+  private Double layoutSqr;
   @XmlElement(name = "LayoutLeft")
-  protected Double layoutLeft;
+  private Double layoutLeft;
   @XmlElement(name = "ForDevelopment")
-  protected Boolean forDevelopment;
+  private Boolean forDevelopment;
   @XmlElement(name = "Fenced")
-  protected Boolean fenced;
+  private Boolean fenced;
   @XmlElement(name = "Amphitheatrical")
-  protected Boolean amphitheatrical;
+  private Boolean amphitheatrical;
   @XmlElement(name = "Borehole")
-  protected Boolean borehole;
+  private Boolean borehole;
   @XmlElement(name = "Frontage")
-  protected Double frontage;
+  private Double frontage;
   @XmlElement(name = "Depth")
-  protected Double depth;
+  private Double depth;
   @XmlElement(name = "AOT")
-  protected String aot;
+  private String aot;
   @XmlElement(name = "LandUsage_ID")
-  protected Integer landUsageID;
+  private Integer landUsageID;
   @XmlElement(name = "LandUsage_GR")
-  protected String landUsageGR;
+  private String landUsageGR;
   @XmlElement(name = "LandUsage_EN")
-  protected String landUsageEN;
+  private String landUsageEN;
   @XmlElement(name = "CityPlan_ID")
-  protected Integer cityPlanID;
+  private Integer cityPlanID;
   @XmlElement(name = "CityPlan_GR")
-  protected String cityPlanGR;
+  private String cityPlanGR;
   @XmlElement(name = "CityPlan_EN")
-  protected String cityPlanEN;
+  private String cityPlanEN;
   @XmlElement(name = "RetrospectionFloors")
-  protected Integer retrospectionFloors;
+  private Integer retrospectionFloors;
   @XmlElement(name = "RetrospectionSqrMeters")
-  protected Double retrospectionSqrMeters;
+  private Double retrospectionSqrMeters;
   @XmlElement(name = "Shops")
-  protected Integer shops;
+  private Integer shops;
   @XmlElement(name = "Undergrounds")
-  protected Integer undergrounds;
+  private Integer undergrounds;
   @XmlElement(name = "Ramps")
-  protected Boolean ramps;
+  private Boolean ramps;
   @XmlElement(name = "LiftOfCharges")
-  protected Boolean liftOfCharges;
+  private Boolean liftOfCharges;
   @XmlElement(name = "UsageType")
-  protected String usageType;
+  private String usageType;
   @XmlElement(name = "ShopWindowSqr")
-  protected Double shopWindowSqr;
+  private Double shopWindowSqr;
   @XmlElement(name = "LoftSqr")
-  protected Double loftSqr;
+  private Double loftSqr;
   @XmlElement(name = "UndergroundSqr")
-  protected Double undergroundSqr;
+  private Double undergroundSqr;
   @XmlElement(name = "FakeRoof")
-  protected Boolean fakeRoof;
+  private Boolean fakeRoof;
   @XmlElement(name = "PortalID")
-  protected int portalID;
+  private int portalID;
   @XmlElement(name = "ProducerID")
-  protected Integer producerID;
+  private Integer producerID;
   @XmlElement(name = "Latidude")
-  protected Double latidude;
+  private Double latidude;
   @XmlElement(name = "Longitude")
-  protected Double longitude;
+  private Double longitude;
   @XmlElement(name = "Tents")
-  protected Boolean tents;
+  private Boolean tents;
   @XmlElement(name = "Boiler")
-  protected Boolean boiler;
+  private Boolean boiler;
   @XmlElement(name = "FloorType_ID")
-  protected Integer floorTypeID;
+  private Integer floorTypeID;
   @XmlElement(name = "Koufomata_ID")
-  protected Integer koufomataID;
+  private Integer koufomataID;
   @XmlElement(name = "YouTubeVideo")
-  protected String youTubeVideo;
+  private String youTubeVideo;
   @XmlElement(name = "ForStudents")
-  protected Boolean forStudents;
+  private Boolean forStudents;
   @XmlElement(name = "Diamperes")
-  protected Boolean diamperes;
+  private Boolean diamperes;
   @XmlElement(name = "Prosopseos")
-  protected Boolean prosopseos;
+  private Boolean prosopseos;
   @XmlElement(name = "NearToTransport")
-  protected Boolean nearToTransport;
+  private Boolean nearToTransport;
   @XmlElement(name = "NearToBus")
-  protected Boolean nearToBus;
+  private Boolean nearToBus;
   @XmlElement(name = "NearToMetro")
-  protected Boolean nearToMetro;
+  private Boolean nearToMetro;
   @XmlElement(name = "NearToTrain")
-  protected Boolean nearToTrain;
+  private Boolean nearToTrain;
   @XmlElement(name = "NearToTram")
-  protected Boolean nearToTram;
+  private Boolean nearToTram;
   @XmlElement(name = "MasterBedrooms")
-  protected Integer masterBedrooms;
+  private Integer masterBedrooms;
   @XmlElement(name = "Stonehouse")
-  protected Boolean stonehouse;
+  private Boolean stonehouse;
   @XmlElement(name = "Neoclassical")
-  protected Boolean neoclassical;
+  private Boolean neoclassical;
   @XmlElement(name = "HeatMedium_ID")
-  protected Integer heatMediumID;
+  private Integer heatMediumID;
   @XmlElement(name = "HeatMedium_GR")
-  protected String heatMediumGR;
+  private String heatMediumGR;
   @XmlElement(name = "HeatMedium_EN")
-  protected String heatMediumEN;
+  private String heatMediumEN;
   @XmlElement(name = "HeatType_ID")
-  protected Integer heatTypeID;
+  private Integer heatTypeID;
   @XmlElement(name = "HeatType_GR")
-  protected String heatTypeGR;
+  private String heatTypeGR;
   @XmlElement(name = "HeatType_EN")
-  protected String heatTypeEN;
+  private String heatTypeEN;
   @XmlElement(name = "View360")
-  protected String view360;
+  private String view360;
   @XmlElement(name = "Flag1")
-  protected Boolean flag1;
+  private Boolean flag1;
   @XmlElement(name = "Flag2")
-  protected Boolean flag2;
+  private Boolean flag2;
   @XmlElement(name = "Flag3")
-  protected Boolean flag3;
+  private Boolean flag3;
   @XmlElement(name = "Flag4")
-  protected Boolean flag4;
+  private Boolean flag4;
   @XmlElement(name = "EnergyCertificate")
-  protected String energyCertificate;
+  private String energyCertificate;
   @XmlElement(name = "SpitogatosLevel2")
-  protected Integer spitogatosLevel2;
+  private Integer spitogatosLevel2;
   @XmlElement(name = "SpitogatosLevel3")
-  protected Integer spitogatosLevel3;
+  private Integer spitogatosLevel3;
   @XmlElement(name = "Orientation")
-  protected String orientation;
+  private String orientation;
   @XmlElement(name = "Bright")
-  protected Boolean bright;
+  private Boolean bright;
   @XmlElement(name = "NightStream")
-  protected Boolean nightStream;
+  private Boolean nightStream;
   @XmlElement(name = "Underfloor")
-  protected Boolean underfloor;
+  private Boolean underfloor;
   @XmlElement(name = "isExclusive")
-  protected Boolean isExclusive;
+  private Boolean isExclusive;
   @XmlElement(name = "Luxury")
-  protected Boolean luxury;
+  private Boolean luxury;
   @XmlElement(name = "NoKoinoxrista")
-  protected Boolean noKoinoxrista;
+  private Boolean noKoinoxrista;
   @XmlElement(name = "Listed")
-  protected Boolean listed;
+  private Boolean listed;
   @XmlElement(name = "Investment")
-  protected Boolean investment;
+  private Boolean investment;
   @XmlElement(name = "Frontaged")
-  protected Boolean frontaged;
+  private Boolean frontaged;
   @XmlElement(name = "Interior")
-  protected Boolean interior;
+  private Boolean interior;
   @XmlElement(name = "Sieves")
-  protected Boolean sieves;
+  private Boolean sieves;
   @XmlElement(name = "RenovationYear")
-  protected Integer renovationYear;
+  private Integer renovationYear;
   @XmlElement(name = "PostalCode")
-  protected String postalCode;
+  private String postalCode;
   @XmlElement(name = "Traditional")
-  protected Boolean traditional;
+  private Boolean traditional;
   @XmlElement(name = "Mansion")
-  protected Boolean mansion;
+  private Boolean mansion;
   @XmlElement(name = "Airy")
-  protected Boolean airy;
+  private Boolean airy;
   @XmlElement(name = "OnHighway")
-  protected Boolean onHighway;
+  private Boolean onHighway;
   @XmlElement(name = "Painted")
-  protected Boolean painted;
+  private Boolean painted;
   @XmlElement(name = "HmiypaithriosSQR")
-  protected BigDecimal hmiypaithriosSQR;
+  private BigDecimal hmiypaithriosSQR;
   @XmlElement(name = "HmiypaithriosLegal")
-  protected Boolean hmiypaithriosLegal;
+  private Boolean hmiypaithriosLegal;
   @XmlElement(name = "LivingRooms")
-  protected Integer livingRooms;
+  private Integer livingRooms;
   @XmlElement(name = "BalconyArea")
-  protected Double balconyArea;
+  private Double balconyArea;
   @XmlElement(name = "RooftopPrivate")
-  protected Double rooftopPrivate;
+  private Double rooftopPrivate;
   @XmlElement(name = "MaintenanceCharges")
-  protected BigDecimal maintenanceCharges;
+  private BigDecimal maintenanceCharges;
   @XmlElement(name = "TripleGlasses")
-  protected Boolean tripleGlasses;
+  private Boolean tripleGlasses;
   @XmlElement(name = "Jacuzzi")
-  protected Boolean jacuzzi;
+  private Boolean jacuzzi;
   @XmlElement(name = "CableTV")
-  protected Boolean cableTV;
+  private Boolean cableTV;
   @XmlElement(name = "ProfessionalUse")
-  protected Boolean professionalUse;
+  private Boolean professionalUse;
   @XmlElement(name = "AvailableAtDate")
-  protected Calendar availableAtDate;
+  private Calendar availableAtDate;
   @XmlElement(name = "OnlineOwner")
-  protected String onlineOwner;
+  private String onlineOwner;
   @XmlElement(name = "OnlineOwnerEmail")
-  protected String onlineOwnerEmail;
+  private String onlineOwnerEmail;
   @XmlElement(name = "OnlineOwnerPhone")
-  protected String onlineOwnerPhone;
+  private String onlineOwnerPhone;
   @XmlElement(name = "Photo1")
-  protected String photo1;
+  private String photo1;
   @XmlElement(name = "Photo2")
-  protected String photo2;
+  private String photo2;
   @XmlElement(name = "Photo3")
-  protected String photo3;
+  private String photo3;
   @XmlElement(name = "Photo4")
-  protected String photo4;
+  private String photo4;
   @XmlElement(name = "Photo5")
-  protected String photo5;
+  private String photo5;
   @XmlElement(name = "Photo6")
-  protected String photo6;
+  private String photo6;
   @XmlElement(name = "Photo7")
-  protected String photo7;
+  private String photo7;
   @XmlElement(name = "Photo8")
-  protected String photo8;
+  private String photo8;
   @XmlElement(name = "Photo9")
-  protected String photo9;
+  private String photo9;
   @XmlElement(name = "Photo10")
-  protected String photo10;
+  private String photo10;
   @XmlElement(name = "Photo11")
-  protected String photo11;
+  private String photo11;
   @XmlElement(name = "Photo12")
-  protected String photo12;
+  private String photo12;
   @XmlElement(name = "Photo13")
-  protected String photo13;
+  private String photo13;
   @XmlElement(name = "Photo14")
-  protected String photo14;
+  private String photo14;
   @XmlElement(name = "Photo15")
-  protected String photo15;
+  private String photo15;
   @XmlElement(name = "Photo16")
-  protected String photo16;
+  private String photo16;
   @XmlElement(name = "Photo17")
-  protected String photo17;
+  private String photo17;
   @XmlElement(name = "Photo18")
-  protected String photo18;
+  private String photo18;
   @XmlElement(name = "Photo19")
-  protected String photo19;
+  private String photo19;
   @XmlElement(name = "Photo20")
-  protected String photo20;
+  private String photo20;
   @XmlElement(name = "Photo21")
-  protected String photo21;
+  private String photo21;
   @XmlElement(name = "Photo22")
-  protected String photo22;
+  private String photo22;
   @XmlElement(name = "Photo23")
-  protected String photo23;
+  private String photo23;
   @XmlElement(name = "Photo24")
-  protected String photo24;
+  private String photo24;
   @XmlElement(name = "Photo25")
-  protected String photo25;
+  private String photo25;
 
   public String getAgencyKey()
   {
