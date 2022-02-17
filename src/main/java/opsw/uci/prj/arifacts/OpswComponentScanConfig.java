@@ -11,6 +11,7 @@ import opsw.uci.prj.interceptors.OpswWebMvcConfig;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
 import opsw.uci.prj.starter.OpswExecutorConfig;
 import opsw.uci.prj.starter.OpswJpaStarter;
+import opsw.uci.prj.starter.OpswLocalResolver;
 import opsw.uci.prj.starter.ServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ import org.springframework.context.annotation.Configuration;
           OpswDatasourceConnectionProvider.class,
           OpswWebMvcConfig.class,
           OpswExecutorConfig.class,
+          OpswLocalResolver.class,
           //---OWN SERVICES-----//
           LcGramAssetsExcel01.class
         },

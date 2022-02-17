@@ -5,12 +5,15 @@
  */
 package opsw.uci.prj.interceptors;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 /**
  *
@@ -24,6 +27,9 @@ public class OpswWebMvcConfig implements WebMvcConfigurer
   public void addInterceptors(InterceptorRegistry registry)
   {
     registry.addInterceptor(new OpswInterceptorServ01())
+            .addPathPatterns("/**")
+            .excludePathPatterns("/resources/**", "/static/**");
+    registry.addInterceptor(localeChangeInterceptor())
             .addPathPatterns("/**")
             .excludePathPatterns("/resources/**", "/static/**");
   }
@@ -41,5 +47,22 @@ public class OpswWebMvcConfig implements WebMvcConfigurer
     ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
     taskExecutor.setThreadNamePrefix("mvc-task-");
     return taskExecutor;
+  }
+
+  @Bean
+  public LocaleChangeInterceptor localeChangeInterceptor()
+  {
+    LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+    lci.setParamName("lang");
+    return lci;
+  }
+
+  @Bean
+  public MessageSource messageSource()
+  {
+    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasename("i18n/messages");
+    messageSource.setDefaultEncoding("UTF-8");
+    return messageSource;
   }
 }
