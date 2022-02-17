@@ -45,13 +45,20 @@
               }
           } );
 
-          $('#button').click( function () {
+          $('#button-edit').click( function () {
             //var vid = table.row('.selected').$('#current').attr('value');
             var row = table.row('.selected').data();
             window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0];
             //Http.open("GET", url);
             //Http.send();
           } );
+          
+          $('#table1').on('dblclick','tr',function(e){
+              e.stopPropagation();
+              let rowID = $(this).attr('id');
+             
+              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + rowID;
+          });
         } );
       </script>
       <!--Test---------------------------------------->
@@ -132,16 +139,19 @@
               </option>
             </select>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-1">
             <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>Search</button>
-            <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-primary" name="action" value="export"><i class="fas fa-download"></i>Export</button>
+          </div>
+          <div class="col-md-1">
+            <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>Export</button>
+          </div>
+          <div class="col-md-1">
+            <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>Edit</button>
           </div>
         </form>
-        <div class="row">
-          <div class="col-md-12">
-            <button style="margin-bottom: 15px;margin-top: 10px" id="button" class="btn btn-primary" ><i class="fa fa-edit"></i>Edit</button>
-          </div>  
-          </div>
+        
+        <div style="margin-top: 4vh"> </div>
+        
         <!--<div class="table-responsive">-->
         <table id="table1" style="width:100%" class="hover table-responsive">
           <thead>
@@ -231,7 +241,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each = "ass00: ${CLM0}">
+            <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}">
               <td th:text = "${ass00.getAsset()}"></td>
               <td th:text = "${ass00.getAauci()}"></td>
               <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></td>
