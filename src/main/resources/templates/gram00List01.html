@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Gram00 Index</title>
+    <title th:text="#{GRAM00_PR.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -81,27 +81,27 @@
         </nav>
         <div class="container">
           <div class="row">
-            <h1>List of Gram00</h1>
+            <h1 th:text="#{GRAM00_PR.TITLE1}"></h1>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-3">
             <a th:href="@{/gram/gram00/ed01}" class="btn btn-primary btn-sm mb-3">
               <i class="fa fa-plus" aria-hidden="true"></i>
-              Add Gram00
+              <span th:text="#{GRAM00_PR.ADD_GRAM}"></span>
             </a>
           </div>
         </div>
         <table id="table1" class="hover" style="width:100%">
           <thead>
             <tr>
-              <th>Gram</th>
-              <th>Descr</th>
-              <th>DateCreate</th>
-              <th>User Create</th>
-              <th>Date Modify</th>
-              <th>User Modify</th>
-              <th>Actions</th>
+              <th th:text="#{GRAM00_PR.GRAM_COL}"></th>
+              <th th:text="#{GRAM00_PR.DESCR_COL}"></th>
+              <th th:text="#{GRAM00_PR.DATE_CREATE}"></th>
+              <th th:text="#{GRAM00_PR.USER_CREATE}"></th>
+              <th th:text="#{GRAM00_PR.DATE_MODIFY}"></th>
+              <th th:text="#{GRAM00_PR.USER_MODIFY}"></th>
+              <th th:text="#{GRAM00_PR.ACTIONS}"></th>
             </tr>
           </thead>
           <tbody>
@@ -115,11 +115,11 @@
               <td>
                 <a th:href="@{/gram/gram00/ed01?gram={gram}(gram=${gram00.gram})}" class="btn btn-primary btn-sm mb-3">
                   <i class="fa fa-edit"></i>
-                  Edit
+                  <span th:text="#{GRAM00_PR.EDIT}"></span>
                 </a>
                 <a th:href ="@{/gram/gram00/delete01/{gram} (gram=${gram00.gram}) }" class="btn btn-danger btn-sm mb-3">
                   <i class="fa fa-trash-alt"></i>  
-                  Delete
+                  <span th:text="#{GRAM00_PR.DELETE}"></span>
                 </a>
               </td>
             </tr>

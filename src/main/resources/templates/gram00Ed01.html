@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Gram00 Manage</title>
+    <title th:text="#{GRAM00_ED.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -42,11 +42,11 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class=""text-center>Edit Gram00</h1>
+            <h1 class=""text-center th:text="#{GRAM00_ED.TITLE1}"></h1>
             <form th:action="@{/gram/gram00/ed01/post01?gram={gram} (gram = ${CLM0.gram})}" th:object="${CLM0}" method="POST">
               <div class="card-body">
                 <div class="form-group">
-                  <label>Description</label>
+                  <label th:text="#{GRAM00_ED.DESCR}"></label>
                   <input
                     type="text"
                     name="descr"
@@ -54,7 +54,7 @@
                     class="form-control"
                     placeholder="Enter Gram Descr"
                     />
-                  <label>Description Sea</label>
+                  <label th:text="#{GRAM00_ED.DESCR_SEA}"></label>
                   <input
                     type="text"
                     name="descr_sea"
@@ -62,7 +62,7 @@
                     class="form-control"
                     placeholder="Enter Description Sea"
                     />
-                  <label>Start from line</label>
+                  <label th:text="#{GRAM00_ED.START_EXCEL}"></label>
                   <input
                     type="number"
                     name="start_line"
@@ -70,7 +70,7 @@
                     class="form-control"
                     placeholder="Enter start line"
                     />
-                  <label>Internal Key Fields</label>
+                  <label th:text="#{GRAM00_ED.ITERNAL_KEY_FLDS}"></label>
                   <select th:field="*{internalKeyFlds}" class="form-control" multiple>
                     <option th:each="s : ${internalKeyFldsLst}"
                             th:value="${s.getCode()}"
@@ -78,7 +78,7 @@
                       >
                     </option>
                   </select>
-                  <label>Internal Key Construction Sample</label>
+                  <label th:text="#{GRAM00_ED.INTERNAL_KEY_SAMPLE}"></label>
                   <input
                     type="text"
                     name="internalKeyFldsSample"
@@ -89,13 +89,13 @@
                 </div>  
                 <div class="container">
                   <div class="row">
-                    <h1>List of Gram01</h1>
+                    <h1 th:text="#{GRAM00_ED.GRAM01_LIST}"></h1>
                   </div>
                   <div class="row">
                     <div class="col-lg-3">
                       <a th:href="@{/gram/gram01/ed01/{gram} (gram=${CLM0.gram})}" class="btn btn-primary btn-sm mb-3" th:if="${CLM0.getGram()!=null}">
                         <i class="fa fa-plus" aria-hidden="true"></i>
-                        Add Field
+                        <span th:text="#{GRAM00_ED.ADD_GRAM01}"></span>
                       </a>
                     </div>
                   </div>
@@ -103,12 +103,12 @@
                 <table id="table1" class="hover" style="width:100%;" th:if="${CLM0.getGram()!=null}">
                   <thead>
                     <tr>
-                      <th>Excel Column</th>
-                      <th>Field Type</th>
-                      <th>Fielad Name</th>
-                      <th>Value Str</th>
-                      <th>Value Num</th>
-                      <th>Actions</th>
+                      <th th:text="#{GRAM00_ED.EXCEL_COLUMN}"></th>
+                      <th th:text="#{GRAM00_ED.FIELD_TYPE}"></th>
+                      <th th:text="#{GRAM00_ED.FIELD_NAME}"></th>
+                      <th th:text="#{GRAM00_ED.VALUE_STR}"></th>
+                      <th th:text="#{GRAM00_ED.VALUE_NUM}"></th>
+                      <th th:text="#{GRAM00_ED.ACTIONS}"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -132,8 +132,12 @@
 
               </div>
               <div class="box-footer">
-                <a th:href="@{/gram/gram00/list01}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>Back</a>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <a th:href="@{/gram/gram00/list01}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i>
+                  <span th:text="#{GRAM00_ED.BACK}"></span>
+                </a>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                  <span th:text="#{GRAM00_ED.SAVE}"></span>
+                </button>
               </div>
             </form>
           </div>

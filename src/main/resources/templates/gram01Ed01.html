@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Gram01 Management</title>
+    <title th:text = "#{GRAM01_ED.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -22,27 +22,27 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class=""text-center>Edit Gram01</h1>
+            <h1 class=""text-center th:text="#{GRAM01_ED.TITLE1}"></h1>
             <div class="card-body">
               <form th:action="@{/gram/gram01/ed01/post01/{gram}?senu={senu} (gram=${CLM0.gram}, senu=${CLM0.senu})}" th:object="${CLM0}" method="POST">
                 <div class="form-group">
-                  <label>Field Type</label>
+                  <label th:text="#{GRAM01_ED.FIELD_TYPE}"></label>
                   <select class="form-control" th:field="*{field_type}" name="field_type">
-                    <option value="">Select Field Type...</option>
+                    <option value="" th:text="#{GRAM01_ED.FIELD_TYPE_EX1}"></option>
                     <option th:each="field : ${fieldsList1}"
                             th:value="${field.getCode()}"
                             th:text="${field.getCode()} +' - '+${field.getDescr()}">
                     </option>
                   </select>
-                  <label>Field Name</label>
+                  <label th:text="#{GRAM01_ED.FIELD_NAME}"></label>
                   <select  class="form-control" th:field="*{field_name}" name="field_name"  type="value">
-                    <option value="">Select Field...</option>
+                    <option value="" th:text="#{GRAM01_ED.FIELD_TYPE_EX1}"></option>
                     <option th:each="field : ${fieldsList}"
                             th:value="${field.getCode()}"
                             th:text="${field.getCode()} +' - '+${field.getDescr()}">
                     </option>
                   </select>
-                  <label>Excel Column (Beginning From 0)</label>
+                  <label th:text="#{GRAM01_ED.EXCEL_FIELD_EX1}"></label>
                   <input
                     type="number"
                     name="excel_index"
@@ -50,7 +50,7 @@
                     class="form-control"
                     placeholder="Enter Excel index"
                     />
-                  <label>Alpharithmetic Value</label>
+                  <label th:text="#{GRAM01_ED.ALPHARITHM_VAL}"></label>
                   <input
                     type="text"
                     name="value_str"
@@ -58,7 +58,7 @@
                     class="form-control"
                     placeholder="Enter Alpharithmetic Value"
                     />
-                  <label>Arithmetic Value</label>
+                  <label th:text="#{GRAM01_ED.ARITHMETIC_VAL}"></label>
                   <input
                     type="number"
                     name="value_num"
@@ -66,7 +66,7 @@
                     class="form-control"
                     placeholder="Enter Arithmetic Value"
                     />
-                  <label>Date Format (Only on Date Fields)</label>
+                  <label th:text="#{GRAM01_ED.DATE_FORMAT}"></label>
                   <input
                     type="text"
                     name="date_format"
@@ -74,7 +74,7 @@
                     class="form-control"
                     placeholder="dd/MM/yyyy"
                     />
-                  <label>Concatenation Order</label>
+                  <label th:text="#{GRAM01_ED.CONCAT_ORDER}"></label>
                   <input
                     type="number"
                     name="concatOrder"
@@ -84,8 +84,12 @@
                     />
                 </div>
                 <div class="col-12">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-                  <a th:href="@{/gram/gram00/ed01?gram={gram} (gram=${CLM0.gram})}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                    <span th:text="#{GRAM01_ED.SAVE}"></span>
+                  </button>
+                  <a th:href="@{/gram/gram00/ed01?gram={gram} (gram=${CLM0.gram})}" class="btn btn-danger"><i class="fa fa-close"></i>
+                    <span th:text="#{GRAM01_ED.CANCEL}"></span>
+                  </a>
                 </div>
               </form>
             </div>
