@@ -104,7 +104,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     Object result = null;
     try
     {
-      HttpUriRequest httpPost = new HttpPost(this.getUrl());
+      HttpUriRequest httpPost = new HttpPost(this.OpswBuildUrlParams());
       this.KoinaRequest(httpPost);
 
       // Parse the response using DocumentBuilder so you can get at elements easily
@@ -161,7 +161,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     Object result = null;
     try
     {
-      HttpUriRequest httpGet = new HttpGet(this.getUrl());
+      HttpUriRequest httpGet = new HttpGet(this.OpswBuildUrlParams());
       this.KoinaRequest(httpGet);
 
       HttpResponse httpResponse = this.CreateHttpClient().execute(httpGet);

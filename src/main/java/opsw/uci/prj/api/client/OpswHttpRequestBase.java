@@ -5,6 +5,9 @@
  */
 package opsw.uci.prj.api.client;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import opsw.uci.prj.cat.CatException;
 
 /**
@@ -45,6 +48,8 @@ public abstract class OpswHttpRequestBase
   private Class<?> responseBody;
   private String dateFormat;
 
+  private Map<String, Object> urlParameters;
+
   public OpswHttpRequestBase()
   {
     this.method = OpswHttpMethod.OPSW_HTTP_MENTHOD_NONE;
@@ -54,6 +59,7 @@ public abstract class OpswHttpRequestBase
     this.requestBody = null;
     this.responseBody = null;
     this.dateFormat = "dd/MM/yyyy";
+    this.urlParameters = null;
   }
 
   public OpswHttpMethod getMethod()
@@ -126,6 +132,16 @@ public abstract class OpswHttpRequestBase
     this.dateFormat = dateFormat;
   }
 
+  public Map<String, Object> getUrlParameters()
+  {
+    return urlParameters;
+  }
+
+  public void setUrlParameters(Map<String, Object> urlParameters)
+  {
+    this.urlParameters = urlParameters;
+  }
+
   protected abstract Object OpswHttpSendRequest(Object object) throws CatException;
 
   protected void ValidationInternal() throws CatException
@@ -175,5 +191,47 @@ public abstract class OpswHttpRequestBase
     {
       CatException.RethrowCatException(ex);
     }
+  }
+
+  protected String OpswBuildUrlParams() throws CatException
+  {
+    String finUrl = null;
+    try
+    {
+      finUrl = this.url;
+
+      if (this.urlParameters != null)
+      {
+        Set<String> keySet = this.urlParameters.keySet();
+
+        if (keySet != null && !keySet.isEmpty())
+        {
+          finUrl += "?";
+
+          Iterator<String> vItKey = keySet.iterator();
+
+          int ii = 0;
+          while (vItKey.hasNext())
+          {
+            String vKeyParam = vItKey.next();
+
+            Object vValParam = this.urlParameters.get(vItKey);
+
+            if (ii > 0)
+            {
+              finUrl += "&";
+            }
+            finUrl += vKeyParam + "=" + String.valueOf(vValParam);
+
+            ii++;
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return finUrl;
   }
 }
