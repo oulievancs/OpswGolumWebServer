@@ -62,7 +62,8 @@ public class MainController
   }
 
   @GetMapping("init1")
-  public String init1(Model model, HttpServletRequest request, @RequestParam("lang") String ilang)
+  public String init1(Model model, HttpServletRequest request,
+          @RequestParam(name = "lang", required = false) String ilang)
           throws Exception
   {
     try

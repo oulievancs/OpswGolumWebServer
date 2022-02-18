@@ -24,7 +24,7 @@ public class OpswLanguage
       }
       else
       {
-        wLoginVars.setLoginUser(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL);
+        wLoginVars.setLoginUser(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
       }
     }
     catch (Exception ex)
