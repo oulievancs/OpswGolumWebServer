@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Notary Index</title>
+    <title th:text="#{SYMB_PR.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -81,7 +81,7 @@
         </nav>
         <div class="container">
           <div class="row">
-            <h1>List of Notary</h1>
+            <h1 th:text="#{SYMB_PR.TITLE1}"></h1>
           </div>
         </div>
         <div class="row">
@@ -94,22 +94,22 @@
           <div class="col-lg-3">
             <a th:href="@{/notary/ed01}" class="btn btn-primary btn-sm mb-3">
               <i class="fa fa-plus" aria-hidden="true"></i>
-              Add Notary
+              <span th:text="#{SYMB_PR.ADD_SYMB}"></span>
             </a>
           </div>
         </div>
         <table id="table1" class="hover" style="width:100%">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Surname</th>
-              <th>Telephone</th>
-              <th>E-mail</th>
-              <th>Date Create</th>
-              <th>User Create</th>
-              <th>Date Modify</th>
-              <th>User Modify</th>
-              <th>Actions</th>
+              <th th:text="#{SYMB_PR.NAME}"></th>
+              <th th:text="#{SYMB_PR.SURNAME}"></th>
+              <th th:text="#{SYMB_PR.TELEPHONE}"></th>
+              <th th:text="#{SYMB_PR.EMAIL}"></th>
+              <th th:text="#{SYMB_PR.DATE_CREATE}"></th>
+              <th th:text="#{SYMB_PR.USER_CREATE}"></th>
+              <th th:text="#{SYMB_PR.DATE_MODIFY}"></th>
+              <th th:text="#{SYMB_PR.USER_MODIFY}"></th>
+              <th th:text="#{SYMB_PR.ACTIONS}"></th>
             </tr>
           </thead>
           <tbody>
@@ -125,11 +125,11 @@
               <td>
                 <a th:href="@{/notary/ed01?id={id}(id=${notary.getId()})}" class="btn btn-primary btn-sm mb-3">
                   <i class="fa fa-edit"></i>
-                  Edit
+                  <span th:text="#{SYMB_PR.EDIT}"></span>
                 </a>
                 <a th:href ="@{/notary/delete01/{id} (id=${notary.getId()}) }" class="btn btn-danger btn-sm mb-3">
                   <i class="fa fa-trash-alt"></i>  
-                  Delete
+                  <span th:text="#{SYMB_PR.DELETE}"></span>
                 </a>
               </td>
             </tr>            

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Import File</title>
+    <title th:text="#{INPORT.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -84,7 +84,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
-              <h1 class=""text-center>File Inport</h1>
+              <h1 class=""text-center th:text="#{INPORT.TITLE1}"></h1>
               <div class="card-body">
                 <form method="post" th:action="@{/actions/inportfile/post}" th:object="${gramRec}" enctype="multipart/form-data">
                   <div class="row">
@@ -93,16 +93,16 @@
                       <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
                       <div class="form-group">
                         <input type="file" name="file" class="form-control-file">
-                        <label>Gram</label>
+                        <label th:text="#{INPORT.SELECT_GRAM}"></label>
                         <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
-                          <option value="">Select Gram...</option>
+                          <option value="" th:text="#{INPORT.SELECT_GRAM_EX1}"></option>
                           <option th:each="gr : ${gramList}"
                                   th:value="${gr.getGram()}"
                                   th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
                           </option>
                         </select>
                       </div>
-                      <button type="submit" class="btn btn-primary">Upload File</button>
+                      <button type="submit" class="btn btn-primary"><span th:text="#{INPORT.UPLOAD_FILE}"></span></button>
                     </div>
                   </div>
                 </form>

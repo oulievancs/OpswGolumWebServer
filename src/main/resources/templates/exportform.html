@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Export File</title>
+    <title th:text="#{EXPORT.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -77,10 +77,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-              <h1 class=""text-center>Export File from Assets</h1>
+              <h1 class=""text-center th:text="#{EXPORT.TITLE1}"></h1>
               <form th:action="@{/actions/exportfile/post}" method="POST" th:object="${paramsOb}">
                 <div class="card-body">
-                  <label for="birthdate">Date From</label>
+                  <label for="birthdate" th:text="#{EXPORT.DATE_FROM}"></label>
                   <input 
                     type="date"
                     class="form-control"
@@ -89,7 +89,7 @@
                     autocomplete="off"
                     name="dateFrom"
                     th:field="*{searchDates.dateFrom}" />
-                  <label for="birthdate">Date To</label>
+                  <label for="birthdate" th:text="#{EXPORT.DATE_TO}"></label>
                   <input
                     type="date"
                     class="form-control"
@@ -98,17 +98,17 @@
                     autocomplete="off"
                     name="dateTo"
                     th:field="*{searchDates.dateTo}"/>
-                  <label>Συμβολαιογράφος</label>
+                  <label th:text="#{EXPORT.SYMB}"></label>
                   <select  class="form-control" th:field="*{symb_id}" name="symb_id"  type="number">
-                    <option value="">Συμβολαιογράφος (Filter)...</option>
+                    <option value="" th:text="#{EXPORT.SYMB_EX1}"></option>
                     <option th:each="s : ${CLM1}"
                             th:value="${s.getId()}"
                             th:text="${s.getName()} + ' ' + ${s.getSurename()}">
                     </option>
                   </select>
-                  <label>Gram</label>
+                  <label th:text="#{EXPORT.GRAM}"></label>
                   <select  class="form-control" th:field="*{gram00}" name="gram"  type="number">
-                    <option value="">Select Gram...</option>
+                    <option value="" th:text="#{EXPORT.GRAM_EX1}"></option>
                     <option th:each="gr : ${gramList}"
                             th:value="${gr.getGram()}"
                             th:text="${gr.getGram()} +' : '+${gr.getDescr()}">
@@ -116,7 +116,9 @@
                   </select>
                 </div>
                 <div class="box-footer">
-                  <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i>Export</button>
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i>
+                    <span th:text="#{EXPORT.EXPORT_BTN"></span>
+                  </button>
                 </div>
               </form>
             </div>

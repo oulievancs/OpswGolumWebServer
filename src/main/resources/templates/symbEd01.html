@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI - Notary Management</title>
+    <title th:text="#{SYMB_ED.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -84,11 +84,11 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-              <h1 class=""text-center>Edit Notary</h1>
+              <h1 class=""text-center th:text="#{SYMB_ED.TITLE1}"></h1>
               <form th:action="@{/notary/ed01/post01?id={id} (id=${CLM0.id})}" method="POST" th:object="${CLM0}">
                 <div class="card-body">
                   <div class="form-group">
-                  <label>Name</label>
+                  <label th:text="#{SYMB_ED.NAME}"></label>
                   <input
                     type="text"
                     name="name"
@@ -97,7 +97,7 @@
                     placeholder="Enter Notary Name"
                     />
                 </div>
-                  <label>SurName</label>
+                  <label th:text="#{SYMB_ED.SURNAME}"></label>
                   <input
                     type="text"
                     name="surename"
@@ -105,7 +105,7 @@
                     class="form-control"
                     placeholder="Enter Notary Surname"
                     />
-                  <label>Telephone</label>
+                  <label th:text="#{SYMB_ED.TELEPHONE}"></label>
                   <input
                     type="tel"
                     name="tele"
@@ -113,7 +113,7 @@
                     class="form-control"
                     placeholder="Enter Notary Telephone"
                     />
-                  <label>E-mail</label>
+                  <label th:text="#{SYMB_ED.EMAIL}"></label>
                   <input
                     type="email"
                     name="email"
@@ -123,8 +123,12 @@
                     />
                 </div>
                 <div class="box-footer">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-                  <a th:href="@{/notary/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                    <span th:text="#{SYMB_ED.SAME}"></span>
+                  </button>
+                  <a th:href="@{/notary/list01}" class="btn btn-danger"><i class="fa fa-close"></i>
+                    <span th:text="#{SYMB_ED.CANCEL}"></span>
+                  </a>
                 </div>
               </form>
             </div>

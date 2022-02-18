@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8"></meta>
-    <title>Customer Managment System</title>
+    <title th:text="#{ASSETS00.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 
@@ -115,24 +115,24 @@
         </nav>
         <div class="container">
           <div class="row">
-            <h1>List of Assets00</h1>
+            <h1 th:text="{ASSETS00.TITLE1}"></h1>
           </div>
         </div>
 
 
         <form class="row g-3" method="POST" th:object="${params}">
           <div class="col-md-4">
-            <label for="dataFromAssets" class="form-label">Date From</label>
+            <label for="dataFromAssets" class="form-label" th:text="#{ASSETS00.DATE_FROM}"></label>
             <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
           </div>
           <div class="col-md-4">
-            <label for="dataToAssets" class="form-label">Date To</label>
+            <label for="dataToAssets" class="form-label" th:text="#{ASSETS00.DATE_TO}"></label>
             <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/> 
           </div>
           <div class="col-md-4">
-            <label for="symbSelect" class="form-label">Συμβολαιογράφος</label>
+            <label for="symbSelect" class="form-label" th:text="#{ASSETS00.SYMB}"></label>
             <select id="symbSelect" class="form-select" th:field="*{symb_id}" name="symb_id"  type="number">
-              <option value="">Συμβολαιογράφος (Filter)...</option>
+              <option value="" th:text="#{ASSETS00.SYMB_EX1}"></option>
               <option th:each="s : ${CLM1}"
                       th:value="${s.getId()}"
                       th:text="${s.getName()} + ' ' + ${s.getSurename()}">
@@ -140,13 +140,19 @@
             </select>
           </div>
           <div class="col-md-1">
-            <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>Search</button>
+            <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>
+              <span th:text="#{ASSETS00.SEARCH}"></span>
+            </button>
           </div>
           <div class="col-md-1">
-            <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>Export</button>
+            <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>
+              <span th:text="#{ASSETS00.EXPORT}"></span>
+            </button>
           </div>
           <div class="col-md-1">
-            <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>Edit</button>
+            <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>
+              <span th:text="#{ASSETS00.EDIT}"></span>
+            </button>
           </div>
         </form>
         
@@ -170,43 +176,43 @@
               Landea Comments	Update Auction	HIGH INTEREST
 
               -->
-              <th>ID</th>
-              <th>A/A UCI</th>
-              <th>Assignment File</th>
-              <th>Internal Key</th>
-              <th>Auction Status / Κατάσταση</th>
-              <th>Mοναδικός Kωδικός</th>
-              <th>Auction URL</th>
-              <th>Συμβολαιογράφος</th>
-              <th>Συμβολαιογράφος Τηλέφωνο</th>
-              <th>Buyer</th>
-              <th>Producer</th>
-              <th>Count Assets</th>
-              <th>Borrower Name</th>
-              <th>Property ID</th>
-              <th>Collateral Use 1</th>
-              <th>Collateral Sub type</th>
-              <th>Municipality</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Zipcode</th>
-              <th>GPSCoordinates</th>
-              <th>Description</th>
-              <th>Land Area</th>
-              <th>Built Area</th>
-              <th>Main Surface Area (sqm)</th>
-              <th>Auxiliary Surface Area (sqm)</th>
-              <th>Arbitrary Surface Area (sqm)</th>
-              <th>Full Ownership Flag</th>
-              <th>Construction Year</th>
-              <th>Floor</th>
-              <th>Auction_ID</th>
-              <th>Unique Auction Code</th>
-              <th>Auction date</th>
-              <th>Starting Price</th>
-              <th>Landea link</th>
-              <th>Region</th>
-              <th>Prefecture</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th>Ownership Type</th>
               <th>Auction Date (Month & YEAR)</th>
               <th>Image01</th>
