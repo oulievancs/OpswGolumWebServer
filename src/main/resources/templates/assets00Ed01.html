@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>UCI Customer Managment System</title>
+    <title th:text="#{ASSETS00_ED.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -101,16 +101,28 @@
         </nav>
         <div class="container">
           <div class="row">
-            <h1 class="text-center">Edit Asset00</h1>
+            <h1 class="text-center" th:text="#{ASSETS00_ED.TITLE1}"></h1>
           </div>
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-cust-info-tab" data-bs-toggle="tab" data-bs-target="#nav-cust-info" type="button" role="tab" aria-controls="nav-cust-info" aria-selected="true">Information</button>
-              <button class="nav-link" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="false">Auction Details</button>
-              <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">First Information Received</button>
-              <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">Links</button>
-              <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">Final Information</button>
-              <button class="nav-link" id="nav-other-tab" data-bs-toggle="tab" data-bs-target="#nav-other" type="button" role="tab" aria-controls="nav-other" aria-selected="false">Other</button>
+              <button class="nav-link active" id="nav-cust-info-tab" data-bs-toggle="tab" data-bs-target="#nav-cust-info" type="button" role="tab" aria-controls="nav-cust-info" aria-selected="true">
+                <span th:text="#{ASSETS00_ED.INFORMATION}"></span>
+              </button>
+              <button class="nav-link" id="nav-auction-details-tab" data-bs-toggle="tab" data-bs-target="#nav-auction-details" type="button" role="tab" aria-controls="nav-auction-details" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.AUCTION_DETAILS}"></span>
+              </button>
+              <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.FIRST_INFO}"></span>
+              </button>
+              <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.LINKS}"></span>
+              </button>
+              <button class="nav-link" id="nav-final-information-tab" data-bs-toggle="tab" data-bs-target="#nav-final-information" type="button" role="tab" aria-controls="nav-final-information" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.FINAL_INFO}"></span>
+              </button>
+              <button class="nav-link" id="nav-other-tab" data-bs-toggle="tab" data-bs-target="#nav-other" type="button" role="tab" aria-controls="nav-other" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.OTHERS}"></span>
+              </button>
             </div>
           </nav>
           <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
@@ -118,9 +130,9 @@
               <!-- Tab1 -->
               <div class="tab-pane fade show active" id="nav-cust-info" role="tabpanel" aria-labelledby="nav-cust-info-tab">
                 <div class="row g-3">
-                  <p>Tab Info</p>
+                  <p  th:text="#{ASSETS00_ED.INFORMATION}"></p>
                   <div class="col-md-4">
-                    <label for="aauci_rec" class="form-label">A/A Uci</label>
+                    <label for="aauci_rec" class="form-label" th:text="#{ASSETS00_ED.AAUCI}"></label>
                     <input
                       id="aauci"
                       type="number"
@@ -130,7 +142,7 @@
                       disabled/>
                   </div>
                   <div class="col-md-4">
-                    <label for="intrnlkey_rec" class="form-label">Internal Key</label>
+                    <label for="intrnlkey_rec" class="form-label" th:text="#{ASSETS00_ED.INTERNL_KEY}"></label>
                     <input
                       id="intrnlkey_rec"
                       type="text"
@@ -140,7 +152,7 @@
                       disabled/>
                   </div>
                   <div class="col-md-2">
-                    <label for="assfile_rec" class="form-label">Assigmet Date</label>
+                    <label for="assfile_rec" class="form-label" th:text="#{ASSETS00_ED.ASSIGNMENT}"></label>
                     <input 
                       type="text"
                       autocomplete="false"
@@ -151,7 +163,7 @@
                 </div>
                 <div class="row g-3">
                   <div class="col-md-4">
-                    <label for="asset" class="form-label">System Id</label>
+                    <label for="asset" class="form-label" th:text="#{ASSETS00_ED.SYSTEM_ID}"></label>
                     <input
                       id="asset"
                       type="number"
@@ -163,7 +175,7 @@
                 </div>
                 <div class="row g-3 align-self-end" style="display: inline-flex !important;">
                   <div class="col-md-8">
-                    <label for="user_create" class="form-label">User Create</label>
+                    <label for="user_create" class="form-label" th:text="#{ASSETS00_ED.USER_CREATE}"></label>
                     <input
                       id="user_create"
                       type="text"
@@ -171,7 +183,7 @@
                       th:value="${CLM0.getUser_create()}"
                       class="form-control"
                       disabled/>
-                    <label for="date_create" class="form-label">Date Create</label>
+                    <label for="date_create" class="form-label" th:text="#{ASSETS00_ED.DATE_CREATE}"></label>
                     <input
                       id="date_create"
                       type="text"
@@ -183,7 +195,7 @@
                 </div>
                 <div class="row g-3 align-self-end" style="display: inline-flex !important;">
                   <div class="col-md-8">
-                    <label for="user_modify" class="form-label">User Modify</label>
+                    <label for="user_modify" class="form-label" th:text="#{ASSETS00_ED.USER_MODIFY}"></label>
                     <input
                       id="user_modify"
                       type="text"
@@ -191,7 +203,7 @@
                       th:value="${CLM0.getUser_modify()}"
                       class="form-control"
                       disabled/>
-                    <label for="date_modify" class="form-label">Date Modify</label>
+                    <label for="date_modify" class="form-label" th:text="#{ASSETS00_ED.DATE_MODIFY}"></label>
                     <input
                       id="date_modify"
                       type="text"
@@ -206,9 +218,9 @@
               <!--Tab 1 content-->
               <div class="tab-pane fade show" id="nav-auction-details" role="tabpanel" aria-labelledby="nav-auction-details-tab">
                 <div class="row g-3" style="display: inline-flex !important;">
-                  <p>Tab1</p>
+                  <p th:text="#{ASSETS00_ED.AUCTION_DETAILS}"></p>
                   <div class="col-md-4">
-                    <label for="statusdeff" class="form-label">Status</label>
+                    <label for="statusdeff" class="form-label" th:text="#{ASSETS00_ED.STATUS}"></label>
                     <input
                       id="statusdeff"
                       type="text"
@@ -219,7 +231,7 @@
                       />
                   </div>
                   <div class="col-md-4">
-                    <label for="uniqcode" class="form-label">Unique Code</label>
+                    <label for="uniqcode" class="form-label" th:text="#{ASSETS00_ED.INOQUE_CODE}"></label>
                     <input
                       id="uniqcode"
                       type="text"
@@ -230,7 +242,7 @@
                       />
                   </div>
                   <div class="col-md-4">
-                    <label for="auctionurl" class="form-label">Auction URL</label>
+                    <label for="auctionurl" class="form-label" th:text="#{ASSETS00_ED.AUCTION_URL}"></label>
                     <div class="input-group">
                       <span class="input-group-text">www</span>
                       <input
@@ -244,7 +256,7 @@
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <label for="notary-name" class="form-label">Notary Name</label>
+                    <label for="notary-name" class="form-label" th:text="#{ASSETS00_ED.NOTARY_NAME}"></label>
                     <input
                       id="notary-name"
                       type="text"
@@ -255,7 +267,7 @@
                       />
                   </div>
                   <div class="col-md-3">
-                    <label for="notary-surname" class="form-label">Notary Surname</label>
+                    <label for="notary-surname" class="form-label" th:text="#{ASSETS00_ED.NOTARY_SURNAME}"></label>
                     <input
                       id="notary-surname"
                       type="text"
@@ -266,7 +278,7 @@
                       />
                   </div>
                   <div class="col-md-3">
-                    <label for="notary-tel" class="form-label">Notary Telephone</label>
+                    <label for="notary-tel" class="form-label" th:text="#{ASSETS00_ED.NOTARY_PHONE}"></label>
                     <div class="input-group">
                       <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
                       <input
@@ -280,7 +292,7 @@
                     </div>
                   </div>
                   <div class="col-md-3">
-                    <label for="notary-email" class="form-label">Notary Email</label>
+                    <label for="notary-email" class="form-label" th:text="#{ASSETS00_ED.NOTARY_EMAIL}"></label>
                     <div class="input-group">
                       <span class="input-group-text" id="inputGroupPrepend2">@</span>
                       <input
@@ -299,9 +311,9 @@
               <!-- Tab2 Content -->
               <div class="tab-pane fade row g-3" id="nav-first-information" role="tabpanel" aria-labelledby="nav-first-information-tab">
                 <div class="row g-3" style="display: inline-flex !important;">
-                  <p>Tab2</p>
+                  <p th:text="#{ASSETS00_ED.FIRST_INFO}"></p>
                   <div class="col-md-3">
-                    <label for="borrname" class="form-label">Borrower Name</label>
+                    <label for="borrname" class="form-label" th:text="#{ASSETS00_ED.BORROWER_NAME}"></label>
                     <input 
                       type="text"
                       name="borrname"
@@ -310,7 +322,7 @@
                       class="form-control" id="borrname" />
                   </div>
                   <div class="col-md-3">
-                    <label for="property-id" class="form-label">Property ID</label>
+                    <label for="property-id" class="form-label" th:text="#{ASSETS00_ED.PROPERTY_ID}"></label>
                     <input 
                       type="text"
                       name="property_id"
@@ -319,7 +331,7 @@
                       class="form-control" id="property-id" />
                   </div>
                   <div class="col-md-3">
-                    <label for="callateral1" class="form-label">Collateral Use</label>
+                    <label for="callateral1" class="form-label" th:text="#{ASSETS00_ED.COLLATERAL_USE}"></label>
                     <input
                       type="text"
                       name="callateral1"
@@ -328,7 +340,7 @@
                       class="form-control" id="callateral1" />
                   </div>
                   <div class="col-md-3">
-                    <label for="callateral_sub_type" class="form-label">Collateral Sub Type</label>
+                    <label for="callateral_sub_type" class="form-label" th:text="#{ASSETS00_ED.COLLATERAL-SUB_TYPE}"></label>
                     <input 
                       type="text" class="form-control" 
                       name="callateral_sub_type"
@@ -339,7 +351,7 @@
 
 
                   <div class="col-md-3">
-                    <label for="municipality" class="form-label">Municipality</label>
+                    <label for="municipality" class="form-label" th:text="#{Municipality}"></label>
                     <input 
                       type="text"
                       name="municipality"
@@ -348,7 +360,7 @@
                       class="form-control" id="municipality" />
                   </div>
                   <div class="col-md-2">
-                    <label for="city" class="form-label">City</label>
+                    <label for="city" class="form-label" th:text="#{ASSETS00_ED.CITY}"></label>
                     <input 
                       type="text"
                       name="city"
@@ -357,7 +369,7 @@
                       class="form-control" id="city" />
                   </div>
                   <div class="col-md-3">
-                    <label for="address" class="form-label">Address</label>
+                    <label for="address" class="form-label" th:text="#{ASSETS00_ED.ADDRESS}"></label>
                     <input
                       type="text"
                       name="address"
@@ -366,7 +378,7 @@
                       class="form-control" id="address" />
                   </div>
                   <div class="col-md-2" style="width: 10% !important;">
-                    <label for="zipcode" class="form-label">Zip Code</label>
+                    <label for="zipcode" class="form-label" th:text="#{ASSETS00_ED.ZIP_CODE}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -376,7 +388,7 @@
                       id="zipcode" />
                   </div>
                   <div class="col-md-3" style="width: 23% !important;">
-                    <label for="gpscords" class="form-label">GPS Coordinates</label>
+                    <label for="gpscords" class="form-label" th:text="#{ASSETS00_ED.GPS_CORDS}"></label>
                     <div class="input-group">
                       <!--<span class="input-group-text" id="inputGroupPrepend2"><i class="fa fa-map-marker" aria-hidden="true"></i></span>-->
                       <button class="btn btn-outline-secondary" type="button" id="clipboard" onclick="myFunction()"><i class="fa fa-clone" aria-hidden="true"></i></button>
@@ -391,7 +403,7 @@
                     <div class="toast bg-success text-white" id="toastMessage" role="alert" aria-live="assertive" aria-atomic="true">
                       <div class="d-flex">
                         <div class="toast-body">
-                          GPS Cordinates Copy to Clipboard
+                          <span th:text="#{ASSETS00_ED.GPS_CORDS_COPY}"></span>
                           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
                             <span aria-hidden="true">&times;</span> 
                           </button>
@@ -400,7 +412,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label" for="description">Description</label>
+                    <label class="form-label" for="description" th:text="#{ASSETS00_ED.DESCRIPTION}"></label>
                     <div class="form-floating">
                       <textarea
                         style="height: 125px;"
@@ -410,12 +422,12 @@
                         th:field="*{description}"
                         placeholder="Enter Description"
                         id="description"></textarea>
-                      <label for="description">Description</label>
+                      <label for="description" th:text="#{ASSETS00_ED.DESCRIPTION}"></label>
                     </div>
                   </div>
                   <div class="row" style="display: flex;align-items: center;justify-content: center;padding: 15px 0 15px 0;">
                     <div class="col-md-2">
-                      <label for="landarea" class="form-label">Land Area</label>
+                      <label for="landarea" class="form-label" th:text="#{ASSETS00_ED.LAND_AREA}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -425,7 +437,7 @@
                         id="landarea" />
                     </div>
                     <div class="col-md-2">
-                      <label for="buildarea" class="form-label">Build Area</label>
+                      <label for="buildarea" class="form-label" th:text="#{ASSETS00_ED.BUILD_AREA}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -435,7 +447,7 @@
                         id="buildarea" />
                     </div>
                     <div class="col-md-2">
-                      <label for="mainsurefacearea" class="form-label">Surface Area</label>
+                      <label for="mainsurefacearea" class="form-label" th:text="#{ASSETS00_ED.SURFACE_AREA}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -445,7 +457,7 @@
                         id="mainsurefacearea" />
                     </div>
                     <div class="col-md-2">
-                      <label for="auxilliarysurefacearea" class="form-label">Auxilary Area</label>
+                      <label for="auxilliarysurefacearea" class="form-label" th:text="#{ASSETS00_ED.AUXILIARY_AREA}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -455,7 +467,7 @@
                         id="auxilliarysurefacearea" />
                     </div>
                     <div class="col-md-2">
-                      <label for="arbitarysurefacearea" class="form-label">Arbitary Area</label>
+                      <label for="arbitarysurefacearea" class="form-label" th:text="#{ASSETS00_ED.ARBITARY_AREA}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -467,15 +479,15 @@
                   </div>
                   <div class="row" style="padding: 15px 0 15px 0;">
                     <div class="col-md-4">
-                      <label for="fullownership" class="form-label">Full Ownership</label>
+                      <label for="fullownership" class="form-label" th:text="#{ASSETS00_ED.FULL_OWNERSHIP}"></label>
                       <select  class="form-select" th:field="*{fullownership}" id="fullownership" name="fullownership"  type="value">
-                        <option value="">Full Ownership...</option>
-                        <option th:value="0" th:text="No"></option>
-                        <option th:value="1" th:text="Yes"></option>
+                        <option value="" th:text="#{ASSETS00_ED.FULL_OWNERSHIP_EX1}"></option>
+                        <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                        <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label for="constructionyear" class="form-label">Construction Year</label>
+                      <label for="constructionyear" class="form-label" th:text="#{ASSETS00_ED.CONSTRUCTION_YEAR}"></label>
                       <input 
                         type="text"
                         name="constructionyear"
@@ -484,7 +496,7 @@
                         class="form-control" id="constructionyear" />
                     </div>
                     <div class="col-md-3">
-                      <label for="floor" class="form-label">Floor</label>
+                      <label for="floor" class="form-label" th:text="#{ASSETS00_ED.FLOOR}"></label>
                       <input 
                         type="text"
                         name="floor"
@@ -495,7 +507,7 @@
                   </div>
                   <div class="row" style="padding: 15px 0 15px 0;">
                     <div class="col-md-4">
-                      <label for="auction_id" class="form-label">Auction ID</label>
+                      <label for="auction_id" class="form-label" th:text="#{ASSETS00_ED.AUCTION_ID}"></label>
                       <input 
                         type="text"
                         name="auction_id"
@@ -504,7 +516,7 @@
                         class="form-control" id="auction_id" />
                     </div>
                     <div class="col-md-4">
-                      <label for="uniqauction_code" class="form-label">Unique Auction Code</label>
+                      <label for="uniqauction_code" class="form-label" th:text="#{ASSETS00_ED.INIQUE_AUCTION_CODE}"></label>
                       <input 
                         type="text"
                         name="uniqauction_code"
@@ -513,7 +525,7 @@
                         class="form-control" id="uniqauction_code" />
                     </div>
                     <div class="col-md-2">
-                      <label for="auction_datedate" class="form-label">Auction Date</label>
+                      <label for="auction_datedate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE}"></label>
                       <input 
                         type="date"
                         autocomplete="false"
@@ -523,7 +535,7 @@
                         class="form-control" id="auction_datedate" />
                     </div>
                     <div class="col-md-2">
-                      <label for="auctiondate" class="form-label">Auction Date Month_Year</label>
+                      <label for="auctiondate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE_MMYY}"></label>
                       <input 
                         type="text"
                         name="auctiondate"
@@ -534,7 +546,7 @@
                   </div>  
                   <div class="row">
                     <div class="col-md-2">
-                      <label for="startingprice" class="form-label">Starting Price</label>
+                      <label for="startingprice" class="form-label" th:text="#{ASSETS00_ED.STARTING_PRICE}"></label>
                       <input 
                         type="number" 
                         class="form-control" 
@@ -544,7 +556,7 @@
                         id="startingprice" />
                     </div>
                     <div class="col-md-4">
-                      <label for="landealink" class="form-label">Landea Link</label>
+                      <label for="landealink" class="form-label" th:text="#{ASSETS00_ED.LANDEA_LINK}"></label>
                       <input 
                         type="text"
                         name="landealink"
@@ -553,7 +565,7 @@
                         class="form-control" id="landealink" />
                     </div>
                     <div class="col-md-3">
-                      <label for="region" class="form-label">Region</label>
+                      <label for="region" class="form-label" th:text="#{ASSETS00_ED.REGION}"></label>
                       <input 
                         type="text"
                         name="region"
@@ -562,7 +574,7 @@
                         class="form-control" id="region" />
                     </div>
                     <div class="col-md-3">
-                      <label for="prefecture" class="form-label">Prefecture</label>
+                      <label for="prefecture" class="form-label" th:text="#{ASSETS00_ED.PREFECTURE}"></label>
                       <input 
                         type="text"
                         name="prefecture"
@@ -576,13 +588,15 @@
 
               <!-- Tab 3 Content -->
               <div class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
-                <p >Tab3</p>
+                <p th:text="#{ASSETS00_ED.LINKS}"></p>
                 <div class="col-md-4" style="padding: 10px 0 15px 0 !important;">
-                    <a type="button" th:href="@{/assets/assets00/fillfromcrm?asset={asset} (asset = ${CLM0.asset})}" class="btn btn-info">Fill From CRM</a>
+                  <a type="button" th:href="@{/assets/assets00/fillfromcrm?asset={asset} (asset = ${CLM0.asset})}" class="btn btn-info">
+                    <span th:text="#{ASSETS00_ED.FILL_FROM_CRM}"></span>
+                  </a>
                 </div>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label for="image1" class="form-label">Image 1</label>
+                    <label for="image1" class="form-label" th:text="#{ASSETS00_ED.IMAGE1}"></label>
                     <input 
                       type="text"
                       name="image1"
@@ -591,7 +605,7 @@
                       class="form-control" id="image1" />
                   </div>
                   <div class="col-md-6">
-                    <label for="image2" class="form-label">Image 2</label>
+                    <label for="image2" class="form-label" th:text="#{ASSETS00_ED.IMAGE2}"></label>
                     <input 
                       type="text"
                       name="image2"
@@ -600,7 +614,7 @@
                       class="form-control" id="image2" />
                   </div>
                   <div class="col-md-6">
-                    <label for="site" class="form-label">Site</label>
+                    <label for="site" class="form-label" th:text="#{ASSETS00_ED.SITE}"></label>
                     <input 
                       type="text"
                       name="site"
@@ -609,7 +623,7 @@
                       class="form-control" id="site" />
                   </div>
                   <div class="col-md-6">
-                    <label for="broker_site" class="form-label">Broker Site</label>
+                    <label for="broker_site" class="form-label" th:text="#{ASSETS00_ED.BROKER_SITE}"></label>
                     <input 
                       type="text"
                       name="broker_site"
@@ -622,36 +636,36 @@
 
               <!-- Tab 4 Content -->
               <div class="tab-pane fade" id="nav-final-information" role="tabpanel" aria-labelledby="nav-final-information-tab">
-                <p>Tab4</p>
+                <p th:text="#{ASSETS00_ED.FINAL_INFO}"></p>
                 <div class="row">
                   <div class="col-md-4">
-                    <label for="ekth_ektim" class="form-label">Assessment Report</label>
+                    <label for="ekth_ektim" class="form-label" th:text="#{ASSETS00_ED.ASSESSMENT_REPORT}"></label>
                     <select  class="form-select" th:field="*{ekth_ektim}" id="ekth_ektim" name="ekth_ektim"  type="value">
-                      <option value="">Assessment Report...</option>
-                      <option th:value="0" th:text="No"></option>
-                      <option th:value="1" th:text="Yes"></option>
+                      <option value="" th:text="#{ASSETS00_ED.ASSESSMENT_REPORT_EX1}"></option>
+                      <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                      <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="techn_fakel" class="form-label">Technical Folder</label>
+                    <label for="techn_fakel" class="form-label" th:text="#{ASSETS00_ED.TECHNIKCAL_FOLDER}"></label>
                     <select  class="form-select" th:field="*{techn_fakel}" id="techn_fakel" name="techn_fakel"  type="value">
-                      <option value="">Technical Folder...</option>
-                      <option th:value="0" th:text="No"></option>
-                      <option th:value="1" th:text="Yes"></option>
+                      <option value="" th:text="#{ASSETS00_ED.TECHNICAL_FOLDER_EX1}"></option>
+                      <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                      <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="teaser" class="form-label">Teaser</label>
+                    <label for="teaser" class="form-label" th:text="#{ASSETS00_ED.TEASER}"></label>
                     <select  class="form-select" th:field="*{teaser}" id="teaser" name="teaser"  type="value">
-                      <option value="">Full Teaser...</option>
-                      <option th:value="0" th:text="No"></option>
-                      <option th:value="1" th:text="Yes"></option>
+                      <option value="" th:text="#{ASSETS00_ED.TEASER_EX1}"></option>
+                      <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                      <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
                     </select>
                   </div>
                 </div>  
                 <div class="row" style="padding: 15px 0 15px 0;">
                   <div class="col-md-4">
-                    <label for="subbroker_name" class="form-label">Sub Broker Name</label>
+                    <label for="subbroker_name" class="form-label" th:text="#{ASSETS00_ED.SUBBROKER_NAME}"></label>
                     <input 
                       type="text"
                       name="subbroker_name"
@@ -660,7 +674,7 @@
                       class="form-control" id="subbroker_name" />
                   </div>
                   <div class="col-md-2">
-                    <label for="visitors_count" class="form-label">Visitors Count</label>
+                    <label for="visitors_count" class="form-label" th:text="#{ASSETS00_ED.VISITORS_COUNT}"></label>
                     <input 
                       type="number" 
                       class="form-control" 
@@ -670,15 +684,15 @@
                       id="visitors_count" />
                   </div>
                   <div class="col-md-3">
-                    <label for="begin_endiaferon" class="form-label">Initial interest</label>
+                    <label for="begin_endiaferon" class="form-label" th:text="#{ASSETS00_ED.INITIAL_INTEREST}"></label>
                     <select  class="form-select" th:field="*{begin_endiaferon}" id="begin_endiaferon" name="begin_endiaferon"  type="value">
-                      <option value="">Initial interest...</option>
-                      <option th:value="0" th:text="No"></option>
-                      <option th:value="1" th:text="Yes"></option>
+                      <option value="" th:text="#{ASSETS00_ED.INITIAL_INTEREST_EX1}"></option>
+                      <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                      <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
                     </select>
                   </div>
                   <div class="col-md-2">
-                    <label for="leads" class="form-label">Leads</label>
+                    <label for="leads" class="form-label" th:text="#{ASSETS00_ED.LEADS}"></label>
                     <input 
                       type="number" 
                       class="form-control" 
@@ -690,7 +704,7 @@
                 </div>
                 <div class="row" style="padding: 15px 0 15px 0;">
                   <div class="col-md-3">
-                    <label for="endiaferomenos_info" class="form-label">Ιnterested</label>
+                    <label for="endiaferomenos_info" class="form-label" th:text="#{ASSETS00_ED.INTERESTED}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -700,7 +714,7 @@
                       id="endiaferomenos_info" />
                   </div>
                   <div class="col-md-3">
-                    <label for="endiaferomenos_info1" class="form-label">Ιnterested 2</label>
+                    <label for="endiaferomenos_info1" class="form-label" th:text="#{ASSETS00_ED.INTERESTED2}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -710,7 +724,7 @@
                       id="endiaferomenos_info1" />
                   </div>
                   <div class="col-md-3">
-                    <label for="endiaferomenos_info3" class="form-label">Ιnterested 3</label>
+                    <label for="endiaferomenos_info3" class="form-label" th:text="#{ASSETS00_ED.INTERESTED3}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -720,7 +734,7 @@
                       id="endiaferomenos_info3" />
                   </div>
                   <div class="col-md-3">
-                    <label for="endiaferomenos_info4" class="form-label">Ιnterested 4</label>
+                    <label for="endiaferomenos_info4" class="form-label" th:text="#{ASSETS00_ED.INTERESTED4}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -730,7 +744,7 @@
                       id="endiaferomenos_info4" />
                   </div>
                   <div class="col-md-3">
-                    <label for="endiaferomenos_info5" class="form-label">Ιnterested 5</label>
+                    <label for="endiaferomenos_info5" class="form-label" th:text="#{ASSETS00_ED.INTERESTED5}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -752,7 +766,7 @@
                         th:field="*{comments1}"
                         placeholder="Enter Comments 1"
                         id="comments1"></textarea>
-                      <label for="comments1">Comments</label>
+                      <label for="comments1" th:text="#{ASSETS00_ED.COMMENTS}"></label>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -766,13 +780,13 @@
                         th:field="*{comments2}"
                         placeholder="Enter Comments 2"
                         id="description"></textarea>
-                      <label for="comments2">Comments 2</label>
+                      <label for="comments2" th:text="#{ASSETS00_ED.COMMENTS}"></label>
                     </div>
                   </div>
                 </div>
                 <div class="row" style="padding: 15px 0 15px 0;">
                   <div class="col-md-3">
-                    <label for="marketability_name" class="form-label">Marketability Name</label>
+                    <label for="marketability_name" class="form-label" th:text="#{ASSETS00_ED.MARKETABILITY_NAME}"></label>
                     <input 
                       type="number" 
                       class="form-control" 
@@ -782,7 +796,7 @@
                       id="marketability_name" />
                   </div>
                   <div class="col-md-3">
-                    <label for="landea_leads" class="form-label">Landea Leads</label>
+                    <label for="landea_leads" class="form-label" th:text="#{ASSETS00_ED.LANDEA_LEADS}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -792,7 +806,7 @@
                       id="landea_leads" />
                   </div>
                   <div class="col-md-3">
-                    <label for="update_auction" class="form-label">Update Auction</label>
+                    <label for="update_auction" class="form-label" th:text="#{ASSETS00_ED.UPDATE_AUCTION}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -802,7 +816,7 @@
                       id="update_auction" />
                   </div>
                   <div class="col-md-3">
-                    <label for="high_interest" class="form-label">High Interest</label>
+                    <label for="high_interest" class="form-label" th:text="#{ASSETS00_ED.HIGH_INTEREST}"></label>
                     <input 
                       type="text" 
                       class="form-control" 
@@ -823,7 +837,7 @@
                       th:field="*{landea_comments}"
                       placeholder="Enter Landea Comments"
                       id="landea_comments"></textarea>
-                    <label for="landea_comments">Landea Comments</label>
+                    <label for="landea_comments" th:text="#{ASSETS00_ED.LANDEA_COMMENTS}"></label>
                   </div>
                 </div>
               </div>
@@ -862,19 +876,23 @@
             </div>
             <div class="row g-3" style="margin-bottom: 15px;margin-top: 4vh">
               <div class="col-1">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                  <span th:text="#{ASSETS00_ED.SAVE}"></span>
+                </button>
                 <!--<a th:href="@{/assets/assets00/list01}" class="btn btn-danger"><i class="fa fa-close"></i>Cancel</a>-->
                 <span> </span>
               </div>
               <div class="col-1">
                 <button class="btn btn-warning" onClick="history.go(0);">
-                  <i class="fa fa-clone"></i> Reload
+                  <i class="fa fa-clone"></i>
+                  <span th:text="#{ASSETS00_ED.RELOAD}"></span>
                 </button>
                 <span> </span>
               </div>
               <div class="col-1">
                 <button class="btn btn-danger" onclick="history.back()">
-                  <i class="fa fa-close"></i> Cancel
+                  <i class="fa fa-close"></i>
+                  <span th:text="#{ASSETS00_ED.CANCEL}"></span>
                 </button>
               </div>
             </div>
