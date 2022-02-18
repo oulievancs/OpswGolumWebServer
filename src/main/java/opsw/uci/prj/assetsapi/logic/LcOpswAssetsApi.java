@@ -29,7 +29,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LcOpswAssetsApi
 {
+  @Autowired
   private Assets00Service Assets00Service;
+  
+  @Autowired
   private OpswconstvService constsvService;
   
   public LcOpswAssetsApi()
