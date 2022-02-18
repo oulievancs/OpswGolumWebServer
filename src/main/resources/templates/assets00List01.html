@@ -139,21 +139,23 @@
               </option>
             </select>
           </div>
-          <div class="col-md-1">
-            <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>
-              <span th:text="#{ASSETS00_PR.SEARCH}"></span>
-            </button>
-          </div>
-          <div class="col-md-1">
-            <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>
-              <span th:text="#{ASSETS00_PR.EXPORT}"></span>
-            </button>
-          </div>
-          <div class="col-md-1">
-            <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>
-              <span th:text="#{ASSETS00_PR.EDIT}"></span>
-            </button>
-          </div>
+          <div class="row g-3">
+            <div class="col-md-2">
+              <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>
+                <span th:text="#{ASSETS00_PR.SEARCH}"></span>
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>
+                <span th:text="#{ASSETS00_PR.EXPORT}"></span>
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>
+                <span th:text="#{ASSETS00_PR.EDIT}"></span>
+              </button>
+            </div>
+          </div>  
         </form>
         
         <div style="margin-top: 4vh"> </div>
