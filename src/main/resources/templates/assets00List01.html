@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8"></meta>
-    <title th:text="#{ASSETS00.TITLE}"></title>
+    <title th:text="#{ASSETS00_PR.TITLE}"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 
@@ -115,24 +115,24 @@
         </nav>
         <div class="container">
           <div class="row">
-            <h1 th:text="{ASSETS00.TITLE1}"></h1>
+            <h1 th:text="#{ASSETS00_PR.TITLE1}"></h1>
           </div>
         </div>
 
 
         <form class="row g-3" method="POST" th:object="${params}">
           <div class="col-md-4">
-            <label for="dataFromAssets" class="form-label" th:text="#{ASSETS00.DATE_FROM}"></label>
+            <label for="dataFromAssets" class="form-label" th:text="#{ASSETS00_PR.DATE_FROM}"></label>
             <input type="date" class="form-control" id="dataFromAssets" autocomplete="false" name="dateFrom" th:field="*{searchDates.dateFrom}"/>
           </div>
           <div class="col-md-4">
-            <label for="dataToAssets" class="form-label" th:text="#{ASSETS00.DATE_TO}"></label>
+            <label for="dataToAssets" class="form-label" th:text="#{ASSETS00_PR.DATE_TO}"></label>
             <input type="date" class="form-control" id="dataToAssets" autocomplete="false" name="dateTo" th:field="*{searchDates.dateTo}"/> 
           </div>
           <div class="col-md-4">
-            <label for="symbSelect" class="form-label" th:text="#{ASSETS00.SYMB}"></label>
+            <label for="symbSelect" class="form-label" th:text="#{ASSETS00_PR.SYMB}"></label>
             <select id="symbSelect" class="form-select" th:field="*{symb_id}" name="symb_id"  type="number">
-              <option value="" th:text="#{ASSETS00.SYMB_EX1}"></option>
+              <option value="" th:text="#{ASSETS00_PR.SYMB_EX1}"></option>
               <option th:each="s : ${CLM1}"
                       th:value="${s.getId()}"
                       th:text="${s.getName()} + ' ' + ${s.getSurename()}">
@@ -141,17 +141,17 @@
           </div>
           <div class="col-md-1">
             <button type="submit" th:formaction="@{/assets/assets00/list01}" class="btn btn-primary" name="action" value="search"><i class="fas fa-search"></i>
-              <span th:text="#{ASSETS00.SEARCH}"></span>
+              <span th:text="#{ASSETS00_PR.SEARCH}"></span>
             </button>
           </div>
           <div class="col-md-1">
             <button type="submit" th:formaction="@{/actions/exportfile/post02}" class="btn btn-info" name="action" value="export"><i class="fas fa-download"></i>
-              <span th:text="#{ASSETS00.EXPORT}"></span>
+              <span th:text="#{ASSETS00_PR.EXPORT}"></span>
             </button>
           </div>
           <div class="col-md-1">
             <button type="button" id="button-edit" class="btn btn-success" ><i class="fa fa-edit"></i>
-              <span th:text="#{ASSETS00.EDIT}"></span>
+              <span th:text="#{ASSETS00_PR.EDIT}"></span>
             </button>
           </div>
         </form>
@@ -176,74 +176,74 @@
               Landea Comments	Update Auction	HIGH INTEREST
 
               -->
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th>Ownership Type</th>
-              <th>Auction Date (Month & YEAR)</th>
-              <th>Image01</th>
-              <th>Image02</th>
-              <th>Image03</th>
-              <th>Άλλα σχόλια επί του ακινήτου ή της προώθησης</th>
-              <th>ΕΚΘΕΣΗ ΕΚΤΙΜΗΣΗΣ</th>
-              <th>ΤΕΧΝΙΚΟΣ ΦΑΚΕΛΟΣ</th>
-              <th>TEASER</th>
-              <th>SPITOGATOS ή XE LINK</th>
-              <th>BROKER WEBSITE LINK(UCI)</th>
-              <th>SUB BROKERS (Name)</th>
-              <th>ΠΛΗΘΟΣ ΠΡΟΒΟΛΩΝ- ΕΠΙΣΚΕΨΕΩΝ ΚΑΤΑΧΩΡΗΣΗΣ</th>
-              <th>ΑΡΧΙΚΟ ΕΝΔΙΑΦΕΡΟΝ</th>
-              <th>LEADS</th>
-              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No1</th>
-              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No2</th>
-              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No3</th>
-              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No4</th>
-              <th>ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5</th>
-              <th>ΣΧΟΛΙΑ Ι</th>
-              <th>ΣΧΟΛΙΑ ΙΙ</th>
-              <th>Marketability rate</th>
-              <th>Landea Leads</th>
-              <th>Landea Comments</th>
-              <th>Update Auction</th>
-              <th>HIGH INTEREST</th>
-              <th>User Create</th>
-              <th>Date Create</th>
-              <th>User Modify</th>
-              <th>Date Modify</th>
+              <th th:text="#{ASSETS00_PR.ID}"></th>
+              <th th:text="#{ASSETS00_PR.AAUCI}"></th>
+              <th th:text="#{ASSETS00_PR.ASIGNMENT_FILE}"></th>
+              <th th:text="#{ASSETS00_PR.INTERNAL_KEY}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_STATUS}"></th>
+              <th th:text="#{ASSETS00_PR.UNIQUE_CODE}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_URL}"></th>
+              <th th:text="#{ASSETS00_PR.SYMB}"></th>
+              <th th:text="#{ASSETS00_PR.SYMB_TEL}"></th>
+              <th th:text="#{ASSETS00_PR.BUYER}"></th>
+              <th th:text="#{ASSETS00_PR.PRODUCER}"></th>
+              <th th:text="#{ASSETS00_PR.COUNT_ASSETS}"></th>
+              <th th:text="#{ASSETS00_PR.BORROW_NAME}"></th>
+              <th th:text="#{ASSETS00_PR.PROPERTY_ID}"></th>
+              <th th:text="#{ASSETS00_PR.COLLATERAL_USE1}"></th>
+              <th th:text="#{ASSETS00_PR.COLLATERAL_SYB}"></th>
+              <th th:text="#{ASSETS00_PR.MUNICIPALITY}"></th>
+              <th th:text="#{ASSETS00_PR.CITY}"></th>
+              <th th:text="#{ASSETS00_PR.ADDRESS}"></th>
+              <th th:text="#{ASSETS00_PR.ZIPCODE}"></th>
+              <th th:text="#{ASSETS00_PR.GPSCORDS}"></th>
+              <th th:text="#{ASSETS00_PR.DESCRIPTION}"></th>
+              <th th:text="#{ASSETS00_PR.LANDAREA}"></th>
+              <th th:text="#{ASSETS00_PR.BUILDAREA}"></th>
+              <th th:text="#{ASSETS00_PR.MAINSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.AUXILIARYSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.ARBITARYSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.FULOWNERSHIP}"></th>
+              <th th:text="#{ASSETS00_PR.CONSTRUCTIONYEAR}"></th>
+              <th th:text="#{ASSETS00_PR.FLOOR}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTIONID}"></th>
+              <th th:text="#{ASSETS00_PR.UNIQUE_AUCTION_CODE}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_DATE}"></th>
+              <th th:text="#{ASSETS00_PR.STARTING_PRICE}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_LINK}"></th>
+              <th th:text="#{ASSETS00_PR.REGION}"></th>
+              <th th:text="#{ASSETS00_PR.PREFECTURE}"></th>
+              <th th:text="#{ASSETS00_PR.OWNERSHIP_TYPE}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_DATE_MMYY}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE01}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE02}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE03}"></th>
+              <th th:text="#{ASSETS00_PR.OTHER_COMMENTS}"></th>
+              <th th:text="#{ASSETS00_PR.ESSAY}"></th>
+              <th th:text="#{ASSETS00_PR.FINAL_PACKET}"></th>
+              <th th:text="#{ASSETS00_PR.TEASER}"></th>
+              <th th:text="#{ASSETS00_PR.SPITOGATOS_H_XE}"></th>
+              <th th:text="#{ASSETS00_PR.BROKER_UCI_LINK}"></th>
+              <th th:text="#{ASSETS00_PR.SUBBROKERS}"></th>
+              <th th:text="#{ASSETS00_PR.NUMBER_VISITORS}"></th>
+              <th th:text="#{ASSETS00_PR.BEGIN_COMM}"></th>
+              <th th:text="#{ASSETS00_PR.LEADS}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS1}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS2}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS3}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS4}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS5}"></th>
+              <th th:text="#{ASSETS00_PR.COMMENTS1}"></th>
+              <th th:text="#{ASSETS00_PR.COMMENTS2}"></th>
+              <th th:text="#{ASSETS00_PR.MARKETABIITY}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_LEADS}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_COMMENTS}"></th>
+              <th th:text="#{ASSETS00_PR.UPDATE_AUCTION}"></th>
+              <th th:text="#{ASSETS00_PR.HIGH_INTEREST}"></th>
+              <th th:text="#{ASSETS00_PR.USER_CREATE}"></th>
+              <th th:text="#{ASSETS00_PR.DATE_CREATE}"></th>
+              <th th:text="#{ASSETS00_PR.USER_MODIFY}"></th>
+              <th th:text="#{ASSETS00_PR.DATE_MODIFY}"></th>
             </tr>
           </thead>
           <tbody>
