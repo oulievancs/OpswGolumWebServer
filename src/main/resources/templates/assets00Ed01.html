@@ -576,42 +576,47 @@
 
               <!-- Tab 3 Content -->
               <div class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
-                <p>Tab3</p>
-                <div class="col-md-6">
-                  <label for="image1" class="form-label">Image 1</label>
-                  <input 
-                    type="text"
-                    name="image1"
-                    th:field="*{image1}"
-                    placeholder="Enter Image 1"
-                    class="form-control" id="image1" />
+                <p >Tab3</p>
+                <div class="col-md-4" style="padding: 10px 0 15px 0 !important;">
+                    <a type="button" th:href="@{/assets/assets00/fillfromcrm?asset={asset} (asset = ${CLM0.asset})}" class="btn btn-info">Fill From CRM</a>
                 </div>
-                <div class="col-md-6">
-                  <label for="image2" class="form-label">Image 2</label>
-                  <input 
-                    type="text"
-                    name="image2"
-                    th:field="*{image2}"
-                    placeholder="Enter Image 2"
-                    class="form-control" id="image2" />
-                </div>
-                <div class="col-md-6">
-                  <label for="site" class="form-label">Site</label>
-                  <input 
-                    type="text"
-                    name="site"
-                    th:field="*{site}"
-                    placeholder="Enter Site"
-                    class="form-control" id="site" />
-                </div>
-                <div class="col-md-6">
-                  <label for="broker_site" class="form-label">Broker Site</label>
-                  <input 
-                    type="text"
-                    name="broker_site"
-                    th:field="*{broker_site}"
-                    placeholder="Enter Broker Site"
-                    class="form-control" id="broker_site" />
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="image1" class="form-label">Image 1</label>
+                    <input 
+                      type="text"
+                      name="image1"
+                      th:field="*{image1}"
+                      placeholder="Enter Image 1"
+                      class="form-control" id="image1" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="image2" class="form-label">Image 2</label>
+                    <input 
+                      type="text"
+                      name="image2"
+                      th:field="*{image2}"
+                      placeholder="Enter Image 2"
+                      class="form-control" id="image2" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="site" class="form-label">Site</label>
+                    <input 
+                      type="text"
+                      name="site"
+                      th:field="*{site}"
+                      placeholder="Enter Site"
+                      class="form-control" id="site" />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="broker_site" class="form-label">Broker Site</label>
+                    <input 
+                      type="text"
+                      name="broker_site"
+                      th:field="*{broker_site}"
+                      placeholder="Enter Broker Site"
+                      class="form-control" id="broker_site" />
+                  </div>
                 </div>
               </div>
 

@@ -6,29 +6,33 @@
 package opsw.uci.prj.controllers;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import opsw.uci.prj.api.client.OpswHttpRequest01;
+import opsw.uci.prj.api.client.OpswHttpRequestBase;
+import opsw.uci.prj.api.client.XmlReaderWriter;
+import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.CatException;
-import opsw.uci.prj.entity.Assets00;
-import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.external.entities.Estate;
+import opsw.uci.prj.external.entities.ProducerEstates;
 import opsw.uci.prj.globals.OpswLoginVars;
-import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
-import opsw.uci.prj.records.Assets00flRec01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram01Service;
+import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,6 +60,9 @@ public class Assets00Controller
 
   @Autowired
   private Gram01Service Gram01Service;
+  
+  @Autowired
+  private OpswconstvService constsvService;
 
   @GetMapping("/assets00/list01")
   public String Assets00List01(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
@@ -153,7 +160,7 @@ public class Assets00Controller
       CatException.RethrowCatException(ex);
     }
   }
-
+  
   @GetMapping("/assets00/ed01")
   public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model) throws Exception
   {
@@ -193,8 +200,26 @@ public class Assets00Controller
 
     return "assets00Ed01";
   }
+  
+  @GetMapping("/assets00/fillfromcrm")
+  public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws Exception
+  {
+    Assets00Rec02 assetReturned = null;
+    try
+    {
+      OpswLoginVars logvars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logvars);
+      LcOpswAssetsApi apiCalls = new LcOpswAssetsApi();
+      apiCalls.setAssets00Service(Assets00Service);
+      apiCalls.setConstsvService(constsvService);
+      assetReturned = apiCalls.InternalCRMCall(assetId, logvars);
+    }
+    catch(Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    model.addAttribute("CLM0", assetReturned);
+    return "assets00Ed01";
+  }
+  
 }
-//OpswEjbContext.setCurrentTenant(null);
-//      KeycloakAuthenticationToken authentication = (KeycloakAuthenticationToken) SecurityContextHolder.getContext()
-//              .getAuthentication();
-//      OpswLogger.LoggerLogDebug("Token " + authentication.getAccount().getKeycloakSecurityContext().getToken().getAccessTokenHash());

@@ -84,7 +84,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
-              <h1 class=""text-center>File Inport</h1>
+              <h1 class=""text-center>File Import</h1>
               <div class="card-body">
                 <form method="post" th:action="@{/actions/inportfile/post}" th:object="${gramRec}" enctype="multipart/form-data">
                   <div class="row">
@@ -94,7 +94,7 @@
                       <div class="form-group">
                         <input type="file" name="file" class="form-control-file">
                         <label>Gram</label>
-                        <select  class="form-control" th:field="*{gram}" name="gram"  type="number">
+                        <select  class="form-select" th:field="*{gram}" name="gram"  type="number">
                           <option value="">Select Gram...</option>
                           <option th:each="gr : ${gramList}"
                                   th:value="${gr.getGram()}"
