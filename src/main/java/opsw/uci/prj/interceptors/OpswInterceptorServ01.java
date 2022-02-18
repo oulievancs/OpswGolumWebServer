@@ -13,6 +13,7 @@ import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.system.OpswMenuDo01;
 import opsw.uci.prj.validations.OpswValidations01;
+import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class OpswInterceptorServ01 implements HandlerInterceptor
 {
+
+  private MessageSource messageSource;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -57,6 +60,9 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
           throws Exception
   {
     OpswCookies01 vopswCookies01 = new OpswCookies01();
+
+    OpswLoginVars vLoginVars = new OpswLoginVars();
+    OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
     try
     {
       vopswCookies01.OpswClearConnectionByCookie();
@@ -66,7 +72,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
       OpswLogger.LoggerLogException(ex);
     }
     //
-    OpswMenuDo01.MakeMenu01(request, model);
+    OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource);
     //
     this.SetRequestResponseHeaders(request, response);
   }
@@ -76,5 +82,15 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
     //Για το resubmition form στο back button του browser.
     //https://stackoverflow.com/questions/19215637/navigate-back-with-php-form-submission
     response.addHeader("Cache-Control", "no cache");
+  }
+
+  public MessageSource getMessageSource()
+  {
+    return messageSource;
+  }
+
+  public void setMessageSource(MessageSource messageSource)
+  {
+    this.messageSource = messageSource;
   }
 }

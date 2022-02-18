@@ -14,6 +14,10 @@ import java.util.List;
 public class OpswLoginVars
 {
 
+  public static final String OPSW_LOGIN_VARS_LANG = "opsw.lang";
+  public static final String OPSW_LOGIN_VARS_LANG_EN = "en";
+  public static final String OPSW_LOGIN_VARS_LANG_EL = "el";
+
   public static final String OPSW_LOGIN_VARS = "opsw.loginvars";
   public static final String OPSW_LOGIN_USER_CONST = "opsw.loginvars.loginUser";
   public static final String OPSW_LOGIN_ETAI_CONST = "opsw.loginvars.loginEtai";
@@ -23,6 +27,7 @@ public class OpswLoginVars
   private short etai;
   private String connectionDs;
   private List<String> roles;
+  private String lang;
 
   public OpswLoginVars()
   {
@@ -31,6 +36,7 @@ public class OpswLoginVars
     this.etai = 0;
     this.connectionDs = null;
     this.roles = null;
+    this.lang = null;
   }
 
   public static void copyFrom(OpswLoginVars from, OpswLoginVars to)
@@ -39,6 +45,7 @@ public class OpswLoginVars
     to.setEtai(from.getEtai());
     to.setLoginUser(from.getLoginUser());
     to.setRoles(from.getRoles());
+    to.setLang(from.getLang());
   }
 
   public String getLoginUser()
@@ -79,5 +86,15 @@ public class OpswLoginVars
   public void setRoles(List<String> roles)
   {
     this.roles = roles;
+  }
+
+  public String getLang()
+  {
+    return lang;
+  }
+
+  public void setLang(String lang)
+  {
+    this.lang = lang;
   }
 }

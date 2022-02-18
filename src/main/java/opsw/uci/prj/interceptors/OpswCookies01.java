@@ -135,6 +135,9 @@ public class OpswCookies01
         String vConnectionDs = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS);
         wLoginVars.setConnectionDs(vConnectionDs);
 
+        String vLang = (String) vsess.getAttribute(OpswLoginVars.OPSW_LOGIN_VARS_LANG);
+        wLoginVars.setLang(vLang);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Principal principal = null;
@@ -230,6 +233,7 @@ public class OpswCookies01
       //vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_USER_CONST, wLoginVars.getLoginUser());
       vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_ETAI_CONST, OpswStringUtils.OpswShortToString(wLoginVars.getEtai()));
       vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_CONNECTION_DS, wLoginVars.getConnectionDs());
+      vsess.setAttribute(OpswLoginVars.OPSW_LOGIN_VARS_LANG, wLoginVars.getLang());
 
     }
     catch (Exception ex)

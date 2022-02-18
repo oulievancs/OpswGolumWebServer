@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.interceptors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,16 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class OpswWebMvcConfig implements WebMvcConfigurer
 {
 
+  @Autowired
+  private MessageSource messageSource;
+
   @Override
   public void addInterceptors(InterceptorRegistry registry)
   {
-    registry.addInterceptor(new OpswInterceptorServ01())
+    OpswInterceptorServ01 o = new OpswInterceptorServ01();
+    o.setMessageSource(this.messageSource);
+
+    registry.addInterceptor(o)
             .addPathPatterns("/**")
             .excludePathPatterns("/resources/**", "/static/**");
     registry.addInterceptor(localeChangeInterceptor())
