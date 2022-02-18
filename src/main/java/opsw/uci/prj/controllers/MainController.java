@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.globals.OpswErpRecords01;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -60,7 +62,8 @@ public class MainController
   }
 
   @GetMapping("init1")
-  public String init1(Model model, HttpServletRequest request) throws Exception
+  public String init1(Model model, HttpServletRequest request, @RequestParam("lang") String ilang)
+          throws Exception
   {
     try
     {
@@ -68,6 +71,8 @@ public class MainController
 
       OpswLoginVars vLoginVars = new OpswLoginVars();
       OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
+      OpswLanguage.OpswLanguage(vLoginVars, ilang);
+      OpswCookies01.OpswFillCookiesFromLoginVars01(request, vLoginVars);
       obj1.setCode(new Long(vLoginVars.getEtai()));
 
       List<CatThmlfObject02> vlist = OpswErpRecords01.OpswListXrhshListObj();

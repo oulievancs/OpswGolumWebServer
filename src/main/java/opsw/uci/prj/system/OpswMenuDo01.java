@@ -171,6 +171,14 @@ public class OpswMenuDo01
 
       menu.add(choice);
 
+      choice = new OpswMenu01();
+      choice.setCaption(Ad1(iloginVars, ms, "MENOU00.CHANGE_LANGUAGE", "Language"));
+      choice.setPath(Ad3(iloginVars, "/init1"));
+      choice.setIsActive(false);
+      choice.setHaveSub(false);
+
+      menu.add(choice);
+
       /*choice = new OpswMenu01();
       choice.setCaption("Logout");
       choice.setPath("/logout");
@@ -249,6 +257,37 @@ public class OpswMenuDo01
       else if (ilang == 1)
       {
         res = ipath + "?" + "lang=" + "el";
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  private static String Ad3(OpswLoginVars iloginVars, String ipath) throws CatException
+  {
+    String res = null;
+    try
+    {
+      byte vlang = 0;
+      if (iloginVars.getLang() != null)
+      {
+        if (iloginVars.getLang().equals(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL))
+        {
+          vlang = 1;
+        }
+      }
+
+      if (vlang == 0)
+      {
+        res = ipath + "?" + "lang=" + "el";
+      }
+      else if (vlang == 1)
+      {
+        //είναι ελλήνικος και πάει άγγλικος
+        res = ipath + "?" + "lang=" + "en";
       }
     }
     catch (Exception ex)
