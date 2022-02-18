@@ -24,14 +24,11 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class OpswWebMvcConfig implements WebMvcConfigurer
 {
 
-  @Autowired
-  private MessageSource messageSource;
-
   @Override
   public void addInterceptors(InterceptorRegistry registry)
   {
     OpswInterceptorServ01 o = new OpswInterceptorServ01();
-    o.setMessageSource(this.messageSource);
+    o.setMessageSource(this.messageSource());
 
     registry.addInterceptor(o)
             .addPathPatterns("/**")
