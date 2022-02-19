@@ -8,6 +8,7 @@ package opsw.uci.prj.validations;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.system.OpswSystemWebServer01;
 
@@ -34,10 +35,19 @@ public class OpswValidations01
       {
         String vuri = request.getRequestURI();
         if (!vgoon
-                && !(vuri.substring(vuri.length() - 6, vuri.length()).equals("/init1"))
-                && !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/init1/post")))
+                //&& !(vuri.substring(vuri.length() - 6, vuri.length()).equals("/init1"))
+                //&& !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/init1/post"))
+                && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1) > 0)
+                && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1_POST) > 0))
         {
-          response.sendRedirect(OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/init1");
+          String vredUri = OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/"
+                  + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1;
+
+          if (iLoginVars.getLang() != null && !iLoginVars.getLang().isEmpty())
+          {
+            vredUri += "?lang=" + iLoginVars.getLang();
+          }
+          response.sendRedirect(vredUri);
           result = false;
         }
       }

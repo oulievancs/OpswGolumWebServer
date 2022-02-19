@@ -20,11 +20,11 @@ public class OpswLanguage
     {
       if (ilang != null && ilang.equalsIgnoreCase(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL))
       {
-        wLoginVars.setLoginUser(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL);
+        wLoginVars.setLang(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL);
       }
       else
       {
-        wLoginVars.setLoginUser(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
+        wLoginVars.setLang(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
       }
     }
     catch (Exception ex)

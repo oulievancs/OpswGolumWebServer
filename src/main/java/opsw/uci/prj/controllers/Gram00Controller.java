@@ -8,6 +8,7 @@ package opsw.uci.prj.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author oulis
  */
 @Controller
-@RequestMapping("/gram")
+@RequestMapping(OpswWebConst.OPSW_CONTROLLER_GRAM)
 public class Gram00Controller
 {
 
@@ -47,7 +48,7 @@ public class Gram00Controller
   @Autowired
   private OpswconstvService OpswconstvService;
 
-  @GetMapping("/gram00/list01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_LIST01)
   public String Gram00List01(Model model) throws Exception
   {
     List<Gram00> gramList01 = this.Gram00Service.Gram00List01();
@@ -57,7 +58,7 @@ public class Gram00Controller
     return "gram00List01";
   }
 
-  @GetMapping("/gram00/ed01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_ED01)
   public String Gram00Ed01(@RequestParam(name = "gram", required = false) Long gram, Model model)
           throws Exception
   {
@@ -95,7 +96,7 @@ public class Gram00Controller
 
     return "gram00Ed01";
   }*/
-  @PostMapping("/gram00/ed01/post01")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_ED01_POST01)
   public String Gram00Ed01Post01(@RequestParam(name = "gram", required = false) Long gram,
           @ModelAttribute("CLM0") Gram00Rec02 gram00Rec02, Model model, HttpServletRequest request)
           throws Exception
@@ -118,7 +119,7 @@ public class Gram00Controller
     return "gram00Ed01";
   }
 
-  @GetMapping("/gram01/ed01/{gram}")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM01_ED01)
   public String Gram01Ed01New(@PathVariable("gram") long gram, @RequestParam(name = "senu", required = false) Long senu, Model model)
           throws Exception
   {
@@ -144,37 +145,48 @@ public class Gram00Controller
     return "gram01Ed01";
   }
 
-  @PostMapping("/gram01/ed01/post01/{gram}")
-  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @RequestParam(name = "senu", required = false) Long senu, @ModelAttribute("CLM0") Gram01 gram01)
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM01_ED01_POST01)
+  public String Gram01Ed01Post01(@PathVariable("gram") long gram, @RequestParam(name = "senu", required = false) Long senu,
+          @ModelAttribute("CLM0") Gram01 gram01, HttpServletRequest request)
           throws Exception
   {
+    OpswLoginVars vLoginVars = new OpswLoginVars();
+    OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
     Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
 
     //model.addAttribute("CLM0", new_gram01);
-    return "redirect:/gram/gram00/ed01?gram=" + gram;
+    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01 + "?lang=" + vLoginVars.getLang() + "&" + "gram=" + gram;
   }
 
-  @GetMapping("/gram00/delete01/{gram}")
-  public String Gram00Delete01(@PathVariable("gram") Long gram)
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM00_DELETE01)
+  public String Gram00Delete01(@PathVariable("gram") Long gram,
+          HttpServletRequest request)
           throws Exception
   {
+    OpswLoginVars vLoginVars = new OpswLoginVars();
+    OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
     if (gram != null)
     {
       this.Gram00Service.Gram00Delete01(gram);
     }
 
-    return "redirect:/gram/gram00/list01";
+    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM + "/" + OpswWebConst.OPSW_CONTROLLER_GRAM_LIST01
+            + "?lang=" + vLoginVars.getLang();
   }
 
-  @GetMapping("/gram01/delete01/{gram}/{senu}")
-  public String Gram01Delete01(@PathVariable("gram") Long gram, @PathVariable("senu") Long senu)
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM01_DELETE01)
+  public String Gram01Delete01(@PathVariable("gram") Long gram, @PathVariable("senu") Long senu,
+          HttpServletRequest request)
           throws Exception
   {
+    OpswLoginVars vLoginVars = new OpswLoginVars();
+    OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
     if (gram != null && senu != null)
     {
       this.Gram01Service.Gram01Delete01(gram, senu);
     }
-    return "redirect:/gram/gram00/ed01?gram=" + gram;
+    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM + "/" + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01
+            + "?lang=" + vLoginVars.getLang() + "&" + "gram=" + gram;
   }
 
 }

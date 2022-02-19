@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
@@ -40,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author oulis
  */
 @Controller
-@RequestMapping("/assets")
+@RequestMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00)
 public class Assets00Controller
 {
 
@@ -59,7 +60,7 @@ public class Assets00Controller
   @Autowired
   private LcOpswAssetsApi opswAssetApi;
 
-  @GetMapping("/assets00/list01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01)
   public String Assets00List01(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
           @RequestParam(name = "dateTo", required = false) String dateTo,*/
           @ModelAttribute(name = "params") CatThmlfAssets00List01Params iparams,
@@ -78,7 +79,7 @@ public class Assets00Controller
     return "assets00List01";
   }
 
-  @PostMapping(value = "/assets00/list01")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01_POST)
   public String Assets00List01Post(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
           @RequestParam(name = "dateTo", required = false) String dateTo,*/
           @ModelAttribute(name = "params") CatThmlfAssets00List01Params iparams,
@@ -156,7 +157,7 @@ public class Assets00Controller
     }
   }
 
-  @GetMapping("/assets00/ed01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01)
   public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model) throws Exception
   {
     Assets00Rec02 asset = null;
@@ -176,7 +177,7 @@ public class Assets00Controller
     return "assets00Ed01";
   }
 
-  @PostMapping("/assets00/ed01/post01")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01_POST01)
   public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId,
           @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
   {
@@ -196,7 +197,7 @@ public class Assets00Controller
     return "assets00Ed01";
   }
 
-  @GetMapping("/assets00/fillfromcrm")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_FILLFROMCRM)
   public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws Exception
   {
     Assets00Rec02 assetReturned = null;

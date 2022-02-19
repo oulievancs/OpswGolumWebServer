@@ -11,6 +11,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -52,7 +53,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 //@RolesAllowed("uci-user")
-@RequestMapping("/actions")
+@RequestMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS)
 public class ActionsController
 {
 
@@ -77,7 +78,7 @@ public class ActionsController
   @Autowired
   private SequencesService SequencesService;
 
-  @GetMapping("/inportfile")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE)
   public String importFileFomr(Model model) throws Exception
   {
     try
@@ -95,13 +96,13 @@ public class ActionsController
     return "inportForm";
   }
 
-  @PostMapping("/inportfile/post")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE_POST)
   public String uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute("gramRec") Gram00Rec01 gramrec,
           RedirectAttributes attributes, HttpServletRequest request) throws Exception
   {
+    OpswLoginVars vlogvar = new OpswLoginVars();
     try
     {
-      OpswLoginVars vlogvar = new OpswLoginVars();
       OpswCookies01.OpswFillLoginVarsFromCookies01(request, vlogvar);
       //check for file
       if (file.isEmpty())
@@ -139,10 +140,10 @@ public class ActionsController
       CatException.ErrorAddErrorMessageParameter(ex, ex.getTechMessage());
       CatException.RethrowCatException(ex);
     }
-    return "redirect:/actions/inportfile";
+    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE + "?lang=" + vlogvar.getLang();
   }
 
-  @PostMapping("/exportfile/post02")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST02)
   public String exportfile02(@ModelAttribute("params") CatThmlfAssets00List01Params iparams, Model model) throws Exception
   {
     CatThmlfAssets00List02Params returnParams = null;
@@ -170,7 +171,7 @@ public class ActionsController
     return "exportform";
   }
 
-  @GetMapping("/exportfile")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE)
   public String exportFile(Model model) throws Exception
   {
     CatThmlfAssets00List02Params params = null;
@@ -199,7 +200,7 @@ public class ActionsController
     return "exportform";
   }
 
-  @PostMapping("/exportfile/post")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST)
   public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("paramsOb") CatThmlfAssets00List02Params iparams) throws Exception
   {
     ResponseEntity<byte[]> result = null;

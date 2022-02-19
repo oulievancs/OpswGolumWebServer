@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -30,11 +31,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author n.oulis
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping(OpswWebConst.OPSW_CONTROLLER_MAIN)
 public class MainController
 {
 
-  @GetMapping("home")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_HOME)
   public String home(HttpServletRequest request, Model model) throws CatException
   {
     try
@@ -48,20 +49,20 @@ public class MainController
     return "home";
   }
 
-  @GetMapping("logout")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_LOGOUT)
   public String logout(HttpServletRequest request) throws Exception
   {
     request.logout();
     return "home";
   }
 
-  @GetMapping("login")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_LOGIN)
   public String login(HttpServletRequest request) throws Exception
   {
     return "redirec:/home";
   }
 
-  @GetMapping("init1")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1)
   public String init1(Model model, HttpServletRequest request,
           @RequestParam(name = "lang", required = false) String ilang)
           throws Exception
@@ -88,12 +89,13 @@ public class MainController
     return "init1";
   }
 
-  @PostMapping("init1/post")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1_POST)
   public String init1Post(@ModelAttribute("CLM0") CatThmlfObject02 clm0,
           HttpServletRequest request,
           RedirectAttributes redirectAttrs)
           throws Exception
   {
+    OpswLoginVars wLoginVars = new OpswLoginVars();
     try
     {
       CatThmlfObject02 obj = (CatThmlfObject02) clm0;
@@ -103,7 +105,7 @@ public class MainController
         throw new CatExceptionUser("Δεν έχει επιλεγεί κάποια έγγυρη επιλογή!");
       }
 
-      OpswLoginVars wLoginVars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, wLoginVars);
       OpswErpRecords01.OpswXrhshByEtairSetConnection(wLoginVars, obj.getCode().shortValue());
       wLoginVars.setEtai(obj.getCode().shortValue());
 
@@ -122,6 +124,6 @@ public class MainController
     {
       CatException.RethrowCatException(ex);
     }
-    return "redirect:/init1";
+    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1 + "?lang=" + wLoginVars.getLang();
   }
 }

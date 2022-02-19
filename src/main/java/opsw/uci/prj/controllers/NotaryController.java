@@ -8,6 +8,7 @@ package opsw.uci.prj.controllers;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
@@ -27,14 +28,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author n.oulis
  */
 @Controller
-@RequestMapping("/notary")
+@RequestMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY)
 public class NotaryController
 {
 
   @Autowired
   private SymbService SymbService;
 
-  @GetMapping("/list01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY_LIST01)
   public String notaryList01(Model model) throws CatException
   {
     List<Symb> notaries = null;
@@ -50,7 +51,7 @@ public class NotaryController
     return "symbList01";
   }
 
-  @GetMapping("/ed01")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY_ED01)
   public String notaryEd01(@RequestParam(name = "id", required = false) Long symb_id, Model model) throws Exception
   {
     Symb vsymb = null;
@@ -72,7 +73,7 @@ public class NotaryController
     return "symbEd01";
   }
 
-  @PostMapping("/ed01/post01")
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY_ED01_POST01)
   public String notaryPost01(
           @RequestParam(name = "id", required = false) Long symb_id,
           @ModelAttribute(name = "CLM0") Symb isymb, Model model,
@@ -96,7 +97,7 @@ public class NotaryController
     return "symbEd01";
   }
 
-  @GetMapping("/delete01/{symb_id}")
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY_DELETE01)
   public String notaryDelete01(
           @PathVariable(name = "symb_id") Long symb_id, Model model
   ) throws CatException
