@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.constants.OpswWebConst;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.system.OpswSystemWebServer01;
 
@@ -45,7 +46,7 @@ public class OpswValidations01
 
           if (iLoginVars.getLang() != null && !iLoginVars.getLang().isEmpty())
           {
-            vredUri += "?lang=" + iLoginVars.getLang();
+            vredUri += "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + iLoginVars.getLang();
           }
           response.sendRedirect(vredUri);
           result = false;
