@@ -7,9 +7,11 @@ package opsw.uci.prj.system;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
@@ -176,12 +178,14 @@ public class OpswMenuDo01
 
       choice = new OpswMenu01();
       choice.setCaption(Ad1(iloginVars, ms, "MENOU00.CHANGE_LANGUAGE", "Language"));
-      choice.setPath(Ad3(iloginVars, request.getRequestURI().substring(request.getContextPath().length())));
+      choice.setPath(Ad3(iloginVars, request));
       choice.setIsActive(false);
       choice.setHaveSub(false);
       Map<String, String> langImg = new HashMap<>();
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-usa-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, 
+              OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, 
+              OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-usa-48.png");
       choice.setImage(Ad4(iloginVars, langImg));
 
       menu.add(choice);
@@ -273,11 +277,13 @@ public class OpswMenuDo01
     return res;
   }
 
-  private static String Ad3(OpswLoginVars iloginVars, String ipath) throws CatException
+  private static String Ad3(OpswLoginVars iloginVars, HttpServletRequest request) throws CatException
   {
     String res = null;
+    String symbol = "?";
     try
     {
+      res = request.getRequestURI().substring(request.getContextPath().length());
       byte vlang = 0;
       if (iloginVars.getLang() != null)
       {
@@ -286,15 +292,43 @@ public class OpswMenuDo01
           vlang = 1;
         }
       }
+      
+      Set<String> keySet = request.getParameterMap().keySet();
+
+      if (keySet != null && !keySet.isEmpty())
+      {
+        symbol = "&";
+        res += "?";
+
+        Iterator<String> vItKey = keySet.iterator();
+
+        int ii = 0;
+        while (vItKey.hasNext())
+        {
+          String vKeyParam = vItKey.next();
+          if(!vKeyParam.equals(OpswLanguage.OPSW_LANG_PARAMETER))
+          {
+            String[] valuesParam = request.getParameterMap().get(vKeyParam);
+            String vValParam = valuesParam[0];
+
+            if (ii > 0)
+            {
+              res += "&";
+            }
+            res += vKeyParam + "=" + String.valueOf(vValParam);
+          }
+          ii++;
+        }
+      }
 
       if (vlang == 0)
       {
-        res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "el";
+        res = res + symbol + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "el";
       }
       else if (vlang == 1)
       {
         //είναι ελλήνικος και πάει άγγλικος
-        res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "en";
+        res = res + symbol + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "en";
       }
     }
     catch (Exception ex)
