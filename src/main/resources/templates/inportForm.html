@@ -45,22 +45,39 @@
         </div>
 
         <div class="sidebar-header">
-          <h3>Main Menu</h3>
+          <h3 th:text="#{MENOU00.MAIN_MENU}"></h3>
         </div>
 
         <ul class="list-unstyled components">
           <div th:each="choice : ${menu}">
             <li th:if="${choice.isIsActive() and !choice.isHaveSub()}" class="active">
-              <a th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}" data-toggle="collapse" aria-expanded="false"></a>
+              <a th:href="@{${choice.getPath()}}" data-toggle="collapse" aria-expanded="false">
+                <i th:if="${choice.getIcon()!= null}" th:class="${choice.getIcon()}"></i>
+                <img style="width:28px;margin-right:-2px;margin-left:-8px;" 
+                  th:if="${choice.getImage()!=null}" th:src="${choice.getImage()}"/>
+                <span th:text="${choice.getCaption()}"></span>
+              </a>
             </li>
             <li th:if="${!choice.isIsActive() and !choice.isHaveSub()}">
-              <a  th:href="@{${choice.getPath()}}" th:text="${choice.getCaption()}"></a>
+              <a th:href="@{${choice.getPath()}}">
+                <i th:if="${choice.getIcon()!= null}" th:class="${choice.getIcon()}"></i>
+                <img
+                  style="width:28px;margin-right:-2px;margin-left:-8px;"
+                  th:if="${choice.getImage()!=null}" th:src="${choice.getImage()}"/>
+                <span th:text="${choice.getCaption()}"></span>
+              </a>
             </li>
             <li th:if="${choice.isHaveSub()}">
-              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false" th:text="${choice.getCaption()}"></a>
+              <a th:href="@{'#' + ${choice.getId()}}" data-toggle="collapse" aria-expanded="false">
+                <i th:if="${choice.getIcon()!=null}" th:class="${choice.getIcon()}"></i> 
+                <span th:text="${choice.getCaption()}"></span>
+              </a>
               <ul class="collapse list-unstyled" th:id="${choice.getId()}">
                 <li th:each="subchoice : ${choice.getSubs()}">
-                  <a th:href="@{${subchoice.getPath()}}" th:text="${subchoice.getCaption()}"></a>
+                  <a th:href="@{${subchoice.getPath()}}" >
+                    <i th:if="${subchoice.getIcon()!= null}" th:class="${subchoice.getIcon()}"></i> 
+                    <span th:text="${subchoice.getCaption()}"></span>
+                  </a>
                 </li>
               </ul>
             </li>

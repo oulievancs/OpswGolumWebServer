@@ -6,8 +6,10 @@
 package opsw.uci.prj.system;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
@@ -63,6 +65,7 @@ public class OpswMenuDo01
       choice.setPath(Ad2(iloginVars, "/home"));
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(false);
+      choice.setIcon("fas fa-home");
       menu.add(choice);
 
       //Choice for Gram00
@@ -103,6 +106,7 @@ public class OpswMenuDo01
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
       choice.setId("actionsSub");
+      choice.setIcon("fas fa-paper-plane");
 
       menu.add(choice);
 
@@ -128,6 +132,7 @@ public class OpswMenuDo01
       choice.setHaveSub(true);
       choice.setSubs(subMenu);
       choice.setId("notarysub");
+      choice.setIcon("fas fa-briefcase");
 
       menu.add(choice);
 
@@ -143,6 +148,7 @@ public class OpswMenuDo01
       choice.setPath(Ad2(iloginVars, "/init1"));
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(false);
+      choice.setIcon("fas fa-database");
 
       menu.add(choice);
 
@@ -177,6 +183,10 @@ public class OpswMenuDo01
       choice.setPath(Ad3(iloginVars, "/init1"));
       choice.setIsActive(false);
       choice.setHaveSub(false);
+      Map<String, String> langImg = new HashMap<>();
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, "static/assets/icons8-greece-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, "static/assets/icons8-usa-48.png");
+      choice.setImage(Ad4(iloginVars, langImg));
 
       menu.add(choice);
 
@@ -289,6 +299,31 @@ public class OpswMenuDo01
       {
         //είναι ελλήνικος και πάει άγγλικος
         res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "en";
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+  
+  private static String Ad4(OpswLoginVars iloginVars, Map<String, String> images) throws CatException
+  {
+    String res = null;
+    try
+    {
+      byte vlang = 0;
+      if (iloginVars.getLang() != null)
+      {
+        if (iloginVars.getLang().equals(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL))
+        {
+          res = images.get(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
+        }
+        else
+        {
+          res = images.get(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL);
+        }
       }
     }
     catch (Exception ex)

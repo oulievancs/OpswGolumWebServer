@@ -22,6 +22,7 @@ public class OpswMenu01
   private List<OpswMenu01> subs;
   private String id;
   private String icon;
+  private String image;
 
   public OpswMenu01()
   {
@@ -32,6 +33,7 @@ public class OpswMenu01
     this.subs = null;
     this.id = null;
     this.icon = null;
+    this.image = null;
   }
 
   public String getPath()
@@ -102,6 +104,16 @@ public class OpswMenu01
   public void setIcon(String icon)
   {
     this.icon = icon;
+  }
+
+  public String getImage()
+  {
+    return image;
+  }
+
+  public void setImage(String image)
+  {
+    this.image = image;
   }
   
 }
