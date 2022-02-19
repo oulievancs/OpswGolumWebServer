@@ -73,7 +73,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
       OpswLogger.LoggerLogException(ex);
     }
     //
-    OpswLanguage.OpswLanguage(vLoginVars, request.getParameter(OpswLanguage.OPSW_LANG_PARAMETER));
+    OpswLanguage.OpswLanguageElseVoid(vLoginVars, request.getParameter(OpswLanguage.OPSW_LANG_PARAMETER));
     OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource);
     //
     this.SetRequestResponseHeaders(request, response);

@@ -6,6 +6,7 @@
 package opsw.uci.prj.globals;
 
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.utils.OpswStringUtils;
 
 /**
  *
@@ -27,6 +28,21 @@ public class OpswLanguage
       else
       {
         wLoginVars.setLang(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  public static void OpswLanguageElseVoid(OpswLoginVars wLoginVars, String ilang) throws CatException
+  {
+    try
+    {
+      if (!OpswStringUtils.OpswStringIsEmpty(ilang))
+      {
+        OpswLanguage(wLoginVars, ilang);
       }
     }
     catch (Exception ex)
