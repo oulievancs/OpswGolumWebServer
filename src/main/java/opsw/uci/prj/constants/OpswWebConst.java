@@ -16,11 +16,11 @@ public class OpswWebConst
    * MAIN
    */
   public static final String OPSW_CONTROLLER_MAIN = "/";
-  public static final String OPSW_CONTROLLER_MAIN_HOME = "home";
-  public static final String OPSW_CONTROLLER_MAIN_LOGOUT = "logout";
-  public static final String OPSW_CONTROLLER_MAIN_LOGIN = "login";
-  public static final String OPSW_CONTROLLER_MAIN_INIT1 = "init1";
-  public static final String OPSW_CONTROLLER_MAIN_INIT1_POST = "init1/post";
+  public static final String OPSW_CONTROLLER_MAIN_HOME = "/home";
+  public static final String OPSW_CONTROLLER_MAIN_LOGOUT = "/logout";
+  public static final String OPSW_CONTROLLER_MAIN_LOGIN = "/login";
+  public static final String OPSW_CONTROLLER_MAIN_INIT1 = "/init1";
+  public static final String OPSW_CONTROLLER_MAIN_INIT1_POST = "/init1/post";
 
   /**
    * ACTIONS

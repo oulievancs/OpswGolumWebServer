@@ -12,6 +12,7 @@ import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Gram00Rec01;
@@ -155,7 +156,8 @@ public class Gram00Controller
     Gram01 new_gram01 = this.Gram01Service.Gram01Post02(gram, senu, gram01);
 
     //model.addAttribute("CLM0", new_gram01);
-    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01 + "?lang=" + vLoginVars.getLang() + "&" + "gram=" + gram;
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_GRAM
+            + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01 + "?gram=" + gram;
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM00_DELETE01)
@@ -170,8 +172,7 @@ public class Gram00Controller
       this.Gram00Service.Gram00Delete01(gram);
     }
 
-    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM + "/" + OpswWebConst.OPSW_CONTROLLER_GRAM_LIST01
-            + "?lang=" + vLoginVars.getLang();
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_GRAM + OpswWebConst.OPSW_CONTROLLER_GRAM_LIST01;
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_GRAM_GRAM01_DELETE01)
@@ -185,8 +186,8 @@ public class Gram00Controller
     {
       this.Gram01Service.Gram01Delete01(gram, senu);
     }
-    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_GRAM + "/" + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01
-            + "?lang=" + vLoginVars.getLang() + "&" + "gram=" + gram;
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_GRAM + OpswWebConst.OPSW_CONTROLLER_GRAM_ED01
+            + "?gram=" + gram;
   }
 
 }
