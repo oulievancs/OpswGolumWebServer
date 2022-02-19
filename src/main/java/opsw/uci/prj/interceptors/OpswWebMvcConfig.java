@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.interceptors;
 
+import opsw.uci.prj.globals.OpswLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +58,7 @@ public class OpswWebMvcConfig implements WebMvcConfigurer
   public LocaleChangeInterceptor localeChangeInterceptor()
   {
     LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-    lci.setParamName("lang");
+    lci.setParamName(OpswLanguage.OPSW_LANG_PARAMETER);
     return lci;
   }
 

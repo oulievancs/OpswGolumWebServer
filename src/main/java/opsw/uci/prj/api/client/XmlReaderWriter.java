@@ -400,21 +400,19 @@ public class XmlReaderWriter
       }
       else if (this.TypesComp01(obj.getFieldType(), Calendar.class))
       {
-        String valEl = null;
+        Object valEl = null;
         if (elVal != null)
         {
           if (elVal instanceof String)
           {
-            valEl = (String) elVal;
+            valEl = OpswDateUtils.StrToDateXml((String) elVal);
           }
           else if (ixmlWrite)
           {
-            if (!OpswStringUtils.OpswStringIsEmpty(valEl))
-            {
-              vval = OpswDateUtils.StrToDate(valEl, this.dateFormat);
-            }
+            valEl = OpswDateUtils.DateToStrXml((Calendar) elVal);
           }
         }
+        vval = valEl;
       }
       else if (this.TypesComp01(obj.getFieldType(), BigDecimal.class))
       {
