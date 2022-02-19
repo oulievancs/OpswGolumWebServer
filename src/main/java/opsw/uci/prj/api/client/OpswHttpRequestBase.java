@@ -215,7 +215,7 @@ public abstract class OpswHttpRequestBase
           {
             String vKeyParam = vItKey.next();
 
-            Object vValParam = this.urlParameters.get(vItKey);
+            Object vValParam = this.urlParameters.get(vKeyParam);
 
             if (ii > 0)
             {

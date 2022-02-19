@@ -146,7 +146,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       else
       {
         throw new CatException("Http Error [Error Code = " + responseCode + ", "
-                + "Message = " + "null]!");
+                + "Message = " + "null, Resource = " + this.getUrl() + "]!");
       }
     }
     catch (Exception ex)
@@ -161,7 +161,8 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     Object result = null;
     try
     {
-      HttpUriRequest httpGet = new HttpGet(this.OpswBuildUrlParams());
+      String params = this.OpswBuildUrlParams();
+      HttpUriRequest httpGet = new HttpGet(params);
       this.KoinaRequest(httpGet);
 
       HttpResponse httpResponse = this.CreateHttpClient().execute(httpGet);
@@ -182,7 +183,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       else
       {
         throw new CatException("Http Error [Error Code = " + responseCode + ", "
-                + "Message = " + "null]!");
+                + "Message = " + "null Resource = " + this.getUrl() + "]!");
       }
     }
     catch (Exception ex)

@@ -5,6 +5,8 @@
  */
 package opsw.uci.prj.assetsapi.logic;
 
+import java.util.HashMap;
+import java.util.Map;
 import opsw.uci.prj.api.client.OpswHttpRequest01;
 import opsw.uci.prj.api.client.OpswHttpRequestBase;
 import opsw.uci.prj.api.client.XmlReaderWriter;
@@ -76,15 +78,16 @@ public class LcOpswAssetsApi
           XmlReaderWriter xmlReaderWriter = new XmlReaderWriter();
           httpRequest01.setXmlReaderWriter(xmlReaderWriter);
           OpswHttpRequestBase httpRequestBase = httpRequest01;
-          httpRequestBase.setUrl(constv.getDescr() + "propertiesXML_Example2");
+          httpRequestBase.setUrl(constv.getDescr());
           httpRequestBase.setMethod(OpswHttpRequestBase.OpswHttpMethod.OPSW_HTTP_MENTHOD_GET);
           httpRequestBase.setHttpProtocol(OpswHttpRequestBase.OpswHttpRequestProtocol.OPSW_HTTP_PROTOCOL_HTTP);
           httpRequestBase.setDateFormat(OpswDateUtils.OPSW_DATE_XMLFORMAT);
           httpRequestBase.setResponseBody(ProducerEstates.class);
 
-          //Map<String, Object> parameters = new HashMap<>();
-          //parameters.put("filename", "propertiesXML_Example2");
-          //httpRequestBase.setUrlParameters(parameters);
+          Map<String, Object> parameters = new HashMap<>();
+          parameters.put("Portal", "Ext");
+          parameters.put("action", "synconly");
+          httpRequestBase.setUrlParameters(parameters);
 
 
           prodEst = (ProducerEstates) httpRequestBase.OpswHttpSend(null);
