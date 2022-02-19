@@ -14,6 +14,8 @@ import opsw.uci.prj.cat.CatException;
 public class OpswLanguage
 {
 
+  public static final String OPSW_LANG_PARAMETER = "lang";
+
   public static void OpswLanguage(OpswLoginVars wLoginVars, String ilang) throws CatException
   {
     try

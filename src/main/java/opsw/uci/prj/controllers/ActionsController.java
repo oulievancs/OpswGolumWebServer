@@ -14,6 +14,7 @@ import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Symb;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
@@ -140,7 +141,8 @@ public class ActionsController
       CatException.ErrorAddErrorMessageParameter(ex, ex.getTechMessage());
       CatException.RethrowCatException(ex);
     }
-    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE + "?lang=" + vlogvar.getLang();
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_ACTIONS
+            + OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE;
   }
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST02)

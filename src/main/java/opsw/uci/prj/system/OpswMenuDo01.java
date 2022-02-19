@@ -11,6 +11,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.cat.CatThmlfObject02;
@@ -256,7 +257,7 @@ public class OpswMenuDo01
       }
       else if (ilang == 1)
       {
-        res = ipath + "?" + "lang=" + "el";
+        res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "el";
       }
     }
     catch (Exception ex)
@@ -282,12 +283,12 @@ public class OpswMenuDo01
 
       if (vlang == 0)
       {
-        res = ipath + "?" + "lang=" + "el";
+        res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "el";
       }
       else if (vlang == 1)
       {
         //είναι ελλήνικος και πάει άγγλικος
-        res = ipath + "?" + "lang=" + "en";
+        res = ipath + "?" + OpswLanguage.OPSW_LANG_PARAMETER + "=" + "en";
       }
     }
     catch (Exception ex)

@@ -40,7 +40,7 @@ public class OpswValidations01
                 && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1) > 0)
                 && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1_POST) > 0))
         {
-          String vredUri = OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/"
+          String vredUri = OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH
                   + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1;
 
           if (iLoginVars.getLang() != null && !iLoginVars.getLang().isEmpty())

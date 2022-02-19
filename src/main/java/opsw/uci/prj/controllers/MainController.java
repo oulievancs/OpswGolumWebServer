@@ -124,6 +124,6 @@ public class MainController
     {
       CatException.RethrowCatException(ex);
     }
-    return "redirect:/" + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1 + "?lang=" + wLoginVars.getLang();
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1;
   }
 }
