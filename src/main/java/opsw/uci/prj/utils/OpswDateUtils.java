@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import javax.xml.bind.DatatypeConverter;
 import opsw.uci.prj.cat.CatException;
 
 /**
@@ -18,7 +19,7 @@ import opsw.uci.prj.cat.CatException;
  */
 public class OpswDateUtils
 {
-  
+
   public final static String OPSW_DATE_DEFAULT_FORMAT = "dd-MM-yyyy";
   public final static String OPSW_DATE_TIME_DEFAULT_FORMAT = "dd-MM-yyyy HH:mm:ss";
   public final static String OPSW_DATE_FORMAT_AMER = "MM-dd-yyyy";
@@ -117,6 +118,46 @@ public class OpswDateUtils
     }
 
     return vcal;
+  }
+
+  public static Calendar StrToDateXml(String iXmldateStr)
+          throws CatException
+  {
+    Calendar vcal = null;
+    try
+    {
+      if (iXmldateStr == null)
+      {
+        throw new CatException("Δεν δόθηκε ημ/νία!");
+      }
+
+      vcal = DatatypeConverter.parseDateTime(iXmldateStr);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vcal;
+  }
+
+  public static String DateToStrXml(Calendar icalendar)
+          throws CatException
+  {
+    String vstr = null;
+    try
+    {
+      if (icalendar == null)
+      {
+        throw new CatException("Δεν δόθηκε ημ/νία!");
+      }
+
+      vstr = DatatypeConverter.printDateTime(icalendar);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vstr;
   }
 
   public static String DateToStr(Calendar icalendar, String vdateFormat)
