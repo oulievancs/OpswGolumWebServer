@@ -52,6 +52,10 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
     OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
     result &= OpswValidations01.MakeLoginValidations01(vLoginVars, request, response);
     //*********************************************//
+    //*************LANGUAGE************************//
+
+    OpswLanguage.OpswLanguageElseVoid(vLoginVars, request.getParameter(OpswLanguage.OPSW_LANG_PARAMETER));
+    OpswCookies01.OpswFillCookiesFromLoginVars01(request, vLoginVars);
 
     return result;
   }
@@ -73,7 +77,6 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
       OpswLogger.LoggerLogException(ex);
     }
     //
-    OpswLanguage.OpswLanguageElseVoid(vLoginVars, request.getParameter(OpswLanguage.OPSW_LANG_PARAMETER));
     OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource);
     //
     this.SetRequestResponseHeaders(request, response);
