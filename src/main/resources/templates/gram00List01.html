@@ -27,7 +27,7 @@
     <link rel="stylesheet" defer th:href="@{http://getbootstrap.com/css/#tables-responsive}"></link>
     <script>
       $(document).ready(function () {
-        $('#table1').DataTable({});
+        $('#table1').DataTable();
       });
     </script>
     <!------------------------------>
@@ -92,7 +92,7 @@
             </a>
           </div>
         </div>
-        <table id="table1" class="hover table-responsive" style="width:100%">
+        <table id="table1" style="width:100%" class="hover table-responsive stripe" >
           <thead>
             <tr>
               <th th:text="#{GRAM00_PR.GRAM_COL}"></th>

@@ -209,3 +209,7 @@ a.article:hover {
 .card{
   margin-top:30px !important;
 }
+
+.odd {
+  background-color: #cfcfcf !important;
+}
