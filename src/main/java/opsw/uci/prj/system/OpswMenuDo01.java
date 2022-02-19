@@ -15,7 +15,6 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
-import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.cat.CatThmlfObject02;
 import opsw.uci.prj.utils.OpswSecurityUtils;
 import org.springframework.context.MessageSource;
@@ -35,7 +34,6 @@ public class OpswMenuDo01
   {
     List<OpswMenu01> menu = new ArrayList<>();
     OpswMenu01 choice = null;
-    OpswLoginVars logivars = null;
     CatThmlfObject02 xrhshObj = null;
     String requstedUrl = request.getRequestURI();
 
@@ -55,9 +53,7 @@ public class OpswMenuDo01
     }
     else
     {
-      logivars = new OpswLoginVars();
-      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logivars);
-      xrhshObj = OpswErpRecords01.OpswGetXrhshObj(logivars.getEtai());
+      xrhshObj = OpswErpRecords01.OpswGetXrhshObj(iloginVars.getEtai());
 
       //Choice for HOME
       choice = new OpswMenu01();
@@ -155,7 +151,7 @@ public class OpswMenuDo01
       subMenu = new ArrayList<>();
       choice1 = new OpswMenu01();
       //Choice inport File
-      choice1.setCaption(logivars.getLoginUser());
+      choice1.setCaption(iloginVars.getLoginUser());
       choice1.setPath("#");
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
@@ -180,12 +176,12 @@ public class OpswMenuDo01
 
       choice = new OpswMenu01();
       choice.setCaption(Ad1(iloginVars, ms, "MENOU00.CHANGE_LANGUAGE", "Language"));
-      choice.setPath(Ad3(iloginVars, "/init1"));
+      choice.setPath(Ad3(iloginVars, request.getRequestURI().substring(request.getContextPath().length())));
       choice.setIsActive(false);
       choice.setHaveSub(false);
       Map<String, String> langImg = new HashMap<>();
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, "static/assets/icons8-greece-48.png");
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, "static/assets/icons8-usa-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-usa-48.png");
       choice.setImage(Ad4(iloginVars, langImg));
 
       menu.add(choice);

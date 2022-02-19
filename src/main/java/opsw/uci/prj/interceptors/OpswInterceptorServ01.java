@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.system.OpswMenuDo01;
@@ -72,6 +73,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
       OpswLogger.LoggerLogException(ex);
     }
     //
+    OpswLanguage.OpswLanguage(vLoginVars, request.getParameter(OpswLanguage.OPSW_LANG_PARAMETER));
     OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource);
     //
     this.SetRequestResponseHeaders(request, response);

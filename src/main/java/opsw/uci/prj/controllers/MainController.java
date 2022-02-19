@@ -63,8 +63,7 @@ public class MainController
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1)
-  public String init1(Model model, HttpServletRequest request,
-          @RequestParam(name = "lang", required = false) String ilang)
+  public String init1(Model model, HttpServletRequest request)
           throws Exception
   {
     try
@@ -73,8 +72,6 @@ public class MainController
 
       OpswLoginVars vLoginVars = new OpswLoginVars();
       OpswCookies01.OpswFillLoginVarsFromCookies01(request, vLoginVars);
-      OpswLanguage.OpswLanguage(vLoginVars, ilang);
-      OpswCookies01.OpswFillCookiesFromLoginVars01(request, vLoginVars);
       obj1.setCode(new Long(vLoginVars.getEtai()));
 
       List<CatThmlfObject02> vlist = OpswErpRecords01.OpswListXrhshListObj();
