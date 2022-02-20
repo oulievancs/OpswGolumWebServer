@@ -8,6 +8,7 @@ package opsw.uci.prj.controllers;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import opsw.uci.prj.api.client.OpswHttpRequestBase;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.constants.OpswWebConst;
@@ -156,22 +157,26 @@ public class Assets00Controller
       CatException.RethrowCatException(ex);
     }
   }
-
+  
+  
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01)
-  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model) throws Exception
+  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model, HttpServletRequest request) throws Exception
   {
     Assets00Rec02 asset = null;
+    Symb vSymb = null;
     try
     {
       if (assetId != null)
       {
         asset = this.Assets00Service.Assets00SelectEd01(assetId);
+        vSymb = this.SymbService.SymbSelect02(asset.getSymb_id());
       }
     }
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
+    model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", asset);
 
     return "assets00Ed01";
@@ -182,16 +187,19 @@ public class Assets00Controller
           @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
   {
     Assets00Rec02 assetsReturned = null;
+    Symb vSymb = null;
     try
     {
       OpswLoginVars logvars = new OpswLoginVars();
       OpswCookies01.OpswFillLoginVarsFromCookies01(request, logvars);
       assetsReturned = this.Assets00Service.Assets00PostEd01(assetId, asset01, logvars);
+      vSymb = this.SymbService.SymbSelect02(assetsReturned.getSymb_id());
     }
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
+    model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", assetsReturned);
 
     return "assets00Ed01";

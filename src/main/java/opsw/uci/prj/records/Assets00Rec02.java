@@ -30,10 +30,11 @@ public class Assets00Rec02
   private String uniqcode;
   private String auctionurl;
   private Long symb_id;
-  private String symb_name;
+  /*private String symb_name;
   private String symb_surename;
   private String symb_tele;
   private String symb_mail;
+*/
   private String borrname;
   private String property_id;
   private String callateral1;
@@ -158,10 +159,10 @@ public class Assets00Rec02
     this.landea_comments = null;
     this.update_auction = null;
     this.high_interest = null;
-    this.symb_name = null;
-    this.symb_surename = null;
-    this.symb_tele = null;
-    this.symb_mail = null;
+//    this.symb_name = null;
+//    this.symb_surename = null;
+//    this.symb_tele = null;
+//    this.symb_mail = null;
     this.assets00flrec = null;
     this.user_create = null;
     this.date_create = null;
@@ -779,45 +780,45 @@ public class Assets00Rec02
     this.high_interest = high_interest;
   }
 
-  public String getSymb_name()
-  {
-    return symb_name;
-  }
-
-  public void setSymb_name(String symb_name)
-  {
-    this.symb_name = symb_name;
-  }
-
-  public String getSymb_surename()
-  {
-    return symb_surename;
-  }
-
-  public void setSymb_surename(String symb_surename)
-  {
-    this.symb_surename = symb_surename;
-  }
-
-  public String getSymb_tele()
-  {
-    return symb_tele;
-  }
-
-  public void setSymb_tele(String symb_tele)
-  {
-    this.symb_tele = symb_tele;
-  }
-
-  public String getSymb_mail()
-  {
-    return symb_mail;
-  }
-
-  public void setSymb_mail(String symb_mail)
-  {
-    this.symb_mail = symb_mail;
-  }
+//  public String getSymb_name()
+//  {
+//    return symb_name;
+//  }
+//
+//  public void setSymb_name(String symb_name)
+//  {
+//    this.symb_name = symb_name;
+//  }
+//
+//  public String getSymb_surename()
+//  {
+//    return symb_surename;
+//  }
+//
+//  public void setSymb_surename(String symb_surename)
+//  {
+//    this.symb_surename = symb_surename;
+//  }
+//
+//  public String getSymb_tele()
+//  {
+//    return symb_tele;
+//  }
+//
+//  public void setSymb_tele(String symb_tele)
+//  {
+//    this.symb_tele = symb_tele;
+//  }
+//
+//  public String getSymb_mail()
+//  {
+//    return symb_mail;
+//  }
+//
+//  public void setSymb_mail(String symb_mail)
+//  {
+//    this.symb_mail = symb_mail;
+//  }
 
   public List<Assets00flRec01> getAssets00flrec()
   {
