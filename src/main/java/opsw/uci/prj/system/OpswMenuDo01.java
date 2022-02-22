@@ -13,12 +13,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
+import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.records.cat.CatThmlfObject02;
 import opsw.uci.prj.utils.OpswSecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,9 +31,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class OpswMenuDo01
 {
-
+  
   public static List<OpswMenu01> MakeMenu01(HttpServletRequest request, ModelAndView model,
-          OpswLoginVars iloginVars, MessageSource ms
+          OpswLoginVars iloginVars, MessageSource ms, ApplicationProperties appProps
   ) throws CatException
   {
     List<OpswMenu01> menu = new ArrayList<>();
@@ -182,9 +184,9 @@ public class OpswMenuDo01
       choice.setIsActive(false);
       choice.setHaveSub(false);
       Map<String, String> langImg = new HashMap<>();
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, 
-              OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
       langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, 
+              OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, 
               OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-usa-48.png");
       choice.setImage(Ad4(iloginVars, langImg));
 
@@ -201,6 +203,7 @@ public class OpswMenuDo01
 
     if (model != null)
     {
+      model.addObject("app_prop", appProps);
       model.addObject("menu", menu);
       model.addObject("xrhsh", xrhshObj);
       model.addObject("opsw_path", model.getView());
@@ -344,16 +347,10 @@ public class OpswMenuDo01
     try
     {
       byte vlang = 0;
+      res = images.get(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
       if (iloginVars.getLang() != null)
       {
-        if (iloginVars.getLang().equals(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL))
-        {
-          res = images.get(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN);
-        }
-        else
-        {
-          res = images.get(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL);
-        }
+        res = images.get(iloginVars.getLang());
       }
     }
     catch (Exception ex)

@@ -9,11 +9,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.system.OpswMenuDo01;
 import opsw.uci.prj.validations.OpswValidations01;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,8 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
 {
 
   private MessageSource messageSource;
+
+  private ApplicationProperties appProp;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -77,7 +81,7 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
       OpswLogger.LoggerLogException(ex);
     }
     //
-    OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource);
+    OpswMenuDo01.MakeMenu01(request, model, vLoginVars, this.messageSource, this.appProp);
     //
     this.SetRequestResponseHeaders(request, response);
   }
@@ -97,5 +101,15 @@ public class OpswInterceptorServ01 implements HandlerInterceptor
   public void setMessageSource(MessageSource messageSource)
   {
     this.messageSource = messageSource;
+  }
+
+  public ApplicationProperties getAppProp()
+  {
+    return appProp;
+  }
+
+  public void setAppProp(ApplicationProperties appProp)
+  {
+    this.appProp = appProp;
   }
 }

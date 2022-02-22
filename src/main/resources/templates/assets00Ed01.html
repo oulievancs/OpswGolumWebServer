@@ -104,6 +104,9 @@
             </li>
           </div>
         </ul>
+        <div class="sidebar-footer">
+          <span th:text="${app_prop.getAppVersion()}"></span>
+        </div>
       </nav>
       <!--Content-->
       <div id="content">
@@ -279,6 +282,45 @@
                         class="form-control"
                         placeholder="Enter Auction url"
                         />
+                    </div>
+                  </div>
+                  <div class="row" style="padding: 15px 0 15px 0;">
+                    <div class="col-md-4">
+                      <label for="auction_id" class="form-label" th:text="#{ASSETS00_ED.AUCTION_ID}"></label>
+                      <input 
+                        type="text"
+                        name="auction_id"
+                        th:field="*{auction_id}"
+                        placeholder="Enter Auction ID"
+                        class="form-control" id="auction_id" />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="uniqauction_code" class="form-label" th:text="#{ASSETS00_ED.INIQUE_AUCTION_CODE}"></label>
+                      <input 
+                        type="text"
+                        name="uniqauction_code"
+                        th:field="*{uniqauction_code}"
+                        placeholder="Enter Unique Auction Code"
+                        class="form-control" id="uniqauction_code" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="auction_datedate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE}"></label>
+                      <input 
+                        type="date"
+                        autocomplete="false"
+                        name="auction_datedate"
+                        th:field="*{auction_datedate}"
+                        placeholder="Enter Auction Date"
+                        class="form-control" id="auction_datedate" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="auctiondate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE_MMYY}"></label>
+                      <input 
+                        type="text"
+                        name="auctiondate"
+                        th:field="*{auctiondate}"
+                        placeholder="Enter Auction Date Month Year"
+                        class="form-control" id="auctiondate" />
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -540,45 +582,6 @@
                         th:field="*{floor}"
                         placeholder="Enter Floor"
                         class="form-control" id="floor" />
-                    </div>
-                  </div>
-                  <div class="row" style="padding: 15px 0 15px 0;">
-                    <div class="col-md-4">
-                      <label for="auction_id" class="form-label" th:text="#{ASSETS00_ED.AUCTION_ID}"></label>
-                      <input 
-                        type="text"
-                        name="auction_id"
-                        th:field="*{auction_id}"
-                        placeholder="Enter Auction ID"
-                        class="form-control" id="auction_id" />
-                    </div>
-                    <div class="col-md-4">
-                      <label for="uniqauction_code" class="form-label" th:text="#{ASSETS00_ED.INIQUE_AUCTION_CODE}"></label>
-                      <input 
-                        type="text"
-                        name="uniqauction_code"
-                        th:field="*{uniqauction_code}"
-                        placeholder="Enter Unique Auction Code"
-                        class="form-control" id="uniqauction_code" />
-                    </div>
-                    <div class="col-md-2">
-                      <label for="auction_datedate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE}"></label>
-                      <input 
-                        type="date"
-                        autocomplete="false"
-                        name="auction_datedate"
-                        th:field="*{auction_datedate}"
-                        placeholder="Enter Auction Date"
-                        class="form-control" id="auction_datedate" />
-                    </div>
-                    <div class="col-md-2">
-                      <label for="auctiondate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE_MMYY}"></label>
-                      <input 
-                        type="text"
-                        name="auctiondate"
-                        th:field="*{auctiondate}"
-                        placeholder="Enter Auction Date Month Year"
-                        class="form-control" id="auctiondate" />
                     </div>
                   </div>  
                   <div class="row">

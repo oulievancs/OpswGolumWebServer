@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.interceptors;
 
+import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.globals.OpswLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,11 +26,15 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class OpswWebMvcConfig implements WebMvcConfigurer
 {
 
+  @Autowired
+  private ApplicationProperties appProp;
+
   @Override
   public void addInterceptors(InterceptorRegistry registry)
   {
     OpswInterceptorServ01 o = new OpswInterceptorServ01();
     o.setMessageSource(this.messageSource());
+    o.setAppProp(this.appProp);
 
     registry.addInterceptor(o)
             .addPathPatterns("/**")

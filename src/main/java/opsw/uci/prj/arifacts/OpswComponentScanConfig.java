@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.arifacts;
 
+import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
@@ -35,6 +36,7 @@ import org.springframework.context.annotation.Configuration;
           OpswWebMvcConfig.class,
           OpswExecutorConfig.class,
           OpswLocalResolver.class,
+          ApplicationProperties.class,
           //---OWN SERVICES-----//
           LcGramAssetsExcel01.class,
           LcOpswAssetsApi.class

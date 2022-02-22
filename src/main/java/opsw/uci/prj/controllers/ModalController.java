@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,8 +53,9 @@ public class ModalController
     return "symb_modal";
   }
   
-  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MODAL_SYMB_MODAL01_POST)
-  public String modalPost(@RequestParam(name="asset", required=true) Long assetId, @RequestParam(name="symb", required=true) Long symbId) throws CatException
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_MODAL_SYMB_MODAL01_POST)
+  public String modalPost(@PathVariable("asset") Long assetId,
+          @RequestParam("symbId") Long symbId) throws CatException
   {
     Symb vSymb;
     Assets00 asset00;

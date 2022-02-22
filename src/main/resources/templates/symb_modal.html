@@ -12,36 +12,14 @@
     var table = $('#table_modal').DataTable({
       "paging": false
     });
-
-    $('#table_modal tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    } );
-
-    $('#button-select').click( function () {
-      //var vid = table.row('.selected').$('#current').attr('value');
-      var row = table.row('.selected').data();
-      var asset = document.getElementById("asset").value;
-      window.location.href = '/OPSWGOLUMWEBSERV/modals/symb/modalpost?asset=' + asset + '&symb=' + row[0];
-      //Http.open("GET", url);
-      //Http.send();
-    } );
-
-    $('#table_modal').on('dblclick','tr',function(e){
-        e.stopPropagation();
-        let rowID = $(this).attr('id');
-        var asset = document.getElementById("asset").value;
-        window.location.href = '/OPSWGOLUMWEBSERV/modals/symb/modalpost?asset=' + asset + '&symb=' + rowID;
-    });
-  } );
+  });
 </script>
+
+
+
 <input type="hidden" class="form-control" id="asset" th:value="${asset}"/>
 <table id="table_modal" class="hover table-responsive stripe" style="width:100%">
+
   <thead>
     <tr>
       <th type="hidden" th:text="${'Symb ID'}" data-visible="false"></th>
@@ -49,23 +27,29 @@
       <th th:text="#{SYMB_MODAL01.SURNAME}"></th>
       <th th:text="#{SYMB_MODAL01.TELEPHONE}"></th>
       <th th:text="#{SYMB_MODAL01.EMAIL}"></th>
+      <th th:text="#{SYMB_MODAL01.ACTION}"></th>
     </tr>
   </thead>
   <tbody>
-    <tr th:each = "notary : ${CLM0}" th:id = "${notary.getId()}">
-      <td type="hidden" th:text = "${notary.getId()}"></td>
-      <td th:text = "${notary.getName()}"></td>
-      <td th:text = "${notary.getSurename()}"></td>
-      <td th:text = "${notary.getTele()}"></td>
-      <td th:text = "${notary.getEmail()}"></td>
+    <tr th:each = "notary_int, iteration : ${CLM0}" th:id = "${notary_int.getId()}">
+      <td type="hidden" th:text = "${notary_int.getId()}"></td>
+      <td th:text = "${notary_int.getName()}"></td>
+      <td th:text = "${notary_int.getSurename()}"></td>
+      <td th:text = "${notary_int.getTele()}"></td>
+      <td th:text = "${notary_int.getEmail()}"></td>
+      <td>
+        <form method="POST" th:action="@{/modals/symb/modalpost/{asset} (asset = ${asset})}">
+          <input hidden th:name="symbId" th:value="${notary_int.getId()}" type="number" />
+          <button type="submit" id="button-select" class="btn btn-primary" >
+            <span th:text="#{SYMB_MODAL01.SELECT}"></span>
+          </button>
+        </form>
+      </td>
     </tr>            
   </tbody>
 </table>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-dismiss="modal">
     <span th:text="#{SYMB_MODAL01.CLOSE}"></span>
-  </button>
-  <button type="button" id="button-select" class="btn btn-primary" data-dismiss="modal">
-    <span th:text="#{SYMB_MODAL01.SELECT}"></span>
   </button>
 </div>

@@ -69,5 +69,5 @@ public class OpswWebConst
   
   public static final String OPSW_CONTROLLER_MODAL = "/modals";
   public static final String OPSW_CONTROLLER_MODAL_SYMB_MODAL01 = "/symb/modal01";
-  public static final String OPSW_CONTROLLER_MODAL_SYMB_MODAL01_POST = "/symb/modalpost";
+  public static final String OPSW_CONTROLLER_MODAL_SYMB_MODAL01_POST = "/symb/modalpost/{asset}";
 }

@@ -77,6 +77,9 @@
             </li>
           </div>
         </ul>
+        <div class="sidebar-footer">
+          <span th:text="${app_prop.getAppVersion()}"></span>
+        </div>
       </nav>
       <!--Content-->
       <div id="content">
@@ -86,10 +89,7 @@
             <button type="button" id="sidebarCollapse" class="btn btn-info">
               <i class="fas fa-align-left"></i>
             </button>
-            <label th:if="${xrhsh.getDescr() != null}" th:text="${'Portofolio: ' + xrhsh.getCode() + ' - ' + xrhsh.getDescr()}"></label>
-            <!--<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="fas fa-align-justify"></i>
-            </button>-->
+            <label th:if="${xrhsh != null}" ><span th:text="${'Portofolio: ' + xrhsh.getCode() + ' - ' + xrhsh.getDescr()}" ></span></label>
           </div>
         </nav>
         <div class="container">
