@@ -35,12 +35,14 @@ public class Opswconstsv implements Serializable
   private String code;
   @Id
   private String value;
+  private String value1;
   private String descr;
 
   public Opswconstsv()
   {
     this.code = null;
     this.value = null;
+    this.value1 = null;
     this.descr = null;
   }
 
@@ -62,6 +64,16 @@ public class Opswconstsv implements Serializable
   public void setValue(String value)
   {
     this.value = value;
+  }
+
+  public String getValue1()
+  {
+    return value1;
+  }
+
+  public void setValue1(String value1)
+  {
+    this.value1 = value1;
   }
 
   public String getDescr()
