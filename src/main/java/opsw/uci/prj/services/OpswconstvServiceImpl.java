@@ -51,7 +51,7 @@ public class OpswconstvServiceImpl implements OpswconstvService
   {
     OpswconstsvKey opswconstsvKey = new OpswconstsvKey();
     opswconstsvKey.setCode(code);
-    opswconstsvKey.setValue(value);
+    opswconstsvKey.setField(value);
     return this.OpswconstvSelect01(opswconstsvKey);
   }
 }
