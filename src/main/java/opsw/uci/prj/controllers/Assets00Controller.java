@@ -209,6 +209,7 @@ public class Assets00Controller
   public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws Exception
   {
     Assets00Rec02 assetReturned = null;
+    Symb vSymb = null;
     try
     {
       OpswLoginVars logvars = new OpswLoginVars();
@@ -216,11 +217,13 @@ public class Assets00Controller
       LcOpswAssetsApi apiCalls = this.opswAssetApi;
 
       assetReturned = apiCalls.InternalCRMCall(assetId, logvars);
+      vSymb = this.SymbService.SymbSelect02(assetReturned.getSymb_id());
     }
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
+    model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", assetReturned);
     return "assets00Ed01";
   }
