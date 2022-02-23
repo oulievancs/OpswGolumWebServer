@@ -31,7 +31,7 @@ public interface Gram01Repository extends CatEjbJpaBase<Gram01, Gram01Key>
   @Query("SELECT new "
           + " opsw.uci.prj.records.Gram01Rec01(a.gram, a.senu, b.value, a.field_name, a.value_str, a.value_num, a.excel_index)  "
           + " FROM Gram01 a, Opswconstsv b "
-          + " WHERE a.gram = ?1 AND b.value = a.field_type AND b.code = ?2"
+          + " WHERE a.gram = ?1 AND b.field = a.field_type AND b.code = ?2"
           + " ORDER BY a.excel_index")
   public List<Gram01Rec01> gram01Rec01List01(Long gram, String const_Code);
 
