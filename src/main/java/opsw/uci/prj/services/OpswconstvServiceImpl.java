@@ -47,11 +47,11 @@ public class OpswconstvServiceImpl implements OpswconstvService
   }
 
   @Override
-  public Opswconstsv OpswconstvSelect02(String code, String value) throws CatException
+  public Opswconstsv OpswconstvSelect02(String code, String field) throws CatException
   {
     OpswconstsvKey opswconstsvKey = new OpswconstsvKey();
     opswconstsvKey.setCode(code);
-    opswconstsvKey.setField(value);
+    opswconstsvKey.setField(field);
     return this.OpswconstvSelect01(opswconstsvKey);
   }
 }
