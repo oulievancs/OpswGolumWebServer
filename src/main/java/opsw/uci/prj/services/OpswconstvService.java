@@ -27,5 +27,5 @@ public interface OpswconstvService extends CatEjbJpaServiceBase
 
   public Opswconstsv OpswconstvSelect01(OpswconstsvKey opswconstsvKey) throws CatException;
 
-  public Opswconstsv OpswconstvSelect02(String code, String value) throws CatException;
+  public Opswconstsv OpswconstvSelect02(String code, String field) throws CatException;
 }
