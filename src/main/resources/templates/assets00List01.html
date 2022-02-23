@@ -289,77 +289,77 @@
           </thead>
           <tbody>
             <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}">
-              <td th:text = "${ass00.getAsset()}"></td>
-              <td th:text = "${ass00.getAauci()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></td>
-              <td th:text = "${ass00.getIntrnlkey()}"></td>
-              <td th:text = "${ass00.getStatusdeff()}"></td>
-              <td th:text = "${ass00.getUniqcode()}"></td>
-              <td th:text = "${ass00.getAuctionurl()}"></td>
-              <td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAsset()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAauci()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getIntrnlkey()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStatusdeff()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqcode()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctionurl()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}">
                 <span th:text = "${ass00.getSymb_name()}"></span>
                 <span th:text = "${ass00.getSymb_surename()}"></span>
               </td>
-              <td th:text = "${ass00.getSymb_tele()}"></td>
-              <td th:text = "${ass00.getBuyer()}"></td>
-              <td th:text = "${ass00.getProducer()}"></td>
-              <td th:text = "${ass00.getCountass()}"></td>
-              <td th:text = "${ass00.getBorrname()}"></td>
-              <td th:text = "${ass00.getProperty_id()}"></td>
-              <td th:text = "${ass00.getCallateral1()}"></td>
-              <td th:text = "${ass00.getCallateral_sub_type()}"></td>
-              <td th:text = "${ass00.getMunicipality()}"></td>
-              <td th:text = "${ass00.getCity()}"></td>
-              <td th:text = "${ass00.getAddress()}"></td>
-              <td th:text = "${ass00.getZipcode()}"></td>
-              <td th:text = "${ass00.getGpscords()}"></td>
-              <td th:text = "${ass00.getDescription()}"></td>
-              <td th:text = "${ass00.getLandarea()}"></td>
-              <td th:text = "${ass00.getBuildarea()}"></td>
-              <td th:text = "${ass00.getMainsurefacearea()}"></td>
-              <td th:text = "${ass00.getAuxilliarysurefacearea()}"></td>
-              <td th:text = "${ass00.getArbitarysurefacearea()}"></td>
-              <td th:text = "${ass00.getFullownership()}"></td>
-              <td th:text = "${ass00.getConstructionyear()}"></td>
-              <td th:text = "${ass00.getFloor()}"></td>
-              <td th:text = "${ass00.getAuction_id()}"></td>
-              <td th:text = "${ass00.getUniqauction_code()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAuction_date())}"></td>
-              <td th:text = "${ass00.getStartingprice()}"></td>
-              <td th:text = "${ass00.getLandealink()}"></td>
-              <td th:text = "${ass00.getRegion()}"></td>
-              <td th:text = "${ass00.getPrefecture()}"></td>
-              <td th:text = "${ass00.getOwnership_type()}"></td>
-              <td th:text = "${ass00.getAuctiondate()}"></td>
-              <td th:text = "${ass00.getImage1()}"></td>
-              <td th:text = "${ass00.getImage2()}"></td>
-              <td th:text = "${ass00.getImage3()}"></td>
-              <td th:text = "${ass00.getComments_sea()}"></td>
-              <td th:text = "${ass00.getEkth_ektim()}"></td>
-              <td th:text = "${ass00.getTechn_fakel()}"></td>
-              <td th:text = "${ass00.getTeaser()}"></td>
-              <td th:text = "${ass00.getSite()}"></td>
-              <td th:text = "${ass00.getBroker_site()}"></td>
-              <td th:text = "${ass00.getSubbroker_name()}"></td>
-              <td th:text = "${ass00.getVisitors_count()}"></td>
-              <td th:text = "${ass00.getBegin_endiaferon()}"></td>
-              <td th:text = "${ass00.getLeads()}"></td>
-              <td th:text = "${ass00.getEndiaferomenos_info1()}"></td>
-              <td th:text = "${ass00.getEndiaferomenos_info2()}"></td>
-              <td th:text = "${ass00.getEndiaferomenos_info3()}"></td>
-              <td th:text = "${ass00.getEndiaferomenos_info4()}"></td>
-              <td th:text = "${ass00.getEndiaferomenos_info5()}"></td>
-              <td th:text = "${ass00.getComments1()}"></td>
-              <td th:text = "${ass00.getComments2()}"></td>
-              <td th:text = "${ass00.getMarketability_name()}"></td>
-              <td th:text = "${ass00.getLandea_leads()}"></td>
-              <td th:text = "${ass00.getLandea_comments()}"></td>
-              <td th:text = "${ass00.getUpdate_auction()}"></td>
-              <td th:text = "${ass00.getHigh_interest()}"></td>
-              <td th:text = "${ass00.getUser_create()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_create())}"></td>
-              <td th:text = "${ass00.getUser_modify()}"></td>
-              <td th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_modify())}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSymb_tele()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuyer()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProducer()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCountass()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBorrname()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProperty_id()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral1()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral_sub_type()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMunicipality()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCity()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAddress()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getZipcode()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getGpscords()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getDescription()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandarea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuildarea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMainsurefacearea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuxilliarysurefacearea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getArbitarysurefacearea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFullownership()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getConstructionyear()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFloor()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuction_id()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqauction_code()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAuction_date())}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStartingprice()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandealink()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getRegion()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getPrefecture()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getOwnership_type()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctiondate()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage1()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage2()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage3()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments_sea()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEkth_ektim()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTechn_fakel()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTeaser()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSite()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBroker_site()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSubbroker_name()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getVisitors_count()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBegin_endiaferon()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLeads()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info1()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info2()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info3()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info4()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info5()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments1()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments2()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMarketability_name()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_leads()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_comments()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUpdate_auction()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getHigh_interest()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_create()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_create())}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_modify()}"></td>
+              <td th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_modify())}"></td>
             </tr>
           </tbody>
         </table>
