@@ -337,7 +337,7 @@ public abstract class LcGramAssetsExcelBase
 
       Assets00fl vassetfl = null;
       Opswconstsv vopswConst
-              = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS00_FLDS, ifieldName.toUpperCase());
+              = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, ifieldName.toUpperCase());
 
       if (vopswConst != null)
       {
