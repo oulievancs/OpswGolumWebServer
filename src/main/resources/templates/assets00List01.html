@@ -48,7 +48,9 @@
           $('#button-edit').click( function () {
             //var vid = table.row('.selected').$('#current').attr('value');
             var row = table.row('.selected').data();
-            window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0];
+            if (row !== undefined && row !== null && row[0] !== undefined && row[0] !== null) {
+              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0];
+            }
             //Http.open("GET", url);
             //Http.send();
           } );
@@ -57,7 +59,9 @@
               e.stopPropagation();
               let rowID = $(this).attr('id');
              
+            if (rowID !== undefined && rowID !== null) {
               window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + rowID;
+            }
           });
         } );
       </script>
