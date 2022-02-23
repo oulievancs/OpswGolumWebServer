@@ -43,9 +43,7 @@ public class OpswSystemWebServer01
 
   private static final boolean OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS = true;
 
-  public static final String DEFAULT_ORCLH_MINLO_PROPERTY = "opsw.datasource.minlo";
-
-  public static final String DEFAULT_ORCLH_MINLO = OpswErpRecords01.DEFAULT_ORCLH_MINLO;
+  public static final String DEFAULT_ORCLH_MINLO = OpswSystemConnections.DEFAULT_ORCLH_MINLO;
 
   public final static String OPSW_DS_SCRIPTS_START = "<opsw_start>";
   public final static String OPSW_DS_SCRIPTS_END = "<opsw_end>";
@@ -142,18 +140,27 @@ public class OpswSystemWebServer01
   {
     try
     {
-      String dsNamePath = DEFAULT_ORCLH_MINLO_PROPERTY;
-      String dsName = OpswErpRecords01.OPSW_CONNECTIONS[0];
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+      String dsNamePath = null, dsName = null;
+      /**
+       * String dsNamePath = DEFAULT_ORCLH_MINLO_PROPERTY; String dsName =
+       * OpswErpRecords01.OPSW_CONNECTIONS[0];
+       * OpswDataSourceFill01_Internal(wDs, dsName,
+       * OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false)); *
+       */
       /**
        * **************************************************************************************************
        *////
-      dsNamePath = "opsw.datasource.01";
-      dsName = OpswErpRecords01.OPSW_CONNECTIONS[1];
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
-      dsNamePath = "opsw.datasource.02";
-      dsName = OpswErpRecords01.OPSW_CONNECTIONS[2];
-      OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+
+      if (OpswSystemConnections.OPSW_CONNECTIONS != null)
+      {
+        for (OpswSystemConnections.OpswConnection conn : OpswSystemConnections.OPSW_CONNECTIONS)
+        {
+          dsNamePath = conn.getDatasourcePath();
+          dsName = conn.getDatasourceName();
+          OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+        }
+      }
+
       /**
        * **************************************************************************************************
        *////

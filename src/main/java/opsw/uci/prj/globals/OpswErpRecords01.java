@@ -12,6 +12,7 @@ import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.records.cat.CatThmlfObject02;
+import opsw.uci.prj.system.OpswSystemConnections;
 
 /**
  *
@@ -19,15 +20,6 @@ import opsw.uci.prj.records.cat.CatThmlfObject02;
  */
 public class OpswErpRecords01
 {
-
-  public final static String DEFAULT_ORCLH_MINLO = "ORCLH_MINLO";
-
-  public static final String[] OPSW_CONNECTIONS =
-  {
-    DEFAULT_ORCLH_MINLO,
-    "ORCLH_MINLO1",
-    "ORCLH_MINLO2"
-  };
 
   private static class ErairComp implements Comparator<CatThmlfObject02>
   {
@@ -91,13 +83,13 @@ public class OpswErpRecords01
       switch (ietai)
       {
         case 1:
-          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[0]);
+          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[0].getDatasourceName());
           break;
         case 2:
-          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[1]);
+          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[1].getDatasourceName());
           break;
         case 3:
-          wLoginVar.setConnectionDs(OPSW_CONNECTIONS[2]);
+          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[2].getDatasourceName());
           break;
         default:
           break;
