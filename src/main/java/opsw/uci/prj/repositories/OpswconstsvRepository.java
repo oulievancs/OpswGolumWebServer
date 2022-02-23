@@ -22,7 +22,7 @@ public interface OpswconstsvRepository extends CatEjbJpaBase<Opswconstsv, Opswco
 {
 
   @Query("SELECT new"
-          + " opsw.uci.prj.records.cat.CatThmlfObject01(a.value, a.descr) "
+          + " opsw.uci.prj.records.cat.CatThmlfObject01(a.field, a.value) "
           + " FROM Opswconstsv a "
           + " WHERE a.code=?1")
   public List<CatThmlfObject01> FieldsList01(String constCode);
