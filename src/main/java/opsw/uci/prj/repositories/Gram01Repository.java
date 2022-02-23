@@ -29,7 +29,7 @@ public interface Gram01Repository extends CatEjbJpaBase<Gram01, Gram01Key>
   public Long gram01MaxSenu(Long gram);
 
   @Query("SELECT new "
-          + " opsw.uci.prj.records.Gram01Rec01(a.gram, a.senu, b.descr, a.field_name, a.value_str, a.value_num, a.excel_index)  "
+          + " opsw.uci.prj.records.Gram01Rec01(a.gram, a.senu, b.value, a.field_name, a.value_str, a.value_num, a.excel_index)  "
           + " FROM Gram01 a, Opswconstsv b "
           + " WHERE a.gram = ?1 AND b.value = a.field_type AND b.code = ?2"
           + " ORDER BY a.excel_index")
