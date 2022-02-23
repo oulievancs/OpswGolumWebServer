@@ -34,6 +34,14 @@
 });
     </script>
     <!------------------------------>
+    <!---DELETE CONFIRM------------->
+    <script>
+        $('#modal-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            $('#modal-deleteHiddenId').val($(this).find('.btn-ok').attr('href'));
+        });
+    </script>
+    <!------------------------------>
 
 
   </head>
@@ -122,9 +130,38 @@
                         <a th:href="@{/gram/gram01/ed01/{gram}?senu={senu}(gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-primary btn-sm mb-3">
                           <i class="fa fa-edit"></i>
                         </a>
-                        <a th:href ="@{/gram/gram01/delete01/{gram}/{senu} (gram=${gram01.gram}, senu=${gram01.senu})}" class="btn btn-danger btn-sm mb-3">
+                        <a data-toggle="modal" data-target="#modal-delete"
+                            th:attr="data-target='#modal-delete' + ${gram01.getGram()} + '-' + ${gram01.getSenu()}" class="btn btn-danger btn-sm mb-3">
                           <i class="fa fa-trash-alt"></i>
                         </a>
+                       
+                        <div class="modal modal-delete" th:id="'modal-delete' + ${gram01.getGram()} + '-' + ${gram01.getSenu()}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button style="align-self: flex-start;" type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                        <h3 id="delModalLabel" th:text="#{GRAM00_ED.DELETE_CONF}"></h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="error-text"><strong th:text="#{GRAM00_ED.DELETE_CONF_MESS}"></strong></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                          <span th:text="#{GRAM00_ED.CANCEL}"></span>
+                                        </button>
+                                        <a th:href ="@{/gram/gram01/delete01/{gram}/{senu} (gram=${gram01.gram}, senu=${gram01.senu})}">
+                                            <span class="btn btn-danger" value="delete" th:text="#{GRAM00_ED.DELETE}"></span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--end delete modal-->
                       </td>
                     </tr>
                   </tbody>
