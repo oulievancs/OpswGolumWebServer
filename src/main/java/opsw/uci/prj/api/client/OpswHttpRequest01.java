@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.api.client;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.List;
@@ -161,6 +162,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
   {
     Object result = null;
     InputStream is = null;
+    ByteArrayInputStream bais = null;
     try
     {
       String params = this.OpswBuildUrlParams();
@@ -179,10 +181,12 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
         byte[] bytes = IOUtils.toByteArray(is);
         this.setHttpResponseBody(bytes);
 
+        bais = new ByteArrayInputStream(bytes);
+
         // Parse the response using DocumentBuilder so you can get at elements easily
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document doc = docBuilder.parse(is);
+        Document doc = docBuilder.parse(bais);
 
         result = this.HttpEntityProcess(doc);
       }
@@ -195,6 +199,20 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
+    }
+    finally
+    {
+      if (bais != null)
+      {
+        try
+        {
+          bais.close();
+        }
+        catch (Exception ex)
+        {
+          CatException.RethrowCatException(ex);
+        }
+      }
     }
     return result;
   }
