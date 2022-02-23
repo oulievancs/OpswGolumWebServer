@@ -5,6 +5,12 @@
  */
 package opsw.uci.prj.api.client;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.cat.CatReflectObject01;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -159,6 +166,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
   private Object OpswHttpSendGet(Object object) throws CatException
   {
     Object result = null;
+    InputStream is = null;
     try
     {
       String params = this.OpswBuildUrlParams();
@@ -172,11 +180,15 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       if (responseCode == HttpStatus.OK.value())
       {
         HttpEntity httpEntity = httpResponse.getEntity();
+        is = httpEntity.getContent();
+
+        byte[] bytes = IOUtils.toByteArray(is);
+        this.setHttpResponseBody(bytes);
 
         // Parse the response using DocumentBuilder so you can get at elements easily
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document doc = docBuilder.parse(httpEntity.getContent());
+        Document doc = docBuilder.parse(is);
 
         result = this.HttpEntityProcess(doc);
       }

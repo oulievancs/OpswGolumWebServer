@@ -50,6 +50,8 @@ public abstract class OpswHttpRequestBase
 
   private Map<String, Object> urlParameters;
 
+  private byte[] httpResponseBody;
+
   public OpswHttpRequestBase()
   {
     this.method = OpswHttpMethod.OPSW_HTTP_MENTHOD_NONE;
@@ -60,6 +62,7 @@ public abstract class OpswHttpRequestBase
     this.responseBody = null;
     this.dateFormat = "dd/MM/yyyy";
     this.urlParameters = null;
+    this.httpResponseBody = null;
   }
 
   public OpswHttpMethod getMethod()
@@ -140,6 +143,16 @@ public abstract class OpswHttpRequestBase
   public void setUrlParameters(Map<String, Object> urlParameters)
   {
     this.urlParameters = urlParameters;
+  }
+
+  public byte[] getHttpResponseBody()
+  {
+    return httpResponseBody;
+  }
+
+  public void setHttpResponseBody(byte[] httpResponseBody)
+  {
+    this.httpResponseBody = httpResponseBody;
   }
 
   protected abstract Object OpswHttpSendRequest(Object object) throws CatException;
