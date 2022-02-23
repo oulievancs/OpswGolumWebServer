@@ -175,7 +175,7 @@ public class LcOpswAssetsApi
 
       if (constv != null)
       {
-        vurl = constv.getValue1();
+        vurl = constv.getValue();
       }
 
       if (OpswStringUtils.OpswStringIsEmpty(vurl))

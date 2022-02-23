@@ -331,7 +331,7 @@ public class Gram00ServiceImpl implements Gram00Service
             wInternalKeyList.add(vcat);
 
             vcat.setCode(fld);
-            vcat.setDescr(vcost.getDescr());
+            vcat.setDescr(vcost.getValue());
           }
         }
       }
@@ -346,7 +346,7 @@ public class Gram00ServiceImpl implements Gram00Service
           boolean vtheareIs = false;
           for (int i = 0; i < wInternalKeyList.size(); i++)
           {
-            if (wInternalKeyList.get(i).getCode().equals(cons.getValue()))
+            if (wInternalKeyList.get(i).getCode().equals(cons.getField()))
             {
               vtheareIs = true;
 
@@ -359,8 +359,8 @@ public class Gram00ServiceImpl implements Gram00Service
             vcat = new CatThmlfObject01();
             wInternalKeyList.add(vcat);
 
-            vcat.setCode(cons.getValue());
-            vcat.setDescr(cons.getDescr());
+            vcat.setCode(cons.getField());
+            vcat.setDescr(cons.getValue());
           }
         }
       }

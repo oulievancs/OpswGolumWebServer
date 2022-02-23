@@ -344,7 +344,7 @@ public abstract class LcGramAssetsExcelBase
         vfiledIsFld = true;
         vassetfl = new Assets00fl();
         vassetfl.setFld(ifieldName.toUpperCase());
-        vassetfl.setValstr(vopswConst.getDescr());
+        vassetfl.setValstr(vopswConst.getValue());
       }
 
       //Logic Pedia

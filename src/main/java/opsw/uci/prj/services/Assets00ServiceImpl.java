@@ -352,7 +352,7 @@ public class Assets00ServiceImpl implements Assets00Service
         for (Assets00flRec01 assetflrec : asset.getAssets00flrec())
         {
           Opswconstsv opswConst = this.OpswconstvService.OpswconstvSelect02(Opswconstsv.ASSETS_VALUE, assetflrec.getFld());
-          assetflrec.setFldDescr(opswConst.getDescr());
+          assetflrec.setFldDescr(opswConst.getValue());
 
           Opswfldsv opswfld = this.OpswfldsvService.OpswfldsvSelect01(assetflrec.getFld());
           assetflrec.setType(opswfld.getType());
@@ -425,7 +425,7 @@ public class Assets00ServiceImpl implements Assets00Service
           for (Opswconstsv con : vlistconst)
           {
 
-            vfllist.add(this.Assets00flService.Assets00flSelect02(ass.getAsset(), con.getValue()));
+            vfllist.add(this.Assets00flService.Assets00flSelect02(ass.getAsset(), con.getField()));
           }
         }
         ass.setAssets00fl(vfllist);
@@ -462,7 +462,7 @@ public class Assets00ServiceImpl implements Assets00Service
           vassflRec.setAsset(id);
           vassflRec.setType(con.getType());
           vassflRec.setFld(con.getCode());
-          vassflRec.setFldDescr(opswConst.getDescr());
+          vassflRec.setFldDescr(opswConst.getValue());
           vfllist.add(vassflRec);
         }
       }
