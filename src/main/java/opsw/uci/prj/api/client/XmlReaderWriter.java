@@ -5,10 +5,14 @@
  */
 package opsw.uci.prj.api.client;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.logic.OpswReflection;
 import opsw.uci.prj.records.cat.CatReflectObject01;
@@ -33,6 +37,63 @@ public class XmlReaderWriter
   {
     super();
     this.dateFormat = null;
+  }
+
+  public Object EntityPorcess_Data02(byte[] idata, Class<?> dataBodyType) throws CatException
+  {
+    Object result = null;
+    try
+    {
+      InputStream vinputStr = new ByteArrayInputStream(idata);
+
+      // Parse the response using DocumentBuilder so you can get at elements easily
+      DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+      Document doc = docBuilder.parse(vinputStr);
+
+      result = this.EntityProcess_Internal(doc, dataBodyType);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  private Object EntityProcess_Internal(Document document, Class<?> dataBodyType) throws CatException
+  {
+    Object obj = null;
+    try
+    {
+
+      obj = dataBodyType.newInstance();
+
+      Element root = document.getDocumentElement();
+      // Now let's say you have not one, but 'n' nodes that contain the value
+      // you're looking for. Use NodeList to get a list of all those nodes and just 
+      // pull out the tag/attribute's value you want.
+
+      CatReflectObject01 lcatObj = OpswReflection.ReflectObject(obj);
+
+      if (lcatObj != null)
+      {
+        this.CheckFieldBB(lcatObj);
+
+        List<CatReflectObject01> vcatL = OpswReflection.ReflectObjectToObject01List(lcatObj.getFieldValue());
+        if (vcatL != null)
+        {
+          for (CatReflectObject01 v : vcatL)
+          {
+            this.EntityProcessFill01(root, v, obj);
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return obj;
   }
 
   public void ObjectProcessFill01(Element element, CatReflectObject01 obj, Document document)

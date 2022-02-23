@@ -28,6 +28,8 @@ public class Sequences implements Serializable
 
   public static final String SEQ_AAUCI = "SEQ_AAUCI";
 
+  public static final String SEQ_UCIREMSERVREQ = "SEQ_UCIREMSERVREQ";
+
   @Id
   private String seq_gen;
   private Long seq_count;
