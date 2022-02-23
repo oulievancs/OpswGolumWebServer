@@ -16,12 +16,12 @@ public class OpswconstsvKey implements Serializable
 {
 
   private String code;
-  private String value;
+  private String field;
 
   public OpswconstsvKey()
   {
     this.code = null;
-    this.value = null;
+    this.field = null;
   }
 
   public String getCode()
@@ -34,14 +34,14 @@ public class OpswconstsvKey implements Serializable
     this.code = code;
   }
 
-  public String getValue()
+  public String getField()
   {
-    return value;
+    return field;
   }
 
-  public void setValue(String value)
+  public void setField(String field)
   {
-    this.value = value;
+    this.field = field;
   }
 
   @Override
@@ -49,7 +49,7 @@ public class OpswconstsvKey implements Serializable
   {
     int hash = 7;
     hash = 79 * hash + Objects.hashCode(this.code);
-    hash = 79 * hash + Objects.hashCode(this.value);
+    hash = 79 * hash + Objects.hashCode(this.field);
     return hash;
   }
 
@@ -73,7 +73,7 @@ public class OpswconstsvKey implements Serializable
     {
       return false;
     }
-    if (!Objects.equals(this.value, other.value))
+    if (!Objects.equals(this.field, other.field))
     {
       return false;
     }
