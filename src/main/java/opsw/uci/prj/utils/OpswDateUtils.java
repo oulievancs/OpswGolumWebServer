@@ -337,4 +337,24 @@ public class OpswDateUtils
     }
     return vval;
   }
+
+  public static Calendar CalendarClone(Calendar ical) throws CatException
+  {
+    Calendar vcal = null;
+    try
+    {
+      if (ical == null)
+      {
+        throw new CatException(CatException.CODE_NULL_PRM, "Δεν δόθηκε ημ/νία!");
+      }
+
+      vcal = Calendar.getInstance();
+      vcal.setTimeInMillis(ical.getTimeInMillis());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vcal;
+  }
 }
