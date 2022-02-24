@@ -201,7 +201,8 @@ public class Assets00Controller
     {
       CatException.ErrorAddParameter(ex, "errorMessage", ex.getTechMessage());
       ex.setRedirectToError(false);
-      ex.setRedirectPath(OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01);
+      ex.setRedirectPath(OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01
+              + "?asset=" + OpswStringUtils.OpswLongToString(assetId));
       CatException.RethrowCatException(ex);
     }
     catch (Exception e)
