@@ -134,4 +134,26 @@ public class OpswStringUtils
     }
     return res;
   }
+
+  public static String OpswMakeNotPathStart(String wString) throws CatException
+  {
+    String vstring = null;
+    try
+    {
+      vstring = wString;
+
+      if (wString != null)
+      {
+        if (wString.startsWith("/"))
+        {
+          vstring = wString.substring(1);
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vstring;
+  }
 }

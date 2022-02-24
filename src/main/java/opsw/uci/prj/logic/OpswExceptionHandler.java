@@ -92,7 +92,7 @@ public class OpswExceptionHandler
       {
         if (ex1.getErrorParameters() != null)
         {
-          mav = new ModelAndView("redirect:/" + ex1.getRedirectPath());
+          mav = new ModelAndView("redirect:/" + OpswStringUtils.OpswMakeNotPathStart(ex1.getRedirectPath()));
 
           Set<String> keySet = ex1.getErrorParameters().keySet();
 

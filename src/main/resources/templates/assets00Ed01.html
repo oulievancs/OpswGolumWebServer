@@ -126,6 +126,12 @@
           <div class="row">
             <h1 class="text-center" th:text="#{ASSETS00_ED.TITLE1}"></h1>
           </div>
+          
+          <!-------------------------------SHOW ERROR-------------------------------------------------->
+          <p th:text="${message}" th:if="${message ne null and !error}" class="alert alert-primary"></p>
+          <p th:text="${message}" th:if="${message ne null and error}" class="alert alert-danger"></p>
+          <!-------------------------------SHOW ERROR-------------------------------------------------->
+          
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-cust-info-tab" data-bs-toggle="tab" data-bs-target="#nav-cust-info" type="button" role="tab" aria-controls="nav-cust-info" aria-selected="true">
@@ -148,7 +154,7 @@
               </button>
             </div>
           </nav>
-          <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:object="${CLM0}" method="POST">
+          <form th:action="@{/assets/assets00/ed01/post01?asset={asset} (asset = ${CLM0.asset})}" th:if="CLM0 ne null" th:object="${CLM0}" method="POST">
             <div class="tab-content" id="nav-tabContent">
               <!-- Tab1 -->
               <div class="tab-pane fade show active" id="nav-cust-info" role="tabpanel" aria-labelledby="nav-cust-info-tab">

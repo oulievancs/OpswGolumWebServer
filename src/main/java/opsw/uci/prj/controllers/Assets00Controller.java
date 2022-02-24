@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.api.client.OpswHttpRequestBase;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -26,6 +27,7 @@ import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
+import opsw.uci.prj.utils.OpswStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.context.SecurityContextHolder;
@@ -194,6 +196,13 @@ public class Assets00Controller
       OpswCookies01.OpswFillLoginVarsFromCookies01(request, logvars);
       assetsReturned = this.Assets00Service.Assets00PostEd01(assetId, asset01, logvars);
       vSymb = this.SymbService.SymbSelect02(assetsReturned.getSymb_id());
+    }
+    catch (CatExceptionUser ex)
+    {
+      CatException.ErrorAddParameter(ex, "errorMessage", ex.getTechMessage());
+      ex.setRedirectToError(false);
+      ex.setRedirectPath(OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01);
+      CatException.RethrowCatException(ex);
     }
     catch (Exception e)
     {
