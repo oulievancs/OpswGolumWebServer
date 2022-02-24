@@ -348,6 +348,11 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
             }
             else if (fld.equalsIgnoreCase(Gram00.GRAM00_INTERNALKEY_UNIQCODE))
             {
+              String uniqcode = assets00.getUniqcode();
+              if (OpswStringUtils.OpswStringIsEmpty(uniqcode))
+              {
+                throw new CatExceptionUser("Δεν έχει ανατεθεί το uniqcode!");
+              }
               res = this.InternalKeyAdd01(res, assets00.getUniqcode());
             }
             //DOV -> DOVALUE CODE PART.
