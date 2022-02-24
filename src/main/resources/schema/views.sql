@@ -1,3 +1,21 @@
+
+---------------------------------------------------
+-- View `OPSWDB`.`OPSWFLDSV`
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW OPSWFLDSV AS
+SELECT
+CODE, TYPE, DESCR 
+FROM
+(
+SELECT 'EXTRA_FLD1' CODE, 1 TYPE, 'An Extra Field' DESCR FROM DUAL
+UNION ALL
+SELECT 'EXTRA_FLD2' CODE, 2 TYPE, 'An Extra Field Number' DESCR FROM DUAL
+UNION ALL
+SELECT 'EXTRA_FLD3' CODE, 1 TYPE, 'An Extra Field String' DESCR FROM DUAL
+) consts;
+
+
+
 ---------------------------------------------------
 -- View `OPSWDB`.`OPSWCONSTSV`
 -- -----------------------------------------------------
@@ -92,19 +110,9 @@ SELECT  'ASSETS_VALUE' CODE, 'HIGH_INTEREST'                 FIELD,  'HIGH INTER
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD1'                 FIELD,  'EXTRA FLD1' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD2'                 FIELD,  'EXTRA FLD2' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD3'                 FIELD,  'EXTRA FLD3' VALUE FROM DUAL UNION ALL
+--*********************************************************************************************************
+SELECT  'ASSETS00_FLDS' CODE, V1.CODE                 FIELD,  V1.DESCR VALUE FROM OPSWFLDSV V1 UNION ALL
+--*********************************************************************************************************
 SELECT  'CRM_SERVER_URL' CODE, 'CRM_SERVER_URL_1' FIELD, 'http://ucitest.ddns.net:8081/OPSWTESTWEBSERV/uci/propertiesxml' VALUE FROM DUAL
-) consts;
-
-
-CREATE OR REPLACE VIEW OPSWFLDSV AS
-SELECT
-CODE, TYPE, DESCR 
-FROM
-(
-SELECT 'EXTRA_FLD1' CODE, 1 TYPE, 'An Extra Field' DESCR FROM DUAL
-UNION ALL
-SELECT 'EXTRA_FLD2' CODE, 2 TYPE, 'An Extra Field Number' DESCR FROM DUAL
-UNION ALL
-SELECT 'EXTRA_FLD3' CODE, 1 TYPE, 'An Extra Field String' DESCR FROM DUAL
 ) consts;
 
