@@ -80,7 +80,7 @@ public class ActionsController
   private SequencesService SequencesService;
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE)
-  public String importFileFomr(Model model) throws Exception
+  public String importFileFomr(Model model) throws CatException
   {
     try
     {
@@ -99,7 +99,7 @@ public class ActionsController
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE_POST)
   public String uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute("gramRec") Gram00Rec01 gramrec,
-          RedirectAttributes attributes, HttpServletRequest request) throws Exception
+          RedirectAttributes attributes, HttpServletRequest request) throws CatException
   {
     OpswLoginVars vlogvar = new OpswLoginVars();
     try
@@ -141,12 +141,16 @@ public class ActionsController
       CatException.ErrorAddErrorMessageParameter(ex, ex.getTechMessage());
       CatException.RethrowCatException(ex);
     }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
     return "redirect:" + OpswWebConst.OPSW_CONTROLLER_ACTIONS
             + OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE;
   }
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST02)
-  public String exportfile02(@ModelAttribute("params") CatThmlfAssets00List01Params iparams, Model model) throws Exception
+  public String exportfile02(@ModelAttribute("params") CatThmlfAssets00List01Params iparams, Model model) throws CatException
   {
     CatThmlfAssets00List02Params returnParams = null;
     List<Gram00Rec01> gramList = null;
@@ -174,7 +178,7 @@ public class ActionsController
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE)
-  public String exportFile(Model model) throws Exception
+  public String exportFile(Model model) throws CatException
   {
     CatThmlfAssets00List02Params params = null;
     List<Gram00Rec01> gramList = null;
@@ -203,7 +207,7 @@ public class ActionsController
   }
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST)
-  public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("paramsOb") CatThmlfAssets00List02Params iparams) throws Exception
+  public ResponseEntity<byte[]> exportFilePost(@ModelAttribute("paramsOb") CatThmlfAssets00List02Params iparams) throws CatException
   {
     ResponseEntity<byte[]> result = null;
     try

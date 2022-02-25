@@ -87,7 +87,7 @@ public class Assets00Controller
           @RequestParam(name = "dateTo", required = false) String dateTo,*/
           @ModelAttribute(name = "params") CatThmlfAssets00List01Params iparams,
           Model model)
-          throws Exception
+          throws CatException
   {
     try
     {
@@ -162,7 +162,7 @@ public class Assets00Controller
   
   
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01)
-  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model, HttpServletRequest request) throws Exception
+  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model, HttpServletRequest request) throws CatException
   {
     Assets00Rec02 asset = null;
     Symb vSymb = null;
@@ -186,7 +186,7 @@ public class Assets00Controller
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01_POST01)
   public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId,
-          @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws Exception
+          @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws CatException
   {
     Assets00Rec02 assetsReturned = null;
     Symb vSymb = null;
@@ -216,7 +216,7 @@ public class Assets00Controller
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_FILLFROMCRM)
-  public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws Exception
+  public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws CatException
   {
     Assets00Rec02 assetReturned = null;
     Symb vSymb = null;

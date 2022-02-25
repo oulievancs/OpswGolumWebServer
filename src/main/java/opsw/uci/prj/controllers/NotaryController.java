@@ -52,7 +52,7 @@ public class NotaryController
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_NOTARY_ED01)
-  public String notaryEd01(@RequestParam(name = "id", required = false) Long symb_id, Model model) throws Exception
+  public String notaryEd01(@RequestParam(name = "id", required = false) Long symb_id, Model model) throws CatException
   {
     Symb vsymb = null;
     try
