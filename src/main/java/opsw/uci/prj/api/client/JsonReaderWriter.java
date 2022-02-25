@@ -112,7 +112,7 @@ public class JsonReaderWriter
   /**
    * https://attacomsian.com/blog/processing-json-spring-bootsv
    */
-  public Object EntityProcess01(String ifile, Class<?> dataBodyType) throws CatException
+  public Object EntityProcess01(File ifile, Class<?> dataBodyType) throws CatException
   {
     Object res = null;
     try
@@ -121,7 +121,7 @@ public class JsonReaderWriter
       ObjectMapper objectMapper = new ObjectMapper();
 
       //read json file and convert to customer object
-      JsonNode job = objectMapper.readTree(new File(ifile));
+      JsonNode job = objectMapper.readTree(ifile);
 
       res = EntityProcess(job, dataBodyType);
     }

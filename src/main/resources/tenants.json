@@ -1,0 +1,22 @@
+{
+  "tenants": [
+    {
+      "tenantNo": 1,
+      "datasourceName": "ORCLH_MINLO",
+      "datasourcePath": "ORCLH_MINLO",
+      "descr": "Doovalue"
+    },
+    {
+      "tenantNo": 2,
+      "datasourceName": "ORCLH_MINLO1",
+      "datasourcePath": "ORCLH_MINLO1",
+      "descr": "Cepal"
+    },
+    {
+      "tenantNo": 3,
+      "datasourceName": "ORCLH_MINLO2",
+      "datasourcePath": "ORCLH_MINLO2",
+      "descr": "Intrum"
+    }
+  ]
+}

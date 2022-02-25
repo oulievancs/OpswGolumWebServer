@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import opsw.uci.prj.api.client.JsonReaderWriter;
 import opsw.uci.prj.cat.CatException;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  *
@@ -17,7 +19,9 @@ import opsw.uci.prj.cat.CatException;
 public class OpswTenants
 {
 
-  private final static String SYSTEM_CONNECTION_FILE = "/home/oulis/Documents/UCI_PROJECT/tenants.json";
+  private final static String SYSTEM_CONNECTION_FILE
+          //= "/home/oulis/Documents/UCI_PROJECT/tenants.json";
+          = "tenants.json";
 
   private static OpswJsonTenants OPSW_GLOBAL_TENANTS_INTERNAL;
 
@@ -51,7 +55,8 @@ public class OpswTenants
         JsonReaderWriter jar = new JsonReaderWriter();
         jar.setDateFormat(null);
 
-        tens = (OpswJsonTenants) jar.EntityProcess01(SYSTEM_CONNECTION_FILE, OpswJsonTenants.class);
+        Resource resource = new ClassPathResource(SYSTEM_CONNECTION_FILE);
+        tens = (OpswJsonTenants) jar.EntityProcess01(resource.getFile(), OpswJsonTenants.class);
 
         List<OpswSystemConnections.OpswConnection> vconList = new ArrayList<>();
         if (tens != null)
