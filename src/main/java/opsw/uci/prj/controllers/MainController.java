@@ -50,21 +50,28 @@ public class MainController
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_LOGOUT)
-  public String logout(HttpServletRequest request) throws Exception
+  public String logout(HttpServletRequest request) throws CatException
   {
-    request.logout();
+    try
+    {
+      request.logout();
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
     return "home";
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_LOGIN)
-  public String login(HttpServletRequest request) throws Exception
+  public String login(HttpServletRequest request) throws CatException
   {
     return "redirec:/home";
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1)
   public String init1(Model model, HttpServletRequest request)
-          throws Exception
+          throws CatException
   {
     try
     {
@@ -90,7 +97,7 @@ public class MainController
   public String init1Post(@ModelAttribute("CLM0") CatThmlfObject02 clm0,
           HttpServletRequest request,
           RedirectAttributes redirectAttrs)
-          throws Exception
+          throws CatException
   {
     OpswLoginVars wLoginVars = new OpswLoginVars();
     try

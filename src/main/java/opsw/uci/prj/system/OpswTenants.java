@@ -77,6 +77,10 @@ public class OpswTenants
 
         OPSW_GLOBAL_TENANTS(tens);
       }
+      else
+      {
+        tens = OPSW_GLOBAL_TENANTS();
+      }
     }
     catch (Exception ex)
     {
