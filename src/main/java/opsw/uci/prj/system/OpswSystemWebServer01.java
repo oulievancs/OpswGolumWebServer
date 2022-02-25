@@ -94,11 +94,11 @@ public class OpswSystemWebServer01
   public static DataSource OpswDataSourceServer(String orclh_minlo, byte iwebServer, Environment env)
           throws CatException
   {
-    return OpswDataSourceServer_Internal(orclh_minlo, iwebServer, env, true);
+    return OpswDataSourceServer_Internal(orclh_minlo, iwebServer, env, true, true);
   }
 
   private static DataSource OpswDataSourceServer_Internal(String orclh_minlo, byte iwebServer, Environment env,
-          boolean ithrowExceptionNotFound)
+          boolean ithrowExceptionNotFound, boolean isEnvProperty)
           throws CatException
   {
     DataSource ds = null;
@@ -109,7 +109,15 @@ public class OpswSystemWebServer01
         throw new CatException("Unknown web server!");
       }
 
-      String dsUrl1 = env.getProperty(orclh_minlo);
+      String dsUrl1 = null;
+      if (isEnvProperty)
+      {
+        dsUrl1 = env.getProperty(orclh_minlo);
+      }
+      else
+      {
+        dsUrl1 = orclh_minlo;
+      }
 
       if (dsUrl1 != null)
       {
@@ -151,13 +159,14 @@ public class OpswSystemWebServer01
        * **************************************************************************************************
        *////
 
-      if (OpswSystemConnections.OPSW_CONNECTIONS != null)
+      OpswSystemConnections.OpswConnection[] cons = OpswSystemConnections.OpswConnectionsGet01();
+      if (cons != null)
       {
-        for (OpswSystemConnections.OpswConnection conn : OpswSystemConnections.OPSW_CONNECTIONS)
+        for (OpswSystemConnections.OpswConnection conn : cons)
         {
           dsNamePath = conn.getDatasourcePath();
           dsName = conn.getDatasourceName();
-          OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, env, false));
+          OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, null, false, false));
         }
       }
 

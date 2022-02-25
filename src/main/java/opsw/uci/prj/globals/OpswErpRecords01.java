@@ -12,7 +12,9 @@ import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.records.cat.CatThmlfObject01;
 import opsw.uci.prj.records.cat.CatThmlfObject02;
+import opsw.uci.prj.system.OpswJsonTenant;
 import opsw.uci.prj.system.OpswSystemConnections;
+import opsw.uci.prj.system.OpswTenants;
 
 /**
  *
@@ -39,20 +41,38 @@ public class OpswErpRecords01
   {
     List<CatThmlfObject02> list = new ArrayList<>();
 
-    CatThmlfObject02 obj = new CatThmlfObject02();
-    obj.setCode(new Long(1));
-    obj.setDescr("DEFAULT CONNECTION (ORCLH MINLO)");
-    list.add(obj);
+//    CatThmlfObject02 obj = new CatThmlfObject02();
+//    obj.setCode(new Long(1));
+//    obj.setDescr("DEFAULT CONNECTION (ORCLH MINLO)");
+//    list.add(obj);
+//
+//    obj = new CatThmlfObject02();
+//    obj.setCode(new Long(2));
+//    obj.setDescr("CONNECTION 1");
+//    list.add(obj);
+//
+//    obj = new CatThmlfObject02();
+//    obj.setCode(new Long(3));
+//    obj.setDescr("CONNECTION 2");
+//    list.add(obj);
+    if (OpswTenants.OPSW_GLOBAL_TENANTS() != null)
+    {
 
-    obj = new CatThmlfObject02();
-    obj.setCode(new Long(2));
-    obj.setDescr("CONNECTION 1");
-    list.add(obj);
+      List<OpswJsonTenant> vtenants = OpswTenants.OPSW_GLOBAL_TENANTS().getTenants();
 
-    obj = new CatThmlfObject02();
-    obj.setCode(new Long(3));
-    obj.setDescr("CONNECTION 2");
-    list.add(obj);
+      if (vtenants != null)
+      {
+        CatThmlfObject02 obj = null;
+        for (OpswJsonTenant o : vtenants)
+        {
+          obj = new CatThmlfObject02();
+          list.add(obj);
+
+          obj.setCode((long) o.getTenantNo());
+          obj.setDescr(o.getDescr());
+        }
+      }
+    }
 
     return list;
   }
@@ -80,19 +100,21 @@ public class OpswErpRecords01
   {
     try
     {
-      switch (ietai)
+      OpswSystemConnections.OpswConnection[] cons = OpswSystemConnections.OpswConnectionsGet01();
+
+      if (cons != null)
       {
-        case 1:
-          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[0].getDatasourceName());
-          break;
-        case 2:
-          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[1].getDatasourceName());
-          break;
-        case 3:
-          wLoginVar.setConnectionDs(OpswSystemConnections.OPSW_CONNECTIONS[2].getDatasourceName());
-          break;
-        default:
-          break;
+        if (OpswTenants.OPSW_GLOBAL_TENANTS().getTenants() != null)
+        {
+          for (OpswJsonTenant c : OpswTenants.OPSW_GLOBAL_TENANTS().getTenants())
+          {
+            if (ietai == c.getTenantNo())
+            {
+              wLoginVar.setConnectionDs(c.getDatasourceName());
+              break;
+            }
+          }
+        }
       }
     }
     catch (Exception ex)

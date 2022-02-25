@@ -11,6 +11,7 @@ import opsw.uci.prj.cat.OpswEntityManagerJpa;
 import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
 import opsw.uci.prj.interceptors.OpswWebMvcConfig;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
+import opsw.uci.prj.starter.OpswUciApplicationRunner;
 import opsw.uci.prj.starter.OpswExecutorConfig;
 import opsw.uci.prj.starter.OpswJpaStarter;
 import opsw.uci.prj.starter.OpswLocalResolver;
@@ -27,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
         basePackageClasses =
         {
           //Gram00Controller.class,
+          OpswUciApplicationRunner.class,
           OpswJpaStarter.class,
           OpswEntityManagerJpa.class,
           ServletInitializer.class,

@@ -5,6 +5,9 @@
  */
 package opsw.uci.prj.api.client;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -106,7 +109,77 @@ public class JsonReaderWriter
     }
   }
 
-  public void EntityProcessFill01(JSONObject jsonObj, CatReflectObject01 obj, Object object)
+  /**
+   * https://attacomsian.com/blog/processing-json-spring-bootsv
+   */
+  public Object EntityProcess01(String ifile, Class<?> dataBodyType) throws CatException
+  {
+    Object res = null;
+    try
+    {
+      //create ObjectMapper instance
+      ObjectMapper objectMapper = new ObjectMapper();
+
+      //read json file and convert to customer object
+      JsonNode job = objectMapper.readTree(new File(ifile));
+
+      res = EntityProcess(job, dataBodyType);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  public Object EntityProcess(JsonNode job, Class<?> dataBodyType) throws CatException
+  {
+    Object obj = null;
+    try
+    {
+      obj = EntityProcess_Internal(job, dataBodyType);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return obj;
+  }
+
+  private Object EntityProcess_Internal(JsonNode job, Class<?> dataBodyType) throws CatException
+  {
+    Object obj = null;
+    try
+    {
+
+      obj = dataBodyType.newInstance();
+
+      // Now let's say you have not one, but 'n' nodes that contain the value
+      // you're looking for. Use NodeList to get a list of all those nodes and just 
+      // pull out the tag/attribute's value you want.
+      CatReflectObject01 lcatObj = OpswReflection.ReflectObject(obj);
+
+      if (lcatObj != null)
+      {
+
+        List<CatReflectObject01> vcatL = OpswReflection.ReflectObjectToObject01List(lcatObj.getFieldValue());
+        if (vcatL != null)
+        {
+          for (CatReflectObject01 v : vcatL)
+          {
+            this.EntityProcessFill01(job, v, obj);
+          }
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return obj;
+  }
+
+  public void EntityProcessFill01(JsonNode jsonObj, CatReflectObject01 obj, Object object)
           throws CatException
   {
     try
@@ -115,27 +188,25 @@ public class JsonReaderWriter
       {
         List<CatReflectObject01> objR = null;
         Object internalObj = null;
-        JSONObject vnode = null;
 
         if (obj.getFieldType().getName().equals(List.class.getName())
                 && obj.isIsGenericType())
         {
-          JSONArray vNList = jsonObj.getJSONArray(obj.getFieldName());
+          JsonNode vNList = jsonObj.get(obj.getFieldName());
 
-          if (vNList != null)
+          if (vNList != null && vNList.isArray())
           {
             internalObj = new ArrayList<>();
 
-            for (int i = 0; i < vNList.length(); i++)
+            for (JsonNode job : vNList)
             {
-              vnode = vNList.getJSONObject(i);
               Object internalObj1 = obj.getGenericType().newInstance();
 
               objR = OpswReflection.ReflectObjectToObject01List(internalObj1);
 
               for (CatReflectObject01 c : objR)
               {
-                this.EntityProcessFill01(vnode, c, internalObj1);
+                this.EntityProcessFill01(job.get(c.getFieldName()), c, internalObj1);
               }
 
               ((List<Object>) internalObj).add(internalObj1);
@@ -153,13 +224,11 @@ public class JsonReaderWriter
           {
             for (CatReflectObject01 c : objR)
             {
-              JSONObject vNList = jsonObj.getJSONObject(c.getFieldName());
+              JsonNode vNode = jsonObj.get(c.getFieldName());
 
-              if (vNList != null)
+              if (vNode != null)
               {
-                vnode = vNList.getJSONObject(c.getFieldName());
-
-                this.EntityProcessFill01(vnode, c, internalObj);
+                this.EntityProcessFill01(vNode, c, internalObj);
               }
             }
           }
@@ -167,20 +236,11 @@ public class JsonReaderWriter
       }
       else
       {
-        Object elVal = null;
-        try
-        {
-          elVal = jsonObj.get(obj.getFieldName());
-        }
-        catch (Exception ex)
-        {
-          //
-        }
 
         Object vval = null;
-        if (elVal != null)
+        if (jsonObj != null)
         {
-          vval = this.GetValueByTypeRead(obj, elVal);
+          vval = this.GetValueByTypeRead(obj, jsonObj);
         }
 
         OpswReflection.SetFieldValue(object, obj.getFieldName(), vval);
@@ -197,7 +257,7 @@ public class JsonReaderWriter
     Object res = null;
     try
     {
-      res = GetValueByType(obj, elVal, true);
+      res = SetValueByType(obj, elVal);
     }
     catch (Exception ex)
     {
@@ -206,12 +266,12 @@ public class JsonReaderWriter
     return res;
   }
 
-  public Object GetValueByTypeRead(CatReflectObject01 obj, Object elVal) throws CatException
+  public Object GetValueByTypeRead(CatReflectObject01 obj, JsonNode elVal) throws CatException
   {
     Object res = null;
     try
     {
-      res = GetValueByType(obj, elVal, false);
+      res = GetValueByType(obj, elVal);
     }
     catch (Exception ex)
     {
@@ -220,7 +280,7 @@ public class JsonReaderWriter
     return res;
   }
 
-  private Object GetValueByType(CatReflectObject01 obj, Object elVal, boolean ixmlWrite) throws CatException
+  private Object GetValueByType(CatReflectObject01 obj, JsonNode elVal) throws CatException
   {
     Object vval = null;
     try
@@ -232,15 +292,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if ((elVal instanceof String
-                  && ((((String) elVal).equalsIgnoreCase("1")) || (((String) elVal).equalsIgnoreCase("true")))))
-          {
-            vbool = true;
-          }
-          else if (ixmlWrite)
-          {
-            vbool = (boolean) elVal;
-          }
+          vbool = elVal.asBoolean();
         }
         vval = vbool;
       }
@@ -251,14 +303,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vlong = OpswNumberUtils.OpswGetLongFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vlong = (long) elVal;
-          }
+          vlong = elVal.asLong();
         }
         vval = vlong;
       }
@@ -269,14 +314,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vint = OpswNumberUtils.OpswGetIntFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vint = (int) elVal;
-          }
+          vint = elVal.asInt();
         }
         vval = vint;
       }
@@ -287,14 +325,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vshort = OpswNumberUtils.OpswGetShortFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vshort = (short) elVal;
-          }
+          vshort = (short) elVal.asInt();
         }
         vval = vshort;
       }
@@ -305,14 +336,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vbyte = OpswNumberUtils.OpswGetByteFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vbyte = (byte) elVal;
-          }
+          vbyte = (byte) elVal.asInt();
         }
         vval = vbyte;
       }
@@ -323,14 +347,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vdouble = OpswNumberUtils.OpswGetDoubleFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vdouble = (double) elVal;
-          }
+          vdouble = elVal.asDouble();
         }
         vval = vdouble;
       }
@@ -341,36 +358,20 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            vfloat = OpswNumberUtils.OpswGetFloatFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            vfloat = (float) elVal;
-          }
+          vfloat = (float) elVal.asDouble();
         }
         vval = vfloat;
       }
       else if (this.TypesComp01(obj.getFieldType(), Calendar.class
       ))
       {
-        String valEl = null;
+        Calendar vcal = null;
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            valEl = (String) elVal;
-          }
-          else if (ixmlWrite)
-          {
-            if (!OpswStringUtils.OpswStringIsEmpty(valEl))
-            {
-              vval = OpswDateUtils.StrToDate(valEl, this.dateFormat);
-            }
-          }
+          vcal = OpswDateUtils.StrToDate((String) elVal.asText(), this.dateFormat);
         }
+        vval = vcal;
       }
       else if (this.TypesComp01(obj.getFieldType(), BigDecimal.class
       ))
@@ -379,14 +380,106 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          if (elVal instanceof String)
-          {
-            valEl = OpswNumberUtils.OpswGetBigDecimalFromString((String) elVal);
-          }
-          else if (ixmlWrite)
-          {
-            valEl = (BigDecimal) elVal;
-          }
+          valEl = BigDecimal.valueOf(elVal.asDouble());
+        }
+
+        vval = valEl;
+      }
+      else
+      {
+        vval = elVal.asText();
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vval;
+  }
+
+  private Object SetValueByType(CatReflectObject01 obj, Object elVal) throws CatException
+  {
+    Object vval = null;
+    try
+    {
+      if (this.TypesComp01(obj.getFieldType(), Boolean.class))
+      {
+        boolean vbool = false;
+        if (elVal != null)
+        {
+          vbool = (boolean) elVal;
+        }
+        vval = vbool;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Long.class))
+      {
+        long vlong = 0;
+        if (elVal != null)
+        {
+          vlong = (long) elVal;
+        }
+        vval = vlong;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Integer.class))
+      {
+        int vint = 0;
+        if (elVal != null)
+        {
+          vint = (int) elVal;
+        }
+        vval = vint;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Short.class))
+      {
+        short vshort = 0;
+        if (elVal != null)
+        {
+          vshort = (short) elVal;
+        }
+        vval = vshort;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Byte.class))
+      {
+        byte vbyte = 0;
+        if (elVal != null)
+        {
+          vbyte = (byte) elVal;
+        }
+        vval = vbyte;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Double.class))
+      {
+        double vdouble = 0;
+        if (elVal != null)
+        {
+          vdouble = (double) elVal;
+        }
+        vval = vdouble;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Float.class))
+      {
+        float vfloat = 0;
+        if (elVal != null)
+        {
+          vfloat = (float) elVal;
+        }
+        vval = vfloat;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), Calendar.class))
+      {
+        Object valEl = null;
+        if (elVal != null)
+        {
+          valEl = OpswDateUtils.DateToStrXml((Calendar) elVal);
+        }
+        vval = valEl;
+      }
+      else if (this.TypesComp01(obj.getFieldType(), BigDecimal.class))
+      {
+        BigDecimal valEl = null;
+        if (elVal != null)
+        {
+          valEl = (BigDecimal) elVal;
         }
 
         vval = valEl;
