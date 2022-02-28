@@ -213,10 +213,20 @@
   </dependencies>
 
   <build>
+    <finalName>OPSWGOLUMWEBSERV</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/OPSWGOLUMWEBSERV</path>
+        </configuration>
       </plugin>
     </plugins>
   </build>
