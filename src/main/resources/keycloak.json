@@ -1,6 +1,6 @@
 {
   "realm": "SpringBootUCIKeycloak",
-  "auth-server-url": "http://localhost:8180/auth/",
+  "auth-server-url": "https://properties.retama.gr:8443/auth",
   "ssl-required": "none",
   "resource": "uci-login-app",
   "verify-token-audience": true,

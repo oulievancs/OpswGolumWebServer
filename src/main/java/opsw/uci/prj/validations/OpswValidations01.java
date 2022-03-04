@@ -39,7 +39,20 @@ public class OpswValidations01
                 //&& !(vuri.substring(vuri.length() - 6, vuri.length()).equals("/init1"))
                 //&& !(vuri.substring(vuri.length() - 11, vuri.length()).equals("/init1/post"))
                 && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1) > 0)
-                && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1_POST) > 0))
+                && !(vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1_POST) > 0)
+                && (
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_ACTIONS) > 0
+                ||
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_ASSETS00) > 0
+                ||
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_GRAM) > 0
+                ||
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MAIN) > 0
+                ||
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_MODAL) > 0
+                ||
+                vuri.indexOf(OpswWebConst.OPSW_CONTROLLER_NOTARY) > 0
+                ))
         {
           String vredUri = OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH
                   + OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1;
