@@ -142,7 +142,7 @@ public class OpswCookies01
 
         Principal principal = null;
 
-        if (authentication != null)
+        if (authentication != null && authentication.getPrincipal() != null)
         {
           principal = (Principal) authentication.getPrincipal();
         }
