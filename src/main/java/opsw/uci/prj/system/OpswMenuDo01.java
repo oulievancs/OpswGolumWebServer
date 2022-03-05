@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class OpswMenuDo01
 {
-  
+
   public static List<OpswMenu01> MakeMenu01(HttpServletRequest request, ModelAndView model,
           OpswLoginVars iloginVars, MessageSource ms, ApplicationProperties appProps
   ) throws CatException
@@ -48,6 +48,8 @@ public class OpswMenuDo01
              */
             )
     {
+      xrhshObj = OpswErpRecords01.OpswGetXrhshObj((short) 0);
+
       choice = new OpswMenu01();
       choice.setCaption(Ad1(iloginVars, ms, "MENOU00.LOGIN", "Log In"));
       choice.setPath("/login");
@@ -184,9 +186,9 @@ public class OpswMenuDo01
       choice.setIsActive(false);
       choice.setHaveSub(false);
       Map<String, String> langImg = new HashMap<>();
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN, 
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EN,
               OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-greece-48.png");
-      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL, 
+      langImg.put(OpswLoginVars.OPSW_LOGIN_VARS_LANG_EL,
               OpswSystemWebServer01.OPSW_SERVLET_CONTEXT_PATH + "/static/assets/icons8-usa-48.png");
       choice.setImage(Ad4(iloginVars, langImg));
 
@@ -295,7 +297,7 @@ public class OpswMenuDo01
           vlang = 1;
         }
       }
-      
+
       Set<String> keySet = request.getParameterMap().keySet();
 
       if (keySet != null && !keySet.isEmpty())
@@ -309,7 +311,7 @@ public class OpswMenuDo01
         while (vItKey.hasNext())
         {
           String vKeyParam = vItKey.next();
-          if(!vKeyParam.equals(OpswLanguage.OPSW_LANG_PARAMETER))
+          if (!vKeyParam.equals(OpswLanguage.OPSW_LANG_PARAMETER))
           {
             String[] valuesParam = request.getParameterMap().get(vKeyParam);
             String vValParam = valuesParam[0];
@@ -340,7 +342,7 @@ public class OpswMenuDo01
     }
     return res;
   }
-  
+
   private static String Ad4(OpswLoginVars iloginVars, Map<String, String> images) throws CatException
   {
     String res = null;
