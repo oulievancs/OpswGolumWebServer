@@ -42,6 +42,7 @@ public class Gram00 implements Serializable
   private Calendar date_modify;
   private String user_modify;
   private String internalkey_flds;
+  private String sheets;
 
   @Transient
   private List<Gram01> gram01List;
@@ -57,6 +58,7 @@ public class Gram00 implements Serializable
     this.date_modify = null;
     this.user_modify = null;
     this.internalkey_flds = null;
+    this.sheets = null;
   }
 
   public Long getGram()
@@ -157,6 +159,16 @@ public class Gram00 implements Serializable
   public void setInternalkey_flds(String internalkey_flds)
   {
     this.internalkey_flds = internalkey_flds;
+  }
+
+  public String getSheets()
+  {
+    return sheets;
+  }
+
+  public void setSheets(String sheets)
+  {
+    this.sheets = sheets;
   }
 
   @Override

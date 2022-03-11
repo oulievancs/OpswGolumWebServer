@@ -78,6 +78,14 @@
                     class="form-control"
                     placeholder="Enter start line"
                     />
+                  <label th:text="${'Sheets Start from 0'}"></label>
+                  <input
+                    type="text"
+                    name="sheets"
+                    th:field="*{sheets}"
+                    class="form-control"
+                    placeholder="Enter sheets"
+                    />
                   <label th:text="#{GRAM00_ED.ITERNAL_KEY_FLDS}"></label>
                   <select th:field="*{internalKeyFlds}" class="form-control" multiple>
                     <option th:each="s : ${internalKeyFldsLst}"

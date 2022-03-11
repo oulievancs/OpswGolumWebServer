@@ -277,12 +277,29 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
       {
         throw new CatExceptionUser("Στο αρχείο δεν βρέθηκαν καρτέλες!");
       }
-
-      for (int i = 0; i < workbook.getNumberOfSheets(); i++)
+      Gram00 vgram = this.Gram00Service.Gram00Select02(this.getGram());
+      String[] vSheets = null;
+      if(vgram != null)
       {
-        this.GetSheetAt(i);
+        if(OpswStringUtils.OpswStringIsEmpty(vgram.getSheets()))
+        {
+          vSheets = vgram.getSheets().split(",");
+        }
+        for(int i = 0; i<vSheets.length; i++)
+        {
+          this.GetSheetAt(Integer.parseInt(vSheets[i]));
 
-        this.ReadSheet();
+          this.ReadSheet();
+        }
+      }
+      else
+      {
+        for (int i = 0; i < workbook.getNumberOfSheets(); i++)
+        {
+          this.GetSheetAt(i);
+
+          this.ReadSheet();
+        }
       }
     }
     catch (Exception ex)

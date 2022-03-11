@@ -52,7 +52,7 @@ public class OpswMenuDo01
 
       choice = new OpswMenu01();
       choice.setCaption(Ad1(iloginVars, ms, "MENOU00.LOGIN", "Log In"));
-      choice.setPath("/login");
+      choice.setPath("/home");
       choice.setIsActive(requstedUrl.contains(choice.getPath()));
       choice.setHaveSub(false);
       menu.add(choice);
