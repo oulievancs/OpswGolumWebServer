@@ -14,6 +14,7 @@ import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
+import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec02;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
@@ -230,6 +231,7 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
   {
     try
     {
+      this.gram00Rec02 = null;
       if (this.gram00Rec02 == null)
       {
         this.gram00Rec02 = this.Gram00Service.Gram00Rec02Select01(gram);
@@ -281,25 +283,25 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
       String[] vSheets = null;
       if(vgram != null)
       {
-        if(OpswStringUtils.OpswStringIsEmpty(vgram.getSheets()))
+        if(!OpswStringUtils.OpswStringIsEmpty(vgram.getSheets()))
         {
           vSheets = vgram.getSheets().split(",");
-        }
-        for(int i = 0; i<vSheets.length; i++)
-        {
-          this.GetSheetAt(Integer.parseInt(vSheets[i]));
+          for(int i = 0; i<vSheets.length; i++)
+          {
+            this.GetSheetAt(Integer.parseInt(vSheets[i]));
 
-          this.ReadSheet();
+            this.ReadSheet();
+          }
         }
-      }
-      else
-      {
-        for (int i = 0; i < workbook.getNumberOfSheets(); i++)
+        else
         {
-          this.GetSheetAt(i);
+          for (int i = 0; i < workbook.getNumberOfSheets(); i++)
+          {
+            this.GetSheetAt(i);
 
-          this.ReadSheet();
-        }
+            this.ReadSheet();
+          }
+        }       
       }
     }
     catch (Exception ex)
