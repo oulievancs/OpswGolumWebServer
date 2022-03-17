@@ -347,7 +347,7 @@ public abstract class LcGramAssetsExcelBase
       }
 
       //Logic Pedia
-      if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_INTRNLKEY))
+      if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_INTRNLKEY) && cell.getColumnIndex() == -1)
       {
         this.isToSetInternalKey = true;
       }
