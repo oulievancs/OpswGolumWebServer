@@ -29,7 +29,7 @@ import opsw.uci.prj.records.cat.CatReflectObject01;
 public class OpswReflection
 {
 
-  private static Field GetFieldByName(Object obj, String fieldName)
+  public static Field GetFieldByName(Object obj, String fieldName)
           throws CatException
   {
     Field field = null;
@@ -163,6 +163,30 @@ public class OpswReflection
       CatException.RethrowCatException(ex);
     }
   }
+  
+  
+  /*
+  * n.oulis 20-MAR-2022
+  *Καινούργια διαδικασία η οποία είναι για τους αριθμούς
+  *
+  */
+  public static void SetFieldValue(Object obj, String fieldName, Object value, boolean isNumber)
+          throws CatException
+  {
+    try
+    {
+      Field vfield = GetFieldByName(obj, fieldName);
+
+      if (vfield != null)
+      {
+        CallNumberSetterMethod(obj, fieldName, value, vfield.getType());
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
 
   public static void SetFieldValueAppend(Object obj, String fieldName, Object value, String prefix)
           throws CatException
@@ -183,7 +207,7 @@ public class OpswReflection
           {
             vstr = (String) vstrObj;
           }
-
+          
           if (vstr == null)
           {
             vstr = (String) value;
@@ -221,6 +245,52 @@ public class OpswReflection
 
         //Invoke με type cast.
         vmethod.invoke(obj, paramType_Internal.cast(value));
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+  
+  private static void CallNumberSetterMethod(Object obj, String fieldName, Object value, Class<?> paramType)
+          throws CatException
+  {
+    try
+    {
+      Method vmethod = null;
+      if (paramType != null)
+      {
+        vmethod = GetSetterFieldByName(obj, fieldName, paramType);
+      }
+
+      if (vmethod != null)
+      {
+        //Class<?> paramType_Internal = ReflectionGetParamtypeAsClass(paramType);
+
+        //Invoke με type cast.
+        
+        /*
+        *n.oulis 20-MAR-2022
+        *Ελέγχουμε αν το object που ήρθε είναι Integer, Short, Long και αναλόγω παίρνουμε και το αντίστοιχο.
+        */
+        Long vLong = (Long)value;
+        if(paramType.getName().equals("java.lang.Integer"))
+        {
+          vmethod.invoke(obj, vLong.intValue());
+        }
+        else if(paramType.getName().equals("java.lang.Short"))
+        {
+          vmethod.invoke(obj, vLong.shortValue());
+        }
+        else if(paramType.getName().equals("java.lang.Byte"))
+        {
+          vmethod.invoke(obj, vLong.byteValue());
+        }
+        else
+        {
+          vmethod.invoke(obj, vLong);
+        }
       }
     }
     catch (Exception ex)

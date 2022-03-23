@@ -7,6 +7,7 @@ package opsw.uci.prj.gramexcel.logic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +39,7 @@ import opsw.uci.prj.utils.OpswStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -353,7 +355,7 @@ public abstract class LcGramAssetsExcelBase
       }
       else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
-      {
+      {        
         String vnamee = cell.getStringCellValue();
         Symb vsymb = this.Assets00InvokeSymbByNameOrTel(vnamee, null);
 
@@ -374,7 +376,7 @@ public abstract class LcGramAssetsExcelBase
       else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
       {
-        String vtelaa = cell.getStringCellValue();
+        String vtelaa = cell.getCell().getStringCellValue();
         Symb vsymb = this.Assets00InvokeSymbByNameOrTel(null, vtelaa);
 
         if (vsymb != null)
@@ -427,22 +429,21 @@ public abstract class LcGramAssetsExcelBase
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
         String vstrField = GetCellContentAsString(cell);
-        Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat);
-
+        
+        Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat, false);
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vcal);
       }
       else if (ifieldType == Gram01.FIELD_TYPE_LONG)
       {
-        long vnumFiled = this.GetCellContentAsLong(cell);
-
-        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled);
+        Long vnumFiled = this.GetCellContentAsLong(cell);
+        OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vnumFiled, true);
       }
       else if (ifieldType == Gram01.FIELD_TYPE_Y_OR_N)
       {
         byte vval = Assets00.FIELD_Y_OR_N_NO;
         String vfval = this.GetCellContentAsString(cell);
 
-        if (vfval != null && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_YES))
+        if (vfval != null && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_YES) && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_Y))
         {
           vval = Assets00.FIELD_Y_OR_N_YES;
         }
@@ -670,7 +671,7 @@ public abstract class LcGramAssetsExcelBase
 
       if (ct == CellType.STRING)
       {
-        result = OpswNumberUtils.OpswGetLongFromString(icell.getStringCellValue());
+        result = OpswNumberUtils.OpswGetIntFromString(icell.getStringCellValue());
       }
       else if (ct == CellType.NUMERIC)
       {

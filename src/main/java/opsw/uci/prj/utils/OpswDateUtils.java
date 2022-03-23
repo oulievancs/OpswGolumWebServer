@@ -75,7 +75,7 @@ public class OpswDateUtils
     {
       if (idateStr != null)
       {
-        vcal = StrToDate(idateStr, OPSW_DATE_DEFAULT_FORMAT);
+        vcal = StrToDate(idateStr, OPSW_DATE_DEFAULT_FORMAT, true);
       }
     }
     catch (Exception ex)
@@ -86,13 +86,13 @@ public class OpswDateUtils
     return vcal;
   }
 
-  public static Calendar StrToDate(String idateStr, String iformat)
+  public static Calendar StrToDate(String idateStr, String iformat, boolean checkDate)
           throws CatException
   {
     Calendar vcal = null;
     try
     {
-      if (idateStr == null)
+      if (idateStr == null && checkDate)
       {
         throw new CatException("Δεν δόθηκε ημ/νία!");
       }
@@ -106,11 +106,14 @@ public class OpswDateUtils
       {
         throw new CatException("Δεν δόθηκε format για την ημ/νία!");
       }
+      
+      if(idateStr != null && !idateStr.equals(""))
+      {
+        Date vdate = vf.parse(idateStr);
 
-      Date vdate = vf.parse(idateStr);
-
-      vcal = Calendar.getInstance();
-      vcal.setTime(vdate);
+        vcal = Calendar.getInstance();
+        vcal.setTime(vdate);
+      }
     }
     catch (Exception ex)
     {

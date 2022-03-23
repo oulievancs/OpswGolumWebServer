@@ -123,6 +123,7 @@ public class Gram00ServiceImpl implements Gram00Service
     gram00db.setDescr_sea(gram00.getDescr_sea());
     gram00db.setStart_line(gram00.getStart_line());
     gram00db.setInternalkey_flds(gram00.getInternalkey_flds());
+    gram00db.setSheets(gram00.getSheets());
   }
 
   @Override

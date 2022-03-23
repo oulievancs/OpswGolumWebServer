@@ -369,7 +369,7 @@ public class JsonReaderWriter
         if (elVal
                 != null)
         {
-          vcal = OpswDateUtils.StrToDate((String) elVal.asText(), this.dateFormat);
+          vcal = OpswDateUtils.StrToDate((String) elVal.asText(), this.dateFormat, true);
         }
         vval = vcal;
       }

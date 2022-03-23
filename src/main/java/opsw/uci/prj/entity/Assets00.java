@@ -94,7 +94,7 @@ public class Assets00 implements Serializable
   private String endiaferomenos_info5;
   private String comments1;
   private String comments2;
-  private Integer marketability_name;
+  private Integer marketability_rate;
   private String landea_leads;
   private String landea_comments;
   private String update_auction;
@@ -175,7 +175,7 @@ public class Assets00 implements Serializable
     this.endiaferomenos_info5 = null;
     this.comments1 = null;
     this.comments2 = null;
-    this.marketability_name = null;
+    this.marketability_rate = null;
     this.landea_leads = null;
     this.landea_comments = null;
     this.update_auction = null;
@@ -789,14 +789,14 @@ public class Assets00 implements Serializable
     this.comments2 = comments2;
   }
 
-  public Integer getMarketability_name()
+  public Integer getMarketability_rate()
   {
-    return marketability_name;
+    return marketability_rate;
   }
 
-  public void setMarketability_name(Integer marketability_name)
+  public void setMarketability_rate(Integer marketability_rate)
   {
-    this.marketability_name = marketability_name;
+    this.marketability_rate = marketability_rate;
   }
 
   public String getLandea_leads()

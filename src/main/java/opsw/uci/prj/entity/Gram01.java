@@ -28,7 +28,8 @@ public class Gram01 implements Serializable
   public static final Short FIELD_TYPE_LONG = 3;
   public static final Short FIELD_TYPE_Y_OR_N = 4;
 
-  public static final String FIELD_Y_OR_N_YES = "Y";
+  public static final String FIELD_Y_OR_N_YES = "YES";
+  public static final String FIELD_Y_OR_N_Y = "Y";
   public static final String FIELS_Y_OR_N_NO = "N";
 
   public static final byte GRAM01_FIELD_IS_NOT_EXCEL_FIELD = -1;
