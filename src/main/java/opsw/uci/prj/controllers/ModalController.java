@@ -69,7 +69,7 @@ public class ModalController
         asset00 = assets00Service.Assets00Select01(assetId);
         asset00.setSymb_id(vSymb.getId());
         asset00.setSymb(vSymb);
-        asset00 = assets00Service.Assets00Post02(asset00, false);
+        asset00 = assets00Service.Assets00Post02(asset00, false, true);
         redirectUrl += "?asset=" + asset00.getAsset();
       }
     }

@@ -141,7 +141,7 @@ public class Assets00ServiceImpl implements Assets00Service
   }
 
   @Override
-  public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb) throws CatException
+  public Assets00 Assets00Post02(Assets00 assets00, boolean postSymb, boolean postAsset) throws CatException
   {
     Assets00 vassets00 = assets00;
     try
@@ -152,7 +152,10 @@ public class Assets00ServiceImpl implements Assets00Service
 
         vassets00.setSymb(vsymb);
       }
-      vassets00 = this.Assets00Post01(assets00);
+      if(postAsset)
+      {
+        vassets00 = this.Assets00Post01(assets00);
+      }
     }
     catch (Exception ex)
     {
@@ -478,7 +481,7 @@ public class Assets00ServiceImpl implements Assets00Service
   }
 
   @Override
-  public Assets00 Assets00Post03(Assets00 assets00, boolean postSymb) throws CatException
+  public Assets00 Assets00Post03(Assets00 assets00, boolean postSymb, boolean postAsset) throws CatException
   {
     Assets00 vassets00 = null;
     try
@@ -489,7 +492,7 @@ public class Assets00ServiceImpl implements Assets00Service
                 this.SequencesService.SequencesGetNextVal(Sequences.SEQ_AAUCI)
         );
       }
-      vassets00 = this.Assets00Post02(assets00, postSymb);
+      vassets00 = this.Assets00Post02(assets00, postSymb, postAsset);
     }
     catch (Exception ex)
     {
@@ -528,6 +531,12 @@ public class Assets00ServiceImpl implements Assets00Service
       CatException.RethrowCatException(ex);
     }
     return assetsRec01;
+  }
+
+  @Override
+  public Assets00 Assets00Select01(String internalKey) throws CatException
+  {
+    return this.Assets00Repository.Assets00Select01(internalKey);
   }
 
 }

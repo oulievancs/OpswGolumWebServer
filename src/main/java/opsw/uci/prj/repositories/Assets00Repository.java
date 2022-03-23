@@ -30,4 +30,7 @@ public interface Assets00Repository extends CatEjbJpaBase<Assets00, Long>
 
   @Query("SELECT Count(a) FROM Assets00 a WHERE a.symb_id = ?1")
   long Assets00Count01(Long symb_id);
+  
+  @Query("SELECT a FROM Assets00 a WHERE a.intrnlkey = ?1 ")
+  Assets00 Assets00Select01(String internal);
 }

@@ -304,8 +304,16 @@ public abstract class LcGramAssetsExcelBase
             vinternalKey = this.AssetsInternlKeyComp(this.assets00);
             OpswReflection.SetFieldValue(this.assets00, Opswconstsv.FIELD_ASSETS_VALUE_INTRNLKEY.toLowerCase(), vinternalKey);
           }
-          //
-          this.Assetets00Service.Assets00Post03(this.assets00, true);
+          /*prepei edo na kanoyme select me to internal_key gia na doyme an
+          * yparxei kai an yparxei na mhn kanoyme post
+          */ 
+          Assets00 tmpAsset = this.Assetets00Service.Assets00Select01(this.assets00.getIntrnlkey());
+          boolean isFound = false;
+          if(tmpAsset != null)
+          {
+            isFound = true;
+          }
+          this.Assetets00Service.Assets00Post03(this.assets00, true, !isFound);
         }
 
         idx++;
