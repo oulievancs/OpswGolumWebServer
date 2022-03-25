@@ -29,7 +29,7 @@ import opsw.uci.prj.records.cat.CatReflectObject01;
 public class OpswReflection
 {
 
-  public static Field GetFieldByName(Object obj, String fieldName)
+  private static Field GetFieldByName(Object obj, String fieldName)
           throws CatException
   {
     Field field = null;
@@ -151,25 +151,19 @@ public class OpswReflection
   {
     try
     {
-      Field vfield = GetFieldByName(obj, fieldName);
-
-      if (vfield != null)
-      {
-        CallSetterMethod(obj, fieldName, value, vfield.getType());
-      }
+      SetFieldValue(obj, fieldName, value, false);
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
   }
-  
-  
+
   /*
   * n.oulis 20-MAR-2022
   *Καινούργια διαδικασία η οποία είναι για τους αριθμούς
   *
-  */
+   */
   public static void SetFieldValue(Object obj, String fieldName, Object value, boolean isNumber)
           throws CatException
   {
@@ -179,7 +173,14 @@ public class OpswReflection
 
       if (vfield != null)
       {
-        CallNumberSetterMethod(obj, fieldName, value, vfield.getType());
+        if (isNumber)
+        {
+          CallNumberSetterMethod(obj, fieldName, value, vfield.getType());
+        }
+        else
+        {
+          CallSetterMethod(obj, fieldName, value, vfield.getType());
+        }
       }
     }
     catch (Exception ex)
@@ -207,7 +208,7 @@ public class OpswReflection
           {
             vstr = (String) vstrObj;
           }
-          
+
           if (vstr == null)
           {
             vstr = (String) value;
@@ -252,46 +253,48 @@ public class OpswReflection
       CatException.RethrowCatException(ex);
     }
   }
-  
+
   private static void CallNumberSetterMethod(Object obj, String fieldName, Object value, Class<?> paramType)
           throws CatException
   {
     try
     {
-      Method vmethod = null;
-      if (paramType != null)
-      {
-        vmethod = GetSetterFieldByName(obj, fieldName, paramType);
-      }
+      //Invoke με type cast.
+      Class<?> vtypeCl = null;
+      Object vval = null;
 
-      if (vmethod != null)
-      {
-        //Class<?> paramType_Internal = ReflectionGetParamtypeAsClass(paramType);
-
-        //Invoke με type cast.
-        
-        /*
+      /*
         *n.oulis 20-MAR-2022
         *Ελέγχουμε αν το object που ήρθε είναι Integer, Short, Long και αναλόγω παίρνουμε και το αντίστοιχο.
-        */
-        Long vLong = (Long)value;
-        if(paramType.getName().equals("java.lang.Integer"))
-        {
-          vmethod.invoke(obj, vLong.intValue());
-        }
-        else if(paramType.getName().equals("java.lang.Short"))
-        {
-          vmethod.invoke(obj, vLong.shortValue());
-        }
-        else if(paramType.getName().equals("java.lang.Byte"))
-        {
-          vmethod.invoke(obj, vLong.byteValue());
-        }
-        else
-        {
-          vmethod.invoke(obj, vLong);
-        }
+       */
+      if (value instanceof Long)
+      {
+        throw new CatException("Not supported field value [Field = " + fieldName + "]!");
       }
+
+      Long vLong = (Long) value;
+      if (paramType.getName().equals(Integer.class.getName()))
+      {
+        vtypeCl = Integer.class;
+        vval = vLong.intValue();
+      }
+      else if (paramType.getName().equals(Short.class.getName()))
+      {
+        vtypeCl = Short.class;
+        vval = vLong.shortValue();
+      }
+      else if (paramType.getName().equals(Byte.class.getName()))
+      {
+        vtypeCl = Byte.class;
+        vval = vLong.byteValue();
+      }
+      else
+      {
+        vtypeCl = Long.class;
+        vval = vLong.longValue();
+      }
+
+      CallSetterMethod(obj, fieldName, vval, vtypeCl);
     }
     catch (Exception ex)
     {
