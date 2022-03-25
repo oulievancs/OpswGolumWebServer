@@ -8,7 +8,7 @@ package opsw.uci.prj.arifacts;
 import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
 import opsw.uci.prj.cat.OpswEntityManagerJpa;
-import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
+import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.interceptors.OpswWebMvcConfig;
 import opsw.uci.prj.security.config.OpswKeycloakSecurityConfig;
 import opsw.uci.prj.starter.OpswUciApplicationRunner;
@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
           OpswLocalResolver.class,
           ApplicationProperties.class,
           //---OWN SERVICES-----//
-          LcGramAssetsExcel01.class,
+          OpswExcelUtilsAA.class,
           LcOpswAssetsApi.class
         },
         basePackages =

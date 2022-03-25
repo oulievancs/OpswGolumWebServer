@@ -7,33 +7,21 @@ package opsw.uci.prj.controllers;
 
 import java.util.Calendar;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.constants.OpswWebConst;
-import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Symb;
-import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
-import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcel01;
-import opsw.uci.prj.gramexcel.logic.LcGramAssetsExcelBase;
-import opsw.uci.prj.gramexcel.logic.LcGramAssetsExportExcel;
 import opsw.uci.prj.gramexcel.logic.OpswExcelUtilsAA;
 import opsw.uci.prj.interceptors.OpswCookies01;
-import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List02Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
-import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.Gram00Service;
-import opsw.uci.prj.services.Gram01Service;
-import opsw.uci.prj.services.OpswconstvService;
-import opsw.uci.prj.services.SequencesService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +29,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,25 +46,13 @@ public class ActionsController
 {
 
   @Autowired
-  private Assets00Service Assetets00Service;
-
-  @Autowired
-  private Gram01Service Gram01Service;
-
-  @Autowired
   private Gram00Service Gram00Service;
 
   @Autowired
   private SymbService SymbService;
 
   @Autowired
-  private LcGramAssetsExcel01 LcGramAssetsExcel01;
-
-  @Autowired
-  private OpswconstvService OpswconstvService;
-
-  @Autowired
-  private SequencesService SequencesService;
+  private OpswExcelUtilsAA ExcelUtilsService;
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE)
   public String importFileFomr(Model model) throws CatException
@@ -118,17 +93,7 @@ public class ActionsController
       }
       else
       {
-        LcGramAssetsExcelBase excelUnit = this.LcGramAssetsExcel01;
-        excelUnit.setGram(gramrec.getGram());
-        excelUnit.setAssetets00Service(this.Assetets00Service);
-        excelUnit.setGram00Service(this.Gram00Service);
-        excelUnit.setGram01Service(this.Gram01Service);
-        excelUnit.setSymbService(this.SymbService);
-        excelUnit.setOpswconstvService(OpswconstvService);
-        excelUnit.setSequencesService(SequencesService);
-        excelUnit.setLogivars(vlogvar);
-
-        ((LcGramAssetsExcel01) excelUnit).ReadFileFromMultipartAndImport(file);
+        this.ExcelUtilsService.ReadFileFromMultipartAndImport(file, gramrec, vlogvar);
         attributes.addFlashAttribute("message", "The file uploaded.");
       }
       attributes.addFlashAttribute("error", false);
@@ -212,10 +177,7 @@ public class ActionsController
     ResponseEntity<byte[]> result = null;
     try
     {
-      OpswExcelUtilsAA excelUtils = new OpswExcelUtilsAA(
-              this.Assetets00Service, this.SymbService, this.Gram01Service,
-              this.OpswconstvService);
-      byte[] excelFile = excelUtils.ExportExcelFile(iparams);
+      byte[] excelFile = ExcelUtilsService.ExportExcelFile(iparams);
       result = ResponseEntity.ok()
               .header("Content-Disposition", "attachment; filename=assets_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".xlsx")
               .contentLength(excelFile.length)
