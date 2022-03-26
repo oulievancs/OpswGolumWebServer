@@ -267,10 +267,6 @@ public class OpswReflection
         *n.oulis 20-MAR-2022
         *Ελέγχουμε αν το object που ήρθε είναι Integer, Short, Long και αναλόγω παίρνουμε και το αντίστοιχο.
        */
-      if (value instanceof Long)
-      {
-        throw new CatException("Not supported field value [Field = " + fieldName + "]!");
-      }
 
       Long vLong = (Long) value;
       if (paramType.getName().equals(Integer.class.getName()))
