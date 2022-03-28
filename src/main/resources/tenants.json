@@ -17,6 +17,12 @@
       "datasourceName": "ORCLH_MINLO2",
       "datasourcePath": "ORCLH_MINLO2",
       "descr": "Intrum"
+    },
+    {
+      "tenantNo": 4,
+      "datasourceName": "ORCLH_MINLO3",
+      "datasourcePath": "ORCLH_MINLO3",
+      "descr": "Intrum REO"
     }
   ]
 }
