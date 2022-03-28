@@ -140,6 +140,7 @@ public class OpswExceptionHandler
 
   private static void HandleModelAndViewAccessDenied(AccessDeniedException ex, ModelAndView mav)
   {
+    mav.setViewName("errors/error01");
     mav.addObject("errorMessage", "Access Denied");
   }
 
