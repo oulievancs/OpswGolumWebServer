@@ -124,6 +124,11 @@ public class OpswExceptionHandler
         }
       }
     }
+    else
+    {
+      mav.addObject("url", req.getRequestURL());
+      mav.setViewName("errors/error01");
+    }
 
     return mav;
   }
@@ -140,7 +145,6 @@ public class OpswExceptionHandler
 
   private static void HandleModelAndViewAccessDenied(AccessDeniedException ex, ModelAndView mav)
   {
-    mav.setViewName("errors/error01");
     mav.addObject("errorMessage", "Access Denied");
   }
 
