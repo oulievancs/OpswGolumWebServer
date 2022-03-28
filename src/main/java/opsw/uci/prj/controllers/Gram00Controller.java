@@ -7,6 +7,7 @@ package opsw.uci.prj.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.constants.OpswWebConst;
@@ -15,6 +16,7 @@ import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.globals.OpswRolesAllowed;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Gram00Rec01;
 import opsw.uci.prj.records.Gram00Rec02;
@@ -37,6 +39,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author oulis
  */
 @Controller
+@RolesAllowed(value =
+{
+  OpswRolesAllowed.UCI_ADMIN
+})
 @RequestMapping(OpswWebConst.OPSW_CONTROLLER_GRAM)
 public class Gram00Controller
 {

@@ -40,7 +40,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author n.oulis
  */
 @Controller
-//@RolesAllowed("uci-user")
+//@RolesAllowed( value =
+//{
+//  "uci-user"
+//})
 @RequestMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS)
 public class ActionsController
 {
