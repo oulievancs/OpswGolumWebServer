@@ -14,6 +14,7 @@ import opsw.uci.prj.logging.OpswLogger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -130,6 +131,27 @@ public class OpswExceptionHandlerController
             CatExceptionUser.class
           })
   public ModelAndView handleError(RedirectAttributes ra, HttpServletRequest req, Exception ex)
+          throws Exception
+  {
+    ModelAndView mav = new ModelAndView();
+    try
+    {
+      mav = OpswExceptionHandler.HandleControllerExceptionAndModelView(req, ra, ex, mav);
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
+    return mav;
+  }
+
+  @ExceptionHandler(
+          {
+            AccessDeniedException.class
+          })
+  public ModelAndView accessDenied(RedirectAttributes ra, HttpServletRequest req, Exception ex)
           throws Exception
   {
     ModelAndView mav = new ModelAndView();

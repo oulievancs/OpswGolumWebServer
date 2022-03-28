@@ -11,6 +11,7 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.utils.OpswStringUtils;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,6 +45,10 @@ public class OpswExceptionHandler
     {
       HandleCatException(req, (CatException) ex);
     }
+    else if (ex instanceof AccessDeniedException)
+    {
+      //
+    }
     else
     {
       HandleException(req, ex);
@@ -75,6 +80,10 @@ public class OpswExceptionHandler
     {
       ex1 = (CatException) ex;
       HandleModelAndViewCatException((CatException) ex, mav);
+    }
+    else if (ex instanceof AccessDeniedException)
+    {
+      HandleModelAndViewAccessDenied((AccessDeniedException) ex, mav);
     }
     else
     {
@@ -127,6 +136,11 @@ public class OpswExceptionHandler
   private static void HandleModelAndViewCatException(CatException ex, ModelAndView mav)
   {
     mav.addObject("errorMessage", "Internal Error!");
+  }
+
+  private static void HandleModelAndViewAccessDenied(AccessDeniedException ex, ModelAndView mav)
+  {
+    mav.addObject("errorMessage", "Access Denied");
   }
 
   private static void HandleModelAndViewException(Exception ex, ModelAndView mav)
