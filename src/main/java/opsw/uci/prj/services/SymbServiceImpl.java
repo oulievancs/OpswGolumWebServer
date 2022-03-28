@@ -61,6 +61,21 @@ public class SymbServiceImpl implements SymbService
   }
 
   @Override
+  public Symb SymbPost(Symb symb) throws CatException
+  {
+    Symb vsymb = symb;
+    try
+    {
+      vsymb = (Symb) this.SymbRepository.saveAndFlush(vsymb);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vsymb;
+  }
+
+  @Override
   public Symb SymbPost01(Symb symb) throws CatException
   {
     Symb vsymb = symb;
@@ -71,7 +86,17 @@ public class SymbServiceImpl implements SymbService
         symb.setId(this.SequenceService.SequencesGetNextVal(Sequences.SEQ_SYMB));
       }
 
-      vsymb = (Symb) this.SymbRepository.saveAndFlush(symb);
+      if (vsymb.getDate_create() == null)
+      {
+        vsymb.setDate_create(vsymb.getDate_modify());
+      }
+
+      if (vsymb.getUser_create() == null)
+      {
+        vsymb.setUser_create(vsymb.getUser_modify());
+      }
+
+      this.SymbPost(symb);
     }
     catch (Exception ex)
     {

@@ -375,7 +375,7 @@ public abstract class LcGramAssetsExcelBase
         {
           if (this.assets00.getSymb() == null)
           {
-            this.assets00.setSymb(new Symb());
+            this.assets00.setSymb(this.SymbNewInstance());
           }
 
           this.assets00.getSymb().setName(vnamee);
@@ -395,7 +395,7 @@ public abstract class LcGramAssetsExcelBase
         {
           if (this.assets00.getSymb() == null)
           {
-            this.assets00.setSymb(new Symb());
+            this.assets00.setSymb(this.SymbNewInstance());
           }
 
           this.assets00.getSymb().setTele(vtelaa);
@@ -932,6 +932,22 @@ public abstract class LcGramAssetsExcelBase
     }
 
     return vcc;
+  }
+  
+  private Symb SymbNewInstance() throws CatException
+  {
+    Symb vsymb = null;
+    try
+    {
+      vsymb = new Symb();
+      vsymb.setDate_modify(Calendar.getInstance());
+      vsymb.setUser_create(this.logivars.getLoginUser());
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vsymb;
   }
 
   /**
