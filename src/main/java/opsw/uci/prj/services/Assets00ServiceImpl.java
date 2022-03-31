@@ -14,10 +14,12 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import opsw.uci.prj.api.progress.OpswProcessParams;
 import opsw.uci.prj.api.progress.OpswProgressEvent;
+import opsw.uci.prj.arifacts.OpswTransactional;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Assets00fl;
+import opsw.uci.prj.entity.Assets00flKey;
 import opsw.uci.prj.entity.Opswconstsv;
 import opsw.uci.prj.entity.Opswfldsv;
 import opsw.uci.prj.entity.Sequences;
@@ -152,7 +154,7 @@ public class Assets00ServiceImpl implements Assets00Service
 
         vassets00.setSymb(vsymb);
       }
-      if(postAsset)
+      if (postAsset)
       {
         vassets00 = this.Assets00Post01(assets00);
       }
@@ -537,6 +539,47 @@ public class Assets00ServiceImpl implements Assets00Service
   public Assets00 Assets00Select01(String internalKey) throws CatException
   {
     return this.Assets00Repository.Assets00Select01(internalKey);
+  }
+
+  @Override
+  public void Assets00Delete01(Long assetId) throws CatException
+  {
+    try
+    {
+      this.Assets00Repository.deleteById(assetId);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  @Override
+  @OpswTransactional
+  public void Assets00DeleteAll(Long assetId) throws CatException
+  {
+    try
+    {
+      List<Assets00fl> vfls = this.Assets00flService.Assets00flList01(assetId);
+
+      if (vfls != null)
+      {
+        for (Assets00fl vfl : vfls)
+        {
+          Assets00flKey vkey = new Assets00flKey();
+          vkey.setAsset(vfl.getAsset());
+          vkey.setFld(vfl.getFld());
+
+          this.Assets00flService.Assets00flDelete01(vkey);
+        }
+      }
+
+      this.Assets00Delete01(assetId);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 
 }

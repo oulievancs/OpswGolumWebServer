@@ -7,6 +7,7 @@ package opsw.uci.prj.controllers;
 
 import java.util.Calendar;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.api.client.OpswHttpRequestBase;
 import opsw.uci.prj.assetsapi.logic.LcOpswAssetsApi;
@@ -15,6 +16,7 @@ import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
+import opsw.uci.prj.globals.OpswRolesAllowed;
 import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
@@ -22,8 +24,6 @@ import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
 import opsw.uci.prj.services.Assets00Service;
-import opsw.uci.prj.services.Gram01Service;
-import opsw.uci.prj.services.OpswconstvService;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
@@ -35,6 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,12 +54,6 @@ public class Assets00Controller
 
   @Autowired
   private SymbService SymbService;
-
-  @Autowired
-  private Gram01Service Gram01Service;
-
-  @Autowired
-  private OpswconstvService constsvService;
 
   @Autowired
   private LcOpswAssetsApi opswAssetApi;
@@ -159,8 +154,7 @@ public class Assets00Controller
       CatException.RethrowCatException(ex);
     }
   }
-  
-  
+
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01)
   public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model, HttpServletRequest request) throws CatException
   {
@@ -236,6 +230,24 @@ public class Assets00Controller
     model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", assetReturned);
     return "assets00Ed01";
+  }
+
+  @RolesAllowed(value =
+  {
+    OpswRolesAllowed.UCI_ADMIN
+  })
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_DELETE01)
+  public String Assets00Delete01(@PathVariable("asset") Long assetId) throws CatException
+  {
+    try
+    {
+      this.Assets00Service.Assets00DeleteAll(assetId);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return "redirect:" + OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01;
   }
 
 }

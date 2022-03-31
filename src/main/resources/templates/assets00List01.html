@@ -206,7 +206,7 @@
               <th rowspan="2" th:text="#{ASSETS00_PR.COLLATERAL_USE1}"></th>
               <th rowspan="2" th:text="#{ASSETS00_PR.COLLATERAL_SYB}"></th>
               
-              <th colspan="5" th:text="#{ASSETS00.POSITION_INFOS_ABS}"></th>
+              <th colspan="5" th:text="#{ASSETS00_PR.POSITION_INFOS_ABS}"></th>
               
               <th rowspan="2" th:text="#{ASSETS00_PR.LANDAREA}"></th>
               <th rowspan="2" th:text="#{ASSETS00_PR.BUILDAREA}"></th>
@@ -288,6 +288,7 @@
               
               <th th:text="#{ASSETS00_PR.COMMENTS1}"></th>
               <th th:text="#{ASSETS00_PR.COMMENTS2}"></th>
+              <th th:text="#{ASSETS00_PR.ACTIONS}"></th>
             </tr>
           </thead>
           <tbody>
@@ -362,6 +363,41 @@
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_create())}"></td>
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_modify()}"></td>
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_modify())}"></td>
+              <td>
+                <a data-toggle="modal" data-target="#modal-delete"
+                   th:attr="data-target='#modal-delete' + ${ass00.getAsset()}" class="btn btn-danger btn-sm mb-3">
+                  <i class="fa fa-trash-alt"></i>  
+                  <span th:text="#{ASSETS00_PR.DELETE}"></span>
+                </a>
+                
+                <div class="modal modal-delete" th:id="'modal-delete' + ${ass00.getAsset()}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button style="align-self: flex-start;" type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h3 id="delModalLabel" th:text="#{ASSETS00_PR.DELETE_CONF}"></h3>
+                            </div>
+                            <div class="modal-body">
+                                <p class="error-text"><strong th:text="#{ASSETS00_PR.DELETE_CONF_MESS}"></strong></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                  <span th:text="#{ASSETS00_PR.CANCEL}"></span>
+                                </button>
+                                <a th:href="@{/assets/assets00/delete01/{asset} (asset=${ass00.getAsset()}) }">
+                                    <span class="btn btn-danger" value="delete" th:text="#{ASSETS00_PR.DELETE}"></span>
+                                </a>
+
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!--end delete modal-->
+              </td>
             </tr>
           </tbody>
         </table>
