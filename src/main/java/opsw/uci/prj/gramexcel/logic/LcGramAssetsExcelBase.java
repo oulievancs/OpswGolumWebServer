@@ -361,8 +361,7 @@ public abstract class LcGramAssetsExcelBase
       {
         this.isToSetInternalKey = true;
       }
-      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
-              && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
+      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME))
       {
         String vnamee = cell.getStringCellValue();
         Symb vsymb = this.Assets00InvokeSymbByNameOrTel(vnamee, null);
@@ -381,24 +380,26 @@ public abstract class LcGramAssetsExcelBase
           this.assets00.getSymb().setName(vnamee);
         }
       }
-      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL)
-              && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
+      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL))
       {
         String vtelaa = cell.getCell().getStringCellValue();
         Symb vsymb = this.Assets00InvokeSymbByNameOrTel(null, vtelaa);
 
-        if (vsymb != null)
+        if (OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
         {
-          this.assets00.setSymb_id(vsymb.getId());
-        }
-        else if (vtelaa != null && !OpswStringUtils.OpswStringIsEmpty(vtelaa))
-        {
-          if (this.assets00.getSymb() == null)
+          if (vsymb != null)
           {
-            this.assets00.setSymb(this.SymbNewInstance());
+            this.assets00.setSymb_id(vsymb.getId());
           }
+          else if (vtelaa != null && !OpswStringUtils.OpswStringIsEmpty(vtelaa))
+          {
+            if (this.assets00.getSymb() == null)
+            {
+              this.assets00.setSymb(this.SymbNewInstance());
+            }
 
-          this.assets00.getSymb().setTele(vtelaa);
+            this.assets00.getSymb().setTele(vtelaa);
+          }
         }
       }
       //****** OLA TA ALLA ********
