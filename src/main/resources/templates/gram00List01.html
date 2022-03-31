@@ -148,6 +148,10 @@
                   <i class="fa fa-edit"></i>
                   <span th:text="#{GRAM00_PR.EDIT}"></span>
                 </a>
+                <a th:href="@{/import_export/export/gram/{gram}(gram=${gram00.gram})}" class="btn btn-primary btn-sm mb-3" target="_blank">
+                  <i class="fa fa-edit"></i>
+                  <span th:text="#{GRAM00_PR.EXPORT}"></span>
+                </a>
                 <a data-toggle="modal" data-target="#modal-delete"
                    th:attr="data-target='#modal-delete' + ${gram00.gram}" class="btn btn-danger btn-sm mb-3">
                   <i class="fa fa-trash-alt"></i>  
