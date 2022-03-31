@@ -306,10 +306,10 @@ public abstract class LcGramAssetsExcelBase
           }
           /*prepei edo na kanoyme select me to internal_key gia na doyme an
           * yparxei kai an yparxei na mhn kanoyme post
-          */ 
+           */
           Assets00 tmpAsset = this.Assetets00Service.Assets00Select01(this.assets00.getIntrnlkey());
           boolean isFound = false;
-          if(tmpAsset != null)
+          if (tmpAsset != null)
           {
             isFound = true;
           }
@@ -363,7 +363,7 @@ public abstract class LcGramAssetsExcelBase
       }
       else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME)
               && OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
-      {        
+      {
         String vnamee = cell.getStringCellValue();
         Symb vsymb = this.Assets00InvokeSymbByNameOrTel(vnamee, null);
 
@@ -437,7 +437,7 @@ public abstract class LcGramAssetsExcelBase
           throw new CatExceptionUser("Δεν έχει ορισθεί πρότυπο ημ/νίας. Παρακαλώ επιλέξτε!");
         }
         String vstrField = GetCellContentAsString(cell);
-        
+
         Calendar vcal = OpswDateUtils.StrToDate(vstrField, ifieldDateFormat, false);
         OpswReflection.SetFieldValue(this.assets00, ifieldName.toLowerCase(), vcal);
       }
@@ -745,7 +745,7 @@ public abstract class LcGramAssetsExcelBase
 
         vsymbL01 = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(tel));
 
-        if (vsymbL01 != null)
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL01))
         {
           vsymbb = vsymbL01.get(0);
         }
@@ -933,7 +933,7 @@ public abstract class LcGramAssetsExcelBase
 
     return vcc;
   }
-  
+
   private Symb SymbNewInstance() throws CatException
   {
     Symb vsymb = null;
