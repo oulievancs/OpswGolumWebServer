@@ -107,11 +107,13 @@
             </button>-->
           </div>
         </nav>
+        
         <div class="container">
           <div class="row">
             <h1 th:text="#{GRAM00_PR.TITLE1}"></h1>
           </div>
         </div>
+        
         <div class="row">
           <div class="col-lg-3">
             <a th:href="@{/gram/gram00/ed01}" class="btn btn-primary btn-sm mb-3">
@@ -120,6 +122,7 @@
             </a>
           </div>
         </div>
+        
         <table id="table1" style="width:100%" class="hover table-responsive stripe" >
           <thead>
             <tr>
@@ -182,6 +185,27 @@
             </tr>
           </tbody>
         </table>
+        
+        
+        <center>
+          
+          <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="width:95%">
+            <h1 class=""text-center th:text="#{GRAM00_PR.IMPORT_GRAM00}"></h1>
+            <div class="card-body">
+              <form method="post" th:action="@{/import_export/import/gram?redirect=/gram/gram00/list01}" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="col-md-8 mx-auto">
+                    <div class="form-group">
+                      <input type="file" name="file" required="true" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><span th:text="#{GRAM00_PR.UPLOAD_FILE}"></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </center>
+        
       </div>
     </div>
 

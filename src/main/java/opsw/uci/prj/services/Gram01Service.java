@@ -30,6 +30,8 @@ public interface Gram01Service extends CatEjbJpaServiceBase
 
   public Gram01 Gram01Post02(Long gram, Long senu, Gram01 gram01) throws CatException;
 
+  public List<Gram01> Gram01Post03(Long gram, List<Gram01> gram01List) throws CatException;
+
   public void Gram01Delete01(Long gram, Long senu) throws CatException;
 
   public void Gram01Delete02(Gram01Key key) throws CatException;

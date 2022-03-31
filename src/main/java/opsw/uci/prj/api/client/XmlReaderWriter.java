@@ -169,6 +169,40 @@ public class XmlReaderWriter
     }
   }
 
+  public Document ObjectProcess(Object obj) throws CatException
+  {
+    Document document = null;
+    try
+    {
+      // Parse the response using DocumentBuilder so you can get at elements easily
+      DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+
+      document = docBuilder.newDocument();
+
+      CatReflectObject01 vRefRt = OpswReflection.ReflectObject(obj);
+      List<CatReflectObject01> wRefL = OpswReflection.ReflectObjectToObject01List(obj);
+
+      if (wRefL != null)
+      {
+        this.CheckFieldBB(vRefRt);
+
+        Element vel = document.createElement(vRefRt.getXmlRootElementName());
+        for (CatReflectObject01 c : wRefL)
+        {
+          this.ObjectProcessFill01(vel, c, document);
+
+        }
+        document.appendChild(vel);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return document;
+  }
+
   public void EntityProcessFill01(Element element, CatReflectObject01 obj, Object object)
           throws CatException
   {

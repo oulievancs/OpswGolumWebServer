@@ -62,12 +62,18 @@ public class OpswWebConst
   public static final String OPSW_CONTROLLER_NOTARY_ED01 = "/ed01";
   public static final String OPSW_CONTROLLER_NOTARY_ED01_POST01 = "/ed01/post01";
   public static final String OPSW_CONTROLLER_NOTARY_DELETE01 = "/delete01/{symb_id}";
-  
-  /*
-  * MODALS
-  */
-  
+
+  /**
+   * MODALS
+   */
   public static final String OPSW_CONTROLLER_MODAL = "/modals";
   public static final String OPSW_CONTROLLER_MODAL_SYMB_MODAL01 = "/symb/modal01";
   public static final String OPSW_CONTROLLER_MODAL_SYMB_MODAL01_POST = "/symb/modalpost/{asset}";
+
+  /**
+   *
+   */
+  public static final String OPSW_CONTROLLER_IMPORT_EXPORT = "/import_export";
+  public static final String OPSW_CONTROLLER_IMPORT_EXPORT_IMPORT = "/import/{file}";
+  public static final String OPSW_CONTROLLER_IMPORT_EXPORT_EXPORT = "/export/{file}/{iid1}";
 }

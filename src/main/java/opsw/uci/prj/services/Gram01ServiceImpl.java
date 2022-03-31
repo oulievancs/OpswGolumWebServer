@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import opsw.uci.prj.cat.CatException;
@@ -100,11 +101,12 @@ public class Gram01ServiceImpl implements Gram01Service
       {
         gram01db = new Gram01();
         gram01db.setGram(gram);
+        gram01db.setSenu(senu);
       }
       this.CopyGram01(gram01db, gram01);
       result = (Gram01) Gram01Post01(gram01db);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
@@ -156,6 +158,33 @@ public class Gram01ServiceImpl implements Gram01Service
   public List<Gram01> Gram01List02(Long gram) throws CatException
   {
     return (List<Gram01>) this.Gram01Repository.gram01List02(gram);
+  }
+
+  @Override
+  public List<Gram01> Gram01Post03(Long gram, List<Gram01> gram01List) throws CatException
+  {
+    List<Gram01> vgram01NewList = null;
+    try
+    {
+      long vsenu = 0;
+
+      if (gram01List != null)
+      {
+        vgram01NewList = new ArrayList<>();
+
+        for (Gram01 gram01 : gram01List)
+        {
+          Gram01 vgram01New = this.Gram01Post02(gram, ++vsenu, gram01);
+          vgram01NewList.add(vgram01New);
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return vgram01NewList;
   }
 
 }

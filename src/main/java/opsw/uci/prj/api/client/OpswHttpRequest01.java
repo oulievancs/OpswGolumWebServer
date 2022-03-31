@@ -113,7 +113,7 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 
-      Document doc = this.ObjectProcess(object);
+      Document doc = this.xmlReaderWriter.ObjectProcess(object);
 
       // Transform Document to XML String
       TransformerFactory tf = TransformerFactory.newInstance();
@@ -229,40 +229,6 @@ public class OpswHttpRequest01 extends OpswHttpRequestBase
       CatException.RethrowCatException(ex);
     }
     return httpClient;
-  }
-
-  private Document ObjectProcess(Object obj) throws CatException
-  {
-    Document document = null;
-    try
-    {
-      // Parse the response using DocumentBuilder so you can get at elements easily
-      DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-
-      document = docBuilder.newDocument();
-
-      CatReflectObject01 vRefRt = OpswReflection.ReflectObject(obj);
-      List<CatReflectObject01> wRefL = OpswReflection.ReflectObjectToObject01List(obj);
-
-      if (wRefL != null)
-      {
-        this.xmlReaderWriter.CheckFieldBB(vRefRt);
-
-        Element vel = document.createElement(vRefRt.getXmlRootElementName());
-        for (CatReflectObject01 c : wRefL)
-        {
-          this.xmlReaderWriter.ObjectProcessFill01(vel, c, document);
-
-        }
-        document.appendChild(vel);
-      }
-    }
-    catch (Exception ex)
-    {
-      CatException.RethrowCatException(ex);
-    }
-    return document;
   }
 
   private Object HttpEntityProcess(Document document) throws CatException

@@ -48,6 +48,9 @@ public class Gram00ServiceImpl implements Gram00Service
   @Autowired
   private OpswGlobalServices01 OpswGlobalServices01;
 
+  @Autowired
+  private Gram01Service Gram01Service;
+
   @PostConstruct
   public void init00()
   {
@@ -112,7 +115,9 @@ public class Gram00ServiceImpl implements Gram00Service
     }
     gram00db.setDate_modify(cal2);
     gram00db.setUser_modify(loginVars.getLoginUser());
+
     this.CopyGram00(gram00db, gram00);
+
     return (Gram00) this.Gram00Post01(gram00db);
   }
 
@@ -124,6 +129,23 @@ public class Gram00ServiceImpl implements Gram00Service
     gram00db.setStart_line(gram00.getStart_line());
     gram00db.setInternalkey_flds(gram00.getInternalkey_flds());
     gram00db.setSheets(gram00.getSheets());
+  }
+
+  @Override
+  public Gram00 Gram00Gram00Post03(Gram00 gram00, OpswLoginVars loginVars) throws CatException
+  {
+    Gram00 vgram00 = Gram00Post02(gram00.getGram(), gram00, loginVars);
+
+    List<Gram01> vgram01List = gram00.getGram01List();
+
+    if (vgram01List != null)
+    {
+      List<Gram01> vgram01NewList = this.Gram01Service.Gram01Post03(vgram00.getGram(), vgram01List);
+
+      vgram00.setGram01List(vgram01NewList);
+    }
+
+    return vgram00;
   }
 
   @Override
@@ -146,7 +168,8 @@ public class Gram00ServiceImpl implements Gram00Service
   }
 
   @Override
-  public Gram00Rec02 Gram00PostED01(Long gram, Gram00Rec02 gram00Rec02, OpswLoginVars loginVars)
+  public Gram00Rec02 Gram00PostED01(Long gram, Gram00Rec02 gram00Rec02,
+          OpswLoginVars loginVars)
           throws CatException
   {
     Gram00Rec02 vgram00 = null;

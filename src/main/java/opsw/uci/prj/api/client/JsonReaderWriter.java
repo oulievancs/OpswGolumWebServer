@@ -7,6 +7,8 @@ package opsw.uci.prj.api.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,8 +20,8 @@ import opsw.uci.prj.records.cat.CatReflectObject01;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -34,6 +36,49 @@ public class JsonReaderWriter
   {
     super();
     this.dateFormat = null;
+  }
+
+  public byte[] ObjectProcessToFile(Object obj, String charsetName) throws CatException
+  {
+    byte[] vfile = null;
+    try
+    {
+      JSONObject job = this.ObjectProcess(obj);
+
+      if (job != null)
+      {
+        vfile = job.toString().getBytes(charsetName);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return vfile;
+  }
+
+  public JSONObject ObjectProcess(Object obj) throws CatException
+  {
+    JSONObject jsonObj = new JSONObject();
+    try
+    {
+      CatReflectObject01 vRefRt = OpswReflection.ReflectObject(obj);
+      List<CatReflectObject01> wRefL = OpswReflection.ReflectObjectToObject01List(obj);
+
+      if (wRefL != null)
+      {
+
+        for (CatReflectObject01 c : wRefL)
+        {
+          this.ObjectProcessFill01(jsonObj, c);
+        }
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return jsonObj;
   }
 
   public void ObjectProcessFill01(JSONObject jsonObj, CatReflectObject01 obj)
@@ -122,6 +167,29 @@ public class JsonReaderWriter
 
       //read json file and convert to customer object
       JsonNode job = objectMapper.readTree(ifile);
+
+      res = EntityProcess(job, dataBodyType);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  /**
+   * https://attacomsian.com/blog/processing-json-spring-bootsv
+   */
+  public Object EntityProcess02(byte[] ifile, Class<?> dataBodyType) throws CatException
+  {
+    Object res = null;
+    try
+    {
+      //create ObjectMapper instance
+      ObjectMapper objectMapper = new ObjectMapper();
+
+      //read json file and convert to customer object
+      JsonNode job = objectMapper.readTree(new ByteArrayInputStream(ifile));
 
       res = EntityProcess(job, dataBodyType);
     }
@@ -240,7 +308,17 @@ public class JsonReaderWriter
         Object vval = null;
         if (jsonObj != null)
         {
-          vval = this.GetValueByTypeRead(obj, jsonObj);
+          JsonNode job1 = null;
+          
+          if (jsonObj.getNodeType() == JsonNodeType.OBJECT)
+          {
+            job1 = jsonObj.get(obj.getFieldName());
+          }
+          else
+          {
+            job1 = jsonObj;
+          }
+          vval = this.GetValueByTypeRead(obj, job1);
         }
 
         OpswReflection.SetFieldValue(object, obj.getFieldName(), vval);
@@ -271,7 +349,10 @@ public class JsonReaderWriter
     Object res = null;
     try
     {
-      res = GetValueByType(obj, elVal);
+      if (elVal != null && elVal.getNodeType() != JsonNodeType.NULL)
+      {
+        res = GetValueByType(obj, elVal);
+      }
     }
     catch (Exception ex)
     {
@@ -470,7 +551,7 @@ public class JsonReaderWriter
         Object valEl = null;
         if (elVal != null)
         {
-          valEl = OpswDateUtils.DateToStrXml((Calendar) elVal);
+          valEl = OpswDateUtils.DateToStr((Calendar) elVal, this.dateFormat);
         }
         vval = valEl;
       }
