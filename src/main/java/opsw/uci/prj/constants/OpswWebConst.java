@@ -42,6 +42,7 @@ public class OpswWebConst
   public static final String OPSW_CONTROLLER_ASSETS00_ED01_POST01 = "/assets00/ed01/post01";
   public static final String OPSW_CONTROLLER_ASSETS00_FILLFROMCRM = "/assets00/fillfromcrm";
   public static final String OPSW_CONTROLLER_ASSETS00_DELETE01 = "/assets00/delete01/{asset}";
+  public static final String OPSW_CONTROLLER_ASSETS00_DELETE02 = "/assets00/delete02/{asset}";
 
   /**
    * GRAM00
