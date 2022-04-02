@@ -28,6 +28,7 @@ public class Gram00 implements Serializable
   public static final String GRAM00_INTERNALKEY_AAUCI = "AAUCI";
   public static final String GRAM00_INTERNALKEY_ASSFILE = "ASSFILE";
   public static final String GRAM00_INTERNALKEY_UNIQCODE = "UNIQCODE";
+  public static final String GRAM00_INTERNALKEY_EXTRA_FLD1 = "EXTRA_FLD1";
   public static final String GRAM00_INTERNALKEY_DOV = "DOV";
 
   @Id

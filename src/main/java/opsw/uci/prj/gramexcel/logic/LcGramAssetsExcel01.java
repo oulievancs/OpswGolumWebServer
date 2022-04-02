@@ -11,10 +11,12 @@ import java.util.List;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.entity.Assets00;
+import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Gram00;
 import opsw.uci.prj.entity.Gram01;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.records.Gram00Rec02;
+import opsw.uci.prj.utils.OpswArrayUtils;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
@@ -274,12 +276,12 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
       }
       Gram00 vgram = this.Gram00Service.Gram00Select02(this.getGram());
       String[] vSheets = null;
-      if(vgram != null)
+      if (vgram != null)
       {
-        if(!OpswStringUtils.OpswStringIsEmpty(vgram.getSheets()))
+        if (!OpswStringUtils.OpswStringIsEmpty(vgram.getSheets()))
         {
           vSheets = vgram.getSheets().split(",");
-          for(int i = 0; i<vSheets.length; i++)
+          for (int i = 0; i < vSheets.length; i++)
           {
             this.GetSheetAt(Integer.parseInt(vSheets[i]));
 
@@ -294,7 +296,7 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
 
             this.ReadSheet();
           }
-        }       
+        }
       }
     }
     catch (Exception ex)
@@ -367,6 +369,24 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
               }
               res = this.InternalKeyAdd01(res, assets00.getUniqcode());
             }
+            else if (fld.equalsIgnoreCase(Gram00.GRAM00_INTERNALKEY_EXTRA_FLD1))
+            {
+              List<Assets00fl> vlistFl = assets00.getAssets00fl();
+
+              if (OpswArrayUtils.OpswArrayContainsAtLeastOne(vlistFl))
+              {
+                for (Assets00fl vassfl : vlistFl)
+                {
+                  if (OpswStringUtils.OpswStringIsEmpty(vassfl.getFld()))
+                  {
+                    if (vassfl.getFld().equalsIgnoreCase(Gram00.GRAM00_INTERNALKEY_EXTRA_FLD1))
+                    {
+                      res = this.InternalKeyAdd01(res, this.InternalKeyGetAssetflVal01(vassfl));
+                    }
+                  }
+                }
+              }
+            }
             //DOV -> DOVALUE CODE PART.
             else
             {
@@ -425,6 +445,32 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
       else
       {
         res += "_" + add2;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
+  private String InternalKeyGetAssetflVal01(Assets00fl assets00fl) throws CatException
+  {
+    String res = null;
+    try
+    {
+      if (assets00fl.getType() == Assets00fl.ASSETS_FLD_NUMBER)
+      {
+        res = OpswStringUtils.OpswDoubleToString(assets00fl.getValnum());
+      }
+      else if (assets00fl.getType() == Assets00fl.ASSETS_FLD_STRING)
+      {
+        res = assets00fl.getValstr();
+      }
+
+      if (res == null)
+      {
+        res = "";
       }
     }
     catch (Exception ex)
