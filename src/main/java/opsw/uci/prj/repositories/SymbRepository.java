@@ -21,6 +21,6 @@ public interface SymbRepository extends CatEjbJpaBase<Symb, Long>
 
   @Query("SELECT a FROM Symb a "
           + " WHERE "
-          + " a.name LIKE %?1% OR a.surename LIKE %?1% OR a.email LIKE %1% ")
+          + " a.name LIKE %?1% OR a.surename LIKE %?1% OR a.email LIKE %?1% ")
   public List<Symb> SymbList01(String param);
 }
