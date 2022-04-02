@@ -29,6 +29,7 @@ public class Opswconstsv implements Serializable
 
   public static final String FIELD_ASSETS_VALUE_SYMB_NAME = "SYMB_NAME";
   public static final String FIELD_ASSETS_VALUE_SYMB_TEL = "SYMB_TEL";
+  public static final String FIELD_ASSETS_VALUE_SYMB_EMAIL = "SYMB_EMAIL";
   public static final String FIELD_ASSETS_VALUE_INTRNLKEY = "INTRNLKEY";
   public static final String CRM_SERVER_URL = "CRM_SERVER_URL";
 

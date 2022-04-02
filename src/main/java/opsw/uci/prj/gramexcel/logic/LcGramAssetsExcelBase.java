@@ -364,7 +364,7 @@ public abstract class LcGramAssetsExcelBase
       else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_NAME))
       {
         String vnamee = cell.getStringCellValue();
-        Symb vsymb = this.Assets00InvokeSymbByNameOrTel(vnamee, null);
+        Symb vsymb = this.Assets00InvokeSymbByNameOrTelOrEmail(vnamee, null, null);
 
         if (vsymb != null)
         {
@@ -383,7 +383,7 @@ public abstract class LcGramAssetsExcelBase
       else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_TEL))
       {
         String vtelaa = cell.getCell().getStringCellValue();
-        Symb vsymb = this.Assets00InvokeSymbByNameOrTel(null, vtelaa);
+        Symb vsymb = this.Assets00InvokeSymbByNameOrTelOrEmail(null, vtelaa, null);
 
         if (OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
         {
@@ -399,6 +399,28 @@ public abstract class LcGramAssetsExcelBase
             }
 
             this.assets00.getSymb().setTele(vtelaa);
+          }
+        }
+      }
+      else if (ifieldName.toLowerCase().equalsIgnoreCase(Opswconstsv.FIELD_ASSETS_VALUE_SYMB_EMAIL))
+      {
+        String vemail = cell.getCell().getStringCellValue();
+        Symb vsymb = this.Assets00InvokeSymbByNameOrTelOrEmail(null, null, vemail);
+
+        if (OpswNumberUtils.OpswGetLong(this.assets00.getSymb_id()) < 1)
+        {
+          if (vsymb != null)
+          {
+            this.assets00.setSymb_id(vsymb.getId());
+          }
+          else if (vemail != null && !OpswStringUtils.OpswStringIsEmpty(vemail))
+          {
+            if (this.assets00.getSymb() == null)
+            {
+              this.assets00.setSymb(this.SymbNewInstance());
+            }
+
+            this.assets00.getSymb().setEmail(vemail);
           }
         }
       }
@@ -695,7 +717,7 @@ public abstract class LcGramAssetsExcelBase
     return result;
   }
 
-  private Symb Assets00InvokeSymbByNameOrTel(String nameOrSurename, String tel)
+  private Symb Assets00InvokeSymbByNameOrTelOrEmail(String nameOrSurename, String tel, String email)
           throws CatException
   {
     Symb vsymaa = null;
@@ -745,6 +767,34 @@ public abstract class LcGramAssetsExcelBase
         Symb vsymbb = null;
 
         vsymbL01 = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(tel));
+
+        if (OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL01))
+        {
+          vsymbb = vsymbL01.get(0);
+        }
+
+        if (vsymbb != null)
+        {
+          if (!vsymbb.equals(vsymaa) && vsymbL != null && vsymbL.size() > 1)
+          {
+            for (Symb ss : vsymbL)
+            {
+              if (ss.equals(vsymbb))
+              {
+                vsymaa = ss;
+
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (email != null)
+      {
+        Symb vsymbb = null;
+
+        vsymbL01 = this.SymbService.SymbList01(OpswStringUtils.OpswStringTrim(email));
 
         if (OpswArrayUtils.OpswArrayContainsAtLeastOne(vsymbL01))
         {
