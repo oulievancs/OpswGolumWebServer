@@ -144,7 +144,11 @@ public class OpswCookies01
 
         if (authentication != null && authentication.getPrincipal() != null)
         {
-          principal = (Principal) authentication.getPrincipal();
+          Object vobj = authentication.getPrincipal();
+          if (vobj instanceof Principal)
+          {
+            principal = (Principal) vobj;
+          }
         }
 
         if (principal != null)
