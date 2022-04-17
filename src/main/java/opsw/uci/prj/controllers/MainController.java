@@ -35,6 +35,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MainController
 {
 
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN)
+  public String main() throws CatException
+  {
+      try
+      {
+          
+      }
+      catch(Exception e)
+      {
+          CatException.RethrowCatException(e);
+      }
+      
+      return "redirect:/home";
+  }
+  
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_HOME)
   public String home(HttpServletRequest request, Model model) throws CatException
   {
@@ -66,7 +81,7 @@ public class MainController
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_LOGIN)
   public String login(HttpServletRequest request) throws CatException
   {
-    return "redirec:/home";
+    return "redirect:/home";
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_MAIN_INIT1)
