@@ -935,10 +935,10 @@
                 <span> </span>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-warning" onClick="history.go(0);">
+                <a class="btn btn-warning" th:href = "@{/assets/assets00/ed01?asset={asset}&redirectUrl={params1RedirectUrl} (asset = ${CLM0.asset}, params1RedirectUrl = ${params1RedirectUrl})}">
                   <i class="fa fa-clone"></i>
                   <span th:text="#{ASSETS00_ED.RELOAD}"></span>
-                </button>
+                </a>
                 <span> </span>
               </div>
               <div class="col-md-2">
