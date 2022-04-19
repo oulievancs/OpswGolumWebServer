@@ -48,6 +48,22 @@ public class OpswDateUtils
     return result;
   }
 
+  public static String DateToStr02(Date idate)
+          throws CatException
+  {
+    String result = "";
+
+    try
+    {
+      result = DateToStr01(DateToCalendar_Internal(idate, false));
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
   public static String DateToStr01(Calendar icalendar)
           throws CatException
   {
@@ -106,8 +122,8 @@ public class OpswDateUtils
       {
         throw new CatException("Δεν δόθηκε format για την ημ/νία!");
       }
-      
-      if(idateStr != null && !idateStr.equals(""))
+
+      if (idateStr != null && !idateStr.equals(""))
       {
         Date vdate = vf.parse(idateStr);
 
@@ -229,6 +245,55 @@ public class OpswDateUtils
     catch (Exception e)
     {
       CatException.RethrowCatException(e);
+    }
+    return result;
+  }
+
+  public static Date StrToDate02(String idate) throws CatException
+  {
+    Date result = null;
+    try
+    {
+      result = StrToDate02_Internal(idate, false);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  public static Date StrToDate03(String idate) throws CatException
+  {
+    Date result = null;
+    try
+    {
+      result = StrToDate02_Internal(idate, true);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return result;
+  }
+
+  private static Date StrToDate02_Internal(String idate, boolean doExec) throws CatException
+  {
+    Date result = null;
+    try
+    {
+      if (idate == null && doExec)
+      {
+        throw new CatException("Date not provided!");
+      }
+
+      Calendar vcal = StrToDate(idate);
+
+      result = CalendarToDateElseNow(vcal);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
     }
     return result;
   }

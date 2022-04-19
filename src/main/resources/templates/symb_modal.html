@@ -38,7 +38,7 @@
       <td th:text = "${notary_int.getTele()}"></td>
       <td th:text = "${notary_int.getEmail()}"></td>
       <td>
-        <form method="POST" th:action="@{/modals/symb/modalpost/{asset} (asset = ${asset})}">
+        <form method="POST" th:action="@{/modals/symb/modalpost/{asset}?redirectUrl={params1RedirectUrl} (asset = ${asset}, params1RedirectUrl = ${params1RedirectUrl})}">
           <input hidden th:name="symbId" th:value="${notary_int.getId()}" type="number" />
           <button type="submit" id="button-select" class="btn btn-primary" >
             <span th:text="#{SYMB_MODAL01.SELECT}"></span>

@@ -28,6 +28,7 @@ import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import opsw.uci.prj.utils.OpswStringUtils;
+import opsw.uci.prj.utils.OpswUrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.context.SecurityContextHolder;
@@ -59,22 +60,67 @@ public class Assets00Controller
   private LcOpswAssetsApi opswAssetApi;
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01)
-  public String Assets00List01(/*@RequestParam(name = "dateFrom", required = false) String dateFrom,
-          @RequestParam(name = "dateTo", required = false) String dateTo,*/
+  public String Assets00List01(@RequestParam(name = "dateFrom", required = false) String dateFrom,
+          @RequestParam(name = "dateTo", required = false) String dateTo,
+          @RequestParam(name = "symb_id", required = false) Long symb_id,
+          @RequestParam(name = "redirectUrl", required = false) String redirectUrl,
           @ModelAttribute(name = "params") CatThmlfAssets00List01Params iparams,
           Model model)
           throws Exception
   {
+    boolean returnRedirection = false;
     try
     {
-      Assets00List01_Internal(model, iparams);
+      if (!OpswStringUtils.OpswStringIsEmpty(redirectUrl))
+      {
+        returnRedirection = true;
+      }
+
+      if (!returnRedirection)
+      {
+        CatThmlfAssets00List01Params vparams = iparams;
+
+        if (vparams == null || vparams.getSearchDates() == null
+                || vparams.getSearchDates().getDateFrom() == null
+                || vparams.getSearchDates().getDateTo() == null)
+        {
+          if (vparams == null)
+          {
+            vparams = new CatThmlfAssets00List01Params();
+          }
+
+          vparams.setSymb_id(symb_id);
+
+          CatThmlfObjectDates01 vsrch = vparams.getSearchDates();
+          if (vsrch == null)
+          {
+            vsrch = new CatThmlfObjectDates01();
+          }
+          vparams.setSearchDates(vsrch);
+
+          vsrch.setDateFrom(OpswDateUtils.StrToDate02(dateFrom));
+          vsrch.setDateTo(OpswDateUtils.StrToDate02(dateTo));
+        }
+        this.Assets00List01_Internal(model, vparams);
+      }
     }
     catch (Exception ex)
     {
       CatException.RethrowCatException(ex);
     }
 
-    return "assets00List01";
+    String res = null;
+
+    if (returnRedirection)
+    {
+      res = "redirect:" + OpswUrlUtils.UrlDecoding(redirectUrl);
+    }
+    else
+    {
+      res = "assets00List01";
+    }
+
+    return res;
   }
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01_POST)
@@ -148,6 +194,14 @@ public class Assets00Controller
       model.addAttribute("CLM0", assets00List);
       model.addAttribute("CLM1", symbList01);
       model.addAttribute("params", iparams);
+
+      String vredUrl = OpswWebConst.OPSW_CONTROLLER_ASSETS00
+              + OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01
+              + "?dateFrom=" + OpswDateUtils.DateToStr02(iparams.getSearchDates().getDateFrom())
+              + "&dateTo=" + OpswDateUtils.DateToStr02(iparams.getSearchDates().getDateTo())
+              + "&symb_id=" + (iparams.getSymb_id() == null ? "0" : iparams.getSymb_id());
+
+      model.addAttribute("params1RedirectUrl", OpswUrlUtils.UrlEncoding(vredUrl));
     }
     catch (Exception ex)
     {
@@ -156,7 +210,9 @@ public class Assets00Controller
   }
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01)
-  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId, Model model, HttpServletRequest request) throws CatException
+  public String Assets00Ed01(@RequestParam(name = "asset", required = false) Long assetId,
+          @RequestParam(name = "redirectUrl", required = false) String redirectUrl,
+          Model model, HttpServletRequest request) throws CatException
   {
     Assets00Rec02 asset = null;
     Symb vSymb = null;
@@ -175,11 +231,14 @@ public class Assets00Controller
     model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", asset);
 
+    AssetsEdKoina01(model, redirectUrl);
+
     return "assets00Ed01";
   }
 
   @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01_POST01)
   public String Assets00Post01(@RequestParam(name = "asset", required = false) Long assetId,
+          @RequestParam(name = "redirectUrl", required = false) String redirectUrl,
           @ModelAttribute("CLM0") Assets00Rec02 asset01, Model model, HttpServletRequest request) throws CatException
   {
     Assets00Rec02 assetsReturned = null;
@@ -206,11 +265,28 @@ public class Assets00Controller
     model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", assetsReturned);
 
+    AssetsEdKoina01(model, redirectUrl);
+
     return "assets00Ed01";
   }
 
+  private void AssetsEdKoina01(Model model, String redirectUrl) throws CatException
+  {
+    try
+    {
+      model.addAttribute("params1RedirectUrl", OpswUrlUtils.UrlEncoding(redirectUrl));
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_FILLFROMCRM)
-  public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId, Model model, HttpServletRequest request) throws CatException
+  public String Assets00FillFromCRM(@RequestParam(name = "asset", required = true) Long assetId,
+          @RequestParam(name = "redirectUrl", required = false) String redirectUrl,
+          Model model, HttpServletRequest request)
+          throws CatException
   {
     Assets00Rec02 assetReturned = null;
     Symb vSymb = null;
@@ -229,6 +305,9 @@ public class Assets00Controller
     }
     model.addAttribute("symb", vSymb);
     model.addAttribute("CLM0", assetReturned);
+
+    AssetsEdKoina01(model, redirectUrl);
+
     return "assets00Ed01";
   }
 

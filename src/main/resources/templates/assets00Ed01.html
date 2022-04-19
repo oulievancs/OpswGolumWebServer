@@ -166,6 +166,12 @@
                     th:id="asset"
                     class="form-control"                  
                     />
+                  <input
+                    type="hidden"
+                    th:value="${params1RedirectUrl}"
+                    th:id="redirectUrl"
+                    class="form-control"                  
+                    />
                   <div class="col-md-4">
                     <label for="aauci_rec" class="form-label" th:text="#{ASSETS00_ED.AAUCI}"></label>
                     <input
@@ -936,10 +942,10 @@
                 <span> </span>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-danger" onclick="history.back()">
+                <a class="btn btn-danger" th:href = "@{/assets/assets00/list01?redirectUrl={params1RedirectUrl} (params1RedirectUrl = ${params1RedirectUrl})}">
                   <i class="fa fa-close"></i>
                   <span th:text="#{ASSETS00_ED.CANCEL}"></span>
-                </button>
+                </a>
               </div>
             </div>
           </form>
@@ -976,7 +982,8 @@
       $(document).ready(function () {
         $('#symbModal2').on('show.bs.modal', function () {
               var asset = document.getElementById("asset").value;
-              $.get("/OPSWGOLUMWEBSERV/modals/symb/modal01?asset=" + asset, function (data) {
+              var redirectUrl = document.getElementById("redirectUrl").value;
+              $.get("/OPSWGOLUMWEBSERV/modals/symb/modal01?asset=" + asset + '&redirectUrl=' + redirectUrl, function (data) {
                   $('#symbModal2').find('.modal-body').html(data);
               });
           });

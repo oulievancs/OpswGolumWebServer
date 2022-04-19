@@ -35,6 +35,7 @@
       <script>
         $(document).ready(function() {
           var table = $('#table1').DataTable();
+          var info = table.page.info();
 
           $('#table1 tbody').on( 'click', 'tr', function () {
               if ( $(this).hasClass('selected') ) {
@@ -49,8 +50,12 @@
           $('#button-edit').click( function () {
             //var vid = table.row('.selected').$('#current').attr('value');
             var row = table.row('.selected').data();
+            
+            let params1RedirectUrl = $(this).attr('params1RedirectUrl');
+            
             if (row !== undefined && row !== null && row[0] !== undefined && row[0] !== null) {
-              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0];
+              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0] +
+                      '&redirectUrl=' + params1RedirectUrl;
             }
             //Http.open("GET", url);
             //Http.send();
@@ -59,9 +64,11 @@
           $('#table1').on('dblclick','tr',function(e){
               e.stopPropagation();
               let rowID = $(this).attr('id');
+              let params1RedirectUrl = $(this).attr('params1RedirectUrl');
              
             if (rowID !== undefined && rowID !== null) {
-              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + rowID;
+              window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + rowID +
+                      '&redirectUrl=' + params1RedirectUrl;
             }
           });
           
@@ -317,7 +324,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}">
+            <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}" th:params1RedirectUrl = "${params1RedirectUrl}">
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAsset()}"></td>
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAauci()}"></td>
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></td>
