@@ -51,7 +51,7 @@
             //var vid = table.row('.selected').$('#current').attr('value');
             var row = table.row('.selected').data();
             
-            let params1RedirectUrl = $(this).attr('params1RedirectUrl');
+            let params1RedirectUrl = $('.selected').attr('params1RedirectUrl');
             
             if (row !== undefined && row !== null && row[0] !== undefined && row[0] !== null) {
               window.location.href = '/OPSWGOLUMWEBSERV/assets/assets00/ed01?asset=' + row[0] +
