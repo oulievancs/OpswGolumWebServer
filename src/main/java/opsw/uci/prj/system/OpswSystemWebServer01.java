@@ -169,7 +169,7 @@ public class OpswSystemWebServer01
           dsNamePath = conn.getDatasourcePath();
           dsName = conn.getDatasourceName();
           OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, null, false, false),
-                  conn.getSchemas());
+                  conn);
         }
       }
 
@@ -184,7 +184,7 @@ public class OpswSystemWebServer01
   }
 
   private static void OpswDataSourceFill01_Internal(Map<String, DataSource> wDs, String iDsName, DataSource iDs,
-          List<OpswSystemConnections.OpswConnectionSchemas> iconnSchemasList)
+          OpswSystemConnections.OpswConnection iconn)
           throws CatException
   {
     try
@@ -194,7 +194,7 @@ public class OpswSystemWebServer01
         DataSource vDs = iDs;
         if (OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS)
         {
-          vDs = OpswInitializeDatasource(vDs, iDsName, iconnSchemasList);
+          vDs = OpswInitializeDatasource(vDs, iDsName, iconn);
         }
         wDs.put(iDsName, vDs);
       }
@@ -206,7 +206,7 @@ public class OpswSystemWebServer01
   }
 
   private static DataSource OpswInitializeDatasource(DataSource dataSource, String dataSourceName,
-          List<OpswSystemConnections.OpswConnectionSchemas> iconnSchemasList)
+          OpswSystemConnections.OpswConnection iconn)
           throws CatException
   {
 
@@ -214,7 +214,10 @@ public class OpswSystemWebServer01
     //ClassPathResource dataResource = new ClassPathResource("data.sql");
     try
     {
-      OpswRunOnDatasource(dataSource, dataSourceName, "/schema/alters.sql");
+      if (iconn.isRunAlters())
+      {
+        OpswRunOnDatasource(dataSource, dataSourceName, "/schema/alters.sql");
+      }
     }
     catch (Exception ex)
     {
@@ -223,16 +226,21 @@ public class OpswSystemWebServer01
 
     try
     {
-      OpswRunOnDatasource(dataSource, dataSourceName, "/schema/views.sql");
+      if (iconn.isRunViews())
+      {
+        OpswRunOnDatasource(dataSource, dataSourceName, "/schema/views.sql");
+      }
     }
     catch (Exception ex)
     {
       OpswLogger.LoggerLogException(ex);
     }
 
-    if (OpswArrayUtils.OpswArrayContainsAtLeastOne(iconnSchemasList))
+    List<OpswSystemConnections.OpswConnectionSchemas> vconnSchemasList = iconn.getSchemas();
+
+    if (OpswArrayUtils.OpswArrayContainsAtLeastOne(vconnSchemasList))
     {
-      for (OpswSystemConnections.OpswConnectionSchemas s : iconnSchemasList)
+      for (OpswSystemConnections.OpswConnectionSchemas s : vconnSchemasList)
       {
         try
         {

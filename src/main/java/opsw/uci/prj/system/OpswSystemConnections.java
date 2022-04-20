@@ -65,6 +65,8 @@ public class OpswSystemConnections
             result[ii] = new OpswConnection();
             result[ii].setDatasourceName(c.getDatasourceName());
             result[ii].setDatasourcePath(c.getDatasourcePath());
+            result[ii].setRunViews(c.isRunViews());
+            result[ii].setRunAlters(c.isRunAlters());
 
             if (c.getSchemas() != null)
             {
@@ -109,12 +111,16 @@ public class OpswSystemConnections
     //στο applications properties.
     private String datasourcePath;
     private List<OpswConnectionSchemas> schemas;
+    private boolean runViews;
+    private boolean runAlters;
 
     public OpswConnection(String datasourceName, String datasourcePath)
     {
       this.datasourceName = datasourceName;
       this.datasourcePath = datasourcePath;
       this.schemas = null;
+      this.runViews = false;
+      this.runAlters = false;
     }
 
     public OpswConnection()
@@ -122,6 +128,8 @@ public class OpswSystemConnections
       this.datasourceName = null;
       this.datasourcePath = null;
       this.schemas = null;
+      this.runViews = false;
+      this.runAlters = false;
     }
 
     public String getDatasourceName()
@@ -152,6 +160,26 @@ public class OpswSystemConnections
     public void setSchemas(List<OpswConnectionSchemas> schemas)
     {
       this.schemas = schemas;
+    }
+
+    public boolean isRunViews()
+    {
+      return runViews;
+    }
+
+    public void setRunViews(boolean runViews)
+    {
+      this.runViews = runViews;
+    }
+
+    public boolean isRunAlters()
+    {
+      return runAlters;
+    }
+
+    public void setRunAlters(boolean runAlters)
+    {
+      this.runAlters = runAlters;
     }
   }
 

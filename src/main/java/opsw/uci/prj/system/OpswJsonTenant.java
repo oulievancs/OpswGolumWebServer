@@ -19,6 +19,8 @@ public class OpswJsonTenant
   private String datasourcePath;
   private String descr;
   private List<OpswJsonTenantSchemas> schemas;
+  private boolean runViews;
+  private boolean runAlters;
 
   public OpswJsonTenant()
   {
@@ -27,6 +29,8 @@ public class OpswJsonTenant
     this.datasourcePath = null;
     this.descr = null;
     this.schemas = null;
+    this.runViews = false;
+    this.runAlters = false;
   }
 
   public int getTenantNo()
@@ -77,6 +81,26 @@ public class OpswJsonTenant
   public void setSchemas(List<OpswJsonTenantSchemas> schemas)
   {
     this.schemas = schemas;
+  }
+
+  public boolean isRunViews()
+  {
+    return runViews;
+  }
+
+  public void setRunViews(boolean runViews)
+  {
+    this.runViews = runViews;
+  }
+
+  public boolean isRunAlters()
+  {
+    return runAlters;
+  }
+
+  public void setRunAlters(boolean runAlters)
+  {
+    this.runAlters = runAlters;
   }
 
 }
