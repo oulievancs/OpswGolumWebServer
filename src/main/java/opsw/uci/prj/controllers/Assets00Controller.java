@@ -228,7 +228,7 @@ public class Assets00Controller
     {
       CatException.RethrowCatException(e);
     }
-    model.addAttribute("symb", vSymb);
+    model.addAttribute("CLM1_SYMB", vSymb);
     model.addAttribute("CLM0", asset);
 
     AssetsEdKoina01(model, redirectUrl);
@@ -262,7 +262,7 @@ public class Assets00Controller
     {
       CatException.RethrowCatException(e);
     }
-    model.addAttribute("symb", vSymb);
+    model.addAttribute("CLM1_SYMB", vSymb);
     model.addAttribute("CLM0", assetsReturned);
 
     AssetsEdKoina01(model, redirectUrl);
