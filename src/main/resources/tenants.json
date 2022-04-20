@@ -4,25 +4,39 @@
       "tenantNo": 2,
       "datasourceName": "ORCLH_MINLO1",
       "datasourcePath": "ORCLH_MINLO1",
-      "descr": "Cepal"
+      "descr": "Cepal",
+      "runViews": false,
+      "runAlters": true,
+      "schemas": [
+        {
+          "filePath": "/schema/views_cepal.sql",
+          "fileRun": true
+        }
+      ]
     },
     {
       "tenantNo": 3,
       "datasourceName": "ORCLH_MINLO2",
       "datasourcePath": "ORCLH_MINLO2",
-      "descr": "Intrum"
+      "descr": "Intrum",
+      "runViews": true,
+      "runAlters": true
     },
     {
       "tenantNo": 4,
       "datasourceName": "ORCLH_MINLO3",
       "datasourcePath": "ORCLH_MINLO3",
-      "descr": "Intrum REO"
+      "descr": "Intrum REO",
+      "runViews": true,
+      "runAlters": true
     },
     {
       "tenantNo": 5,
       "datasourceName": "ORCLH_MINLO4",
       "datasourcePath": "ORCLH_MINLO4",
-      "descr": "Test Tenant (Only Develop)"
+      "descr": "Test Tenant (Only Develop)",
+      "runViews": true,
+      "runAlters": true
     }
   ]
 }
