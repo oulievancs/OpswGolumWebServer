@@ -5,6 +5,7 @@
  */
 package opsw.uci.prj.system;
 
+import java.util.ArrayList;
 import java.util.List;
 import opsw.uci.prj.cat.CatException;
 
@@ -56,12 +57,34 @@ public class OpswSystemConnections
           result = new OpswConnection[vconList.size()];
 
           int ii = 0;
+          List<OpswConnectionSchemas> vlist = null;
           for (OpswJsonTenant c : vconList)
           {
+            vlist = null;
+
             result[ii] = new OpswConnection();
             result[ii].setDatasourceName(c.getDatasourceName());
             result[ii].setDatasourcePath(c.getDatasourcePath());
 
+            if (c.getSchemas() != null)
+            {
+              vlist = new ArrayList<>();
+            }
+
+            result[ii].setSchemas(vlist);
+
+            if (vlist != null)
+            {
+              OpswConnectionSchemas vsch = null;
+              for (OpswJsonTenantSchemas s : c.getSchemas())
+              {
+                vsch = new OpswConnectionSchemas();
+
+                vlist.add(vsch);
+                vsch.setFilePath(s.getFilePath());
+                vsch.setFileRun(s.isFileRun());
+              }
+            }
             ii++;
           }
         }
@@ -85,17 +108,20 @@ public class OpswSystemConnections
     //Paths στον server χωρίς το java:/comp/env, που έχει οριστεί
     //στο applications properties.
     private String datasourcePath;
+    private List<OpswConnectionSchemas> schemas;
 
     public OpswConnection(String datasourceName, String datasourcePath)
     {
       this.datasourceName = datasourceName;
       this.datasourcePath = datasourcePath;
+      this.schemas = null;
     }
 
     public OpswConnection()
     {
       this.datasourceName = null;
       this.datasourcePath = null;
+      this.schemas = null;
     }
 
     public String getDatasourceName()
@@ -116,6 +142,49 @@ public class OpswSystemConnections
     public void setDatasourcePath(String datasourcePath)
     {
       this.datasourcePath = datasourcePath;
+    }
+
+    public List<OpswConnectionSchemas> getSchemas()
+    {
+      return schemas;
+    }
+
+    public void setSchemas(List<OpswConnectionSchemas> schemas)
+    {
+      this.schemas = schemas;
+    }
+  }
+
+  public static class OpswConnectionSchemas
+  {
+
+    private String filePath;
+    private boolean fileRun;
+
+    public OpswConnectionSchemas()
+    {
+      this.filePath = null;
+      this.fileRun = false;
+    }
+
+    public String getFilePath()
+    {
+      return filePath;
+    }
+
+    public void setFilePath(String filePath)
+    {
+      this.filePath = filePath;
+    }
+
+    public boolean isFileRun()
+    {
+      return fileRun;
+    }
+
+    public void setFileRun(boolean fileRun)
+    {
+      this.fileRun = fileRun;
     }
   }
 }

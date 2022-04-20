@@ -5,6 +5,8 @@
  */
 package opsw.uci.prj.system;
 
+import java.util.List;
+
 /**
  *
  * @author oulis
@@ -16,6 +18,7 @@ public class OpswJsonTenant
   private String datasourceName;
   private String datasourcePath;
   private String descr;
+  private List<OpswJsonTenantSchemas> schemas;
 
   public OpswJsonTenant()
   {
@@ -23,6 +26,7 @@ public class OpswJsonTenant
     this.datasourceName = null;
     this.datasourcePath = null;
     this.descr = null;
+    this.schemas = null;
   }
 
   public int getTenantNo()
@@ -63,6 +67,16 @@ public class OpswJsonTenant
   public void setDescr(String descr)
   {
     this.descr = descr;
+  }
+
+  public List<OpswJsonTenantSchemas> getSchemas()
+  {
+    return schemas;
+  }
+
+  public void setSchemas(List<OpswJsonTenantSchemas> schemas)
+  {
+    this.schemas = schemas;
   }
 
 }

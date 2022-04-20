@@ -6,6 +6,7 @@
 package opsw.uci.prj.system;
 
 import java.lang.management.ManagementFactory;
+import java.util.List;
 import java.util.Map;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -13,6 +14,7 @@ import javax.sql.DataSource;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.logging.OpswLogger;
+import opsw.uci.prj.utils.OpswArrayUtils;
 import org.apache.catalina.core.StandardServer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -166,7 +168,8 @@ public class OpswSystemWebServer01
         {
           dsNamePath = conn.getDatasourcePath();
           dsName = conn.getDatasourceName();
-          OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, null, false, false));
+          OpswDataSourceFill01_Internal(wDs, dsName, OpswDataSourceServer_Internal(dsNamePath, iwebServer, null, false, false),
+                  conn.getSchemas());
         }
       }
 
@@ -180,7 +183,8 @@ public class OpswSystemWebServer01
     }
   }
 
-  private static void OpswDataSourceFill01_Internal(Map<String, DataSource> wDs, String iDsName, DataSource iDs)
+  private static void OpswDataSourceFill01_Internal(Map<String, DataSource> wDs, String iDsName, DataSource iDs,
+          List<OpswSystemConnections.OpswConnectionSchemas> iconnSchemasList)
           throws CatException
   {
     try
@@ -190,7 +194,7 @@ public class OpswSystemWebServer01
         DataSource vDs = iDs;
         if (OPSW_INITIZE_DATASOURCE_ALTERS_AND_VIEWS)
         {
-          vDs = OpswInitializeDatasource(vDs, iDsName);
+          vDs = OpswInitializeDatasource(vDs, iDsName, iconnSchemasList);
         }
         wDs.put(iDsName, vDs);
       }
@@ -201,22 +205,16 @@ public class OpswSystemWebServer01
     }
   }
 
-  private static DataSource OpswInitializeDatasource(DataSource dataSource, String dataSourceName)
+  private static DataSource OpswInitializeDatasource(DataSource dataSource, String dataSourceName,
+          List<OpswSystemConnections.OpswConnectionSchemas> iconnSchemasList)
           throws CatException
   {
+
+    //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
+    //ClassPathResource dataResource = new ClassPathResource("data.sql");
     try
     {
-      OpswLogger.LoggerLogDebug("Running alters on " + dataSourceName + " -1");
-      //ClassPathResource schemaResource = new ClassPathResource("schema.sql");
-      //ClassPathResource dataResource = new ClassPathResource("data.sql");
-      ClassPathResource altersSource = new ClassPathResource("/schema/alters.sql");
-      ResourceDatabasePopulator vpop = new ResourceDatabasePopulator();
-      vpop.addScript(altersSource);
-      vpop.setIgnoreFailedDrops(true);
-      vpop.setContinueOnError(true);
-      vpop.setSqlScriptEncoding("UTF-8");
-      vpop.execute(dataSource);
-      OpswLogger.LoggerLogDebug("Running alters on " + dataSourceName + " -2");
+      OpswRunOnDatasource(dataSource, dataSourceName, "/schema/alters.sql");
     }
     catch (Exception ex)
     {
@@ -225,8 +223,41 @@ public class OpswSystemWebServer01
 
     try
     {
+      OpswRunOnDatasource(dataSource, dataSourceName, "/schema/views.sql");
+    }
+    catch (Exception ex)
+    {
+      OpswLogger.LoggerLogException(ex);
+    }
+
+    if (OpswArrayUtils.OpswArrayContainsAtLeastOne(iconnSchemasList))
+    {
+      for (OpswSystemConnections.OpswConnectionSchemas s : iconnSchemasList)
+      {
+        try
+        {
+          if (s.isFileRun())
+          {
+            OpswRunOnDatasource(dataSource, dataSourceName, s.getFilePath());
+          }
+        }
+        catch (Exception ex)
+        {
+          OpswLogger.LoggerLogException(ex);
+        }
+      }
+    }
+
+    return dataSource;
+  }
+
+  private static void OpswRunOnDatasource(DataSource dataSource, String dataSourceName, String ifilePath)
+          throws CatException
+  {
+    try
+    {
       OpswLogger.LoggerLogDebug("Running views on " + dataSourceName + " -1");
-      ClassPathResource viewsSource = new ClassPathResource("/schema/views.sql");
+      ClassPathResource viewsSource = new ClassPathResource(ifilePath);
       ResourceDatabasePopulator vpop = new ResourceDatabasePopulator();
       vpop.addScript(viewsSource);
       vpop.setIgnoreFailedDrops(true);
@@ -237,8 +268,7 @@ public class OpswSystemWebServer01
     }
     catch (Exception ex)
     {
-      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex);
     }
-    return dataSource;
   }
 }
