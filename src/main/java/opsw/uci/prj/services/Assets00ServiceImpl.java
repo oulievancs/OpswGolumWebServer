@@ -349,7 +349,7 @@ public class Assets00ServiceImpl implements Assets00Service
       {
         assetdb = new Assets00();
       }
-      Assets00Rec02.Assets00Rec02ToAssets00(asset, assetdb);
+      Assets00Rec02.Assets00Rec02ToAssets00_01(asset, assetdb);
 
       if (asset.getAssets00flrec() != null && !asset.getAssets00flrec().isEmpty())
       {
@@ -375,7 +375,7 @@ public class Assets00ServiceImpl implements Assets00Service
       }
       result = new Assets00Rec02();
 
-      Assets00Rec02.Assets00ToAssets00Rec02(assetdb, result);
+      Assets00Rec02.Assets00ToAssets00Rec02_01(assetdb, result);
       result.setAssets00flrec(asset.getAssets00flrec());
     }
     catch (Exception e)
@@ -396,7 +396,7 @@ public class Assets00ServiceImpl implements Assets00Service
       result = new Assets00Rec02();
       //OpswReflection.OpswReflectionCopyObjectFields(asset, result, Assets00.class);
       //result.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(asset.getAuction_date()));
-      Assets00Rec02.Assets00ToAssets00Rec02(asset, result);
+      Assets00Rec02.Assets00ToAssets00Rec02_01(asset, result);
     }
     catch (Exception e)
     {

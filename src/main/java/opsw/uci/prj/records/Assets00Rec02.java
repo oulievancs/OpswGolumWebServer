@@ -870,14 +870,17 @@ public class Assets00Rec02
     this.date_modify = date_modify;
   }
 
-  public static void Assets00Rec02ToAssets00(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
+  public static void Assets00Rec02ToAssets00_01(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
   {
-    String[] ss = {"DATE_CREATE", "DATE_MODIFY", "USER_CREATE", "USER_MODIFY"};
+    String[] ss = {
+      "DATE_CREATE", "DATE_MODIFY", "USER_CREATE", "USER_MODIFY", "SYMB_ID",
+      "AAUCI", "ASSFILE", "INTRNLKEY"
+    };
     OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00Rec02.class, ss);
     iTo.setAuction_date(OpswDateUtils.DateToCalendarElseNow(iFrom.getAuction_datedate()));
   }
 
-  public static void Assets00ToAssets00Rec02(Assets00 iFrom, Assets00Rec02 iTo) throws CatException
+  public static void Assets00ToAssets00Rec02_01(Assets00 iFrom, Assets00Rec02 iTo) throws CatException
   {
     OpswReflection.OpswReflectionCopyObjectFields(iFrom, iTo, Assets00.class);
     iTo.setAuction_datedate(OpswDateUtils.CalendarToDateElseNow(iFrom.getAuction_date()));
