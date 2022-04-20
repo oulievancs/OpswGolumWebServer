@@ -260,7 +260,11 @@ public class JsonReaderWriter
         if (obj.getFieldType().getName().equals(List.class.getName())
                 && obj.isIsGenericType())
         {
-          JsonNode vNList = jsonObj.get(obj.getFieldName());
+          JsonNode vNList = null;
+          if (jsonObj != null)
+          {
+            vNList = jsonObj.get(obj.getFieldName());
+          }
 
           if (vNList != null && vNList.isArray())
           {
@@ -274,7 +278,16 @@ public class JsonReaderWriter
 
               for (CatReflectObject01 c : objR)
               {
-                this.EntityProcessFill01(job.get(c.getFieldName()), c, internalObj1);
+                JsonNode vNNode = job.get(c.getFieldName());
+                
+                if (vNNode != null && vNNode.isArray())
+                {
+                  this.EntityProcessFill01(job, c, internalObj1);
+                }
+                else
+                {
+                  this.EntityProcessFill01(vNNode, c, internalObj1);
+                }
               }
 
               ((List<Object>) internalObj).add(internalObj1);
