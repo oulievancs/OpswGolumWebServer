@@ -642,7 +642,7 @@
               <div class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
                 <p th:text="#{ASSETS00_ED.LINKS}"></p>
                 <div class="col-md-4" style="padding: 10px 0 15px 0 !important;">
-                  <a type="button" th:href="@{/assets/assets00/fillfromcrm?asset={asset} (asset = ${CLM0.asset})}" class="btn btn-info">
+                  <a type="button" th:href="@{/assets/assets00/fillfromcrm?asset={asset}&redirectUrl={params1RedirectUrl} (asset = ${CLM0.asset}, params1RedirectUrl = ${params1RedirectUrl})}" class="btn btn-info">
                     <span th:text="#{ASSETS00_ED.FILL_FROM_CRM}"></span>
                   </a>
                 </div>
