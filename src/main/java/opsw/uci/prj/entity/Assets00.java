@@ -105,6 +105,8 @@ public class Assets00 implements Serializable
   @Temporal(TemporalType.TIMESTAMP)
   private Calendar date_modify;
   private String user_modify;
+  private String spitogatosUrl;
+  private String xeUrl;
 
   @Transient
   private Symb symb;
@@ -184,6 +186,8 @@ public class Assets00 implements Serializable
     this.user_create = null;
     this.date_modify = null;
     this.user_modify = null;
+    this.spitogatosUrl = null;
+    this.xeUrl = null;
     //
     this.symb = null;
     this.assets00fl = null;
@@ -887,6 +891,26 @@ public class Assets00 implements Serializable
   public void setUser_modify(String user_modify)
   {
     this.user_modify = user_modify;
+  }
+
+  public String getSpitogatosUrl()
+  {
+    return spitogatosUrl;
+  }
+
+  public void setSpitogatosUrl(String spitogatosUrl)
+  {
+    this.spitogatosUrl = spitogatosUrl;
+  }
+
+  public String getXeUrl()
+  {
+    return xeUrl;
+  }
+
+  public void setXeUrl(String xeUrl)
+  {
+    this.xeUrl = xeUrl;
   }
 
   public List<Assets00fl> getAssets00fl()

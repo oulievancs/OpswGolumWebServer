@@ -34,7 +34,7 @@ public class Assets00Rec02
   private String symb_surename;
   private String symb_tele;
   private String symb_mail;
-*/
+   */
   private String borrname;
   private String property_id;
   private String callateral1;
@@ -93,6 +93,8 @@ public class Assets00Rec02
   private Calendar date_create;
   private String user_modify;
   private Calendar date_modify;
+  private String spitogatosUrl;
+  private String xeUrl;
 
   private List<Assets00flRec01> assets00flrec;
 
@@ -168,6 +170,8 @@ public class Assets00Rec02
     this.date_create = null;
     this.user_modify = null;
     this.date_modify = null;
+    this.spitogatosUrl = null;
+    this.xeUrl = null;
   }
 
   public Long getAsset()
@@ -819,7 +823,6 @@ public class Assets00Rec02
 //  {
 //    this.symb_mail = symb_mail;
 //  }
-
   public List<Assets00flRec01> getAssets00flrec()
   {
     return assets00flrec;
@@ -870,9 +873,30 @@ public class Assets00Rec02
     this.date_modify = date_modify;
   }
 
+  public String getSpitogatosUrl()
+  {
+    return spitogatosUrl;
+  }
+
+  public void setSpitogatosUrl(String spitogatosUrl)
+  {
+    this.spitogatosUrl = spitogatosUrl;
+  }
+
+  public String getXeUrl()
+  {
+    return xeUrl;
+  }
+
+  public void setXeUrl(String xeUrl)
+  {
+    this.xeUrl = xeUrl;
+  }
+
   public static void Assets00Rec02ToAssets00_01(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
   {
-    String[] ss = {
+    String[] ss =
+    {
       "DATE_CREATE", "DATE_MODIFY", "USER_CREATE", "USER_MODIFY", "SYMB_ID",
       "AAUCI", "ASSFILE", "INTRNLKEY"
     };

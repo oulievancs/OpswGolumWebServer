@@ -298,6 +298,33 @@ public class OpswMenuDo01
         }
       }
 
+      String vqreStr = request.getQueryString();
+
+      List<String> vqreStrsVal = new ArrayList<>();
+
+      if (vqreStr != null)
+      {
+        if (vqreStr.startsWith("?"))
+        {
+          vqreStr = vqreStr.substring(1);
+        }
+
+        String[] vpars = vqreStr.split("&");
+
+        if (vpars != null)
+        {
+          for (String vpar : vpars)
+          {
+            String[] cc = vpar.split("=");
+
+            if (cc != null && cc.length > 0)
+            {
+              vqreStrsVal.add(cc[0]);
+            }
+          }
+        }
+      }
+
       Set<String> keySet = request.getParameterMap().keySet();
 
       if (keySet != null && !keySet.isEmpty())
@@ -310,8 +337,20 @@ public class OpswMenuDo01
         int ii = 0;
         while (vItKey.hasNext())
         {
+          boolean vcont = false;
+
           String vKeyParam = vItKey.next();
-          if (!vKeyParam.equals(OpswLanguage.OPSW_LANG_PARAMETER))
+
+          for (String vpar : vqreStrsVal)
+          {
+            if (vpar.equals(vKeyParam))
+            {
+              vcont = true;
+              break;
+            }
+          }
+
+          if (!vKeyParam.equals(OpswLanguage.OPSW_LANG_PARAMETER) && vcont)
           {
             String[] valuesParam = request.getParameterMap().get(vKeyParam);
             String vValParam = valuesParam[0];
