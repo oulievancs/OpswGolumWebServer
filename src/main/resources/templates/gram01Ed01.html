@@ -39,7 +39,7 @@
                     <option value="" th:text="#{GRAM01_ED.FIELD_TYPE_EX1}"></option>
                     <option th:each="field : ${fieldsList}"
                             th:value="${field.getCode()}"
-                            th:text="${field.getCode()} +' - '+${field.getDescr()}">
+                            th:text="${field.getDescr()} + ' - ' + ${field.getCode()}">
                     </option>
                   </select>
                   <label th:text="#{GRAM01_ED.EXCEL_FIELD_EX1}"></label>

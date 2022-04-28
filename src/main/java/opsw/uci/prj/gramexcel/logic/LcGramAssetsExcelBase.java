@@ -474,7 +474,7 @@ public abstract class LcGramAssetsExcelBase
         byte vval = Assets00.FIELD_Y_OR_N_NO;
         String vfval = this.GetCellContentAsString(cell);
 
-        if (vfval != null && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_YES) && vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_Y))
+        if (vfval != null && (vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_YES) || vfval.trim().equalsIgnoreCase(Gram01.FIELD_Y_OR_N_Y)))
         {
           vval = Assets00.FIELD_Y_OR_N_YES;
         }

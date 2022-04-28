@@ -58,7 +58,7 @@ public class ActionsController
   private OpswExcelUtilsAA ExcelUtilsService;
 
   @GetMapping(OpswWebConst.OPSW_CONTROLLER_ACTIONS_INPORT_FILE)
-  public String importFileFomr(Model model) throws CatException
+  public String importFileForm(Model model) throws CatException
   {
     try
     {

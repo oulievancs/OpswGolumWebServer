@@ -123,6 +123,8 @@ SELECT  'ASSETS_VALUE' CODE, 'HIGH_INTEREST'                 FIELD,  'HIGH INTER
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD1'                 FIELD,  'EXTRA FLD1' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD2'                 FIELD,  'EXTRA FLD2' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD3'                 FIELD,  'EXTRA FLD3' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'SPITOGATOSURL'                 FIELD,  'Property URL On Spitogatos' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'XEURL'                 FIELD,  'Property URL On X.E.' VALUE FROM DUAL UNION ALL
 --*********************************************************************************************************
 SELECT  'ASSETS00_FLDS' CODE, V1.CODE                 FIELD,  V1.DESCR VALUE FROM OPSWFLDSV V1 UNION ALL
 --*********************************************************************************************************
