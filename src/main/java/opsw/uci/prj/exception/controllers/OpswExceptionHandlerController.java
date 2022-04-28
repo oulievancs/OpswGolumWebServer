@@ -7,17 +7,23 @@ package opsw.uci.prj.exception.controllers;
 
 import opsw.uci.prj.logic.OpswExceptionHandler;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.logging.OpswLogger;
+import opsw.uci.prj.utils.OpswDateUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -166,5 +172,36 @@ public class OpswExceptionHandlerController
       CatException.RethrowCatException(ex1);
     }
     return mav;
+  }
+
+  @ExceptionHandler(
+          {
+            ResponseStatusException.class
+          })
+  public ResponseEntity<Object> voidResponseStatusException(HttpServletRequest req, Exception ex)
+          throws Exception
+  {
+    ResponseEntity resEnt = null;
+
+    try
+    {
+      ResponseStatusException vresStat = (ResponseStatusException) ex;
+
+      Map<String, Object> response = new HashMap<>();
+
+      response.put("success", "false");
+      response.put("reason", vresStat.getReason());
+      response.put("timestamp", OpswDateUtils.DateTimeToStr01(Calendar.getInstance()));
+
+      resEnt = new ResponseEntity<>(response, vresStat.getStatus());
+    }
+    catch (Exception ex1)
+    {
+      OpswLogger.LoggerLogException(ex1);
+      OpswLogger.LoggerLogException(ex);
+      CatException.RethrowCatException(ex1);
+    }
+
+    return resEnt;
   }
 }

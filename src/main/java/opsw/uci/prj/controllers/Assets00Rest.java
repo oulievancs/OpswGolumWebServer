@@ -5,12 +5,15 @@
  */
 package opsw.uci.prj.controllers;
 
-import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.constants.OpswWebConst;
+import opsw.uci.prj.globals.OpswLoginVars;
 import opsw.uci.prj.globals.OpswRolesAllowed;
+import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.logic.OpswExceptionHandler;
 import opsw.uci.prj.services.Assets00Service;
+import opsw.uci.prj.validations.OpswValidations01;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,20 +32,39 @@ public class Assets00Rest
   @Autowired
   private Assets00Service Assets00Service;
 
-  @RolesAllowed(value =
-  {
-    OpswRolesAllowed.UCI_ADMIN
-  })
   @DeleteMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_DELETE02)
-  public void Assets00Delete02(@PathVariable("asset") Long assetId) throws Exception
+  public void Assets00Delete02(@PathVariable("asset") Long assetId,
+          HttpServletRequest request) throws Exception
   {
     try
     {
-      this.Assets00Service.Assets00DeleteAll(assetId);
+      Assers00DeleteAsset02_Internal(assetId, request);
     }
     catch (Exception ex)
     {
       OpswExceptionHandler.HandleCatExceptionRest(ex);
+    }
+  }
+
+  private void Assers00DeleteAsset02_Internal(Long assetId, HttpServletRequest request)
+          throws CatException
+  {
+    try
+    {
+      OpswLoginVars vlogV = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, vlogV);
+
+      String[] vv =
+      {
+        OpswRolesAllowed.UCI_ADMIN
+      };
+      OpswValidations01.MakeAccessValidations(vlogV, vv, true);
+
+      this.Assets00Service.Assets00DeleteAll(assetId);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
     }
   }
 }

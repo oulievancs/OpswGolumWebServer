@@ -180,6 +180,10 @@ public class OpswExceptionHandler
         HandleCatExceptionRest(new CatException(ex));
       }
     }
+    catch (ResponseStatusException exb)
+    {
+      throw exb;
+    }
     catch (Exception exa)
     {
       CatException.RethrowCatException(exa);
@@ -189,14 +193,36 @@ public class OpswExceptionHandler
   private static void HandleCatExceptionUserRest(CatExceptionUser ex)
           throws ResponseStatusException, CatException
   {
-    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getUserMessage(), ex);
+    try
+    {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getUserMessage(), ex);
+    }
+    catch (ResponseStatusException exb)
+    {
+      throw exb;
+    }
+    catch (Exception ex1)
+    {
+      CatException.RethrowCatException(ex1);
+    }
   }
 
   private static void HandleCatExceptionRest(CatException ex)
           throws ResponseStatusException, CatException
   {
-    OpswLogger.LoggerLogException("Exception " + ex.getMessage(), ex);
+    try
+    {
+      OpswLogger.LoggerLogException("Exception " + ex.getMessage(), ex);
 
-    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error!", ex);
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Internal Error!", ex);
+    }
+    catch (ResponseStatusException exb)
+    {
+      throw exb;
+    }
+    catch (Exception ex1)
+    {
+      CatException.RethrowCatException(ex1);
+    }
   }
 }

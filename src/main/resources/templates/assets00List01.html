@@ -34,7 +34,11 @@
       
       <script>
         $(document).ready(function() {
-          var table = $('#table1').DataTable();
+          var table = $('#table1').DataTable({
+                colReorder: {
+                  realtime: false,
+                },
+          });
           var info = table.page.info();
 
           $('#table1 tbody').on( 'click', 'tr', function () {
@@ -84,14 +88,19 @@
               data: "{}",
               success: function (data, textStatus, jqXHR) {
                 table.row('#' + qID).remove().draw();
-                
-                $('#modal-delete' + qID).modal().hide();
               },
               error: function (jqXHR, textStatus, errorThrown) {
-                alert('Delete fails due to an error: ' + errorThrown + ', code: ' + textStatus);
+                var vobj = jqXHR.responseJSON;
+                var mess = "N/A";
+                if (vobj && vobj.reason)
+                {
+                  mess = vobj.reason;
+                }
+                alert('Delete fails due to an error: \"' + mess + '\", code: ' + textStatus);
               },
               complete: function (jqXHR, textStatus ) {
                 $('#modal-delete' + qID).modal().hide();
+                $('.modal-backdrop').hide();
               }
             });
           });
@@ -103,6 +112,16 @@
         });
       </script>
       <!------------------------------>
+      
+      <style>
+        span.overfl {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 10vw;
+          display: block;
+        }
+      </style>
   </head>
   <body>
 
@@ -217,7 +236,7 @@
         <div style="margin-top: 4vh"> </div>
         
         <!--<div class="table-responsive">-->
-        <table id="table1" style="width:100%" class="hover table-responsive stripe">
+        <table id="table1" style="width:100%; table-layout: fixed;" class="hover table-responsive stripe">
           <thead>
             <tr>
               <th rowspan="2" th:text="#{ASSETS00_PR.ID}"></th>
@@ -325,76 +344,76 @@
           </thead>
           <tbody>
             <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}" th:params1RedirectUrl = "${params1RedirectUrl}">
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAsset()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAauci()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getIntrnlkey()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStatusdeff()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqcode()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctionurl()}"></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAsset()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAauci()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAssfile())}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getIntrnlkey()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStatusdeff()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqcode()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctionurl()}"></span></td>
               <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}">
-                <span th:text = "${ass00.getSymb_name()}"></span>
-                <span th:text = "${ass00.getSymb_surename()}"></span>
+                <span class = "overfl" th:text = "${ass00.getSymb_name()}"></span>
+                <span class = "overfl" th:text = "${ass00.getSymb_surename()}"></span>
               </td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSymb_tele()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuyer()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProducer()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCountass()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBorrname()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProperty_id()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral1()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral_sub_type()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMunicipality()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCity()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAddress()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getZipcode()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getGpscords()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandarea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuildarea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMainsurefacearea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuxilliarysurefacearea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getArbitarysurefacearea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFullownership()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getConstructionyear()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFloor()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuction_id()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqauction_code()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAuction_date())}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStartingprice()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandealink()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getRegion()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getPrefecture()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getOwnership_type()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctiondate()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage1()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage2()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage3()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments_sea()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEkth_ektim()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTechn_fakel()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTeaser()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSite()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBroker_site()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSubbroker_name()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getVisitors_count()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBegin_endiaferon()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLeads()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info1()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info2()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info3()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info4()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info5()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments1()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments2()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMarketability_rate()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_leads()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_comments()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUpdate_auction()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getHigh_interest()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_create()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_create())}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_modify()}"></td>
-              <td width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_modify())}"></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSymb_tele()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuyer()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProducer()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCountass()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBorrname()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getProperty_id()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral1()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCallateral_sub_type()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMunicipality()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getCity()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAddress()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getZipcode()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getGpscords()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandarea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBuildarea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMainsurefacearea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuxilliarysurefacearea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getArbitarysurefacearea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFullownership()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getConstructionyear()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getFloor()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuction_id()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUniqauction_code()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateToStr01(ass00.getAuction_date())}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getStartingprice()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandealink()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getRegion()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getPrefecture()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getOwnership_type()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getAuctiondate()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage1()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage2()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getImage3()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments_sea()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEkth_ektim()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTechn_fakel()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getTeaser()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSite()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBroker_site()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getSubbroker_name()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getVisitors_count()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getBegin_endiaferon()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLeads()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info1()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info2()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info3()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info4()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getEndiaferomenos_info5()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments1()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getComments2()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getMarketability_rate()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_leads()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getLandea_comments()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUpdate_auction()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getHigh_interest()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_create()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_create())}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${ass00.getUser_modify()}"></span></td>
+              <td><span class = "overfl" width = "20" th:title = "#{ASSETS00_PR.DBL_CLK}" th:text = "${T(opsw.uci.prj.utils.OpswDateUtils).DateTimeToStr01(ass00.getDate_modify())}"></span></td>
               <td>
                 <a data-toggle="modal" data-target="#modal-delete"
                    th:attr="data-target='#modal-delete' + ${ass00.getAsset()}" class="btn btn-danger btn-sm mb-3">

@@ -30,6 +30,12 @@ public class CatExceptionUser extends CatException
     this.userMessage = userMessage;
   }
 
+  public CatExceptionUser(byte code, String userMessage)
+  {
+    super(code, userMessage);
+    this.userMessage = userMessage;
+  }
+
   public CatExceptionUser(String userMessage)
   {
     super(CatException.CODE_USER_EXCEPTION, userMessage);
