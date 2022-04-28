@@ -11,7 +11,9 @@ import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
 import opsw.uci.prj.logging.OpswLogger;
 import opsw.uci.prj.utils.OpswStringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -151,5 +153,50 @@ public class OpswExceptionHandler
   private static void HandleModelAndViewException(Exception ex, ModelAndView mav)
   {
     mav.addObject("errorMessage", "Internal Error!");
+  }
+
+  public static void HandleCatExceptionRest(Exception ex)
+          throws ResponseStatusException, CatException
+  {
+    try
+    {
+      CatException ex1 = null;
+      CatExceptionUser ex2 = null;
+
+      if (ex instanceof CatExceptionUser)
+      {
+        ex2 = (CatExceptionUser) ex;
+
+        HandleCatExceptionUserRest(ex2);
+      }
+      else if (ex instanceof CatException)
+      {
+        ex1 = (CatException) ex;
+
+        HandleCatExceptionRest(ex1);
+      }
+      else
+      {
+        HandleCatExceptionRest(new CatException(ex));
+      }
+    }
+    catch (Exception exa)
+    {
+      CatException.RethrowCatException(exa);
+    }
+  }
+
+  private static void HandleCatExceptionUserRest(CatExceptionUser ex)
+          throws ResponseStatusException, CatException
+  {
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getUserMessage(), ex);
+  }
+
+  private static void HandleCatExceptionRest(CatException ex)
+          throws ResponseStatusException, CatException
+  {
+    OpswLogger.LoggerLogException("Exception " + ex.getMessage(), ex);
+
+    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error!", ex);
   }
 }

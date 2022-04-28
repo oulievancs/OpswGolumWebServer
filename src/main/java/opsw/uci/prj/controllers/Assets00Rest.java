@@ -9,6 +9,7 @@ import javax.annotation.security.RolesAllowed;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.globals.OpswRolesAllowed;
+import opsw.uci.prj.logic.OpswExceptionHandler;
 import opsw.uci.prj.services.Assets00Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +34,7 @@ public class Assets00Rest
     OpswRolesAllowed.UCI_ADMIN
   })
   @DeleteMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_DELETE02)
-  public void Assets00Delete02(@PathVariable("asset") Long assetId) throws CatException
+  public void Assets00Delete02(@PathVariable("asset") Long assetId) throws Exception
   {
     try
     {
@@ -41,7 +42,7 @@ public class Assets00Rest
     }
     catch (Exception ex)
     {
-      CatException.RethrowCatException(ex);
+      OpswExceptionHandler.HandleCatExceptionRest(ex);
     }
   }
 }
