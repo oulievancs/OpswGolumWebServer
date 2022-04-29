@@ -130,6 +130,7 @@ SELECT  'ASSETS_VALUE' CODE, 'XE_URL'                 FIELD,  'Property URL On X
 --*********************************************************************************************************
 SELECT  'ASSETS00_FLDS' CODE, V1.CODE                 FIELD,  V1.DESCR VALUE FROM OPSWFLDSV V1 UNION ALL
 --*********************************************************************************************************
-SELECT  'CRM_SERVER_URL' CODE, 'CRM_SERVER_URL_1' FIELD, 'http://ucitest.ddns.net:8081/OPSWTESTWEBSERV/uci/propertiesxml' VALUE FROM DUAL
+--SELECT  'CRM_SERVER_URL' CODE, 'CRM_SERVER_URL_1' FIELD, 'http://ucitest.ddns.net:8081/OPSWTESTWEBSERV/uci/propertiesxml' VALUE FROM DUAL
+SELECT  'CRM_SERVER_URL' CODE, 'CRM_SERVER_URL_1' FIELD, 'http://panel.e-agents.gr/propertiesxml.aspx' VALUE FROM DUAL
 ) consts;
 
