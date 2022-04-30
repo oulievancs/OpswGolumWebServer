@@ -34,6 +34,24 @@ public class OpswNumberUtils
     return res;
   }
 
+  public static short OpswGetShort(Short ishort)
+          throws CatException
+  {
+    short res = 0;
+    try
+    {
+      if (ishort != null)
+      {
+        res = (short) ishort;
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+    return res;
+  }
+
   public static double OpswGetDoubleFromString(String inumber)
           throws CatException
   {

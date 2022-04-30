@@ -529,7 +529,8 @@ public abstract class LcGramAssetsExcelBase
       vmess = "Field = " + vfieldName + " ";
       vmess += "Line = " + icc.getRowIndex() + " ";
 
-      this.Assets00InvokeByField_Internal(vfieldName, gram01.getDate_format(), gram01.getField_type(), icc);
+      short vtype = OpswNumberUtils.OpswGetShort(gram01.getField_type());
+      this.Assets00InvokeByField_Internal(vfieldName, gram01.getDate_format(), vtype, icc);
     }
     catch (CatException ex)
     {
