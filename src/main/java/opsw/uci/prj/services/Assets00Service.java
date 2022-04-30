@@ -69,4 +69,8 @@ public interface Assets00Service extends CatEjbJpaServiceBase
 
   public void Assets00DeleteAll(Long assetId) throws CatException;
 
+  public void Assets00RemoveNotary(Long assetId) throws CatException;
+
+  public void Assets00RemoveNotaryEd01(Long assetId, OpswLoginVars ilogVars) throws CatException;
+
 }

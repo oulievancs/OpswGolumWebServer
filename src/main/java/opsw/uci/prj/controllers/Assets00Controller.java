@@ -270,6 +270,30 @@ public class Assets00Controller
     return "assets00Ed01";
   }
 
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_REMOVE_NOTARY)
+  public String Assets00RemoveNotary(@PathVariable(name = "asset") Long assetId,
+          @RequestParam(name = "redirectUrl", required = false) String redirectUrl,
+          HttpServletRequest request) throws CatException
+  {
+    String vredirectUrl = OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_ED01;
+    try
+    {
+      OpswLoginVars logvars = new OpswLoginVars();
+      OpswCookies01.OpswFillLoginVarsFromCookies01(request, logvars);
+
+      this.Assets00Service.Assets00RemoveNotaryEd01(assetId, logvars);
+
+      vredirectUrl += "?asset=" + OpswNumberUtils.OpswGetLong(assetId);
+      vredirectUrl += "&redirectUrl=" + (OpswStringUtils.OpswStringIsEmpty(redirectUrl) ? "" : redirectUrl);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return "redirect:" + vredirectUrl;
+  }
+
   private void AssetsEdKoina01(Model model, String redirectUrl) throws CatException
   {
     try

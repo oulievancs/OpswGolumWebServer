@@ -582,4 +582,50 @@ public class Assets00ServiceImpl implements Assets00Service
     }
   }
 
+  @Override
+  public void Assets00RemoveNotary(Long assetId) throws CatException
+  {
+    try
+    {
+      Assets00 vass = this.Assets00Select01(assetId);
+
+      if (vass == null)
+      {
+        throw new CatException("Property not found [asset = " + assetId + "]!");
+      }
+
+      vass.setSymb_id(null);
+      vass.setSymb(null);
+
+      vass = this.Assets00Post01(vass);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
+  @Override
+  public void Assets00RemoveNotaryEd01(Long assetId, OpswLoginVars ilogVars) throws CatException
+  {
+    try
+    {
+      this.Assets00RemoveNotary(assetId);
+
+      Assets00 vass = this.Assets00Select01(assetId);
+
+      if (vass != null)
+      {
+        vass.setUser_modify(ilogVars.getLoginUser());
+        vass.setDate_modify(Calendar.getInstance());
+
+        this.Assets00Post01(vass);
+      }
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+  }
+
 }

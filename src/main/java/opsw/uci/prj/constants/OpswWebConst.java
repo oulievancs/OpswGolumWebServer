@@ -32,7 +32,7 @@ public class OpswWebConst
   public static final String OPSW_CONTROLLER_ACTIONS_EXPORT_FILE = "/exportfile";
   public static final String OPSW_CONTROLLER_ACTIONS_EXPORT_FILE_POST = "/exportfile/post";
 
-  /**v
+  /**
    * ASSETS00
    */
   public static final String OPSW_CONTROLLER_ASSETS00 = "/assets";
@@ -43,6 +43,7 @@ public class OpswWebConst
   public static final String OPSW_CONTROLLER_ASSETS00_FILLFROMCRM = "/assets00/fillfromcrm";
   public static final String OPSW_CONTROLLER_ASSETS00_DELETE01 = "/assets00/delete01/{asset}";
   public static final String OPSW_CONTROLLER_ASSETS00_DELETE02 = "/assets00/delete02/{asset}";
+  public static final String OPSW_CONTROLLER_ASSETS00_REMOVE_NOTARY = "/assets00/removeNotary/{asset}";
 
   /**
    * GRAM00

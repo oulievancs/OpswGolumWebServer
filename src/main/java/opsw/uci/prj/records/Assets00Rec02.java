@@ -93,8 +93,8 @@ public class Assets00Rec02
   private Calendar date_create;
   private String user_modify;
   private Calendar date_modify;
-  private String spitogatosUrl;
-  private String xeUrl;
+  private String spitogatos_url;
+  private String xe_url;
 
   private List<Assets00flRec01> assets00flrec;
 
@@ -170,8 +170,8 @@ public class Assets00Rec02
     this.date_create = null;
     this.user_modify = null;
     this.date_modify = null;
-    this.spitogatosUrl = null;
-    this.xeUrl = null;
+    this.spitogatos_url = null;
+    this.xe_url = null;
   }
 
   public Long getAsset()
@@ -873,24 +873,24 @@ public class Assets00Rec02
     this.date_modify = date_modify;
   }
 
-  public String getSpitogatosUrl()
+  public String getSpitogatos_url()
   {
-    return spitogatosUrl;
+    return spitogatos_url;
   }
 
-  public void setSpitogatosUrl(String spitogatosUrl)
+  public void setSpitogatos_url(String spitogatos_url)
   {
-    this.spitogatosUrl = spitogatosUrl;
+    this.spitogatos_url = spitogatos_url;
   }
 
-  public String getXeUrl()
+  public String getXe_url()
   {
-    return xeUrl;
+    return xe_url;
   }
 
-  public void setXeUrl(String xeUrl)
+  public void setXe_url(String xe_url)
   {
-    this.xeUrl = xeUrl;
+    this.xe_url = xe_url;
   }
 
   public static void Assets00Rec02ToAssets00_01(Assets00Rec02 iFrom, Assets00 iTo) throws CatException

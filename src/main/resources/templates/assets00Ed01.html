@@ -343,16 +343,66 @@
                     <th:block th:replace="_symb_modals :: modal('symbModal2')">symb_modal</th:block>
                   </div>
                   <div class="col-md-3">
-                    <label for="notary-name" class="form-label" th:text="#{ASSETS00_ED.NOTARY_NAME}"></label>
-                    <input
-                      id="notary-name"
-                      type="text"
-                      name="symb_name"
-                      th:value="${CLM1_SYMB.getName()}"
-                      class="form-control"
-                      placeholder="Enter Notary name"
-                      disabled="true"
-                      />
+                    <label for="notary-name" class="form-label" th:text="#{ASSETS00_ED.NOTARY_NAME}">
+                    </label>
+                    
+                    <div class="input-group">
+                      <a
+                        class="btn btn-outline-danger"
+                        type="button"
+                        id="notary-remove"
+                        data-toggle="modal"
+                        data-target="#modal-delete"
+                        th:attr="data-target='#modal-delete' + ${CLM0.getAsset()}"
+                      ><i class="fa fa-trash-alt" aria-hidden="true"></i>
+                      </a>
+                    
+                      <input
+                        id="notary-name"
+                        type="text"
+                        name="symb_name"
+                        th:value="${CLM1_SYMB.getName()}"
+                        class="form-control"
+                        placeholder="Enter Notary name"
+                        disabled="true"
+                        />
+                    </div>
+                    
+                    <div class="modal modal-delete" th:id="'modal-delete' + ${CLM0.getAsset()}">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button style="align-self: flex-start;" type="button" class="close" data-dismiss="modal"
+                                          aria-hidden="true">×
+                                  </button>
+                                  <h3 id="delModalLabel" th:text="#{ASSETS00_ED.REMOVE_NOTARY_CONF}"></h3>
+                              </div>
+                              <div class="modal-body">
+                                  <p class="error-text"><strong th:text="#{ASSETS00_ED.REMOVE_NOTARY_CONF_MESS}"></strong></p>
+                              </div>
+                              <div class="modal-footer">
+                                  <button class="btn" data-dismiss="modal" aria-hidden="true">
+                                    <span th:text="#{ASSETS00_ED.CANCEL}"></span>
+                                  </button>
+                                  <!--<a th:href="@{/assets/assets00/delete01/{asset} (asset=${ass00.getAsset()}) }">
+                                      <span class="btn btn-danger" value="delete" th:text="#{ASSETS00_PR.DELETE}"></span>
+                                  </a>-->
+                                <a type="button"
+                                   class="btn btn-danger"
+                                   aria-hidden="true"
+                                   th:assetId="${CLM0.getAsset()}"
+                                   th:href="@{/assets/assets00/removeNotary/{asset}?redirectUrl={params1RedirectUrl} (asset = ${CLM0.asset}, params1RedirectUrl = ${params1RedirectUrl})}"
+                                >
+                                  <span th:text="#{ASSETS00_ED.REMOVE}"></span>
+                                </a>
+
+                              </div>
+                          </div>
+                          <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                  <!--end delete modal-->
                   </div>
                   <div class="col-md-3">
                     <label for="notary-surname" class="form-label" th:text="#{ASSETS00_ED.NOTARY_SURNAME}"></label>
