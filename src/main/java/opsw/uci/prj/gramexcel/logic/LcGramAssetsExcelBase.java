@@ -511,6 +511,41 @@ public abstract class LcGramAssetsExcelBase
       {
         result = ival.trim();
       }
+
+      if (ival != null)
+      {
+        char[] vcharArr = ival.toCharArray();
+
+        boolean vtel = false,
+                visMhden = true,
+                visNumb = true;
+        String vakair = "";
+        for (int i = 0; i < vcharArr.length; i++)
+        {
+          if (vtel)
+          {
+            visMhden &= vcharArr[i] == '0';
+          }
+          else if (vcharArr[i] != '.')
+          {
+            vakair += vcharArr[i];
+          }
+
+          if (vcharArr[i] == '.')
+          {
+            vtel = true;
+          }
+
+          visNumb &= (vcharArr[i] >= '0' && vcharArr[i] <= '9')
+                  || (vcharArr[i] == '.')
+                  || (vcharArr[i] == ',');
+        }
+
+        if (visNumb && visMhden)
+        {
+          result = vakair;
+        }
+      }
     }
     catch (Exception ex)
     {
