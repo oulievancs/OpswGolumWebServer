@@ -637,6 +637,7 @@ public class Assets00ServiceImpl implements Assets00Service
     {
       result = this.Assets00Repository.Assets00SelectCount01(idateFrom, idateTo);
 
+      this.Assets00flService.Assets00flDelete02(idateFrom, idateTo);
       this.Assets00Repository.Assets00Delete01(idateFrom, idateTo);
     }
     catch (Exception ex)

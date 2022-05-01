@@ -5,7 +5,9 @@
  */
 package opsw.uci.prj.services;
 
+import java.util.Calendar;
 import java.util.List;
+import opsw.uci.prj.arifacts.OpswTransactional;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Assets00flKey;
@@ -94,16 +96,16 @@ public class Assets00flServiceImpl implements Assets00flService
     List<Assets00fl> result = null;
     try
     {
-      if(id != null)
+      if (id != null)
       {
         result = this.Assets00flRepository.Assets00flFindByAsset(id);
       }
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
-    
+
     return result;
   }
 
@@ -114,20 +116,34 @@ public class Assets00flServiceImpl implements Assets00flService
     try
     {
       result = this.Assets00flSelect02(assets00fl.getAsset(), assets00fl.getFld());
-      if(result != null)
+      if (result != null)
       {
         Byte vType = result.getType();
         OpswReflection.OpswReflectionCopyObjectFields(assets00fl, result, Assets00fl.class);
         result.setType(vType);
         result = this.Assets00flPost01(result);
       }
-      
+
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       CatException.RethrowCatException(e);
     }
     return result;
+  }
+
+  @Override
+  @OpswTransactional
+  public void Assets00flDelete02(Calendar date_createFrom, Calendar date_createTo) throws CatException
+  {
+    try
+    {
+      this.Assets00flRepository.Assets00flDelete01(date_createFrom, date_createTo);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
   }
 
 }
