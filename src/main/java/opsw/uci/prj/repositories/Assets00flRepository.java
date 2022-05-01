@@ -26,7 +26,7 @@ public interface Assets00flRepository extends CatEjbJpaBase<Assets00fl, Assets00
   List<Assets00fl> Assets00flFindByAsset(Long id);
 
   @Modifying
-  @Query("DELETE FROM Assets00fl a JOIN Assets00 b ON a.asset = b.asset "
+  @Query("DELETE FROM Assets00fl a LEFT JOIN Assets00 b ON a.asset = b.asset "
           + "WHERE b.date_create BETWEEN ?1 AND ?2 ")
   void Assets00flDelete01(Calendar date_createFrom, Calendar date_createTo);
 
