@@ -26,6 +26,7 @@ public class OpswDateUtils
   public final static String OPSW_DATE_TIME_FORMAT_AMER = "MM-dd-yyyy HH:mm:ss";
   public final static String OPSW_DATE_THYMLEAF_01 = "dd/MM/yyyy";
   public final static String OPSW_DATE_THYMLEAF_02 = "yyyy-MM-dd";
+  public final static String OPSW_DATE_THYMLEAF_03 = "yyyy-MM-dd HH:mm";
   //public final static String OPSW_DATE_XMLFORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
   public final static String OPSW_DATE_XMLFORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 

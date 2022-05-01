@@ -73,4 +73,7 @@ public interface Assets00Service extends CatEjbJpaServiceBase
 
   public void Assets00RemoveNotaryEd01(Long assetId, OpswLoginVars ilogVars) throws CatException;
 
+  public long Assets00BulkDeleteEd01(Calendar idateFrom, Calendar idateTo)
+          throws CatException;
+
 }

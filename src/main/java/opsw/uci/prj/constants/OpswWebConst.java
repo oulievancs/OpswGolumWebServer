@@ -44,6 +44,8 @@ public class OpswWebConst
   public static final String OPSW_CONTROLLER_ASSETS00_DELETE01 = "/assets00/delete01/{asset}";
   public static final String OPSW_CONTROLLER_ASSETS00_DELETE02 = "/assets00/delete02/{asset}";
   public static final String OPSW_CONTROLLER_ASSETS00_REMOVE_NOTARY = "/assets00/removeNotary/{asset}";
+  public static final String OPSW_CONTROLLER_ASSETS00_BULK_DELETE = "/assets00/bulkDelete";
+  public static final String OPSW_CONTROLLER_ASSETS00_BULK_DELETE_POST = "/assets00/bulkDeletePost";
 
   /**
    * GRAM00

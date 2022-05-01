@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import opsw.uci.prj.application.ApplicationProperties;
 import opsw.uci.prj.cat.CatException;
+import opsw.uci.prj.constants.OpswWebConst;
 import opsw.uci.prj.globals.OpswErpRecords01;
 import opsw.uci.prj.globals.OpswLanguage;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -97,6 +98,13 @@ public class OpswMenuDo01
       choice1 = new OpswMenu01();
       choice1.setCaption(Ad1(iloginVars, ms, "MENOU00.EXPORT_FILE", "Export File"));
       choice1.setPath(Ad2(iloginVars, "/actions/exportfile"));
+      choice1.setIsActive(requstedUrl.contains(choice.getPath()));
+      choice1.setHaveSub(false);
+      subMenu.add(choice1);
+      choice1 = new OpswMenu01();
+      choice1.setCaption(Ad1(iloginVars, ms, "MENOU00.BULK_DELETE_ASSETS", "Bulk Delete Assets"));
+      choice1.setPath(Ad2(iloginVars, OpswWebConst.OPSW_CONTROLLER_ASSETS00
+              + OpswWebConst.OPSW_CONTROLLER_ASSETS00_BULK_DELETE));
       choice1.setIsActive(requstedUrl.contains(choice.getPath()));
       choice1.setHaveSub(false);
       subMenu.add(choice1);

@@ -21,8 +21,11 @@ import opsw.uci.prj.interceptors.OpswCookies01;
 import opsw.uci.prj.records.Assets00Rec01;
 import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
+import opsw.uci.prj.records.cat.CatThmlfAssets00Delete01Params;
 import opsw.uci.prj.records.cat.CatThmlfAssets00List01Params;
+import opsw.uci.prj.records.cat.CatThmlfAssets00List02Params;
 import opsw.uci.prj.records.cat.CatThmlfObjectDates01;
+import opsw.uci.prj.records.cat.CatThmlfObjectDates02;
 import opsw.uci.prj.services.Assets00Service;
 import opsw.uci.prj.services.SymbService;
 import opsw.uci.prj.utils.OpswDateUtils;
@@ -351,6 +354,62 @@ public class Assets00Controller
       CatException.RethrowCatException(ex);
     }
     return "redirect:" + OpswWebConst.OPSW_CONTROLLER_ASSETS00 + OpswWebConst.OPSW_CONTROLLER_ASSETS00_LIST01;
+  }
+
+  @RolesAllowed(value =
+  {
+    OpswRolesAllowed.UCI_ADMIN
+  })
+  @GetMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_BULK_DELETE)
+  public String bulkDeleteAssets01(Model model) throws CatException
+  {
+    CatThmlfAssets00Delete01Params params = null;
+    try
+    {
+      params = new CatThmlfAssets00Delete01Params();
+      CatThmlfObjectDates02 dates = new CatThmlfObjectDates02();
+      Calendar today = Calendar.getInstance();
+      dates.setDateFrom(today.getTime());
+      dates.setDateTo(today.getTime());
+
+      params.setSearchDates(dates);
+
+      model.addAttribute("paramsOb", params);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+
+    return "deleteAssets01";
+  }
+
+  @RolesAllowed(value =
+  {
+    OpswRolesAllowed.UCI_ADMIN
+  })
+  @PostMapping(OpswWebConst.OPSW_CONTROLLER_ASSETS00_BULK_DELETE_POST)
+  public String exportFilePost(@ModelAttribute("paramsOb") CatThmlfAssets00Delete01Params iparams,
+          Model model) throws CatException
+  {
+    try
+    {
+      Calendar vdateFrom = OpswDateUtils.DateToCalendarElseNow(iparams.getSearchDates().getDateFrom());
+      Calendar vdateTo = OpswDateUtils.DateToCalendarElseNow(iparams.getSearchDates().getDateTo());
+
+      long vres = this.Assets00Service.Assets00BulkDeleteEd01(
+              vdateFrom,
+              vdateTo
+      );
+
+      model.addAttribute("paramsOb", iparams);
+      model.addAttribute("deletedCount", vres);
+    }
+    catch (Exception e)
+    {
+      CatException.RethrowCatException(e);
+    }
+    return "deleteAssets01";
   }
 
 }

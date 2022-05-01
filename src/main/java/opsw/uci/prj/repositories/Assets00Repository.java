@@ -9,8 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 import opsw.uci.prj.cat.CatEjbJpaBase;
 import opsw.uci.prj.entity.Assets00;
-import opsw.uci.prj.records.Assets00Rec01;
-import opsw.uci.prj.records.Gram00Rec01;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,14 @@ public interface Assets00Repository extends CatEjbJpaBase<Assets00, Long>
 
   @Query("SELECT Count(a) FROM Assets00 a WHERE a.symb_id = ?1")
   long Assets00Count01(Long symb_id);
-  
+
   @Query("SELECT a FROM Assets00 a WHERE a.intrnlkey = ?1 ")
   Assets00 Assets00Select01(String internal);
+
+  @Modifying
+  @Query("DELETE FROM Assets00 a WHERE a.date_create BETWEEN ?1 AND ?2 ")
+  void Assets00Delete01(Calendar date_createFrom, Calendar date_createTo);
+
+  @Query("SELECT COUNT(a.asset) FROM Assets00 a WHERE a.date_create BETWEEN ?1 AND ?2 ")
+  long Assets00SelectCount01(Calendar date_createFrom, Calendar date_createTo);
 }

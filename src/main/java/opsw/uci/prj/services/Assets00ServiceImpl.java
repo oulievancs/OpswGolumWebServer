@@ -628,4 +628,23 @@ public class Assets00ServiceImpl implements Assets00Service
     }
   }
 
+  @Override
+  @OpswTransactional
+  public long Assets00BulkDeleteEd01(Calendar idateFrom, Calendar idateTo) throws CatException
+  {
+    long result = 0;
+    try
+    {
+      result = this.Assets00Repository.Assets00SelectCount01(idateFrom, idateTo);
+
+      this.Assets00Repository.Assets00Delete01(idateFrom, idateTo);
+    }
+    catch (Exception ex)
+    {
+      CatException.RethrowCatException(ex);
+    }
+
+    return result;
+  }
+
 }
