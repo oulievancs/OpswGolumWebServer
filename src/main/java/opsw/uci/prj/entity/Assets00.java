@@ -107,6 +107,16 @@ public class Assets00 implements Serializable
   private String user_modify;
   private String spitogatos_url;
   private String xe_url;
+  private String source;
+  private String sale_forecast;
+  private String broker_comm;
+  private String promotion_status;
+  private String buyer_cepal;
+  private String opinion_onvalue;
+  private Byte send_investors;
+  private String customer_file;
+  private String remarks;
+  private String opportunity;
 
   @Transient
   private Symb symb;
@@ -191,6 +201,18 @@ public class Assets00 implements Serializable
     //
     this.symb = null;
     this.assets00fl = null;
+    
+    
+    this.source = null;
+    this.sale_forecast = null;
+    this.broker_comm = null;
+    this.promotion_status = null;
+    this.buyer_cepal = null;
+    this.opinion_onvalue = null;
+    this.send_investors = null;
+    this.customer_file = null;
+    this.remarks = null;
+    this.opportunity = null;
   }
 
   public Long getAsset()
@@ -922,6 +944,7 @@ public class Assets00 implements Serializable
   {
     this.assets00fl = assets00fl;
   }
+
 
   @Override
   public int hashCode()

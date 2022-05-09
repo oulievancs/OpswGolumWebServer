@@ -127,6 +127,17 @@ SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD2'                 FIELD,  'EXTRA FLD2' V
 SELECT  'ASSETS_VALUE' CODE, 'EXTRA_FLD3'                 FIELD,  'EXTRA FLD3' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'SPITOGATOS_URL'                 FIELD,  'Property URL On Spitogatos' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'XE_URL'                 FIELD,  'Property URL On X.E.' VALUE FROM DUAL UNION ALL
+--************************************************************************************************************
+SELECT  'ASSETS_VALUE' CODE, 'SOURCE'                 FIELD,  'Source' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'SALE_FORECAST'                 FIELD,  'Sale Forecast' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'BROKER_COMM'                 FIELD,  'Broker Comments' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'PROMOTION_STATUS'                 FIELD,  'Promotion Status' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'BUYER_CEPAL'                 FIELD,  'Buyer Cepal' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'OPINION_ONVALUE'                 FIELD,  'Opinion on Value' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'SEND_INVESTORS'                 FIELD,  'Send to investors' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'CUSTOMER_FILE'                 FIELD,  'File with customer details' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'REMARKS'                 FIELD,  'Remarks' VALUE FROM DUAL UNION ALL
+SELECT  'ASSETS_VALUE' CODE, 'OPPORTUNITY'                 FIELD,  'Opportunity' VALUE FROM DUAL UNION ALL
 --*********************************************************************************************************
 SELECT  'ASSETS00_FLDS' CODE, V1.CODE                 FIELD,  V1.DESCR VALUE FROM OPSWFLDSV V1 UNION ALL
 --*********************************************************************************************************
