@@ -95,6 +95,16 @@ public class Assets00Rec02
   private Calendar date_modify;
   private String spitogatos_url;
   private String xe_url;
+  private String source;
+  private String sale_forecast;
+  private String broker_comm;
+  private String promotion_status;
+  private String buyer_cepal;
+  private String opinion_onvalue;
+  private Byte send_investors;
+  private String customer_file;
+  private String remarks;
+  private String opportunity;
 
   private List<Assets00flRec01> assets00flrec;
 
@@ -172,6 +182,16 @@ public class Assets00Rec02
     this.date_modify = null;
     this.spitogatos_url = null;
     this.xe_url = null;
+    this.source = null;
+    this.sale_forecast = null;
+    this.broker_comm = null;
+    this.promotion_status = null;
+    this.buyer_cepal = null;
+    this.opinion_onvalue = null;
+    this.send_investors = null;
+    this.customer_file = null;
+    this.remarks = null;
+    this.opportunity = null;
   }
 
   public Long getAsset()
@@ -891,6 +911,86 @@ public class Assets00Rec02
   public void setXe_url(String xe_url)
   {
     this.xe_url = xe_url;
+  }
+
+  public String getSource() {
+      return source;
+  }
+
+  public void setSource(String source) {
+      this.source = source;
+  }
+
+  public String getSale_forecast() {
+      return sale_forecast;
+  }
+
+  public void setSale_forecast(String sale_forecast) {
+      this.sale_forecast = sale_forecast;
+  }
+
+  public String getBroker_comm() {
+      return broker_comm;
+  }
+
+  public void setBroker_comm(String broker_comm) {
+      this.broker_comm = broker_comm;
+  }
+
+  public String getPromotion_status() {
+      return promotion_status;
+  }
+
+  public void setPromotion_status(String promotion_status) {
+      this.promotion_status = promotion_status;
+  }
+
+  public String getBuyer_cepal() {
+      return buyer_cepal;
+  }
+
+  public void setBuyer_cepal(String buyer_cepal) {
+      this.buyer_cepal = buyer_cepal;
+  }
+
+  public String getOpinion_onvalue() {
+      return opinion_onvalue;
+  }
+
+  public void setOpinion_onvalue(String opinion_onvalue) {
+      this.opinion_onvalue = opinion_onvalue;
+  }
+
+  public Byte getSend_investors() {
+      return send_investors;
+  }
+
+  public void setSend_investors(Byte send_investors) {
+      this.send_investors = send_investors;
+  }
+
+  public String getCustomer_file() {
+      return customer_file;
+  }
+
+  public void setCustomer_file(String customer_file) {
+      this.customer_file = customer_file;
+  }
+
+  public String getRemarks() {
+      return remarks;
+  }
+
+  public void setRemarks(String remarks) {
+      this.remarks = remarks;
+  }
+
+  public String getOpportunity() {
+      return opportunity;
+  }
+
+  public void setOpportunity(String opportunity) {
+      this.opportunity = opportunity;
   }
 
   public static void Assets00Rec02ToAssets00_01(Assets00Rec02 iFrom, Assets00 iTo) throws CatException

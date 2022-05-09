@@ -945,6 +945,86 @@ public class Assets00 implements Serializable
     this.assets00fl = assets00fl;
   }
 
+  public String getSource() {
+      return source;
+  }
+
+  public void setSource(String source) {
+      this.source = source;
+  }
+
+  public String getSale_forecast() {
+      return sale_forecast;
+  }
+
+  public void setSale_forecast(String sale_forecast) {
+      this.sale_forecast = sale_forecast;
+  }
+
+  public String getBroker_comm() {
+      return broker_comm;
+  }
+
+  public void setBroker_comm(String broker_comm) {
+      this.broker_comm = broker_comm;
+  }
+
+  public String getPromotion_status() {
+      return promotion_status;
+  }
+
+  public void setPromotion_status(String promotion_status) {
+      this.promotion_status = promotion_status;
+  }
+
+  public String getBuyer_cepal() {
+      return buyer_cepal;
+  }
+
+  public void setBuyer_cepal(String buyer_cepal) {
+      this.buyer_cepal = buyer_cepal;
+  }
+
+  public String getOpinion_onvalue() {
+      return opinion_onvalue;
+  }
+
+  public void setOpinion_onvalue(String opinion_onvalue) {
+      this.opinion_onvalue = opinion_onvalue;
+  }
+
+  public Byte getSend_investors() {
+      return send_investors;
+  }
+
+  public void setSend_investors(Byte send_investors) {
+      this.send_investors = send_investors;
+  }
+
+  public String getCustomer_file() {
+      return customer_file;
+  }
+
+  public void setCustomer_file(String customer_file) {
+      this.customer_file = customer_file;
+  }
+
+  public String getRemarks() {
+      return remarks;
+  }
+
+  public void setRemarks(String remarks) {
+      this.remarks = remarks;
+  }
+
+  public String getOpportunity() {
+      return opportunity;
+  }
+
+  public void setOpportunity(String opportunity) {
+      this.opportunity = opportunity;
+  }
+
 
   @Override
   public int hashCode()
