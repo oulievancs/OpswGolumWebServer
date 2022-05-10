@@ -99,12 +99,12 @@ public class Assets00Rec02
   private String sale_forecast;
   private String broker_comm;
   private String promotion_status;
-  private String buyer_cepal;
+  private Byte buyer_cepal;
   private String opinion_onvalue;
   private Byte send_investors;
   private String customer_file;
   private String remarks;
-  private String opportunity;
+  private Integer opportunity;
 
   private List<Assets00flRec01> assets00flrec;
 
@@ -945,11 +945,11 @@ public class Assets00Rec02
       this.promotion_status = promotion_status;
   }
 
-  public String getBuyer_cepal() {
+  public Byte getBuyer_cepal() {
       return buyer_cepal;
   }
 
-  public void setBuyer_cepal(String buyer_cepal) {
+  public void setBuyer_cepal(Byte buyer_cepal) {
       this.buyer_cepal = buyer_cepal;
   }
 
@@ -985,11 +985,11 @@ public class Assets00Rec02
       this.remarks = remarks;
   }
 
-  public String getOpportunity() {
+  public Integer getOpportunity() {
       return opportunity;
   }
 
-  public void setOpportunity(String opportunity) {
+  public void setOpportunity(Integer opportunity) {
       this.opportunity = opportunity;
   }
 
