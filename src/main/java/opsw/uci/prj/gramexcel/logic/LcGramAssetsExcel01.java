@@ -63,7 +63,8 @@ public class LcGramAssetsExcel01 extends LcGramAssetsExcelBase
   {
     try
     {
-      if (!this.ExcelRowIsEmpty(params.getExcelRow()))
+      this.isEmptyRow = this.ExcelRowIsEmpty(params.getExcelRow());
+      if (!this.isEmptyRow)
       {
         int vrowIndex = params.getExcelRow().getRowNum();
         Iterator<Cell> cellIterator = params.getExcelRow().cellIterator();

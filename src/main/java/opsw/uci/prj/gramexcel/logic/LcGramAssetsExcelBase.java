@@ -80,6 +80,8 @@ public abstract class LcGramAssetsExcelBase
   private XSSFSheet FXssfsheet;
 
   protected boolean isToSetInternalKey;
+  
+  protected boolean isEmptyRow;
 
   protected String hartofolakio;
 
@@ -103,6 +105,7 @@ public abstract class LcGramAssetsExcelBase
     this.Gram00Service = null;
     this.Assetets00Service = null;
     this.isToSetInternalKey = false;
+    this.isEmptyRow = false;
     this.hartofolakio = null;
     //
     this.gram00Rec02 = null;
@@ -276,7 +279,7 @@ public abstract class LcGramAssetsExcelBase
       while (rowIterator.hasNext())
       {
         this.isToSetInternalKey = false;
-
+        this.isEmptyRow = false;
         vrow = rowIterator.next();
 
         if (idx >= this.GetIndexOfFirstLine())
@@ -290,7 +293,7 @@ public abstract class LcGramAssetsExcelBase
           this.NextRow(params);
           //
 
-          if (OpswNumberUtils.OpswGetLong(this.assets00.getAauci()) < 1)
+          if (OpswNumberUtils.OpswGetLong(this.assets00.getAauci()) < 1 && !this.isEmptyRow)
           {
             this.assets00.setAauci(
                     this.SequencesService.SequencesGetNextVal(Sequences.SEQ_AAUCI)
@@ -313,7 +316,10 @@ public abstract class LcGramAssetsExcelBase
           {
             isFound = true;
           }
-          this.Assetets00Service.Assets00Post03(this.assets00, true, !isFound);
+          if(!this.isEmptyRow)
+          {
+            this.Assetets00Service.Assets00Post03(this.assets00, true, !isFound);
+          }
         }
 
         idx++;
@@ -916,7 +922,20 @@ public abstract class LcGramAssetsExcelBase
     }
     return results;
   }
-
+  protected boolean ExcelRowIsEmpty2(Row row) throws CatException
+  {
+    boolean isEmptyRow = true;
+    try
+    {
+        
+    }
+    catch(Exception e)
+    {
+        CatException.RethrowCatException(e);
+    }
+    return isEmptyRow;
+  }
+  
   protected boolean ExcelRowIsEmpty(Row row)
           throws CatException
   {
@@ -932,14 +951,11 @@ public abstract class LcGramAssetsExcelBase
         if (vcell != null)
         {
           boolean vcellIsNullOrEmpty = true;
+          String tmp = GetCellContentAsString(vcc);
           if (ExcelCellIsString(vcc) || ExcelCellIsDate(vcc))
           {
             String vval = GetCellContentAsString(vcc);
             vcellIsNullOrEmpty = OpswStringUtils.OpswStringIsEmpty(vval);
-          }
-          else if (ExcelCellIsNumberic(vcc))
-          {
-            //
           }
           boolean vcellIsBlank = vcell.getCellType() == CellType.BLANK;
           if (!vcellIsBlank && !vcellIsNullOrEmpty)
