@@ -64,10 +64,15 @@ public class ImportExportController
     try
     {
       byte[] vfile = this.OpswImportExport.Export(ifile, iid1);
-
+      String filename = "export_" + ifile + "_" + OpswDateUtils.DateToStr01(Calendar.getInstance());
+      if (this.OpswImportExport.getFileName() != null && !this.OpswImportExport.getFileName().equals("") )
+      {
+        filename = this.OpswImportExport.getFileName();
+      }
+      
       result = ResponseEntity.ok()
-              .header("Content-Disposition", "attachment; filename=export_"
-                      + ifile + "_" + OpswDateUtils.DateToStr01(Calendar.getInstance()) + ".json")
+              .header("Content-Disposition", "attachment; filename="
+                      + filename + ".json")
               .contentLength(vfile.length)
               .contentType(MediaType.APPLICATION_OCTET_STREAM)
               .body(vfile);

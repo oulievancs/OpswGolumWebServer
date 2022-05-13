@@ -27,7 +27,22 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class OpswImportExport
 {
+  private String FileName;
+  
+  public OpswImportExport()
+  {
+      this.FileName = null;
+  }
 
+  public String getFileName() {
+      return FileName;
+  }
+
+  public void setFileName(String FileName) {
+      this.FileName = FileName;
+  }
+  
+  
   public static final String FILE_GRAM = "gram";
   
   private static final String IMPORT_EXPORT_DATE_TIME_FORMAT = OpswDateUtils.OPSW_DATE_TIME_DEFAULT_FORMAT;
@@ -86,7 +101,8 @@ public class OpswImportExport
     try
     {
       Gram00 vgram00 = this.Gram00Service.Gram00Select02(gram00);
-
+      this.FileName = vgram00.getDescr();
+      
       JsonReaderWriter job = new JsonReaderWriter();
       job.setDateFormat(IMPORT_EXPORT_DATE_TIME_FORMAT);
 
