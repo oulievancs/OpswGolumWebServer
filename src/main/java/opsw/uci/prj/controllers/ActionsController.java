@@ -97,7 +97,7 @@ public class ActionsController
       else
       {
         this.ExcelUtilsService.ReadFileFromMultipartAndImport(file, gramrec, vlogvar);
-        attributes.addFlashAttribute("message", "The file uploaded.");
+        attributes.addFlashAttribute("message", "The file uploaded. " + this.ExcelUtilsService.getRows() + " records uploaded.");
       }
       attributes.addFlashAttribute("error", false);
     }

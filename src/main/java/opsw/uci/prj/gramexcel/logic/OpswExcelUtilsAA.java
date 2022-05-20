@@ -46,6 +46,18 @@ public class OpswExcelUtilsAA
   private OpswconstvService opswconstvService;
   @Autowired
   private SequencesService SequencesService;
+  
+  private Integer Rows;
+
+    public Integer getRows() {
+        return Rows;
+    }
+
+    public void setRows(Integer Rows) {
+        this.Rows = Rows;
+    }
+  
+  
 
   public byte[] ExportExcelFile(CatThmlfAssets00List02Params iparams) throws CatException
   {
@@ -92,6 +104,8 @@ public class OpswExcelUtilsAA
       excelUnit.setLogivars(ilogvar);
 
       ((LcGramAssetsExcel01) excelUnit).ReadFileFromMultipartAndImport(file);
+      this.setRows(excelUnit.getRows());
+      
     }
     catch (Exception ex)
     {

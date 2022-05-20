@@ -78,6 +78,8 @@ public abstract class LcGramAssetsExcelBase
 
   //Get first/desired sheet from the workbook
   private XSSFSheet FXssfsheet;
+  
+  private Integer rows;
 
   protected boolean isToSetInternalKey;
   
@@ -110,6 +112,7 @@ public abstract class LcGramAssetsExcelBase
     //
     this.gram00Rec02 = null;
     this.SequencesService = null;
+    this.rows = null;
   }
 
   public byte[] getFile()
@@ -161,6 +164,18 @@ public abstract class LcGramAssetsExcelBase
   {
     this.SequencesService = SequencesService;
   }
+
+    public Integer getRows() 
+    {
+        return rows;
+    }
+
+    public void setRows(Integer rows) 
+    {
+        this.rows = rows;
+    }
+  
+  
 
   protected static class GramAssetsExcelPrms01
   {
@@ -275,6 +290,7 @@ public abstract class LcGramAssetsExcelBase
       GramAssetsExcelPrms01 params = new GramAssetsExcelPrms01();
       int idx = 1;
 
+      this.setRows(0);
       Row vrow = null;
       while (rowIterator.hasNext())
       {
@@ -318,6 +334,7 @@ public abstract class LcGramAssetsExcelBase
           }
           if(!this.isEmptyRow)
           {
+            this.setRows(this.getRows() + 1);
             this.Assetets00Service.Assets00Post03(this.assets00, true, !isFound);
           }
         }
@@ -961,6 +978,7 @@ public abstract class LcGramAssetsExcelBase
           if (!vcellIsBlank && !vcellIsNullOrEmpty)
           {
             isEmptyRow = false;
+            break;
           }
         }
       }
