@@ -332,7 +332,7 @@ public abstract class LcGramAssetsExcelBase
           {
             isFound = true;
           }
-          if(!this.isEmptyRow)
+          if(!this.isEmptyRow && !isFound)
           {
             this.setRows(this.getRows() + 1);
             this.Assetets00Service.Assets00Post03(this.assets00, true, !isFound);

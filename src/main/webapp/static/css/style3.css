@@ -230,3 +230,12 @@ a.article:hover {
 .custom-row{
   float:left;
 }
+
+.modal-dialog{
+    overflow-y: initial;
+}
+
+.modal-body{
+    max-height: 80vh;
+    overflow-y: auto;
+}

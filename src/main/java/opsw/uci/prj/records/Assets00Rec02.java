@@ -61,7 +61,7 @@ public class Assets00Rec02
   private String landealink;
   private String region;
   private String prefecture;
-  private Byte ownership_type;
+  private String ownership_type;
   private String auctiondate;
   private String image1;
   private String image2;
@@ -70,7 +70,6 @@ public class Assets00Rec02
   private Byte ekth_ektim;
   private Byte techn_fakel;
   private Byte teaser;
-  private String site;
   private String broker_site;
   private String subbroker_name;
   private Integer visitors_count;
@@ -105,6 +104,16 @@ public class Assets00Rec02
   private String customer_file;
   private String remarks;
   private Integer opportunity;
+  
+  private Integer total_leads;
+  private Integer total_high_interest;
+  private Integer total_opportunity;
+  
+  private Double prosfora_a;
+  private Double prosfora_a_total;
+  private String afm;
+  private Byte presentation;
+  private String kodikos_sda;
 
   private List<Assets00flRec01> assets00flrec;
 
@@ -152,7 +161,6 @@ public class Assets00Rec02
     this.ekth_ektim = null;
     this.techn_fakel = null;
     this.teaser = null;
-    this.site = null;
     this.broker_site = null;
     this.subbroker_name = null;
     this.visitors_count = null;
@@ -192,6 +200,16 @@ public class Assets00Rec02
     this.customer_file = null;
     this.remarks = null;
     this.opportunity = null;
+    
+    this.total_high_interest = null;
+    this.total_leads = null;
+    this.total_opportunity = null;
+    
+    this.prosfora_a = null;
+    this.prosfora_a_total = null;
+    this.presentation = null;
+    this.afm = null;
+    this.kodikos_sda = null;
   }
 
   public Long getAsset()
@@ -524,12 +542,12 @@ public class Assets00Rec02
     this.prefecture = prefecture;
   }
 
-  public Byte getOwnership_type()
+  public String getOwnership_type()
   {
     return ownership_type;
   }
 
-  public void setOwnership_type(Byte ownership_type)
+  public void setOwnership_type(String ownership_type)
   {
     this.ownership_type = ownership_type;
   }
@@ -612,16 +630,6 @@ public class Assets00Rec02
   public void setTeaser(Byte teaser)
   {
     this.teaser = teaser;
-  }
-
-  public String getSite()
-  {
-    return site;
-  }
-
-  public void setSite(String site)
-  {
-    this.site = site;
   }
 
   public String getBroker_site()
@@ -992,6 +1000,70 @@ public class Assets00Rec02
   public void setOpportunity(Integer opportunity) {
       this.opportunity = opportunity;
   }
+
+    public Integer getTotal_leads() {
+        return total_leads;
+    }
+
+    public void setTotal_leads(Integer total_leads) {
+        this.total_leads = total_leads;
+    }
+
+    public Integer getTotal_high_interest() {
+        return total_high_interest;
+    }
+
+    public void setTotal_high_interest(Integer total_high_interest) {
+        this.total_high_interest = total_high_interest;
+    }
+
+    public Integer getTotal_opportunity() {
+        return total_opportunity;
+    }
+
+    public void setTotal_opportunity(Integer total_opportunity) {
+        this.total_opportunity = total_opportunity;
+    }
+
+    public Double getProsfora_a() {
+        return prosfora_a;
+    }
+
+    public void setProsfora_a(Double prosfora_a) {
+        this.prosfora_a = prosfora_a;
+    }
+
+    public Double getProsfora_a_total() {
+        return prosfora_a_total;
+    }
+
+    public void setProsfora_a_total(Double prosfora_a_total) {
+        this.prosfora_a_total = prosfora_a_total;
+    }
+
+    public String getAfm() {
+        return afm;
+    }
+
+    public void setAfm(String afm) {
+        this.afm = afm;
+    }
+
+    public Byte getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(Byte presentation) {
+        this.presentation = presentation;
+    }
+
+    public String getKodikos_sda() {
+        return kodikos_sda;
+    }
+
+    public void setKodikos_sda(String kodikos_sda) {
+        this.kodikos_sda = kodikos_sda;
+    }
 
   public static void Assets00Rec02ToAssets00_01(Assets00Rec02 iFrom, Assets00 iTo) throws CatException
   {

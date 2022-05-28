@@ -19,8 +19,14 @@
       "datasourceName": "ORCLH_MINLO2",
       "datasourcePath": "ORCLH_MINLO2",
       "descr": "Intrum",
-      "runViews": true,
-      "runAlters": true
+      "runViews": false,
+      "runAlters": true,
+      "schemas": [
+        {
+            "filePath": "/schema/views_intrum.sql",
+            "fileRun": true
+        }
+      ]
     },
     {
       "tenantNo": 4,
