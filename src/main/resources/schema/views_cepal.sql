@@ -138,6 +138,7 @@ SELECT  'ASSETS_VALUE' CODE, 'SEND_INVESTORS'                 FIELD,  'Send to i
 SELECT  'ASSETS_VALUE' CODE, 'CUSTOMER_FILE'                 FIELD,  'File with customer details' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'REMARKS'                 FIELD,  'Remarks' VALUE FROM DUAL UNION ALL
 SELECT  'ASSETS_VALUE' CODE, 'OPPORTUNITY'                 FIELD,  'Opportunity' VALUE FROM DUAL UNION ALL
+SELECT 'ASSETS_VALUE'  CODE, 'SOLD_PRICE'               FIELD, 'Sold Price' VALUE FROM DUAL UNION ALL
 --*********************************************************************************************************
 SELECT  'ASSETS00_FLDS' CODE, V1.CODE                 FIELD,  V1.DESCR VALUE FROM OPSWFLDSV V1 UNION ALL
 --*********************************************************************************************************

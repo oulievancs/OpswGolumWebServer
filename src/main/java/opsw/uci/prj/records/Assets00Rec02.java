@@ -104,6 +104,7 @@ public class Assets00Rec02
   private String customer_file;
   private String remarks;
   private Integer opportunity;
+  private Double sold_price;
   
   private Integer total_leads;
   private Integer total_high_interest;
@@ -200,6 +201,7 @@ public class Assets00Rec02
     this.customer_file = null;
     this.remarks = null;
     this.opportunity = null;
+    this.sold_price = null;
     
     this.total_high_interest = null;
     this.total_leads = null;
@@ -1000,6 +1002,14 @@ public class Assets00Rec02
   public void setOpportunity(Integer opportunity) {
       this.opportunity = opportunity;
   }
+
+    public Double getSold_price() {
+        return sold_price;
+    }
+
+    public void setSold_price(Double sold_price) {
+        this.sold_price = sold_price;
+    }
 
     public Integer getTotal_leads() {
         return total_leads;

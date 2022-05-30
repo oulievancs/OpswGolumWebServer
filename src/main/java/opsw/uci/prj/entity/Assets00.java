@@ -60,6 +60,7 @@ public class Assets00 implements Serializable {
     private String auction_id;
     private String uniqcode;
     private Long symb_id;
+    private Double sold_price;
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar date_create;
     private String user_create;
@@ -153,6 +154,7 @@ public class Assets00 implements Serializable {
         this.uniqcode = null;
         this.auctionurl = null;
         this.symb_id = null;
+        this.sold_price = null;
         this.buyer = null;
         this.producer = null;
         this.countass = null;
@@ -310,6 +312,14 @@ public class Assets00 implements Serializable {
 
     public void setSymb_id(Long symb_id) {
         this.symb_id = symb_id;
+    }
+
+    public Double getSold_price() {
+        return sold_price;
+    }
+
+    public void setSold_price(Double sold_price) {
+        this.sold_price = sold_price;
     }
 
     public String getBuyer() {
