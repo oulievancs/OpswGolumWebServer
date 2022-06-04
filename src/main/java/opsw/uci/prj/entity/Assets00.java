@@ -105,7 +105,7 @@ public class Assets00 implements Serializable {
     private Byte buyer_cepal;
 //************************************************
     /*
-        Extra Cepal Fields
+        Extra Intrum Fields
     */
     private String kodikos_sda;
     private String ownership_type;
@@ -121,7 +121,6 @@ public class Assets00 implements Serializable {
         Extra Other Fields
     */
     private Byte status;
-    private String uniqauction_code; 
     private Integer countass;
     private String property_id;
     private String auctiondate;
@@ -177,7 +176,6 @@ public class Assets00 implements Serializable {
         this.constructionyear = null;
         this.floor = null;
         this.auction_id = null;
-        this.uniqauction_code = null;
         this.auction_date = null;
         this.startingprice = null;
         this.landealink = null;
@@ -240,6 +238,7 @@ public class Assets00 implements Serializable {
         this.afm = null;
         this.presentation = null;
         this.kodikos_sda = null;
+        this.sold_price = null;
     }
 
     public Long getAsset() {
@@ -496,14 +495,6 @@ public class Assets00 implements Serializable {
 
     public void setAuction_id(String auction_id) {
         this.auction_id = auction_id;
-    }
-
-    public String getUniqauction_code() {
-        return uniqauction_code;
-    }
-
-    public void setUniqauction_code(String uniqauction_code) {
-        this.uniqauction_code = uniqauction_code;
     }
 
     public Calendar getAuction_date() {
@@ -969,6 +960,8 @@ public class Assets00 implements Serializable {
     public void setKodikos_sda(String kodikos_sda) {
         this.kodikos_sda = kodikos_sda;
     }
+    
+    
 
     @Override
     public int hashCode() {

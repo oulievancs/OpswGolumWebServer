@@ -143,6 +143,9 @@
               <button class="nav-link" id="nav-first-information-tab" data-bs-toggle="tab" data-bs-target="#nav-first-information" type="button" role="tab" aria-controls="nav-first-information" aria-selected="false">
                 <span th:text="#{ASSETS00_ED.FIRST_INFO}"></span>
               </button>
+              <button class="nav-link" id="nav-second-information-tab" data-bs-toggle="tab" data-bs-target="#nav-second-information" type="button" role="tab" aria-controls="nav-second-information" aria-selected="false">
+                <span th:text="#{ASSETS00_ED.SECOND_INFO}"></span>
+              </button>
               <button class="nav-link" id="nav-links-tab" data-bs-toggle="tab" data-bs-target="#nav-links" type="button" role="tab" aria-controls="nav-links" aria-selected="false">
                 <span th:text="#{ASSETS00_ED.LINKS}"></span>
               </button>
@@ -305,15 +308,6 @@
                         th:field="*{auction_id}"
                         placeholder="Enter Auction ID"
                         class="form-control" id="auction_id" />
-                    </div>
-                    <div class="col-md-4">
-                      <label for="uniqauction_code" class="form-label" th:text="#{ASSETS00_ED.INIQUE_AUCTION_CODE}"></label>
-                      <input 
-                        type="text"
-                        name="uniqauction_code"
-                        th:field="*{uniqauction_code}"
-                        placeholder="Enter Unique Auction Code"
-                        class="form-control" id="uniqauction_code" />
                     </div>
                     <div class="col-md-2">
                       <label for="auction_datedate" class="form-label" th:text="#{ASSETS00_ED.AUCTION_DATE}"></label>
@@ -686,6 +680,90 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <!-- Tab 3 Second Information-->
+              <div class="tab-pane fade row g-3" id="nav-second-information" role="tabpanel" aria-labelledby="nav-second-information-tab">
+                <div class="row g-3" style="display: inline-flex !important;">
+                    <div class="col-md-3">
+                        <label for="kodikos_sda" class="form-label" th:text="#{ASSETS00_ED.KODIKOS_SDA}"></label>
+                        <input 
+                          type="text"
+                          name="kodikos_sda"
+                          th:field="*{kodikos_sda}"
+                          placeholder="Enter SDA Code"
+                          class="form-control" id="kodikos_sda" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ownership_type" class="form-label" th:text="#{ASSETS00_ED.OWNERSHIP_TYPE}"></label>
+                        <input 
+                          type="text"
+                          name="ownership_type"
+                          th:field="*{ownership_type}"
+                          placeholder="Enter Ownership type"
+                          class="form-control" id="ownership_type" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="prosfora_a" class="form-label" th:text="#{ASSETS00_ED.FIRST_OFFER}"></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          name="prosfora_a"
+                          th:field="*{prosfora_a}"
+                          placeholder="Enter First Offer"
+                          id="startingprice" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="prosfora_a_total" class="form-label" th:text="#{ASSETS00_ED.TOTAL_FIRST_OFFER}"></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          name="prosfora_a_total"
+                          th:field="*{prosfora_a_total}"
+                          placeholder="Enter Total First Offer"
+                          id="prosfora_a_total" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="total_leads" class="form-label" th:text="#{ASSETS00_ED.TOTAL_LEADS}"></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          name="total_leads"
+                          th:field="*{total_leads}"
+                          placeholder="Enter Total Leads"
+                          id="total_leads" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="total_high_interest" class="form-label" th:text="#{ASSETS00_ED.TOTAL_HIGH_INTEREST}"></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          name="total_high_interest"
+                          th:field="*{total_high_interest}"
+                          placeholder="Enter Total High Interest"
+                          id="total_high_interest" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="total_opportunity" class="form-label" th:text="#{ASSETS00_ED.TOTAL_OPPORTUNITIES}"></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          name="total_opportunity"
+                          th:field="*{total_opportunity}"
+                          placeholder="Enter Total Opportunities"
+                          id="total_opportunity" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="presentation" class="form-label" th:text="#{ASSETS00_ED.PRESENTATION}"></label>
+                    <select  class="form-select" th:field="*{presentation}" id="presentation" name="presentation"  type="value">
+                      <option value="" th:text="#{ASSETS00_ED.PRESENTATION}"></option>
+                      <option th:value="0" th:text="#{ASSETS00_ED.NO}"></option>
+                      <option th:value="1" th:text="#{ASSETS00_ED.YES}"></option>
+                    </select>
+                </div>
+                
               </div>
 
               <!-- Tab 3 Content -->

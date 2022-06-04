@@ -54,7 +54,6 @@ public class Assets00Rec02
   private Short constructionyear;
   private String floor;
   private String auction_id;
-  private String uniqauction_code;
   @DateTimeFormat(pattern = OpswDateUtils.OPSW_DATE_THYMLEAF_02)
   private Date auction_datedate;
   private Double startingprice;
@@ -147,7 +146,6 @@ public class Assets00Rec02
     this.constructionyear = null;
     this.floor = null;
     this.auction_id = null;
-    this.uniqauction_code = null;
     this.auction_datedate = null;
     this.startingprice = null;
     this.landealink = null;
@@ -482,16 +480,6 @@ public class Assets00Rec02
   public void setAuction_id(String auction_id)
   {
     this.auction_id = auction_id;
-  }
-
-  public String getUniqauction_code()
-  {
-    return uniqauction_code;
-  }
-
-  public void setUniqauction_code(String uniqauction_code)
-  {
-    this.uniqauction_code = uniqauction_code;
   }
 
   public Date getAuction_datedate()
