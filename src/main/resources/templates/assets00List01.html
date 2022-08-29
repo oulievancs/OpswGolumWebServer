@@ -34,11 +34,69 @@
       
       <script>
         $(document).ready(function() {
-          var table = $('#table1').DataTable({
+          /*var table = $('#table1').DataTable({
                 colReorder: {
                   realtime: false,
                 },
-          });
+          });*/
+        $('#table1 thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#table1 thead');
+ 
+        var table = $('#table1').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            initComplete: function () {
+                var api = this.api();
+
+                // For each column
+                api
+                    .columns()
+                    .eq(0)
+                    .each(function (colIdx) {
+                        // Set the header cell to contain the input element
+                        var cell = $('.filters th').eq(
+                            $(api.column(colIdx).header()).index()
+                        );
+                        var title = $(cell).text();
+                        $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                        // On every keypress in this input
+                        $(
+                            'input',
+                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                        )
+                            .off('keyup change')
+                            .on('change', function (e) {
+                                // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                    .column(colIdx)
+                                    .search(
+                                        this.value != ''
+                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                            : '',
+                                        this.value != '',
+                                        this.value == ''
+                                    )
+                                    .draw();
+                            })
+                            .on('keyup', function (e) {
+                                e.stopPropagation();
+
+                                $(this).trigger('change');
+                                $(this)
+                                    .focus()[0]
+                                    .setSelectionRange(cursorPosition, cursorPosition);
+                            });
+                    });
+            },
+        });
           var info = table.page.info();
 
           $('#table1 tbody').on( 'click', 'tr', function () {
@@ -239,71 +297,83 @@
         <table id="table1" style="width:100%; table-layout: fixed;" class="hover table-responsive stripe">
           <thead>
             <tr>
-              <th rowspan="2" th:text="#{ASSETS00_PR.ID}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AAUCI}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.ASIGNMENT_FILE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.INTERNAL_KEY}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUCTION_STATUS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.UNIQUE_CODE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUCTION_URL}"></th>
+              <th th:text="#{ASSETS00_PR.ID}"></th>
+              <th th:text="#{ASSETS00_PR.AAUCI}"></th>
+              <th th:text="#{ASSETS00_PR.ASIGNMENT_FILE}"></th>
+              <th th:text="#{ASSETS00_PR.INTERNAL_KEY}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_STATUS}"></th>
+              <th th:text="#{ASSETS00_PR.UNIQUE_CODE}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_URL}"></th>
               
-              <th colspan="2" th:text="#{ASSETS00_PR.SYMB_ABS}"></th>
+              <th th:text="#{ASSETS00_PR.SYMB}"></th>
+              <th th:text="#{ASSETS00_PR.SYMB_TEL}"></th>
               
-              <th rowspan="2" th:text="#{ASSETS00_PR.BUYER}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.PRODUCER}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.COUNT_ASSETS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.BORROW_NAME}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.PROPERTY_ID}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.COLLATERAL_USE1}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.COLLATERAL_SYB}"></th>
+              <th th:text="#{ASSETS00_PR.BUYER}"></th>
+              <th th:text="#{ASSETS00_PR.PRODUCER}"></th>
+              <th th:text="#{ASSETS00_PR.COUNT_ASSETS}"></th>
+              <th th:text="#{ASSETS00_PR.BORROW_NAME}"></th>
+              <th th:text="#{ASSETS00_PR.PROPERTY_ID}"></th>
+              <th th:text="#{ASSETS00_PR.COLLATERAL_USE1}"></th>
+              <th th:text="#{ASSETS00_PR.COLLATERAL_SYB}"></th>
               
-              <th colspan="5" th:text="#{ASSETS00_PR.POSITION_INFOS_ABS}"></th>
+              <th th:text="#{ASSETS00_PR.MUNICIPALITY}"></th>
+              <th th:text="#{ASSETS00_PR.CITY}"></th>
+              <th th:text="#{ASSETS00_PR.ADDRESS}"></th>
+              <th th:text="#{ASSETS00_PR.ZIPCODE}"></th>
+              <th th:text="#{ASSETS00_PR.GPSCORDS}"></th>
               
-              <th rowspan="2" th:text="#{ASSETS00_PR.LANDAREA}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.BUILDAREA}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.MAINSURFACE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUXILIARYSURFACE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.ARBITARYSURFACE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.FULOWNERSHIP}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.CONSTRUCTIONYEAR}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.FLOOR}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUCTIONID}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUCTION_DATE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.STARTING_PRICE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.LANDEA_LINK}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.REGION}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.PREFECTURE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.OWNERSHIP_TYPE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.AUCTION_DATE_MMYY}"></th>
+              <th th:text="#{ASSETS00_PR.LANDAREA}"></th>
+              <th th:text="#{ASSETS00_PR.BUILDAREA}"></th>
+              <th th:text="#{ASSETS00_PR.MAINSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.AUXILIARYSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.ARBITARYSURFACE}"></th>
+              <th th:text="#{ASSETS00_PR.FULOWNERSHIP}"></th>
+              <th th:text="#{ASSETS00_PR.CONSTRUCTIONYEAR}"></th>
+              <th th:text="#{ASSETS00_PR.FLOOR}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTIONID}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_DATE}"></th>
+              <th th:text="#{ASSETS00_PR.STARTING_PRICE}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_LINK}"></th>
+              <th th:text="#{ASSETS00_PR.REGION}"></th>
+              <th th:text="#{ASSETS00_PR.PREFECTURE}"></th>
+              <th th:text="#{ASSETS00_PR.OWNERSHIP_TYPE}"></th>
+              <th th:text="#{ASSETS00_PR.AUCTION_DATE_MMYY}"></th>
               
-              <th colspan="3" th:text="#{ASSETS00_PR.IMAGES_ABS}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE01}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE02}"></th>
+              <th th:text="#{ASSETS00_PR.IMAGE03}"></th>
               
-              <th rowspan="2" th:text="#{ASSETS00_PR.OTHER_COMMENTS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.ESSAY}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.FINAL_PACKET}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.TEASER}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.BROKER_UCI_LINK}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.SUBBROKERS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.NUMBER_VISITORS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.BEGIN_COMM}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.LEADS}"></th>
+              <th th:text="#{ASSETS00_PR.OTHER_COMMENTS}"></th>
+              <th th:text="#{ASSETS00_PR.ESSAY}"></th>
+              <th th:text="#{ASSETS00_PR.FINAL_PACKET}"></th>
+              <th th:text="#{ASSETS00_PR.TEASER}"></th>
+              <th th:text="#{ASSETS00_PR.BROKER_UCI_LINK}"></th>
+              <th th:text="#{ASSETS00_PR.SUBBROKERS}"></th>
+              <th th:text="#{ASSETS00_PR.NUMBER_VISITORS}"></th>
+              <th th:text="#{ASSETS00_PR.BEGIN_COMM}"></th>
+              <th th:text="#{ASSETS00_PR.LEADS}"></th>
               
-              <th colspan="5" th:text="#{ASSETS00_PR.INFOS_ABS}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS1}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS2}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS3}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS4}"></th>
+              <th th:text="#{ASSETS00_PR.INFOS5}"></th>
               
-              <th colspan="2" th:text="#{ASSETS00_PR.COMMENTS_ABS}"></th>
+              <th th:text="#{ASSETS00_PR.COMMENTS1}"></th>
+              <th th:text="#{ASSETS00_PR.COMMENTS2}"></th>
               
-              <th rowspan="2" th:text="#{ASSETS00_PR.MARKETABIITY}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.LANDEA_LEADS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.LANDEA_COMMENTS}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.UPDATE_AUCTION}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.HIGH_INTEREST}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.USER_CREATE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.DATE_CREATE}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.USER_MODIFY}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.DATE_MODIFY}"></th>
-              <th rowspan="2" th:text="#{ASSETS00_PR.ACTIONS}"></th>
+              <th th:text="#{ASSETS00_PR.MARKETABIITY}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_LEADS}"></th>
+              <th th:text="#{ASSETS00_PR.LANDEA_COMMENTS}"></th>
+              <th th:text="#{ASSETS00_PR.UPDATE_AUCTION}"></th>
+              <th th:text="#{ASSETS00_PR.HIGH_INTEREST}"></th>
+              <th th:text="#{ASSETS00_PR.USER_CREATE}"></th>
+              <th th:text="#{ASSETS00_PR.DATE_CREATE}"></th>
+              <th th:text="#{ASSETS00_PR.USER_MODIFY}"></th>
+              <th th:text="#{ASSETS00_PR.DATE_MODIFY}"></th>
+              <th th:text="#{ASSETS00_PR.ACTIONS}"></th>
             </tr>
-            <tr>
+            <!--<tr>
               <!--A/A UCI	Assignment File	Internal Key	Auction Status / Κατάσταση	Mοναδικός Kωδικός	Auction URL	
               Συμβολαιογράφος	Συμβολαιογράφος Τηλέφωνο	Buyer	Producer	Count Assets	Borrower Name	Property ID	
               Collateral Use 1	Collateral Sub type	Municipality	City	Address	Zipcode	GPSCoordinates	Description	
@@ -317,7 +387,7 @@
               ΣΤΟΙΧΕΙΑ ΕΝΔΙΑΦΕΡΟΜΕΝΟΥ No5	ΣΧΟΛΙΑ Ι	ΣΧΟΛΙΑ ΙΙ	Marketability rate	Landea Leads	
               Landea Comments	Update Auction	HIGH INTEREST
 
-              -->
+              
               <th th:text="#{ASSETS00_PR.SYMB}"></th>
               <th th:text="#{ASSETS00_PR.SYMB_TEL}"></th>
               <th th:text="#{ASSETS00_PR.MUNICIPALITY}"></th>
@@ -338,7 +408,7 @@
               
               <th th:text="#{ASSETS00_PR.COMMENTS1}"></th>
               <th th:text="#{ASSETS00_PR.COMMENTS2}"></th>
-            </tr>
+            </tr>-->
           </thead>
           <tbody>
             <tr th:each = "ass00: ${CLM0}" th:id = "${ass00.getAsset()}" th:params1RedirectUrl = "${params1RedirectUrl}">
