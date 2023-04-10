@@ -8,10 +8,9 @@ package opsw.uci.prj.services;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
+import opsw.uci.prj.arifacts.OpswTransactional;
 import opsw.uci.prj.cat.CatException;
 import opsw.uci.prj.cat.CatExceptionUser;
-import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Sequences;
 import opsw.uci.prj.entity.Symb;
 import opsw.uci.prj.globals.OpswLoginVars;
@@ -29,9 +28,6 @@ import org.springframework.stereotype.Service;
 @Component
 public class SymbServiceImpl implements SymbService
 {
-
-  @Autowired
-  private OpswEntityManagerBase connection;
 
   @Autowired
   private SymbRepository SymbRepository;
@@ -213,16 +209,10 @@ public class SymbServiceImpl implements SymbService
   }
 
   @Override
+  @OpswTransactional
   public void SymbDelete01(Symb symb) throws CatException
   {
-    try
-    {
-      this.SymbRepository.delete(symb);
-    }
-    catch (Exception ex)
-    {
-      OpswEntityManagerBase.RollbackAndCatException(this.connection, ex);
-    }
+    this.SymbRepository.delete(symb);
   }
 
   @Override

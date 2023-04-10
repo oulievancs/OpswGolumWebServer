@@ -9,14 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
 import opsw.uci.prj.api.progress.OpswProcessParams;
 import opsw.uci.prj.api.progress.OpswProgressEvent;
 import opsw.uci.prj.arifacts.OpswTransactional;
 import opsw.uci.prj.cat.CatException;
-import opsw.uci.prj.cat.OpswEntityManagerBase;
 import opsw.uci.prj.entity.Assets00;
 import opsw.uci.prj.entity.Assets00fl;
 import opsw.uci.prj.entity.Assets00flKey;
@@ -31,7 +27,7 @@ import opsw.uci.prj.records.Assets00Rec02;
 import opsw.uci.prj.records.Assets00SearchParams01;
 import opsw.uci.prj.records.Assets00flRec01;
 import opsw.uci.prj.repositories.Assets00Repository;
-import opsw.uci.prj.utils.OpswDateUtils;
+import opsw.uci.prj.repositories.Assets00Repository02;
 import opsw.uci.prj.utils.OpswNumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,10 +43,10 @@ public class Assets00ServiceImpl implements Assets00Service
 {
 
   @Autowired
-  private OpswEntityManagerBase connection;
+  private Assets00Repository Assets00Repository;
 
   @Autowired
-  private Assets00Repository Assets00Repository;
+  private Assets00Repository02 Assets00Repository02;
 
   @Autowired
   private SequencesService SequencesService;
@@ -97,11 +93,7 @@ public class Assets00ServiceImpl implements Assets00Service
   public List<Assets00> Assets00List02()
           throws CatException
   {
-    List<Assets00> assets00List = null;
-    EntityManager em = (EntityManager) this.connection.getConnection();
-    Query qre = em.createQuery("SELECT a FROM Assets00 a WHERE 1 = 1");
-    assets00List = (List<Assets00>) qre.getResultList();
-    return (List<Assets00>) assets00List;//this.Assets00Repository.findAll();
+    return Assets00Repository02.Assets00List02();
   }
 
   @Override
@@ -242,41 +234,12 @@ public class Assets00ServiceImpl implements Assets00Service
   @Override
   public List<Assets00Rec01> Assets00List03(Assets00SearchParams01 iparams) throws CatException
   {
-    List<Assets00Rec01> vlist = null;
-    try
-    {
-      EntityManager em = (EntityManager) this.connection.getConnection();
 
-      String vsql = "SELECT a FROM Assets00 a ";
+    this.OpswProgressEvent(10);
 
-      vsql += " WHERE a.assfile BETWEEN :dateFrom AND :dateTo ";
-
-      if (iparams.getSymb_id() > 0)
-      {
-        vsql += " AND a.symb_id = :symb_id ";
-      }
-
-      Query q = em.createQuery(vsql);
-      q.setParameter("dateFrom", iparams.getDateFrom());
-      q.setParameter("dateTo", iparams.getDateTo());
-
-      if (iparams.getSymb_id() > 0)
-      {
-        q.setParameter("symb_id", iparams.getSymb_id());
-      }
-
-      List<Assets00> vlist00 = (List<Assets00>) q.getResultList();
-
-      this.OpswProgressEvent(10);
-
-      vlist = this.Assets00Rec01FromAssets00(vlist00);
-    }
-    catch (Exception ex)
-    {
-      CatException.RethrowCatException(ex);
-    }
-
-    return vlist;
+    List<Assets00> vlist = Assets00Repository02.Assets00List03(iparams);
+    List<Assets00Rec01> vlist1 = this.Assets00Rec01FromAssets00(vlist);
+    return vlist1;
   }
 
   @Override
